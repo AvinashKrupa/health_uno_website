@@ -1,0 +1,20 @@
+import { Form } from "react-bootstrap";
+
+const Input = (props) => {
+  return (
+    <Form.Group>
+      <br />
+      <Form.Label>{props.label}</Form.Label>
+      <Form.Control
+        value={props.value}
+        type={props.type}
+        id={props.id}
+        placeholder={props.placeholder || null}
+        readOnly={props.readonly || false}
+        onChange={(e) => props.onChange(e.target.value)}
+      ></Form.Control>
+    </Form.Group>
+  );
+};
+
+export default Input;

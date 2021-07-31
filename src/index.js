@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import index from './patient/styles/index'
-import HomePage from './patient/view/HomePage';
+import index from './patient/styles/index';
+import App from './App';
+import {AuthContextProvider} from './patient/context/AuthContextProvider';
+import { ToastProvider } from 'react-toast-notifications';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <HomePage />
+     <AuthContextProvider>
+        <ToastProvider autoDismiss={true}>
+         <App />
+        </ToastProvider>
+     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

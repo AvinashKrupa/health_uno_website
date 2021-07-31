@@ -1,7 +1,6 @@
 .login-container {
   display: flex;
   flex-direction: row;
-
   color: #1B1B1B;
 
   p {
@@ -9,91 +8,108 @@
     font-weight: 400;
     line-height: 14.63px;
     color: rgba(27, 27, 27, 0.7);
-    margin-bottom: 50px;
+    margin-bottom: 64px;
   }
-}
 
-.left-nav {
-  background-color: #E6F4FA;
- }
+  .button {
+    width: 350px;
+    background-color: #28A3DA !important;
+  }
 
- .doctor-image {
-  img {
-    margin-top: 115px;
-    max-height : '300px';
+  .left-nav {
+    background-color: #E6F4FA;
    }
- }
 
- .text-container {
-  color: #1B1B1B;
-  padding-top: 175px;
-  padding-left: 96px;
-
-  h3, h1 {
-    font-weight: 700;
-  }
-
-  p {
-    max-width: 350px;
-   
-  }
-
-  .description {
-    display: flex;
-     
+   .doctor-image {
     img {
-      width: 50px;
-      margin-top: -40px;
-      margin-right: 20px;
+      margin-top: 72px;
+      max-height : '300px';
+     }
+   }
+  
+   .text-container {
+    color: #1B1B1B;
+    padding-top: 175px;
+    padding-left: 96px;
+  
+    h3, h1 {
+      font-weight: 700;
     }
+  
+    p {
+      max-width: 350px;
+    }
+  
+    .description {
+      display: flex;
+       
+      img {
+        width: 50px;
+        margin-top: -40px;
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .logo {
+    margin-top: 72px;
+    margin-left: 54px;
+  
+    img {
+      height: 55px;
+    }
+  }
+  
+  .description-small {
+    margin-top: 16px;
+    margin-bottom: 58px;
   }
 }
 
 .right-nav {
   padding-left: 100px !important;
-  padding-top: 87px !important;
+  padding-top: 136px !important;
 
   h3 {
     font-weight: 400;
   }
-}
+} 
 
-.logo {
-  margin-top: 72px;
-  margin-left: 66px;
-
-  img {
-    height: 55px;
-  }
-}
-
-  .description-small {
-    margin-top: 20px;
-  }
     
-  .button {
-    width: 350px;
-    background-color: rgb(201, 201, 201);
-    border-color: rgb(201, 201, 201);
-  }
+ 
 
 
   @media only screen and (min-width: 1180px) {
     .right-nav {
       padding-left: 150px !important;
-      padding-top: 87px !important;
+      padding-top: 136px !important;
      }
   }
 
   @media only screen and (min-width: 1300px) {
     .right-nav {
-      padding-left: 192px !important;
-      padding-top: 87px !important;
+      padding-left: 180px !important;
+      padding-top: 136px !important;
      }
   }
 
   @media only screen and (max-width: 768px) {
     .left-nav {
      display: none;
+     }
+  }
+
+
+  @media only screen and (max-width: 992px) {
+    .left-nav {
+     display: none;
+     }
+  }
+  
+  .main-container {
+     img {
+      max-width: 100%;
+      max-height: 100vh;
+      height: auto;
      }
   }

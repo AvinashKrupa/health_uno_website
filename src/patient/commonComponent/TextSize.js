@@ -6,6 +6,14 @@ const H3 = ({text}) => {
   );
 };
 
+const H4 = ({text}) => {
+  return (
+    <div>
+        <h4>{text}</h4>
+    </div>
+  );
+};
+
 const H1 = ({text}) => {
   return (
     <div>
@@ -14,6 +22,6 @@ const H1 = ({text}) => {
   );
 };
 
-export {H3, H1};  
+export {H3, H1, H4};  
 
 
