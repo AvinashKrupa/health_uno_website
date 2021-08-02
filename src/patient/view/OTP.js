@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Container,
   Row,
@@ -12,20 +12,18 @@ import {API, post} from '../api/config/APIController';
 import {AuthContext} from '../context/AuthContextProvider';
 import { storeData } from "../storage/LocalStorage/LocalAsyncStorage";
 import CustomButton from '../commonComponent/Button';
-import Timer from '../commonComponent/Timer';
 import { useToasts } from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 
+const timeOut = 10;
 const OTP = ({history}) => {
   const { addToast } = useToasts();
   const authContext = useContext(AuthContext);
   const [otp, setOTP]  = useState('');
   const [mobileNumber, setMobileNumber] = useState(authContext.phone);
   const handleChange = otp => setOTP(otp);
-  const [resendEnable, setResendEnable]  = useState(true);
-  const timerCallBack = () => setResendEnable(!resendEnable);
-
-
+  const [restart, setReStart] = useState(false);
+  const [timer, setTimer] = useState(timeOut);
 
   const verifyOTP = () => {
     let params = {
@@ -36,6 +34,7 @@ const OTP = ({history}) => {
       device_toten: '',
       type: 1,
     };
+
     post(API.VERIFYOTP, params)
       .then(response => {
         if (response.status === 200) {
@@ -66,6 +65,8 @@ const OTP = ({history}) => {
       .then(response => {
         if (response.status === 200) {
           authContext.setAuth(true);
+          setTimer(timeOut);
+          setReStart(!restart);
           addToast(response.data.message, { appearance: 'success' });
         } else {
           addToast(response.data.message, { appearance: 'error' });
@@ -80,6 +81,32 @@ const OTP = ({history}) => {
     setMobileNumber(authContext.phone);
     return () => {};
   }, []);
+
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval.
+    useEffect(() => {
+      let timers = timeOut;
+      const id = setInterval(() => {
+        timers = timers - 1;
+        if (timers <= 0) {
+          clearInterval(id);
+        }
+        savedCallback.current();
+      }, delay);
+      return () => clearInterval(id);
+    }, [delay, restart]);
+  }
+
+  useInterval(() => {
+    setTimer(timer - 1);
+  }, 1000);
 
   return (
     <Container fluid>
@@ -146,15 +173,12 @@ const OTP = ({history}) => {
               <Col lg='3' md='3'  sm='2'  xs='1'></Col>
               <Col lg='8' md='8' sm='9' xs='10'>
                 <div>
-                <Row className='verify-otp'>
-                  
-                    <span>Verify OTP</span>
-                      <div className='edit-number'>
-                        <p> We have sent OTP on your mobile number {authContext.phone}</p> { <Link to='/'><i class="fas fa-pen"></i></Link>}
-                      </div > 
-                
-                    
-                </Row>
+                  <Row className='verify-otp'>
+                      <span>Verify OTP</span>
+                        <div className='edit-number'>
+                          <p> We have sent OTP on your mobile number {authContext.phone}</p> { <Link to='/'><i class="fas fa-pen"></i></Link>}
+                        </div > 
+                  </Row>
                   <div className='otp-container'>
                     <br />
                     <OtpInput
@@ -173,11 +197,14 @@ const OTP = ({history}) => {
                       onClick={verifyOTP}
                       text={'Verify OTP'}
                       ></CustomButton>
-                    <br />
-                    <div className="resend-otp">
-                      <a href='#' onClick={reSendOTP}>Resend OTP</a>
-                    </div>
-                  {/* {  resendEnable  && <Timer timerCallBack={timerCallBack}></Timer>} */}
+                     <br />
+                     <div className="resend-otp">
+                        { timer === 0 ? (
+                          <a href='#' onClick={reSendOTP}>Resend OTP</a>
+                        ) : (
+                          <span>{`Didn't get OTP? Resend in ${timer} seconds`}</span>
+                        )}
+                     </div>
                   </div>
                 </div>
               </Col>
