@@ -38,7 +38,8 @@ const MultiStepFormRegistration = ({history}) => {
 
   //second form information
   const [selectedDays, setSelectedDays] = useState([]);
-  const [selectedSlots, setSelectedSlots] = useState([]);
+  const [daySlots, setDaySlots] = useState([]);
+  const [eveningSlots, setEveningSlots] = useState([]);
   const [isDayShift, setIsDayShift] = useState(false);
   const [isEveningShift, setIsEveningShift] = useState(false);
   const [dayShiftFrom, setDayShiftFrom] = useState('');
@@ -47,9 +48,6 @@ const MultiStepFormRegistration = ({history}) => {
   const [eveningShiftTo, setEveningShiftTo] = useState('');
   const [dataMorningShift, setDataMorningShift] = useState([]);
   const [dataEveningShift, setDataEveningShift] = useState([]);
-  
-
-
   const { addToast } = useToasts();
   const [activeStep, setActiveStep] = useState(1);
   const [nextDisabled, setNextDisabled] = useState(false);
@@ -71,7 +69,17 @@ const MultiStepFormRegistration = ({history}) => {
 
   function registerUserAPICalling() {
     let daysObj = { };
+    let slots =  [];
 
+    if(isDayShift) {
+    
+      slots = [...slots, ...daySlots];
+    } 
+
+    if(isEveningShift) {
+      
+      slots = [...slots, ...eveningSlots]
+    }
     selectedDays.map((day) => {
       const dayName = day.slice(0,3).toLowerCase();
       daysObj[`${dayName}`] = true
@@ -89,7 +97,7 @@ const MultiStepFormRegistration = ({history}) => {
       desc: description,
       avail: {
         day: daysObj,
-        slots: selectedSlots,
+        slots: slots,
         shift: {
             shift1: {
                 start: dayShiftFrom,
@@ -125,6 +133,68 @@ const MultiStepFormRegistration = ({history}) => {
       },
     };
     registerLogin(params)
+  }
+
+  function pageThreeValidation() {
+    const dayShiftFromInfo = dayShiftFrom.split(":");
+    const dayShiftToInfo = dayShiftTo.split(":");
+    const dayShiftFromHours = parseInt(dayShiftFromInfo[0]);
+    const dayShiftToHours = parseInt(dayShiftToInfo[0]);
+    const dayShiftFromMin = parseInt(dayShiftFromInfo[1]);
+    const dayShiftToMin = parseInt(dayShiftToInfo[1]);
+
+    const eveningShiftFromInfo = eveningShiftFrom.split(":");
+    const eveningShiftToInfo = eveningShiftTo.split(":");
+    const eveningShiftFromHours = parseInt(eveningShiftFromInfo[0]);
+    const eveningShiftToHours = parseInt(eveningShiftToInfo[0]);
+    const eveningShiftFromMin = parseInt(eveningShiftFromInfo[1]);
+    const eveningShiftToMin = parseInt(eveningShiftToInfo[1]);
+
+    if (!selectedDays.length) {
+      addToast('Please select the days', { appearance: 'error' });
+      return false;
+    } else if (selectedDays.length && !isDayShift && !isEveningShift ) {
+      addToast('Please select the day or evening shifts', { appearance: 'error' });
+      return false;
+    } else if (isDayShift && isEmpty(dayShiftFrom)) {
+      addToast('Please select the day shift From', { appearance: 'error' });
+      return false;
+    } else if (isDayShift && isEmpty(dayShiftTo)) {
+      addToast('Please select the day shift To', { appearance: 'error' });
+      return false;
+    } else if (isEveningShift && isEmpty(eveningShiftFrom)) {
+      addToast('Please select the evening shift From', { appearance: 'error' });
+      return false;
+    } else if (isEveningShift && isEmpty(eveningShiftTo)) {
+      addToast('Please select the evening shift To', { appearance: 'error' });
+      return false;
+    }  else if (isDayShift && dayShiftFromHours === dayShiftToHours && dayShiftFromMin > dayShiftToMin) {
+      addToast('Please select the day shift To minutes grater then day shift From minutes', { appearance: 'error' });
+      return false;
+    } else if (isDayShift && dayShiftFromHours > dayShiftToHours) {
+      addToast('Please select the day shift To grater then day shift From', { appearance: 'error' });
+      return false;
+    } else if (isDayShift && dayShiftFromHours === dayShiftToHours && dayShiftFromMin === dayShiftToMin) {
+      addToast('Please select the day shift To  grater then day shift From', { appearance: 'error' });
+      return false;
+    } else if (isDayShift && !daySlots.length) {
+      addToast('Please select the day slots', { appearance: 'error' });
+      return false;
+    } else if (isEveningShift && eveningShiftFromHours === eveningShiftToHours && eveningShiftFromMin > eveningShiftToMin) {
+      addToast('Please select the evening shift To minutes grater then evening shift From minutes', { appearance: 'error' });
+      return false;
+      } else if (isEveningShift && eveningShiftFromHours > eveningShiftToHours) {
+        addToast('Please select the evening shift To grater then evening shift From', { appearance: 'error' });
+        return false;
+      }  else if (isEveningShift && isDayShift && dayShiftFromHours >= eveningShiftFromHours) {
+        addToast('Please select the evening shift grater then day shift', { appearance: 'error' });
+        return false;
+      }  else if (isEveningShift && !eveningSlots.length) {
+        addToast('Please select the evening slots', { appearance: 'error' });
+        return false;
+      } else {
+      return true;
+    }
   }
 
   function pageTwoValidation() {
@@ -226,7 +296,8 @@ const MultiStepFormRegistration = ({history}) => {
     }
 
     if(activeStep === 3) {
-      registerUserAPICalling();
+      isFormValid = pageThreeValidation(); 
+      isFormValid && registerUserAPICalling();
     }
       if (isFormValid) {
         let tempActiveStep = activeStep;
@@ -309,7 +380,8 @@ const MultiStepFormRegistration = ({history}) => {
           { activeStep === 3 && 
               <DocRegistrationPage3
               selectedDays={selectedDays}
-              selectedSlots={selectedSlots}
+              daySlots={daySlots}
+              eveningSlots={eveningSlots}
               isDayShift={isDayShift}
               isEveningShift={isEveningShift}
               dayShiftFrom={dayShiftFrom}
@@ -319,7 +391,8 @@ const MultiStepFormRegistration = ({history}) => {
               dataMorningShift={dataMorningShift}
               dataEveningShift={dataEveningShift}
               setSelectedDays={setSelectedDays}
-              setSelectedSlots={setSelectedSlots}
+              setEveningSlots={setEveningSlots}
+              setDaySlots={setDaySlots}
               setIsDayShift={setIsDayShift}
               setIsEveningShift={setIsEveningShift}
               setDayShiftFrom={setDayShiftFrom}

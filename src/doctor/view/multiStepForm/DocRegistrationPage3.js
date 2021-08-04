@@ -9,9 +9,9 @@ import { useToasts } from "react-toast-notifications";
   const DocRegistrationPage3 = (props) => {
 
   const days = ['Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ];
-  const {selectedDays, selectedSlots, isDayShift, isEveningShift, dayShiftFrom,
+  const {selectedDays, daySlots, eveningSlots, isDayShift, isEveningShift, dayShiftFrom,
     dayShiftTo, eveningShiftFrom, eveningShiftTo, dataMorningShift,
-    dataEveningShift, setSelectedDays, setSelectedSlots, setIsDayShift,
+    dataEveningShift, setSelectedDays, setDaySlots, setEveningSlots, setIsDayShift,
     setIsEveningShift,setDayShiftFrom, setDayShiftTo, setEveningShiftFrom, setEveningShiftTo,
     setDataMorningShift, setDataEveningShift} = props;
     const [currentDate, setCurrentDate] = useState(moment().format('DD-MM-YYYY'));
@@ -79,23 +79,36 @@ import { useToasts } from "react-toast-notifications";
       });
   }
 
-const handleSlotClick = (id) => {
-    const list = JSON.parse(JSON.stringify(selectedSlots))  ;
+const handleDaySlotClick = (id) => {
+    const list = JSON.parse(JSON.stringify(daySlots))  ;
     const index = list.indexOf(id);
 
     if (index > -1) {
         list.splice(index, 1);
-        setSelectedSlots(list)
+        setDaySlots(list)
     } else  {
-        setSelectedSlots([...list, id])
+      setDaySlots([...list, id])
     }
+
+};
+
+const handleEveningSlotClick = (id) => {
+  const list = JSON.parse(JSON.stringify(eveningSlots))  ;
+  const index = list.indexOf(id);
+
+  if (index > -1) {
+      list.splice(index, 1);
+      setEveningSlots(list)
+  } else  {
+    setEveningSlots([...list, id])
+  }
 
 };
 
   const dayShiftSlot = () => {
     return Object.entries(dataMorningShift).map((timeSlot) => {
         return(
-          <SlotGenerator selectedSlots={selectedSlots} handleSlotClick={handleSlotClick} label={`${timeSlot[0]} AM`} slots={timeSlot[1]} />
+          <SlotGenerator selectedSlots={daySlots} handleSlotClick={handleDaySlotClick} label={`${timeSlot[0]} AM`} slots={timeSlot[1]} />
         )
     })
   };
@@ -103,7 +116,7 @@ const handleSlotClick = (id) => {
   const EveningShiftSlot = () => {
     return Object.entries(dataEveningShift).map((timeSlot) => {
         return(
-          <SlotGenerator selectedSlots={selectedSlots} handleSlotClick={handleSlotClick} label={`${timeSlot[0]} PM`} slots={timeSlot[1]} />
+          <SlotGenerator selectedSlots={eveningSlots} handleSlotClick={handleEveningSlotClick} label={`${timeSlot[0]} PM`} slots={timeSlot[1]} />
         )
     })
   }

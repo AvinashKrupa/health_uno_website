@@ -1,7 +1,6 @@
 import { Row } from "react-bootstrap";
 
 const SlotGenerator = (props) => {
-  console.log('props: ', props);
   return (
     <Row style={{ display: "flex", flexDirection: "row" }}>
       <span className="slot-timings-title">{props.label}</span>
