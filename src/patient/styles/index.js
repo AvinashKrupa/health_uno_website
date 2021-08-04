@@ -2,6 +2,10 @@
 import './homepage.scss';
 import './otp.scss';
 import './pat_registration.scss';
+import './patient_homepage.scss';
+import './doctor_card.scss';
+import './specialty_card.scss';
+
 
 // Doctor scss
 import '../../doctor/styles/multiStepForm.scss';

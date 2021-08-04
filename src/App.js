@@ -12,7 +12,8 @@ function App() {
   return (
     <div className="App">
         <BrowserRouter>
-          <Route exact path="/" component={Homepage} />
+          {/* <Route exact path="/" component={Homepage} /> */}
+          <Route exact path="/" component={MainPage} />
           <Route exact path="/doctor" component={DoctorLogin} />
           <PrivateRoute exact path='/doctor-otp' component={DoctorOTP} />
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />
