@@ -16,7 +16,7 @@ import {AuthContext} from '../../context/AuthContextProvider';
 import CustomButton from './../../commonComponent/Button';
 import {useToasts} from 'react-toast-notifications';
 
-const Homepage = ({history}) => {
+const DoctorLogin = ({history}) => {
   const { addToast } = useToasts();
   const authContext = useContext(AuthContext);
   const [mobileNumber, setMobileNumber] = useState('');
@@ -33,7 +33,7 @@ const Homepage = ({history}) => {
       .then(response => {
         if (response.status === 200) {
           addToast(response.data.message, { appearance: 'success' });
-          history.push('/otp');
+          history.push('/doctor-otp');
         }  else {
           addToast(response.data.message, { appearance: 'error' }); 
         }
@@ -53,33 +53,33 @@ const Homepage = ({history}) => {
               <Col lg='10' md='10' sm='12' className="text-container">
 
                 <div className='description'>
-                  <Col lg='1'>
-                      <Image src={doctor}></Image>
-                  </Col>
-                  <Col lg='11' className='login-icon-side-txt'>
-                      <div><H3 text='Book any Doctor you want'></H3></div>
-                      <p>Search doctors based on Speciality, Location, Language</p>
-                  </Col>
+                    <Col lg='1'>
+                        <Image src={doctor}></Image>
+                    </Col>
+                    <Col lg='11' className='login-icon-side-txt'>
+                        <div><H3 text='Manage your clinic'></H3></div>
+                        <p>Track and manage all your appointments and modify them with our user-friendly UI</p>
+                    </Col>
+                </div>
+                
+                <div className='description'>
+                    <Col lg='1'>
+                        <Image src={frame}></Image>
+                    </Col>
+                    <Col lg='11' className='login-icon-side-txt'>
+                        <div><H3 text='Medical Records Management'></H3></div>
+                        <p> Use our proprietary software to store and manage all patient records digitally secured and stored in a secure cloud database with access control</p>
+                    </Col>
                 </div>
 
                 <div className='description'>
-                  <Col lg='1'>
-                      <Image src={frame}></Image>
-                  </Col>
-                  <Col lg='11' className='login-icon-side-txt'>
-                      <div><H3 text='Book Virtual Appointment'></H3></div>
-                      <p>Book an online appointment with the consultant of your choice and consult them privately at your own place of choice</p>
-                  </Col>
-                </div>
-
-                <div className='description'>
-                  <Col lg='1'>
-                      <Image src={plant}></Image>
-                  </Col>
-                  <Col lg='11' className='login-icon-side-txt'>
-                      <div><H3 text='Book Virtual Appointments with AYUSH Doctors'></H3></div>
-                      <p> Book  virtual Appointments with AYUSH doctors and get medicines delivered to your doorstep</p>
-                  </Col>
+                    <Col lg='1'>
+                        <Image src={plant}></Image>
+                    </Col>
+                    <Col lg='11' className='login-icon-side-txt'>
+                        <div><H3 text='Mentoring/Peer Review consultation'></H3></div>
+                        <p> Ask another panel physician to join your current/upcoming consultation and provide additional advice as required</p>
+                    </Col>
                 </div>
 
               </Col>  
@@ -126,4 +126,4 @@ const Homepage = ({history}) => {
   );
 };
 
-export default Homepage;
+export default DoctorLogin;

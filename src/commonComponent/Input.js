@@ -11,6 +11,7 @@ const Input = (props) => {
         id={props.id}
         placeholder={props.placeholder || null}
         readOnly={props.readonly || false}
+        disabled={props.disabled || false}
         onChange={(e) => props.onChange(e.target.value)}
       ></Form.Control>
     </Form.Group>

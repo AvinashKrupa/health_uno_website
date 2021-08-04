@@ -45,8 +45,11 @@
        
       img {
         width: 50px;
-        margin-top: -40px;
-        margin-right: 20px;
+        margin-top: 5px;
+      }
+
+      .login-icon-side-txt {
+        padding-left: 26px;
       }
     }
   }
@@ -75,10 +78,6 @@
   }
 } 
 
-    
- 
-
-
   @media only screen and (min-width: 1180px) {
     .right-nav {
       padding-left: 150px !important;
@@ -98,7 +97,6 @@
      display: none;
      }
   }
-
 
   @media only screen and (max-width: 992px) {
     .left-nav {

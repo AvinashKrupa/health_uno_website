@@ -5,7 +5,7 @@ import {
   Col,
   Image,
 } from "react-bootstrap";
-import {group, frame, doctor, plant, phone} from '../../constants/PatientImages'
+import {group, frame, doctor, plant, phone} from '../../constants/PatientImages';
 import {H3} from '../../commonComponent/TextSize'
 import OtpInput from "react-otp-input";
 import {API, post} from '../../api/config/APIController';
@@ -16,7 +16,7 @@ import { useToasts } from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 
 const timeOut = 10;
-const OTP = ({history}) => {
+const DoctorOTP = ({history}) => {
   const { addToast } = useToasts();
   const authContext = useContext(AuthContext);
   const [otp, setOTP]  = useState('');
@@ -44,7 +44,7 @@ const OTP = ({history}) => {
             storeData('TEMP_TOKEN', temp);
           } 
 
-          history.push('/registration')
+          history.push('/doctor/registration')
         }
         else {
           addToast(response.data.message, { appearance: 'error' });
@@ -65,6 +65,7 @@ const OTP = ({history}) => {
       .then(response => {
         if (response.status === 200) {
           authContext.setAuth(true);
+          authContext.setType('0');
           setTimer(timeOut);
           setReStart(!restart);
           addToast(response.data.message, { appearance: 'success' });
@@ -115,38 +116,35 @@ const OTP = ({history}) => {
           <Row>
             <Col lg='10' md='10' sm='12' className="text-container">
 
-              <div className='description'>
-                <Image src={doctor}
-                ></Image>
-                <div>
-                  <H3 text='Book any Doctor you want'></H3>
-                  <p>
-                    Search doctors based on Speciality, Location, Language
-                  </p>
+            <div className='description'>
+                    <Col lg='1'>
+                        <Image src={doctor}></Image>
+                    </Col>
+                    <Col lg='11' className='login-icon-side-txt'>
+                        <div><H3 text='Manage your clinic'></H3></div>
+                        <p>Track and manage all your appointments and modify them with our user-friendly UI</p>
+                    </Col>
                 </div>
-              </div>
+                
+                <div className='description'>
+                    <Col lg='1'>
+                        <Image src={frame}></Image>
+                    </Col>
+                    <Col lg='11' className='login-icon-side-txt'>
+                        <div><H3 text='Medical Records Management'></H3></div>
+                        <p> Use our proprietary software to store and manage all patient records digitally secured and stored in a secure cloud database with access control</p>
+                    </Col>
+                </div>
 
-              <div className='description'>
-                <Image src={frame}
-                ></Image>
-                <div>
-                  <H3 text='Book Virtual Appointment '></H3>
-                  <p>
-                    Book an online appointment with the consultant of your choice and consult them privately at your own place of choice.
-                  </p>
+                <div className='description'>
+                    <Col lg='1'>
+                        <Image src={plant}></Image>
+                    </Col>
+                    <Col lg='11' className='login-icon-side-txt'>
+                        <div><H3 text='Mentoring/Peer Review consultation'></H3></div>
+                        <p> Ask another panel physician to join your current/upcoming consultation and provide additional advice as required</p>
+                    </Col>
                 </div>
-              </div>
-
-              <div className='description'>
-                <Image src={plant}
-                ></Image>
-                <div>
-                  <H3 text='Book virtual Appointments with AYUSH doctors'></H3>
-                  <p>
-                    Book  virtual Appointments with AYUSH doctors and get medicines delivered to your doorstep.
-                  </p>
-                </div>
-              </div>
             </Col>  
             <Col lg='1' md='8' sm='0'></Col>
           </Row>
@@ -216,4 +214,4 @@ const OTP = ({history}) => {
   );
 };
 
-export default OTP;  
+export default DoctorOTP;  

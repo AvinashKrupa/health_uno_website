@@ -15,6 +15,11 @@ export const API = {
   FILEUPLOAD: 'fileUpload',
   GETPROFILE: 'user/profile',
   UPDATEPROFILE: 'user/updateProfile',
+  GETDEPARTMENTS: 'departments',
+  GETSPECIALITIES: 'specialities',
+  GETQUALIFICATIONS: 'qualifications',
+  GETSLOTS: 'slot/getSlots',
+  REGISTERDOCTOR: 'auth/registerDoctor',
 };
 
 export function post(endPoint, params, isStringfy = true) {

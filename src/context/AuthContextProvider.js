@@ -6,6 +6,7 @@ class AuthContextProvider extends Component {
   state = {
     isAuthenticated: false,
     phone: '',
+    type: '1',
   }
 
   setAuth = (isAuthenticated) => {
@@ -14,6 +15,10 @@ class AuthContextProvider extends Component {
 
   setPhone = (phone) => {
     this.setState({ phone });
+  }
+
+  setType = (type) => {
+    this.setState({ type });
   }
 
   render() { 
