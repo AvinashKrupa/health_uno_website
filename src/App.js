@@ -2,7 +2,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import OTP from "./patient/view/OTP";
 import PrivateRoute  from './hoc/PrivateRoute';
 import Registration from './patient/view/Registration'
-import MainPage from "./patient/view/MainPage";
+import PatientHomePage from "./patient/view/PatientHomePage";
 import DoctorLogin from "./doctor/view/DoctorLogin";
 import Homepage from './patient/view/HomePage';
 import DoctorOTP from "./doctor/view/DoctorOTP";
@@ -19,7 +19,7 @@ function App() {
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />
           <PrivateRoute exact path='/otp' component={OTP} />
           <PrivateRoute exact path='/registration' component={Registration} />
-          <PrivateRoute exact path='/home' component={MainPage} />
+          <PrivateRoute exact path='/home' component={PatientHomePage} />
         </BrowserRouter>
     </div>
   );

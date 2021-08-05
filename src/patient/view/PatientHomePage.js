@@ -3,7 +3,7 @@ import { Row, Col, Form, InputGroup } from "react-bootstrap";
 import SpecialityCard from "../commonComponentPatient/SpecialityCard";
 import {doctorCard, heart, brain, tooth} from '../../constants/PatientImages';
 
-const MainPage = (props) => {
+const PatientHomePage = (props) => {
   return (
     <>
       <Row>
@@ -110,4 +110,4 @@ const MainPage = (props) => {
   );
 };
 
-export default MainPage;
+export default PatientHomePage;  

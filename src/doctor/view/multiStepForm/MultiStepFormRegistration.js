@@ -36,7 +36,7 @@ const MultiStepFormRegistration = ({history}) => {
   const [qualification, setQualification] = useState('');
   const [fee, setFee] = useState('');
 
-  //second form information
+  // Third form information
   const [selectedDays, setSelectedDays] = useState([]);
   const [daySlots, setDaySlots] = useState([]);
   const [eveningSlots, setEveningSlots] = useState([]);
@@ -48,6 +48,8 @@ const MultiStepFormRegistration = ({history}) => {
   const [eveningShiftTo, setEveningShiftTo] = useState('');
   const [dataMorningShift, setDataMorningShift] = useState([]);
   const [dataEveningShift, setDataEveningShift] = useState([]);
+
+  
   const { addToast } = useToasts();
   const [activeStep, setActiveStep] = useState(1);
   const [nextDisabled, setNextDisabled] = useState(false);

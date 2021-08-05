@@ -137,7 +137,6 @@ function getLanguage() {
   get(API.GETLANGUAGE)
     .then(response => {
       if (response.status === 200) {
-        console.log('response: ', response);
         let data = response.data.data.map(info => {
           return {value: info.name, id: info._id};
         });
@@ -159,7 +158,6 @@ function getState() {
         let data = response.data.data.map((info) => {
           return {value: info.name, id: info.id};
         });
-        console.log('data: ', data);
         setDataState(data);
       } else {
         addToast(response.data.message, { appearance: 'error' });
