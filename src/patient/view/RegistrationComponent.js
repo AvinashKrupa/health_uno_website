@@ -323,7 +323,7 @@ function registerUserAPICalling() {
     .then(response => {
       if (response.status === 200) {
         addToast(response.data.message, { appearance: 'success' });
-        history.push('/home')
+        history.push('/patient/home')
       } else {
         addToast(response.data.message, { appearance: 'error' });
       }

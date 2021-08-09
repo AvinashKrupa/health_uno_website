@@ -43,7 +43,7 @@ import { useToasts } from "react-toast-notifications";
 
   function getSlots(type, from, to) {
     const date = moment(`${currentDate}`,'DD-MM-YYYY').format('YYYY-MM-DD')
-    let fromDate = `${date}T${from}:00.000+05:00`;
+    let fromDate = `${date}T${from}:00.000+05:30`;
     let toDate = `${date}T${to}:59.999+05:30`;;
 
     let params = {

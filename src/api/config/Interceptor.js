@@ -10,9 +10,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   async config => {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjBmZmUxMzI0NGU5YzUwMDIxNTMwYjJjIiwibW9iaWxlX251bWJlciI6IjczMDAzNDA0MDkiLCJmaXJzdF9uYW1lIjoiWWF0aXNoIiwic2VsZWN0ZWRfcHJvZmlsZSI6IjEiLCJpYXQiOjE2MjczODIwNjYsImV4cCI6MTYyNzM4NTY2Nn0.m5KrEqpC85hGAa6S82DZ6k9HiIEojsbouvmrQKnKYaQ'; //await getData('ACCESS_TOKEN');
-    const temp = await getData('TEMP_TOKEN');
+    const token = getData('ACCESS_TOKEN');
+    const temp =  getData('TEMP_TOKEN');
     console.log('CONSOL', config);
     if (temp) {
       config.headers['Authorization'] = 'Bearer ' + temp;
@@ -33,6 +32,11 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
+    if (response.status === 200) {
+      if (response.data.data.session) {
+        storeData('ACCESS_TOKEN', response.data.data.session.access_token);
+      }
+    }
     return response;
   },
   function (error) {

@@ -56,15 +56,26 @@
     text-align: left;
   }
   
-  .patient-homepage-search-icon {
-    font-family: fontawesome;
-    font-size: 25px;
-    margin: auto;
-    margin-right: 10px;
+  .search-container {
+    .fa-search {
+      font-size: 22px;
+      margin: auto;
+      position: relative;
+            z-index: 6;
+            left: 19px
+    }
+    input {
+      width: 650px !important;
+        margin-left: -20px !important;
+        padding-left: 50px;
+    }
+
+    .input-group {
+      flex-wrap: unset !important;
+    }
+          
   }
-  
-  .patient-homepage-icons {
-    height: 22px;
-    width: 18px;
-    color: rgba(40, 163, 218, 1);
-  }
+
+
+
+ 

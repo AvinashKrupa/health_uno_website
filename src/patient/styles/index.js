@@ -5,6 +5,8 @@ import './pat_registration.scss';
 import './patient_homepage.scss';
 import './doctor_card.scss';
 import './specialty_card.scss';
+import './carousel.scss';
+import './top_consultants.scss'; 
 
 
 // Doctor scss
@@ -13,6 +15,6 @@ import '../../doctor/styles/patientRegistrationPage1.scss';
 import '../../doctor/styles/profilePictureColumn.scss';
 
 
-// common 
+// Common 
 import './text_area.scss';
 import '../../doctor/styles/slot_generator.scss';

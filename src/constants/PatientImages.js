@@ -8,5 +8,6 @@ import doctorCard from "../patient/assets/doctor-card.png";
 import tooth from "../patient/assets/tooth.svg";
 import heart from "../patient/assets/heart.svg";
 import brain from "../patient/assets/brain.svg";
+import arrowRight from "../patient/assets/arrow_right.svg";
 
-export {group, logo, frame, doctor, plant, phone, doctorCard, tooth, heart, brain};
+export {group, logo, frame, doctor, plant, phone, doctorCard, tooth, heart, brain, arrowRight};

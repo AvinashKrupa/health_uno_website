@@ -88,7 +88,6 @@ const DocRegistrationPage2 = (props) => {
         }
       })
       .catch(error => {
-        console.log('error: ', error);
         addToast(error.response.data.message, { appearance: 'error' });
       });
   }

@@ -59,6 +59,7 @@ const MultiStepFormRegistration = ({history}) => {
     post(API.REGISTERDOCTOR, params, true)
       .then(response => {
         if (response.status === 200) {
+          history.push('/doctor/homePage'); 
           addToast(response.data.message, { appearance: 'success' });
         } else {
           addToast(response.data.message, { appearance: 'error' });
@@ -285,7 +286,6 @@ const MultiStepFormRegistration = ({history}) => {
   };
 
   const handleNext = () => {
-    console.log('handleNext: ', activeStep);
     let isFormValid = false;
     if(activeStep === 1) {
       
