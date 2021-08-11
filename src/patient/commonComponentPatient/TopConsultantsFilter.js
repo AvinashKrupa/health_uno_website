@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "react-sidebar";
-import FilterConsultants from "../view/FilterConsultants";
+import FilterConsultants from "../view/Home/FilterConsultants";
 
 const TopConsultantsFilter = (props) => {
 

@@ -1,12 +1,12 @@
 import { Row, Col} from "react-bootstrap";
-import {API, get} from '../../api/config/APIController';
+import {API, get} from '../../../api/config/APIController';
 import { useEffect } from "react";
 import {useToasts} from 'react-toast-notifications';
 import { useState } from "react";
 import {Link} from 'react-router-dom';
-import useSearchStore from './../store/searchStore';
-import SpecialityCard from "../commonComponentPatient/SpecialityCard";
-import SearchInputWithIcon from '../../commonComponent/SearchInputWithIcon';
+import useSearchStore from '../../store/searchStore';
+import SpecialityCard from "../../commonComponentPatient/SpecialityCard";
+import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
 
 
 const Specialities = (props) => {

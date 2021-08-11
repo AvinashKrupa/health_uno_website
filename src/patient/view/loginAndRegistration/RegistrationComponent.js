@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import Input from "../../commonComponent/Input";
-import KeyValueSelector from "../../commonComponent/KeyValueSelector";
-import Selector from "../../commonComponent/Select";
-import TextArea from "../../commonComponent/TextArea";
+import Input from "../../../commonComponent/Input";
+import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
+import Selector from "../../../commonComponent/Select";
+import TextArea from "../../../commonComponent/TextArea";
 import { Form, Row, Col } from "react-bootstrap";
-import Radio from "../../commonComponent/Radio";
-import Checkbox from "../../commonComponent/Checkbox";
-import {AuthContext} from '../../context/AuthContextProvider';
-import { isEmailValid, isEmpty, isNumberOnly } from '../../utils/Validators';
+import Radio from "../../../commonComponent/Radio";
+import Checkbox from "../../../commonComponent/Checkbox";
+import {AuthContext} from '../../../context/AuthContextProvider';
+import { isEmailValid, isEmpty, isNumberOnly } from '../../../utils/Validators';
 import { useToasts } from 'react-toast-notifications';
-import {API, get, post} from '../../api/config/APIController';
-import CustomButton from '../../commonComponent/Button';
+import {API, get, post} from '../../../api/config/APIController';
+import CustomButton from '../../../commonComponent/Button';
 import { withRouter } from "react-router-dom";
 
 const RegistrationComponent = ({history}) => {

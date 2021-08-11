@@ -1,14 +1,14 @@
-import DoctorCard from "../commonComponentPatient/DoctorCard";
+import DoctorCard from "../../commonComponentPatient/DoctorCard";
 import { Row, Col } from "react-bootstrap";
-import SpecialityCard from "../commonComponentPatient/SpecialityCard";
-import { API, get, post } from "../../api/config/APIController";
+import SpecialityCard from "../../commonComponentPatient/SpecialityCard";
+import { API, get, post } from "../../../api/config/APIController";
 import { useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
-import CarouselComponent from "../../commonComponent/CarouselComponent";
+import CarouselComponent from "../../../commonComponent/CarouselComponent";
 import Grid from "@material-ui/core/Grid";
-import useSearchStore from "./../store/searchStore";
-import SearchInputWithIcon from "../../commonComponent/SearchInputWithIcon";
+import useSearchStore from "../../store/searchStore";
+import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
 
 const PatientHomePage = (props) => {
   let timer = null;

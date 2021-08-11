@@ -5,13 +5,13 @@ import {
   Col,
   Image,
 } from "react-bootstrap";
-import {group, frame, doctor, plant, phone} from '../../constants/PatientImages'
-import {H3} from '../../commonComponent/TextSize'
+import {group, frame, doctor, plant, phone} from '../../../constants/PatientImages'
+import {H3} from '../../../commonComponent/TextSize'
 import OtpInput from "react-otp-input";
-import {API, post} from '../../api/config/APIController';
-import {AuthContext} from '../../context/AuthContextProvider';
-import { storeData } from "../../storage/LocalStorage/LocalAsyncStorage";
-import CustomButton from '../../commonComponent/Button';
+import {API, post} from '../../../api/config/APIController';
+import {AuthContext} from '../../../context/AuthContextProvider';
+import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import CustomButton from '../../../commonComponent/Button';
 import { useToasts } from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 

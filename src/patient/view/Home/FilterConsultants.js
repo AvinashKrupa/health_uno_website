@@ -1,9 +1,8 @@
 import { Row, Col, Button, InputGroup, Image } from "react-bootstrap";
-import CheckboxList from "../../commonComponent/CheckboxList";
-import {minus} from '../../constants/PatientImages';
+import CheckboxList from "../../../commonComponent/CheckboxList";
+import {minus} from '../../../constants/PatientImages';
 import InputRange from "react-input-range";
-import {API, get} from '../../api/config/APIController';
-
+import {API, get} from '../../../api/config/APIController';
 import { useEffect, useState } from "react";
 import { useToasts } from 'react-toast-notifications';
 import "react-input-range/lib/css/index.css";

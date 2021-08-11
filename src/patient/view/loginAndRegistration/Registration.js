@@ -1,6 +1,6 @@
 // import "./RegistrationPage1";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import patientIcon from "../assets/patient-form-icon.png";
+import patientIcon from "../../assets/patient-form-icon.png";
 import RegistrationComponent from "./RegistrationComponent";
 import {Link} from 'react-router-dom';
 

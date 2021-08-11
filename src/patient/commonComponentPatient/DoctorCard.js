@@ -1,5 +1,4 @@
 import { Card, CardContent, CardMedia } from "@material-ui/core";
-import { Row, Col } from "react-bootstrap";
 
 const DoctorCard = (props) => {
   const { image, name, fees, qualifications, details, link } = props;

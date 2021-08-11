@@ -9,11 +9,11 @@ import {
   InputGroup,
   Image,
 } from "react-bootstrap";
-import {group, logo, frame, doctor, plant} from '../../constants/PatientImages';
-import {H3, H1} from './../../commonComponent/TextSize';
-import {API, post} from '../../api/config/APIController';
-import {AuthContext} from '../../context/AuthContextProvider';
-import CustomButton from './../../commonComponent/Button';
+import {group, logo, frame, doctor, plant} from '../../../constants/PatientImages';
+import {H3, H1} from '../../../commonComponent/TextSize';
+import {API, post} from '../../../api/config/APIController';
+import {AuthContext} from '../../../context/AuthContextProvider';
+import CustomButton from '../../../commonComponent/Button';
 import {useToasts} from 'react-toast-notifications';
 
 const Homepage = ({history}) => {
