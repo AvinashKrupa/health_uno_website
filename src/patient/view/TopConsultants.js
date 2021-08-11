@@ -8,35 +8,42 @@ import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import useSearchStore from './../store/searchStore';
 import SearchInputWithIcon from '../../commonComponent/SearchInputWithIcon';
-
+import TopConsultantsFilter from '../commonComponentPatient/TopConsultantsFilter'
+import { Button } from "react-bootstrap";
+import { filter } from "../../constants/PatientImages";
 
 const TopConsultants = (props) => {
   let timer = null;
   const { addToast } = useToasts();
   let [searchText, setSearchText] = useState(useSearchStore(state => state.searchText));
   let [consultants, setConsultant] = useState([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     getTopConsultants();
   }, [searchText]);
 
-  function getTopConsultants() {
+  
+  function callBackFilter(data) {
+    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages[0])
+  }
+
+  function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '') {
     let params = {
       limit: 10,
       page: 1,
       filter: {
         text: searchText,
-        fee_min: '',
-        fee_max: '',
+        fee_min: min,
+        fee_max: max,
         exp: '',
-        lang: '',
+        lang: lang,
       },
-      sort_order: '',
+      sort_order: sortBy,
       sort_key: 'first_name',
     };
     post(API.GETTOPCONSULTANT, params)
       .then(response => {
-       
         if (response.status === 200) {
           setConsultant(response.data.data.docs);
         } else {
@@ -55,16 +62,20 @@ const TopConsultants = (props) => {
       }, 1000);
   }
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  }
 
   return (
-    <div>
+    <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter}>
+      <div>
       <Row className='top-consultants-container'>
         <Col lg="1" sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10'>
           <Row className='back-navigation'>
             <Link to='/patient/home'><i class="fas fa-arrow-left"></i><span>Top Consultants</span></Link>
           </Row>
-          <Row className='search-container'>
+          <div className='search-container' style={{display: "flex", justifyContent:'space-between'}}>
             <SearchInputWithIcon
               placeholder="Search doctors"
               defaultValue={searchText}
@@ -72,7 +83,10 @@ const TopConsultants = (props) => {
               onChange={(e) => debounce(e)}
             >
             </SearchInputWithIcon>
-          </Row>
+            <Button onClick={toggleSidebar} style={{marginTop: '33px'}}>
+              <img src={filter} alt='filter-img' style={{height: '26px', width: '24px'}}></img>
+            </Button>
+          </div>
          
           <Row style={{display: 'flex', flexDirection: 'row'}} className='top-consultants-card-container'>
           {consultants.map((consultant) => {
@@ -93,6 +107,8 @@ const TopConsultants = (props) => {
         <Col lg="1" sm="1" xs='1'/>
       </Row>
     </div>
+    </TopConsultantsFilter>
+    
   );
 };
 

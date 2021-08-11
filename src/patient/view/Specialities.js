@@ -10,9 +10,9 @@ import SearchInputWithIcon from '../../commonComponent/SearchInputWithIcon';
 
 
 const Specialities = (props) => {
-  let timer = null;
   const { addToast } = useToasts();
-  let [searchText, setSearchText] = useState(useSearchStore(state => state.searchText));
+  const setSearchTextInStore = useSearchStore(state => state.setSearchText);
+  let [searchText, setSearchText] = useState('');
   const [specialities, setSpecialities] = useState([]);
 
   useEffect(() => {
@@ -33,11 +33,32 @@ const Specialities = (props) => {
       });
   }
 
-  function debounce(txt) {
-      clearTimeout(timer);
-      timer = setTimeout(function() {
-        setSearchText(txt);
-      }, 1000);
+
+  function handleSearch(txt) {
+    setSearchText(txt);
+  }
+
+  function redirectToTopConsultants(txt) {
+    setSearchTextInStore(txt);
+    props.history.push("/patient/topConsultants");
+  }
+
+  function getSpecializationList() {
+
+    const filteredList = searchText !== '' ? specialities.filter((post) => {
+      return post.title.toLowerCase().includes(searchText.toLowerCase()) ? post : null
+    }) : specialities;
+
+
+    return filteredList.map((specialitie) => {
+      return (
+        <SpecialityCard
+          icon={specialitie.image}
+          label={specialitie.title}
+          setSearchText={redirectToTopConsultants}
+        />
+      );
+    })
   }
 
 
@@ -47,14 +68,13 @@ const Specialities = (props) => {
         <Col lg="1" sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10'>
           <Row className='back-navigation'>
-            <Link to='/patient/home'><i class="fas fa-arrow-left"></i><span>Top Consultants</span></Link>
+            <Link to='/patient/home'><i class="fas fa-arrow-left"></i><span>Specialities</span></Link>
           </Row>
           <Row className='search-container'>
             <SearchInputWithIcon
-              defaultValue={searchText}
               placeholder="Search doctors"
               className='patient-homepage-search'
-              onChange={(e) => debounce(e)}
+              onChange={(e) => handleSearch(e)}
             >
             </SearchInputWithIcon>
           </Row>
@@ -67,15 +87,7 @@ const Specialities = (props) => {
             </Col>
           </Row>
           <Row>
-            {specialities.map((specialitie) => {
-              return (
-                <SpecialityCard
-                  icon={specialitie.image}
-                  label={specialitie.title}
-                  setSearchText={debounce}
-                />
-              );
-            })}
+            { getSpecializationList() }
           </Row>
         </Col>
         <Col lg="1" sm="1" xs='1'/>

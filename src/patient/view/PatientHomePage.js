@@ -11,18 +11,18 @@ import useSearchStore from "./../store/searchStore";
 import SearchInputWithIcon from "../../commonComponent/SearchInputWithIcon";
 
 const PatientHomePage = (props) => {
-
-  useEffect(() => {
-    getHomeContent();
-    getTopConsultants();
-  }, []);
-
   let timer = null;
   const { addToast } = useToasts();
   const setSearchText = useSearchStore((state) => state.setSearchText);
   let [specialities, setSpecialities] = useState([]);
   let [slider, setSlider] = useState([]);
   let [consultants, setConsultant] = useState([]);
+
+  useEffect(() => {
+    setSearchText('')
+    getHomeContent();
+    getTopConsultants();
+  }, []);
 
   function getHomeContent() {
     get(API.GETHOMECONTENT)

@@ -9,5 +9,7 @@ import tooth from "../patient/assets/tooth.svg";
 import heart from "../patient/assets/heart.svg";
 import brain from "../patient/assets/brain.svg";
 import arrowRight from "../patient/assets/arrow_right.svg";
+import filter from "../patient/assets/filter.png";
+import minus from "../patient/assets/minus.png";
 
-export {group, logo, frame, doctor, plant, phone, doctorCard, tooth, heart, brain, arrowRight};
+export {group, logo, frame, doctor, plant, phone, doctorCard, tooth, heart, brain, arrowRight, filter, minus};
