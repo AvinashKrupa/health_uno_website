@@ -1,7 +1,8 @@
 import { Card, CardContent, CardMedia } from "@material-ui/core";
+import { Link }  from 'react-router-dom';
 
 const DoctorCard = (props) => {
-  const { image, name, fees, qualifications, details, link } = props;
+  const { image, name, fees, qualifications, details, id } = props;
   return (
     <>
       <Card className="doctor-card-container">
@@ -26,10 +27,9 @@ const DoctorCard = (props) => {
                     </span>
                   ))}
                 </span>
-                <a href={link}>
+                <Link to={`/patient/doctorDetails/${id}`}>
                   <span className="doctor-card-details-link">View Details</span>
-                </a>
-
+                </Link>
             </CardContent>
           </div>
         </div>

@@ -110,6 +110,7 @@ const PatientHomePage = (props) => {
               return (
                 <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
                   <DoctorCard
+                    id={consultant._id}
                     image={consultant.dp}
                     name={`${consultant.first_name}, ${consultant.last_name}`}
                     fees={consultant.fee}

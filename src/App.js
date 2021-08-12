@@ -10,6 +10,7 @@ import MultiStepFormRegistration from "./doctor/view/multiStepForm/MultiStepForm
 import DoctorHomePage from './doctor/view/DoctorHomePage';
 import TopConsultants from './patient/view/Home/TopConsultants';
 import Specialities from './patient/view/Home/Specialities'
+import DoctorDetails from "./patient/view/doctorDetail/DoctorDetail";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <PrivateRoute exact path='/patient/home' component={PatientHomePage} />
           <PrivateRoute exact path='/patient/topConsultants' component={TopConsultants} />
           <PrivateRoute exact path='/patient/specialities' component={Specialities} />
+          <PrivateRoute exact path='/patient/doctorDetails/:doctor_id' component={DoctorDetails} />
         </BrowserRouter>
     </div>
   );

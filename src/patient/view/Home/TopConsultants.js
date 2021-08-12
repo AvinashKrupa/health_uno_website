@@ -25,7 +25,7 @@ const TopConsultants = (props) => {
 
   
   function callBackFilter(data) {
-    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages[0])
+    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages);
   }
 
   function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '') {
@@ -37,7 +37,7 @@ const TopConsultants = (props) => {
         fee_min: min,
         fee_max: max,
         exp: '',
-        lang: lang,
+        language: lang,
       },
       sort_order: sortBy,
       sort_key: 'first_name',
@@ -93,6 +93,7 @@ const TopConsultants = (props) => {
               return(
                 <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1}>
                   <DoctorCard
+                    id={consultant._id}
                     image={consultant.dp}
                     name={`${consultant.first_name}, ${consultant.last_name}`}
                     fees={consultant.fee}

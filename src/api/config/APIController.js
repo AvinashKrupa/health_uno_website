@@ -20,6 +20,7 @@ export const API = {
   GETQUALIFICATIONS: 'qualifications',
   GETSLOTS: 'slot/getSlots',
   REGISTERDOCTOR: 'auth/registerDoctor',
+  GETDOCTORDETAILS: 'doctor/getDoctorDetails',
 };
 
 export function post(endPoint, params, isStringfy = true) {

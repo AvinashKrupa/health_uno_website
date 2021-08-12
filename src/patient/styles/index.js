@@ -9,6 +9,9 @@ import './carousel.scss';
 import './top_consultants.scss'; 
 import './filter_consultants.scss';
 import './checkbox_list.scss';
+import './similar_doctor_card.scss';
+import './color_card.scss';
+import './doctor_detail.scss';
 
 
 // Doctor scss

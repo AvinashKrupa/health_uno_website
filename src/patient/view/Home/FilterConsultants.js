@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useToasts } from 'react-toast-notifications';
 import "react-input-range/lib/css/index.css";
 
-let isDefaultSet = false;
+let isDefaultSet = true;
 
 const FilterConsultants = (props) => {
 
@@ -70,7 +70,8 @@ const FilterConsultants = (props) => {
     function filter() {
         const min = !isDefaultSet ? minMax.min : '';
         const max = !isDefaultSet ? minMax.max : '' ;
-        props.callBackFilter({min, max, selectedLanguages, sortBy})
+        props.callBackFilter({min, max, selectedLanguages, sortBy});
+        props.toggleSidebar()
     }
 
   return (
@@ -94,16 +95,10 @@ const FilterConsultants = (props) => {
                 justifyContent: 'space-around'}}>
             <div
               className="filter_menu_h4"
-              style={{ paddingLeft: "16px", paddingTop: "33px", cursor: 'pointer'}}
+              style={{ paddingLeft: "16px", paddingTop: "33px",  marginBottom: '16px',cursor: 'pointer'}}
             >
               Filter
             </div>
-            <Button className="filter_menu_h5"
-             style={{ cursor: 'pointer', backgroundColor: '#0d6efd' }}
-             onClick={() => filter()}
-            >
-              Apply
-            </Button>
           </Row>
           <Row style={{ marginTop: "15.5px" }}>
             <hr className="rounded"></hr>
@@ -121,7 +116,7 @@ const FilterConsultants = (props) => {
               <Button
                 value={'asc'}
                 className="filter_menu_button"
-                style={{ marginLeft: "18px", backgroundColor: sortBy === 'asc' ? '#0d6efd' : ''  }}
+                style={{ marginLeft: "18px", backgroundColor: sortBy === 'asc' ? '#28A3DA' : ''  }}
                 onClick={(e) => { 
                     isDefaultSet = false
                     setSortBy(e.target.value)
@@ -132,7 +127,7 @@ const FilterConsultants = (props) => {
               <Button
                 value={'desc'}
                 className="filter_menu_button"
-                style={{ marginLeft: "18px",  backgroundColor: sortBy === 'desc' ? '#0d6efd' : '' }}
+                style={{ marginLeft: "18px",  backgroundColor: sortBy === 'desc' ? '#28A3DA' : '' }}
                 onClick={(e) => { 
                     isDefaultSet = false
                     setSortBy(e.target.value)
@@ -189,7 +184,13 @@ const FilterConsultants = (props) => {
 
           <div>
             <Button className="filter_menu_h5"
-             style={{ cursor: 'pointer', marginTop: '50px' }}
+             style={{ cursor: 'pointer', backgroundColor: '#28A3DA' }}
+             onClick={() => filter()}
+            >
+              Apply
+            </Button>
+            <Button className="filter_menu_h5"
+             style={{ cursor: 'pointer', backgroundColor: 'white', color: '#272727'}}
              onClick={() => setDefaultValue()}
             >
               Clear

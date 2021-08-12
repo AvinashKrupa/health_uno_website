@@ -11,5 +11,11 @@ import brain from "../patient/assets/brain.svg";
 import arrowRight from "../patient/assets/arrow_right.svg";
 import filter from "../patient/assets/filter.png";
 import minus from "../patient/assets/minus.png";
+import icon_badge from "../patient/assets/icon_badge.svg";
+import icon_man from "../patient/assets/icon_man.svg";
+import icon_money from "../patient/assets/icon_money.svg";
 
-export {group, logo, frame, doctor, plant, phone, doctorCard, tooth, heart, brain, arrowRight, filter, minus};
+export { group, logo, frame, doctor, plant, phone,
+         doctorCard, tooth, heart, brain, arrowRight,
+         filter, minus, icon_badge, icon_man, icon_money,
+       };
