@@ -1,0 +1,86 @@
+.patient-homepage-text-h4 {
+    height: 24px;
+    width: 110px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.420000284910202px;
+    text-align: left;
+    color: rgba(27, 27, 27, 1);
+  }
+  
+  .patient-homepage-text-h5 {
+    height: 20px;
+    width: 112px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.420000284910202px;
+    text-align: right;
+    margin-bottom: auto;
+    margin-left: auto;
+  }
+  
+  .patient-homepage-link-text {
+    height: 20px;
+    width: 61px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.30000001192092896px;
+    text-align: right;
+    color: rgba(40, 163, 218, 1);
+  }
+  
+  .patient-homepage-motion-images {
+    height: 252px;
+    width: 1252px;
+    border-radius: 12px;
+    background: linear-gradient(92.07deg, #28a3da 0.26%, #3085ab 99.17%);
+    margin: auto;
+  }
+  
+  .patient-homepage-search {
+    height: 50px;
+    width: 650px;
+    border-radius: 8px !important;
+    border: 2px solid rgba(27, 27, 27, 0.3);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.420000284910202px;
+    text-align: left;
+  }
+  
+  .search-container {
+    .fa-search {
+      font-size: 22px;
+      margin: auto;
+      position: relative;
+            z-index: 6;
+            left: 19px
+    }
+    input {
+      width: 650px !important;
+        margin-left: -20px !important;
+        padding-left: 50px;
+    }
+
+    .input-group {
+      flex-wrap: unset !important;
+    }
+
+    .btn-primary {
+      background-color: unset !important;
+      border-color: unset !important;
+    }
+          
+  }
+
+
+
+ 

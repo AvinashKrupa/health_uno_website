@@ -1,0 +1,61 @@
+.registration-container {
+   
+    h4 {
+      margin-top: 33px;
+    }
+
+    .file{
+      position: relative;
+      bottom: 50px;
+      left: 56px;
+    }
+
+
+    .form-check-label {
+      padding-left: 5px;
+    }
+  
+    .registration-btn{
+      margin: auto;
+      margin-top: 50px;
+      width: 335px;
+      margin-bottom: 54px;
+    }
+    .fa-camera {
+      position: relative;
+      background: #28A3DA;
+      font-size: 34px;
+      border-radius: 50%;
+      border: 1px  grey;
+      padding: 10px;
+      bottom: 62px;
+      left: 182px;
+    }
+
+    img {
+      padding-top: 54px;
+    }
+  }
+
+
+.textArea {
+  margin-top: 7px;
+}
+
+.heading {
+  margin-top: 43px;
+  margin-left: 33px;
+  a {
+    color: #1B1B1B;
+    text-decoration: none;
+  }
+
+  .fa-arrow-left {
+    font-size: 17px;
+    width: 24px;
+    
+  }
+  span {
+    font-size: 24px;
+  }
+}
