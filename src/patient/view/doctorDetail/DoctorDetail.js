@@ -136,10 +136,10 @@ const DoctorDetails = (props) => {
                                     </span>
                                 </Row>
                                 <Row>
-                                    <Button className="doctor_details_button">
-                                    <span className="doctor_details_h5">
-                                        Book Appointment
-                                    </span>
+                                    <Button className="doctor_details_button" onClick={(e) => props.history.push(`/patient/bookSlot/${props.match.params.doctor_id}`)}>
+                                        <span className="doctor_details_h5">
+                                            Book Appointment
+                                        </span>
                                     </Button>
                                 </Row>
                                 </Col>

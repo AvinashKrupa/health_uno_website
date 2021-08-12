@@ -87,7 +87,7 @@ const PatientHomePage = (props) => {
             </Col>
           </Row>
           <Row>
-            {specialities.slice(0, 9).map((specialitie) => {
+            {specialities && specialities.slice(0, 9).map((specialitie) => {
               return (
                 <SpecialityCard
                   icon={specialitie.image}
@@ -106,7 +106,7 @@ const PatientHomePage = (props) => {
             </Col>
           </Row>
           <Row style={{ display: "flex", flexDirection: "row" }}>
-            {consultants.slice(0, 3).map((consultant) => {
+            {consultants && consultants.slice(0, 3).map((consultant) => {
               return (
                 <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
                   <DoctorCard

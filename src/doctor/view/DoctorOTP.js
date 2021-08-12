@@ -32,19 +32,29 @@ const DoctorOTP = ({history}) => {
       otp: otp,
       device_type: 'Window',
       device_toten: '',
-      type: 1,
+      type: 2,
     };
 
     post(API.VERIFYOTP, params)
       .then(response => {
         if (response.status === 200) {
           addToast(response.data.message, { appearance: 'success' });
-          let temp = response.data.data['tempAccessToken'];
-          if (response.data.data['tempAccessToken'] != null) {
+
+          const temp = response.data.data['tempAccessToken'];
+
+          if (temp != null) {
             storeData('TEMP_TOKEN', temp);
           } 
 
-          history.push('/doctor/registration')
+          const session = response.data.data['session'];     
+
+          if (session != null) {
+            storeData('ACCESS_TOKEN', session.access_token);
+            storeData('REFRESH_TOKEN', session.refresh_token);
+            history.push('/doctor/homePage'); 
+          } else {
+            history.push('/doctor/registration')
+          }
         }
         else {
           addToast(response.data.message, { appearance: 'error' });

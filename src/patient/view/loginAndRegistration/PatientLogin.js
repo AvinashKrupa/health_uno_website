@@ -16,7 +16,7 @@ import {AuthContext} from '../../../context/AuthContextProvider';
 import CustomButton from '../../../commonComponent/Button';
 import {useToasts} from 'react-toast-notifications';
 
-const Homepage = ({history}) => {
+const PatientLogin = ({history}) => {
   const { addToast } = useToasts();
   const authContext = useContext(AuthContext);
   const [mobileNumber, setMobileNumber] = useState('');
@@ -33,7 +33,7 @@ const Homepage = ({history}) => {
       .then(response => {
         if (response.status === 200) {
           addToast(response.data.message, { appearance: 'success' });
-          history.push('/otp');
+          history.push('/patient/otp');
         }  else {
           addToast(response.data.message, { appearance: 'error' }); 
         }
@@ -126,4 +126,4 @@ const Homepage = ({history}) => {
   );
 };
 
-export default Homepage;
+export default PatientLogin;

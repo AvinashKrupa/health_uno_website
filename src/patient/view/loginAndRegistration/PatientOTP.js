@@ -44,7 +44,15 @@ const OTP = ({history}) => {
             storeData('TEMP_TOKEN', temp);
           } 
 
-          history.push('/registration')
+          const session = response.data.data['session'];     
+          if (session != null) {
+            storeData('ACCESS_TOKEN', session.access_token);
+            storeData('REFRESH_TOKEN', session.refresh_token);
+            history.push('/patient/home')
+          } else {
+
+            history.push('/patient/registration');
+          }
         }
         else {
           addToast(response.data.message, { appearance: 'error' });

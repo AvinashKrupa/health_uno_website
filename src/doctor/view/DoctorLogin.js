@@ -33,7 +33,7 @@ const DoctorLogin = ({history}) => {
       .then(response => {
         if (response.status === 200) {
           addToast(response.data.message, { appearance: 'success' });
-          history.push('/doctor-otp');
+          history.push('/doctor/otp');
         }  else {
           addToast(response.data.message, { appearance: 'error' }); 
         }
