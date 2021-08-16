@@ -6,6 +6,7 @@ import {API, get} from '../../../api/config/APIController';
 import { useEffect, useState } from "react";
 import { useToasts } from 'react-toast-notifications';
 import "react-input-range/lib/css/index.css";
+import CustomButton from '../../../commonComponent/Button'
 
 let isDefaultSet = true;
 
@@ -78,7 +79,7 @@ const FilterConsultants = (props) => {
     <>
       <Row className="filter_menu_continer">
         <Col style={{ paddingLeft: "26px", paddingRight: "16px" }}>
-          <Row style={{ marginTop: "40px" }}>
+          <Row style={{ marginTop: "40px" }} className='filter-close'>
             <span
               style={{
                 height: "12px",
@@ -103,10 +104,10 @@ const FilterConsultants = (props) => {
           <Row style={{ marginTop: "15.5px" }}>
             <hr className="rounded"></hr>
           </Row>
-          <Row style={{ marginTop: "25px" }}>
+          <Row >
             <span
               className="filter_menu_h4"
-              style={{ paddingLeft: "16px", paddingTop: "25px" }}
+              style={{ paddingLeft: "16px"}}
             >
               Sort By
             </span>
@@ -182,19 +183,17 @@ const FilterConsultants = (props) => {
             ) : null}
           </Row>
 
-          <div>
-            <Button className="filter_menu_h5"
-             style={{ cursor: 'pointer', backgroundColor: '#28A3DA' }}
-             onClick={() => filter()}
-            >
-              Apply
-            </Button>
-            <Button className="filter_menu_h5"
-             style={{ cursor: 'pointer', backgroundColor: 'white', color: '#272727'}}
-             onClick={() => setDefaultValue()}
-            >
-              Clear
-            </Button>
+          <div >
+            <CustomButton
+              className="filter_menu_h5"
+              onClick={(e) => filter()}
+              text={'Apply'}
+            ></CustomButton>
+             <CustomButton
+              className="filter_menu_h5"
+              onClick={(e) =>  setDefaultValue()}
+              text={'Clear'}
+            ></CustomButton>
           </div>
         </Col>
       </Row>

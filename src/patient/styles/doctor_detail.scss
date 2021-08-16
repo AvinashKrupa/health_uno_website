@@ -30,7 +30,7 @@
   }
   
   .doctor_details_color_h5 {
-    margin-top: 5px;
+    margin-top: 10px;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -50,3 +50,26 @@
     border-radius: 8px !important;
     margin-bottom: 51px;
   }
+
+
+  @media only screen and (max-width: 480px) { 
+    .doctor_details_h3 {
+      margin-top: 50px;
+    }
+    
+    img {
+      margin-left: 70px !important;
+    }
+  }
+  @media only screen and (max-width: 376px) { 
+    .carousel_container {
+      height: 207px !important;
+      width: 314px !important;
+    }
+
+    img {
+      margin-left: 80px !important;
+    }
+  }
+
+

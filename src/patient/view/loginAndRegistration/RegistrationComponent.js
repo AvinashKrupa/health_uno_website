@@ -403,7 +403,7 @@ function registerUserAPICalling() {
           <Col md>
             <Input
               type="text"
-              placeholder="Enter address (optional)"
+              placeholder="Enter address"
               id="addressLine1"
               label="Address Line 1"
               value={addressLine1}
@@ -608,6 +608,7 @@ function registerUserAPICalling() {
               }
             }
           }></CustomButton>
+          
        </Row>
       </div>
     </div>

@@ -82,5 +82,23 @@
   }
 
 
+  @media only screen and (max-width: 480px) { 
+    .carousel_container {
+      height: 207px !important;
+      width: 350px !important;
+    }
+    img {
+      margin-left: 70px !important;
+    }
+  }
+  @media only screen and (max-width: 376px) { 
+    .carousel_container {
+      height: 207px !important;
+      width: 314px !important;
+    }
 
- 
+    img {
+      margin-left: 80px !important;
+    }
+  }
+

@@ -112,6 +112,7 @@ const PatientLogin = ({history}) => {
                     </p>
                   </InputGroup>
                   <CustomButton
+                      className={'login-btn'}
                       disabled={mobileNumber.length !== 10} 
                       onClick={onClick}
                       text={'Continue'}

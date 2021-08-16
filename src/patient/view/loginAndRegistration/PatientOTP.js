@@ -180,7 +180,7 @@ const OTP = ({history}) => {
             <Row className='number-input'>
               <Col lg='3' md='3'  sm='2'  xs='1'></Col>
               <Col lg='8' md='8' sm='9' xs='10'>
-                <div>
+                <div className='otp-text-container'>
                   <Row className='verify-otp'>
                       <span>Verify OTP</span>
                         <div className='edit-number'>

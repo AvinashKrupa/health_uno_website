@@ -3,7 +3,6 @@ import './homepage.scss';
 import './otp.scss';
 import './pat_registration.scss';
 import './patient_homepage.scss';
-import './doctor_card.scss';
 import './specialty_card.scss';
 import './carousel.scss';
 import './top_consultants.scss'; 
@@ -23,3 +22,10 @@ import '../../doctor/styles/profilePictureColumn.scss';
 // Common 
 import './text_area.scss';
 import '../../doctor/styles/slot_generator.scss';
+
+
+//Media query
+import './mediaQuery/media_375px.scss'
+import './mediaQuery/media_414px.scss'
+import './mediaQuery/media_768px.scss'
+import './mediaQuery/media_1024px.scss'

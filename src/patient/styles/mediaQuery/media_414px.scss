@@ -1,0 +1,67 @@
+@media only screen and (min-width: 414px) {
+
+    .top-consultants-container {
+        .search-container input {
+            width: unset !important;
+        }
+
+        button {
+            position: absolute;
+            right: 48px;
+            top: 0px;
+        }
+    }
+    
+    .speciality-card-container {
+        margin: 10px 20px !important;
+    }
+
+    .specialities-container {
+        padding-left: unset !important;
+    }
+
+    .doctor-card-image  {
+        width: 115px;
+        margin-right: 25px;
+        margin-left: 30px;
+        margin-top: 20px;
+        margin-bottom: 1px;
+        object-fit: cover;
+        height: 135px;
+    }
+
+    .MuiCardContent-root {
+        padding-left: unset !important;
+    }
+
+    .color_card_circle img {
+        left: -50px !important;
+    }
+
+    .doctor_details_button {
+        width: 345px !important;
+        margin-top: 20px!important;
+        margin-bottom: unset !important;
+    }
+
+    .color-card-container {
+        margin-top: 0px !important;
+    }
+
+    .doctor-detail-text-container {
+        padding-right: unset !important;
+    }
+
+    .doctor-back-navigation {
+        margin-bottom: 30px !important;
+    }
+
+    .doctor-detail-text-container {
+        margin-top: 20px;
+    }
+
+    .doctor-detail-image {
+        height: 150px !important;
+        width: 150px !important;
+    }
+}
