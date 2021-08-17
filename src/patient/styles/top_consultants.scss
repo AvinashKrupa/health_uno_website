@@ -6,21 +6,21 @@
     .top-consultants-card-container {
         margin-top: 51px;
     }
+}
 
-    .back-navigation {
-        margin-top: 32px;
+.back-navigation {
+    margin-top: 32px;
 
-        span {
-            font-size: 24px;
-        }
+    span {
+        font-size: 24px;
+    }
 
-        a {
-            color: #1B1B1B;
-            text-decoration: none;
-            .fa-arrow-left {
-                font-size: 17px;
-                width: 24px;
-            }
+    a {
+        color: #1B1B1B;
+        text-decoration: none;
+        .fa-arrow-left {
+            font-size: 17px;
+            width: 24px;
         }
     }
 }

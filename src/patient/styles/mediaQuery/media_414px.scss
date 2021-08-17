@@ -64,4 +64,46 @@
         height: 150px !important;
         width: 150px !important;
     }
+
+    //slot booking
+    .slot-timings-title {
+        margin-right: unset !important;
+    }
+
+    .slot-timings-button, .days-button {
+        width: 65px !important;
+        margin-bottom: 10px !important;
+        margin-right: 10px !important
+    }
+    .patient-slot-booking {
+        .fa-chevron-left {
+            padding-right: 15px !important;
+        }
+        .fa-chevron-right {
+            padding-left: 10px !important;
+        }
+    } 
+    .patient-slot-booking-cal {
+        flex-direction: column-reverse !important;
+        .fa-calendar-alt-slot {
+            display: none !important;
+        }
+
+        .slot-calendar {
+            padding-top: unset !important;
+            margin-bottom: 10px;
+        }
+    }
+
+    .slot-timings-title {
+        width: 71px;
+        font-weight: 500;
+        line-height: unset;
+        letter-spacing: unset; 
+        padding-top: 10px;
+    }
+
+    .slot-evening, .slot-day {
+        margin-top: 20px;
+    }
 }
