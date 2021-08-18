@@ -30,6 +30,7 @@ export const API = {
   DOCTOR_HOME_CONTENT_API: 'doctor/homeContent',
   DOCTOR_GET_APPOINTMENTS_API: 'doctor/getAppointments',
   DOCTOR_DETAIL_API: 'doctor/getDoctorDetails',
+  APPOINTMENT_DETAIL_API: 'appointment/getDetails',
 };
 
 export function post(endPoint, params, isStringfy = true) {

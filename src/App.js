@@ -19,7 +19,7 @@ function App() {
     <div className="App">
         <BrowserRouter>
           <Route exact path="/" component={PatientLogin} />
-          <Route exact path="/doctor/homePage" component={DoctorHomePage} />
+          <Route exact path="/doctor/home" component={DoctorHomePage} />
           <Route exact path="/doctor" component={DoctorLogin} />
           <PrivateRoute exact path='/doctor/otp' component={DoctorOTP} />
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />

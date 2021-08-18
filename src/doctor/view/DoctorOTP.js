@@ -59,7 +59,7 @@ const DoctorOTP = ({history}) => {
           if (session != null) {
             storeData('ACCESS_TOKEN', session.access_token);
             storeData('REFRESH_TOKEN', session.refresh_token);
-            history.push('/doctor/homePage');
+            history.push('/doctor/home');
           } else {
             history.push('/doctor/registration')
           }
