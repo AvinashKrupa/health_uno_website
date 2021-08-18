@@ -10,6 +10,8 @@ import { useToasts } from "react-toast-notifications";
 import CustomStepper from "./CustomStepper";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import {API, post} from '../../../api/config/APIController';
+import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
+import useUserStore from "../../store/userStore";
 
 const MultiStepFormRegistration = ({history}) => {
   const authContext = useContext(AuthContext);
@@ -49,8 +51,9 @@ const MultiStepFormRegistration = ({history}) => {
   const [dataMorningShift, setDataMorningShift] = useState([]);
   const [dataEveningShift, setDataEveningShift] = useState([]);
 
-  
+
   const { addToast } = useToasts();
+  const setUserInfo =  useUserStore((state) => state.setUserInfo)
   const [activeStep, setActiveStep] = useState(1);
   const [nextDisabled, setNextDisabled] = useState(false);
   const [prevDisabled, setPrevDisabled] = useState(true);
@@ -59,7 +62,14 @@ const MultiStepFormRegistration = ({history}) => {
     post(API.REGISTERDOCTOR, params, true)
       .then(response => {
         if (response.status === 200) {
-          history.push('/doctor/homePage'); 
+          const user = response.data.data['user'];
+
+          if(user) {
+            storeData('userInfo', JSON.stringify(user));
+            setUserInfo(user)
+            debugger
+          }
+          history.push('/doctor/homePage');
           addToast(response.data.message, { appearance: 'success' });
         } else {
           addToast(response.data.message, { appearance: 'error' });
@@ -75,19 +85,19 @@ const MultiStepFormRegistration = ({history}) => {
     let slots =  [];
 
     if(isDayShift) {
-    
+
       slots = [...slots, ...daySlots];
-    } 
+    }
 
     if(isEveningShift) {
-      
+
       slots = [...slots, ...eveningSlots]
     }
     selectedDays.map((day) => {
       const dayName = day.slice(0,3).toLowerCase();
       daysObj[`${dayName}`] = true
     })
-    
+
     let params = {
       mobile_number: mobile,
       country_code: "+91",
@@ -288,17 +298,17 @@ const MultiStepFormRegistration = ({history}) => {
   const handleNext = () => {
     let isFormValid = false;
     if(activeStep === 1) {
-      
+
       isFormValid = pageOneValidation();
 
-    } 
-    
+    }
+
     if(activeStep === 2) {
       isFormValid = pageTwoValidation();
     }
 
     if(activeStep === 3) {
-      isFormValid = pageThreeValidation(); 
+      isFormValid = pageThreeValidation();
       isFormValid && registerUserAPICalling();
     }
       if (isFormValid) {
@@ -308,7 +318,7 @@ const MultiStepFormRegistration = ({history}) => {
         disableNext(tempActiveStep);
         disablePrev(tempActiveStep);
       }
-    
+
   };
 
   const handlePrev = () => {
@@ -336,7 +346,7 @@ const MultiStepFormRegistration = ({history}) => {
            <CustomStepper activeStep={activeStep} ></CustomStepper>
       <Row>
         <Col>
-          { activeStep === 1 && 
+          { activeStep === 1 &&
             <DocRegistrationPage1
               firstName={firstName}
               lastName={lastName}
@@ -362,7 +372,7 @@ const MultiStepFormRegistration = ({history}) => {
               onClick={handleNext} />
           }
 
-          { activeStep === 2 && 
+          { activeStep === 2 &&
               <DocRegistrationPage2
                 councilRegistrationNo={councilRegistrationNo}
                 dateOfRegistration={dateOfRegistration}
@@ -379,7 +389,7 @@ const MultiStepFormRegistration = ({history}) => {
                 onClick={handleNext} />
           }
 
-          { activeStep === 3 && 
+          { activeStep === 3 &&
               <DocRegistrationPage3
               selectedDays={selectedDays}
               daySlots={daySlots}
@@ -409,7 +419,7 @@ const MultiStepFormRegistration = ({history}) => {
               <Col className='form-btn'>
                <CustomButton
                       className='multistepform-button'
-                      disabled={false} 
+                      disabled={false}
                       onClick={handleNext}
                       text={'Continue'}
                 ></CustomButton>
