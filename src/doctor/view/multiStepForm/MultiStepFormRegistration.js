@@ -67,7 +67,6 @@ const MultiStepFormRegistration = ({history}) => {
           if(user) {
             storeData('userInfo', JSON.stringify(user));
             setUserInfo(user)
-            debugger
           }
           history.push('/doctor/homePage');
           addToast(response.data.message, { appearance: 'success' });

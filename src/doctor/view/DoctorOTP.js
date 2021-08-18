@@ -52,7 +52,6 @@ const DoctorOTP = ({history}) => {
             if(user) {
                 storeData('userInfo', JSON.stringify(user));
                 setUserInfo(user)
-                debugger
             }
 
           const session = response.data.data['session'];
