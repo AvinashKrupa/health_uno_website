@@ -5,7 +5,7 @@ import './pat_registration.scss';
 import './patient_homepage.scss';
 import './specialty_card.scss';
 import './carousel.scss';
-import './top_consultants.scss'; 
+import './top_consultants.scss';
 import './filter_consultants.scss';
 import './checkbox_list.scss';
 import './similar_doctor_card.scss';
@@ -20,9 +20,10 @@ import './razorpay.scss';
 import '../../doctor/styles/multiStepForm.scss';
 import '../../doctor/styles/patientRegistrationPage1.scss';
 import '../../doctor/styles/profilePictureColumn.scss';
+import '../../doctor/styles/dashboard.scss';
 
 
-// Common 
+// Common
 import './text_area.scss';
 import '../../doctor/styles/slot_generator.scss';
 
