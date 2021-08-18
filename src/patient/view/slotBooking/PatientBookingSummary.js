@@ -32,7 +32,7 @@ const PatientBookingSummary = (props) => {
     const userInfo =  userStore((state) => state.userInfo)
 
     function getDoctorDetails() {
-        post(API.GETDOCTORDETAILS, {doctor_id: props.match.params.doctor_id, include_similar: true })
+        post(API.GET_DOCTOR_DETAILS, {doctor_id: props.match.params.doctor_id, include_similar: true })
         .then(response => {
             if (response.status === 200) {
             setDoctorDetails(response.data.data);
@@ -74,7 +74,7 @@ const PatientBookingSummary = (props) => {
                 slot: startTime,
                 date: moment(date).format('YYYY-MM-DD'),
               };
-          
+
               post(API.BOOKAPPOINTMENT, params)
                 .then(response => {
                   if (response.status === 200) {
@@ -111,7 +111,7 @@ const PatientBookingSummary = (props) => {
             const paymentObject = new window.Razorpay(options);
             paymentObject.open();
         })
-    
+
         const userInfo1 = JSON.parse(getData('userInfo'));
         const options = {
           description: 'Video Consulation',
@@ -148,7 +148,7 @@ const PatientBookingSummary = (props) => {
               addToast(error.response.data.message, { appearance: 'error' });
             });
 
-           
+
         },
         };
       }
@@ -159,7 +159,7 @@ const PatientBookingSummary = (props) => {
             <Col lg="1" md='1' sm='1' xs='1'/>
             <Col lg="11"  md='11' sm='11'  xs='10' className='doctor-detail-container'>
                 {
-                    doctorDetails && 
+                    doctorDetails &&
                     <>
                         <Row style={{ marginBottom: "50px" }} className='doctor-back-navigation'>
                             <Row className='back-navigation'>
@@ -175,7 +175,7 @@ const PatientBookingSummary = (props) => {
                                             width: '150px',
                                             borderRadius: '78px',
                                             border: '1px solid #000000',
-                                        }}/> 
+                                        }}/>
                                     </Col>
                                     <Col lg="9" style={{ marginLeft: "50px" }}>
                                         <Row>
@@ -207,7 +207,7 @@ const PatientBookingSummary = (props) => {
                                                 </Row>
                                             </Col>
                                         </Row>
-                                    
+
                                     </Col>
                                 </Row>
 
@@ -219,10 +219,10 @@ const PatientBookingSummary = (props) => {
                                             row="3"
                                             value={complaints}
                                             placeholder="Write here"
-                                            onChange={setComplaints}    
+                                            onChange={setComplaints}
                                         />
                                     </Col>
-                                    
+
                                     <Col lg="4">
                                     <Container className='slot-appointment-container'>
                                             <div style={{display: 'flex', justifyContent: 'space-between'}}>

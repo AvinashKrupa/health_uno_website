@@ -59,7 +59,7 @@ const MultiStepFormRegistration = ({history}) => {
   const [prevDisabled, setPrevDisabled] = useState(true);
 
   function registerLogin(params) {
-    post(API.REGISTERDOCTOR, params, true)
+    post(API.REGISTER_DOCTOR, params, true)
       .then(response => {
         if (response.status === 200) {
           const user = response.data.data['user'];

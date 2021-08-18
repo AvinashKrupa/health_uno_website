@@ -18,7 +18,7 @@ const DoctorDetails = (props) => {
     const [doctorDetails, setDoctorDetails] = useState();
 
     function getDoctorDetails() {
-        post(API.GETDOCTORDETAILS, {doctor_id: props.match.params.doctor_id, include_similar: true })
+        post(API.GET_DOCTOR_DETAILS, {doctor_id: props.match.params.doctor_id, include_similar: true })
         .then(response => {
             if (response.status === 200) {
             setDoctorDetails(response.data.data);
@@ -43,7 +43,7 @@ const DoctorDetails = (props) => {
             <Col lg="1" md='1' sm='1' xs='1'/>
             <Col lg="11"  md='11' sm='11'  xs='10' className='doctor-detail-container'>
                 {
-                    doctorDetails && 
+                    doctorDetails &&
                     <>
                         <Row style={{ marginBottom: "50px" }} className='doctor-back-navigation'>
                         <Row className='back-navigation'>
@@ -59,7 +59,7 @@ const DoctorDetails = (props) => {
                                         width: '150px',
                                         borderRadius: '78px',
                                         border: '1px solid #000000',
-                                    }}/> 
+                                    }}/>
                                 </Col>
                                 <Col lg="9" className='doctor-detail-text-container' style={{ paddingRight: "70px" }}>
                                 <Row>
@@ -83,7 +83,7 @@ const DoctorDetails = (props) => {
                                     <Col>
                                     <Link to={`/patient/slotBooking/${props.match.params.doctor_id}`} >
                                         <CustomButton
-                                            className="doctor_details_button" 
+                                            className="doctor_details_button"
                                             text={'Book Appointment'}
                                         ></CustomButton>
                                     </Link>
@@ -142,10 +142,10 @@ const DoctorDetails = (props) => {
                                                         return(
                                                             <tr>
                                                             <td style={{fontWeight: '500'}}>{key.charAt(0).toUpperCase() + key.slice(1)}</td>
-                                                                { 
-                                                                
+                                                                {
+
                                                                 doctorDetails.day[key] ?
-                                                                    <> 
+                                                                    <>
                                                                         <td>{`${convert24hto12h(doctorDetails.shift.shift1.start)}  -
                                                                             ${convert24hto12h(doctorDetails.shift.shift1.end)}`}</td>
                                                                             <td>{`${convert24hto12h(doctorDetails.shift.shift2.start)}  -

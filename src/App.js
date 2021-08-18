@@ -7,7 +7,7 @@ import DoctorLogin from "./doctor/view/DoctorLogin";
 import PatientLogin from './patient/view/loginAndRegistration/PatientLogin';
 import DoctorOTP from "./doctor/view/DoctorOTP";
 import MultiStepFormRegistration from "./doctor/view/multiStepForm/MultiStepFormRegistration";
-import DoctorHomePage from './doctor/view/DoctorHomePage';
+import DoctorHomePage from "./doctor/view/Home/DoctorHomePage";
 import TopConsultants from './patient/view/Home/TopConsultants';
 import Specialities from './patient/view/Home/Specialities'
 import DoctorDetails from "./patient/view/doctorDetail/DoctorDetail";
@@ -31,7 +31,7 @@ function App() {
           <PrivateRoute exact path='/patient/doctorDetails/:doctor_id' component={DoctorDetails} />
           <PrivateRoute exact path='/patient/slotBooking/:doctor_id' component={PatientSlotBooking} />
           <PrivateRoute exact path='/patient/bookingSummary/:doctor_id' component={PatientBookingSummary} />
-         
+
         </BrowserRouter>
     </div>
   );

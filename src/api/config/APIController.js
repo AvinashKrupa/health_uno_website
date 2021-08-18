@@ -19,11 +19,17 @@ export const API = {
   GETSPECIALITIES: 'specialities',
   GETQUALIFICATIONS: 'qualifications',
   GETSLOTS: 'slot/getSlots',
-  REGISTERDOCTOR: 'auth/registerDoctor',
-  GETDOCTORDETAILS: 'doctor/getDoctorDetails',
   GETAVAILABLESLOT :'slot/getAvailableSlots',
   BOOKAPPOINTMENT: 'patient/bookAppointment',
   CONFIRMPAYENT: 'transaction/confirmPayment',
+  /**
+   * Doctor related APIS
+   */
+  REGISTER_DOCTOR: 'auth/registerDoctor',
+  GET_DOCTOR_DETAILS: 'doctor/getDoctorDetails',
+  DOCTOR_HOME_CONTENT_API: 'doctor/homeContent',
+  DOCTOR_GET_APPOINTMENTS_API: 'doctor/getAppointments',
+  DOCTOR_DETAIL_API: 'doctor/getDoctorDetails',
 };
 
 export function post(endPoint, params, isStringfy = true) {
