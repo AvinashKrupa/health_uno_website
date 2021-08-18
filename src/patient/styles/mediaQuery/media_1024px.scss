@@ -12,4 +12,59 @@
         margin-bottom: 1px;
     }
 
+    //slot booking
+    .slot-timings-title {
+        margin-right: unset !important;
+    }
+
+    .slot-timings-button, .days-button {
+        width: 160px !important;
+        margin-bottom: 10px !important;
+        margin-right: 5px;
+    }
+
+    .slot-timings-button {
+        height: 50px;
+    }
+
+    .patient-slot-booking {
+        .fa-chevron-left {
+            padding-right: 51px !important;
+        }
+        .fa-chevron-right {
+            padding-left: 51px !important;
+        }
+    } 
+    .patient-slot-booking-cal {
+        flex-direction: row !important;
+        .fa-calendar-alt-slot {
+            display: block !important;
+        }
+
+        .slot-calendar {
+            padding-top: 10px !important;
+            margin-bottom: 10px;
+        }
+    }
+
+    .slot-timings-title {
+        width: 71px;
+        font-weight: 500;
+        line-height: unset;
+        letter-spacing: unset; 
+        padding-top: 10px;
+    }
+
+    .slot-evening, .slot-day {
+        margin-top: 47px;
+    }
+
+    .back-navigation {
+        margin-bottom: 43px !important;
+    }
+
+    .slot-appointment-container {
+        margin-top: unset !important;
+    }
+
 }

@@ -12,6 +12,8 @@ import { useToasts } from 'react-toast-notifications';
 import {API, get, post} from '../../../api/config/APIController';
 import CustomButton from '../../../commonComponent/Button';
 import { withRouter } from "react-router-dom";
+import useUserStore from '../../store/userStore'
+import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const RegistrationComponent = ({history}) => {
 
@@ -23,6 +25,7 @@ const RegistrationComponent = ({history}) => {
   }, []);
 
   const { addToast } = useToasts();
+  const setUserInfo =  useUserStore((state) => state.setUserInfo)
   const authContext = useContext(AuthContext);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -322,6 +325,12 @@ function registerUserAPICalling() {
   post(API.REGISTERPATIENT, params, true)
     .then(response => {
       if (response.status === 200) {
+         const user = response.data.data['user'];
+
+          if(user) {
+            storeData('userInfo', JSON.stringify(user));
+            setUserInfo(user);
+          }
         addToast(response.data.message, { appearance: 'success' });
         history.push('/patient/home')
       } else {

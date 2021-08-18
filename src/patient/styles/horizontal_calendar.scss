@@ -1,0 +1,62 @@
+.patient-slot-booking {
+    .fa-chevron-right {
+        padding-left: 51px;
+        padding-top: 20px;
+    }
+
+    .fa-chevron-left {
+        padding-right: 51px;
+        padding-top: 20px;
+    }   
+}
+
+.react-datepicker-wrapper {
+    padding-left: 100px !important;
+
+    input {
+        width: 100px;
+    }
+
+    
+}
+
+.fa-calendar-alt-slot {
+    padding-left: 10px !important;
+    border-color: #28A3DA;
+    color: #28A3DA;
+}
+
+.patient-slot-booking-btn {
+    margin-top: 54px;
+    width: 335px;
+    height: 50px;
+    background: #28A3DA;
+    border-radius: 8px;
+    margin-bottom: 61px;
+}
+
+.patient-order-booking-btn {
+    margin-top: 54px;
+    width: 335px;
+    height: 50px;
+    background: #28A3DA;
+    border-radius: 8px;
+    margin-bottom: 61px;
+    margin-left: 20px;
+}
+
+.patient-booking-detail {
+    .textarea-label {
+        font-weight: 500;
+        font-size: 20px;
+    }
+    
+}
+
+.slot-appointment-detail {
+    margin-top: 10px;
+    padding: 35px;
+    border: 2px solid rgba(27, 27, 27, 0.15);
+    box-sizing: border-box;
+    border-radius: 8px;
+}

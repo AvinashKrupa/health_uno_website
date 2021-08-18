@@ -1,4 +1,4 @@
-import { Row, Col, Image, Table, Button } from "react-bootstrap";
+import { Row, Col, Image, Table } from "react-bootstrap";
 import {Link} from "react-router-dom";
 import SimilarDoctorsCard from "./SimilarDoctorsCard";
 import ColorCard from "./ColorCard";
@@ -81,10 +81,12 @@ const DoctorDetails = (props) => {
                                          </Row>
                                     </Col>
                                     <Col>
-                                    <CustomButton
-                                        className="doctor_details_button" 
-                                        text={'Book Appointment'}
-                                    ></CustomButton>
+                                    <Link to={`/patient/slotBooking/${props.match.params.doctor_id}`} >
+                                        <CustomButton
+                                            className="doctor_details_button" 
+                                            text={'Book Appointment'}
+                                        ></CustomButton>
+                                    </Link>
                                     </Col>
                                 </Row>
                                 <Row style={{ marginTop: "20px", marginBottom: "48px" }} className='color-card-container'>

@@ -14,6 +14,7 @@ import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import CustomButton from '../../../commonComponent/Button';
 import { useToasts } from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
+import useUserStore from '../../store/userStore';
 
 const timeOut = 60;
 const OTP = ({history}) => {
@@ -24,6 +25,7 @@ const OTP = ({history}) => {
   const handleChange = otp => setOTP(otp);
   const [restart, setReStart] = useState(false);
   const [timer, setTimer] = useState(timeOut);
+  const setUserInfo =  useUserStore((state) => state.setUserInfo)
 
   const verifyOTP = () => {
     let params = {
@@ -43,6 +45,13 @@ const OTP = ({history}) => {
           if (response.data.data['tempAccessToken'] != null) {
             storeData('TEMP_TOKEN', temp);
           } 
+
+          const user = response.data.data['user'];
+
+          if(user) {
+            storeData('userInfo', JSON.stringify(user));
+            setUserInfo(user)
+          }
 
           const session = response.data.data['session'];     
           if (session != null) {

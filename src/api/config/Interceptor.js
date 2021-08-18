@@ -36,7 +36,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     if (response.status === 200) {
-      if (response.data.data.session) {
+      if (response.data && response.data.data && response.data.data.session) {
         const token = jwt_decode(response.data.data.session.access_token);
         storeData('ACCESS_TOKEN', response.data.data.session.access_token);
         storeData('REFRESH_TOKEN', response.data.data.session.refresh_token);
