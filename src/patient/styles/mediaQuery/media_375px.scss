@@ -9,22 +9,41 @@
         height: 110px
     }
 
-    .MuiCardContent-root {
-        padding-left: 12px !important;
+    .upcoming-appointment-card-image {
+        height: 100px;
+        width: 80px;
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-bottom: 1px;
+        object-fit: cover;
     }
- 
+    .card-text-time {
+        margin-left: 60px !important;
+    }
+
+    .upcoming-appointment-card-container {
+        margin-right: unset !important
+    }
+
+    .top-consultants-card-container, .doctor-card-container {
+        .MuiCardContent-root {
+            padding-left: 12px !important;
+        }
+      }
+      .doctor-card-doctor-name {
+        font-size: 14px !important;
+       }
 
     .top-consultants-container {
-        .MuiCardContent-root {
-            padding-top: 10px !important;
-        }
+
+        .top-consultants-card-container, .doctor-card-container {
+            .MuiCardContent-root {
+                padding-top: 10px !important;
+            }
+          }
     
         .fa-search {
             display: hidden !important;
-        }
-    
-        .doctor-card-doctor-name {
-            font-size: 14px !important;
         }
     
         .doctor-card-details-link {
@@ -156,6 +175,13 @@
     .slot-appointment-container {
         margin-top: 20px;
     }
+
+
+    .appointment-page-cards-previous {
+        .card-button-join {
+          margin-left: -110px;
+        }
+      }
    
 }
 

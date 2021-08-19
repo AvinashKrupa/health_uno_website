@@ -24,6 +24,7 @@ export const API = {
   GETAVAILABLESLOT :'slot/getAvailableSlots',
   BOOKAPPOINTMENT: 'patient/bookAppointment',
   CONFIRMPAYENT: 'transaction/confirmPayment',
+  GETAPPOINTMENTS: 'patient/getAppointments',
 };
 
 export function post(endPoint, params, isStringfy = true) {

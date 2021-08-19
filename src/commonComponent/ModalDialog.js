@@ -7,19 +7,17 @@ function ModalDialog(props) {
   
     return (
       <>  
-        <Modal show={show} onHide={closeDialog}>
-          <Modal.Header closeButton>
-            <Modal.Title>{title}</Modal.Title>
-          </Modal.Header>
+         <Modal show={show} onHide={closeDialog}>
+           <span className='model-title' >{title}</span>
+           <div>
+           <i class="fas fa-times" onClick={closeDialog} style={{position: 'absolute', right: '21px',top: '18px'}} ></i>
+           </div>
           <Modal.Body>
             {children}
-          </Modal.Body>
-          <Modal.Footer>
-            <span></span>
             <Button variant="primary" onClick={onSubmit}>
               {btnText}
             </Button>
-          </Modal.Footer>
+          </Modal.Body>
         </Modal>
       </>
     );

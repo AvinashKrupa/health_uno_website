@@ -4,6 +4,10 @@
         width: 620px !important;
     }
 
+    .doctor-card-doctor-name {
+        font-size: 18px !important;
+     }
+
     .doctor-card-image {
         height: 151px;
         width: 132px;
@@ -37,5 +41,8 @@
             right: unset;
             top: unset
         }
+    }
+    .modal-content {
+        right: 80px;
     }
 }

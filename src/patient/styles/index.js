@@ -12,6 +12,9 @@ import './similar_doctor_card.scss';
 import './color_card.scss';
 import './doctor_detail.scss';
 import './horizontal_calendar.scss';
+import './appointments.scss';
+import './doctor_appointments_card.scss';
+import './model.scss'; 
 
 
 

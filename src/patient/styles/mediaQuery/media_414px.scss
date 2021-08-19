@@ -30,9 +30,15 @@
         height: 135px;
     }
 
-    .MuiCardContent-root {
-        padding-left: unset !important;
-    }
+    .doctor-card-doctor-name {
+        font-size: 15px !important;
+     }
+
+    .top-consultants-card-container, .doctor-card-container {
+        .MuiCardContent-root {
+            padding-left: unset !important;
+        }
+      }
 
     .color_card_circle img {
         left: -50px !important;
@@ -106,5 +112,9 @@
 
     .slot-evening, .slot-day {
         margin-top: 20px;
+    }
+
+    .modal-content {
+        right: 38px;
     }
 }
