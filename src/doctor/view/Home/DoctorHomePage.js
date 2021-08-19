@@ -1,17 +1,13 @@
-import DoctorCard from "../../../patient/commonComponentPatient/DoctorCard";
 import { Row, Col } from "react-bootstrap";
-import SpecialityCard from "../../../patient/commonComponentPatient/SpecialityCard";
 import { API, get, post } from "../../../api/config/APIController";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
 import CarouselComponent from "../../../commonComponent/CarouselComponent";
 import Grid from "@material-ui/core/Grid";
 import useSearchStore from "../../store/searchStore";
 import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
-import SimilarDoctorsCard from "./../../../patient/view/doctorDetail/SimilarDoctorsCard";
 import moment from "moment";
-import patientSlotBookingStore from "../../../patient/store/patientSlotBookingStore";
 import HorizontalCalendarForDoctor from "../../components/HorizontalCalendarForDoctor";
 import {getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
@@ -21,11 +17,9 @@ const DoctorHomePage = (props) => {
   const { addToast } = useToasts();
   const userInfo = JSON.parse(getData('userInfo'));
   const setSearchText = useSearchStore((state) => state.setSearchText);
-  let [specialities, setSpecialities] = useState([]);
   let [slider, setSlider] = useState([]);
-  let [consultants, setConsultant] = useState([]);
-  const setDate = patientSlotBookingStore((state) => state.setDate);
-  const [currentDate, setCurrentDate] = useState(`${moment(patientSlotBookingStore((state) => state.date)).format('YYYY-MM-DD')}`,'YYYY-MM-DD');
+  let [appointments, setAppointments] = useState([]);
+  const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
   const [selectedDay, setSelectedDay] = useState(moment(currentDate).format('DD'));
 
   useEffect(() => {
@@ -33,6 +27,10 @@ const DoctorHomePage = (props) => {
     getHomeContent();
     getDoctorAppointments();
   }, []);
+
+  useEffect(() => {
+    getDoctorAppointments();
+  }, [currentDate]);
 
   function getHomeContent() {
     get(API.DOCTOR_HOME_CONTENT_API)
@@ -54,6 +52,7 @@ const DoctorHomePage = (props) => {
       page:1,
       sort_order: "desc",
       sort_key: "created_at",
+      date: currentDate,
       status: [
         "pending",
         "scheduled",
@@ -65,7 +64,7 @@ const DoctorHomePage = (props) => {
     }, true)
       .then((response) => {
         if (response.status === 200) {
-          setConsultant(response.data.data.docs);
+          setAppointments(response.data.data.docs);
         } else {
           addToast(response.data.message, { appearance: "error" });
         }
@@ -85,19 +84,14 @@ const DoctorHomePage = (props) => {
 
   const onDateSelect = (dateNumber, date) => {
     const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
-    console.log('selectedDate: ', date);
-    console.log('selectedDate1: ', selectedDate);
     setCurrentDate(selectedDate)
     setSelectedDay(dateNumber);
-    setDate(date)
-
   };
 
   function setDateValue(date) {
     const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
     setCurrentDate(selectedDate);
     setSelectedDay(moment(date).format('DD'));
-    setDate(selectedDate)
   }
   return (
     <>
@@ -119,21 +113,19 @@ const DoctorHomePage = (props) => {
               </div>
               <div className="upcoming-appointment-container">
                 <span className="upcoming-appointment-text">Upcoming Appointments</span>
-                <span className="upcoming-appointment-view_all" style={{cursor: 'pointer'}} onClick={(e) => props.history.push("/patient/specialities")}>View all</span>
+                <span className="upcoming-appointment-view_all" style={{cursor: 'pointer'}} onClick={(e) => props.history.push("/doctor/upcomingAppointments")}>View all</span>
               </div>
               <HorizontalCalendarForDoctor
                   date={currentDate}
-                  numberOfDays={2}
                   selectedDay={selectedDay}
                   setDateValue={setDateValue}
                   setSelectedDay={onDateSelect}
-                  // slot_id={slot}
               />
 
             </Col>
           </Row>
           <Row style={{ marginTop: "32px", marginBottom: "32px", display: "flex", flexDirection: "row" }}>
-            {consultants && consultants.map((doctor) => {
+            {appointments && appointments.map((doctor) => {
               return (
                 <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
                     <PatientAppointmentCard
@@ -150,6 +142,13 @@ const DoctorHomePage = (props) => {
                 </Grid>
               );
             })}
+            {!appointments.length &&
+            <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
+              <div className="empty-list-container">
+                <h4>No appointments found</h4>
+              </div>
+            </Grid>
+            }
           </Row>
           <CarouselComponent sliders={slider} />
         </Col>

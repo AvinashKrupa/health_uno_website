@@ -1,3 +1,6 @@
+/**
+ Common styles
+ */
 .grey{
   color: rgba(27, 27, 27, 0.5);
 }
@@ -6,6 +9,17 @@
   margin-left: 10px;
 }
 
+.empty-list-container{
+  min-width: 600px;
+  width: 80%;
+  height: 300px;
+  text-align-last: center;
+  padding-top: 40px;
+}
+
+/**
+ styles for doctor dashbaord
+ */
 .welcome-text-container {
   display: flex;
   flex-direction: row;
@@ -148,8 +162,5 @@
       color: #F6921E;
     }
   }
-
-
-
 }
 
