@@ -19,7 +19,6 @@ export const API = {
   GETSPECIALITIES: 'specialities',
   GETQUALIFICATIONS: 'qualifications',
   GETSLOTS: 'slot/getSlots',
-  REGISTERDOCTOR: 'auth/registerDoctor',
   GETDOCTORDETAILS: 'doctor/getDoctorDetails',
   GETAVAILABLESLOT :'slot/getAvailableSlots',
   BOOKAPPOINTMENT: 'patient/bookAppointment',
@@ -32,7 +31,6 @@ export const API = {
   GET_DOCTOR_DETAILS: 'doctor/getDoctorDetails',
   DOCTOR_HOME_CONTENT_API: 'doctor/homeContent',
   DOCTOR_GET_APPOINTMENTS_API: 'doctor/getAppointments',
-  DOCTOR_DETAIL_API: 'doctor/getDoctorDetails',
   APPOINTMENT_DETAIL_API: 'appointment/getDetails',
 };
 
