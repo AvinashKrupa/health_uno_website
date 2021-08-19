@@ -1,6 +1,18 @@
 @media only screen and (min-width: 1024px) {
-    .MuiCardContent-root {
-        padding-left: 25px !important;
+
+    .upcoming-appointment-card-image {
+        height: 99px;
+        width: 98px;
+        margin-right: 32px;
+        margin-left: 24px;
+        margin-top: 25px;
+        margin-bottom: 1px;
+    }
+
+    .top-consultants-card-container, .doctor-card-container {
+        .MuiCardContent-root {
+            padding-left: 25px !important;
+        }
     }
 
     .doctor-card-image {
@@ -22,6 +34,11 @@
         margin-bottom: 10px !important;
         margin-right: 5px;
     }
+
+    .slot-timings-button {
+        height: 50px;
+    }
+
     .patient-slot-booking {
         .fa-chevron-left {
             padding-right: 51px !important;
@@ -29,7 +46,7 @@
         .fa-chevron-right {
             padding-left: 51px !important;
         }
-    } 
+    }
     .patient-slot-booking-cal {
         flex-direction: row !important;
         .fa-calendar-alt-slot {
@@ -46,7 +63,7 @@
         width: 71px;
         font-weight: 500;
         line-height: unset;
-        letter-spacing: unset; 
+        letter-spacing: unset;
         padding-top: 10px;
     }
 

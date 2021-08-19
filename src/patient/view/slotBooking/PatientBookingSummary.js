@@ -7,9 +7,6 @@ import { useToasts } from 'react-toast-notifications';
 import CustomButton from '../../../commonComponent/Button';
 import TextArea from '../../../commonComponent/TextArea';
 import patientSlotBookingStore from "../../store/patientSlotBookingStore";
-import userStore from "../../store/userStore";
-import Constants from "../../../constants";
-import axios from 'axios';
 import moment from "moment";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import { isEmpty } from "../../../utils/Validators";
@@ -25,14 +22,12 @@ const PatientBookingSummary = (props) => {
     const date = patientSlotBookingStore((state) => state.date);
     const startTime = patientSlotBookingStore((state) => state.startTime);
     const [doctorDetails, setDoctorDetails] = useState('');
-    const [appointmentDetails, setAppointmentDetails] = useState('');
     const [complaints, setComplaints] = useState('');
     let transactionID = '';
     const slot_id =  patientSlotBookingStore((state) => state.slot_id);
-    const userInfo =  userStore((state) => state.userInfo)
 
     function getDoctorDetails() {
-        post(API.GET_DOCTOR_DETAILS, {doctor_id: props.match.params.doctor_id, include_similar: true })
+        post(API.GETDOCTORDETAILS, {doctor_id: props.match.params.doctor_id, include_similar: true })
         .then(response => {
             if (response.status === 200) {
             setDoctorDetails(response.data.data);
@@ -61,7 +56,7 @@ const PatientBookingSummary = (props) => {
         } else {
           return true;
         }
-      }
+    }
 
     function bookSlots() {
         const isValid = validation();
@@ -88,9 +83,9 @@ const PatientBookingSummary = (props) => {
                   addToast(error.response.data.message, { appearance: 'error' });
                 });
         }
-      }
+    }
 
-      function loadScript(src) {
+    function loadScript(src) {
         return new Promise((resolve) => {
             const script = document.createElement("script");
             script.src = src;
@@ -104,7 +99,7 @@ const PatientBookingSummary = (props) => {
         });
     }
 
-      function processRazorPayment(transaction_id, transactionID) {
+    function processRazorPayment(transaction_id, transactionID) {
         loadScript(
             "https://checkout.razorpay.com/v1/checkout.js"
         ).then((res) => {
@@ -151,104 +146,105 @@ const PatientBookingSummary = (props) => {
 
         },
         };
-      }
+    }
 
     return (
         <>
-        <Row>
-            <Col lg="1" md='1' sm='1' xs='1'/>
-            <Col lg="11"  md='11' sm='11'  xs='10' className='doctor-detail-container'>
-                {
-                    doctorDetails &&
-                    <>
-                        <Row style={{ marginBottom: "50px" }} className='doctor-back-navigation'>
-                            <Row className='back-navigation'>
-                                <Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Summary</span></Link>
+            <Row>
+                <Col lg="1" md='1' sm='1' xs='1'/>
+                <Col lg="11"  md='11' sm='11'  xs='10' className='doctor-detail-container'>
+                    {
+                        doctorDetails &&
+                        <>
+                            <Row style={{ marginBottom: "50px" }} className='doctor-back-navigation'>
+                                <Row className='back-navigation'>
+                                    <Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Summary</span></Link>
+                                </Row>
                             </Row>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Row>
-                                    <Col lg="1" >
-                                        <Image src={doctorDetails.dp} className='doctor-detail-image'
-                                            style={{height: '150px',
-                                            width: '150px',
-                                            borderRadius: '78px',
-                                            border: '1px solid #000000',
-                                        }}/>
-                                    </Col>
-                                    <Col lg="9" style={{ marginLeft: "50px" }}>
-                                        <Row>
-                                            <Col lg="3" style={{padding: '20px'}}>
-                                                <span
-                                                    className="doctor_details_h3"
-                                                    style={{ marginBottom: "6px" }}
-                                                >
-                                                {`Dr ${doctorDetails.first_name} ${doctorDetails.last_name}`}
-                                                </span>
-                                                <Row>
-                                                    <span className="doctor_details_color_h5">
-                                                        {
-                                                            doctorDetails.specialities.map((s) => {
-                                                                return(<span key={s} style={{ padding: '5px', marginRight: '10px'}} className='doctor-card-specialization-container'>{s}</span>)
-                                                            })
-                                                        }
+                            <Row>
+                                <Col>
+                                    <Row>
+                                        <Col lg="1" >
+                                            <Image src={doctorDetails.dp} className='doctor-detail-image'
+                                                style={{height: '150px',
+                                                width: '150px',
+                                                borderRadius: '78px',
+                                                border: '1px solid #000000',
+                                            }}/>
+                                        </Col>
+                                        <Col lg="9" style={{ marginLeft: "50px" }}>
+                                            <Row>
+                                                <Col lg="3" style={{padding: '20px'}}>
+                                                    <span
+                                                        className="doctor_details_h3"
+                                                        style={{ marginBottom: "6px" }}
+                                                    >
+                                                    {`Dr ${doctorDetails.first_name} ${doctorDetails.last_name}`}
                                                     </span>
-                                                </Row>
-                                                <Row>
-                                                <span className="doctor-card-doctor-details" style={{ marginTop: "10px"}}>
-                                                     {`${doctorDetails.city}, ${doctorDetails.country} | ${doctorDetails.exp} Y Exp`}
-                                                </span>
-                                                </Row>
-                                            </Col>
-                                            <Col>
-                                                <Row style={{ marginTop: "20px", marginBottom: "48px" }} className='color-card-container'>
-                                                    {doctorDetails &&  <ColorCard fee={doctorDetails.fee} exp={doctorDetails.exp} total_patients={doctorDetails.total_patients}/>}
-                                                </Row>
-                                            </Col>
-                                        </Row>
+                                                    <Row>
+                                                        <span className="doctor_details_color_h5">
+                                                            {
+                                                                doctorDetails.specialities.map((s) => {
+                                                                    return(<span key={s} style={{ padding: '5px', marginRight: '10px'}} className='doctor-card-specialization-container'>{s}</span>)
+                                                                })
+                                                            }
+                                                        </span>
+                                                    </Row>
+                                                    <Row>
+                                                    <span className="doctor-card-doctor-details" style={{ marginTop: "10px"}}>
+                                                        {`${doctorDetails.city}, ${doctorDetails.country} | ${doctorDetails.exp} Y Exp`}
+                                                    </span>
+                                                    </Row>
+                                                </Col>
+                                                <Col>
+                                                    <Row style={{ marginTop: "20px", marginBottom: "48px" }} className='color-card-container'>
+                                                        {doctorDetails &&  <ColorCard fee={doctorDetails.fee} exp={doctorDetails.exp} total_patients={doctorDetails.total_patients}/>}
+                                                    </Row>
+                                                </Col>
+                                            </Row>
 
-                                    </Col>
-                                </Row>
+                                        </Col>
+                                    </Row>
 
-                                <Row className='patient-booking-detail'>
-                                    <Col lg="4">
-                                        <TextArea
-                                            label="Purpose"
-                                            type="textarea"
-                                            row="3"
-                                            value={complaints}
-                                            placeholder="Write here"
-                                            onChange={setComplaints}
-                                        />
-                                    </Col>
+                                    <Row className='patient-booking-detail'>
+                                        <Col lg="4">
+                                            <TextArea
+                                                label="Purpose"
+                                                type="textarea"
+                                                row="3"
+                                                value={complaints}
+                                                placeholder="Write here"
+                                                onChange={setComplaints}
+                                            />
+                                        </Col>
 
-                                    <Col lg="4">
-                                    <Container className='slot-appointment-container'>
-                                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                                <span className='textarea-label'> Appointment Details</span><Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-pen"></i></Link>
-                                            </div>
-                                            <div className='slot-appointment-detail'>
-                                                <div>Date : {date}</div>
-                                                <div>Time : {startTime}</div>
-                                                <div>Type : Video</div>
-                                            </div>
-                                    </Container>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
-                    </>
-                }
-                <div style={{textAlign: 'center'}}>
-                    <CustomButton
-                    className={'patient-order-booking-btn'}
-                    onClick={bookSlots}
-                    text={'Pay & Book'}
-                    ></CustomButton>
-                </div>
-            </Col>
-        </Row>
+                                        <Col lg="4">
+                                        <Container className='slot-appointment-container'>
+                                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                                    <span className='textarea-label'> Appointment Details</span><Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-pen"></i></Link>
+                                                </div>
+                                                <div className='slot-appointment-detail'>
+                                                    <div>Date : {date}</div>
+                                                    <div>Time : {startTime}</div>
+                                                    <div>Type : Video</div>
+                                                </div>
+                                        </Container>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </>
+                    }
+                    <div style={{textAlign: 'center'}}>
+                        <CustomButton
+                        className={'patient-order-booking-btn'}
+                        onClick={bookSlots}
+                        text={'Pay & Book'}
+                        ></CustomButton>
+                    </div>
+                </Col>
+                <Col lg="1" md='1' />
+            </Row>
         </>
     );
 };

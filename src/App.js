@@ -14,6 +14,7 @@ import Specialities from './patient/view/Home/Specialities'
 import DoctorDetails from "./patient/view/doctorDetail/DoctorDetail";
 import PatientSlotBooking from "./patient/view/slotBooking/PatientSlotBooking";
 import PatientBookingSummary from "./patient/view/slotBooking/PatientBookingSummary";
+import Appointments from "./patient/view/appointment/Appointments";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <PrivateRoute exact path='/patient/doctorDetails/:doctor_id' component={DoctorDetails} />
           <PrivateRoute exact path='/patient/slotBooking/:doctor_id' component={PatientSlotBooking} />
           <PrivateRoute exact path='/patient/bookingSummary/:doctor_id' component={PatientBookingSummary} />
-
+          <PrivateRoute exact path='/patient/appointments/' component={Appointments} />
         </BrowserRouter>
     </div>
   );

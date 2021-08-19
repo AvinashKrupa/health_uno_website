@@ -42,7 +42,7 @@ import { isEmpty } from "../../../utils/Validators";
         return true;
       }
     }
-  
+
 
     function setDateValue(date) {
       const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
@@ -91,7 +91,7 @@ import { isEmpty } from "../../../utils/Validators";
             });
             const group = getGroupWiseDate(data);
             setDataMorningShift(group);
-          }  
+          }
           if(response.data.data.shift2) {
             let data = response.data.data.shift2.map(info => {
               const time = info.start.split(":")
@@ -144,12 +144,12 @@ import { isEmpty } from "../../../utils/Validators";
                 setSelectedDay={onDateSelect}
                 slot_id={slot}
               />
-              {  Object.entries(dataMorningShift).length > 0 && 
+              {  Object.entries(dataMorningShift).length > 0 &&
                 <Row className='slot-day'>
                   <Col lg='3'>
                       <span className="H4">Day Shift</span>
                   </Col>
-                </Row>  
+                </Row>
               }
               {  Object.entries(dataMorningShift).length > 0 && dayShiftSlot()}
               <div className='slot-evening'>
@@ -162,7 +162,7 @@ import { isEmpty } from "../../../utils/Validators";
               }
               { Object.entries(dataEveningShift).length > 0 && EveningShiftSlot()}
               </div>
-              { ( Object.entries(dataEveningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) && 
+              { ( Object.entries(dataEveningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) &&
                 <div style={{textAlign: 'center'}}>
                     <CustomButton
                       className={'patient-slot-booking-btn'}

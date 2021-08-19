@@ -10,7 +10,7 @@ const HorizontalCalendar = (props) => {
   const [dates, setDate] = useState([]);
   const size = window.screen.availWidth > 414 ? 7: 4
   const [lastIndex, setLastIndex] = useState(size);
-  
+
   useEffect(() => {
     let datesArr = [];
 
@@ -32,7 +32,7 @@ const HorizontalCalendar = (props) => {
   //     }
   //   }
   // },[]);
-  
+
   const handleDaysClick = (day, info) => {
     setSelectedDay(day, info);
 
@@ -44,15 +44,15 @@ const HorizontalCalendar = (props) => {
   const now = dateFormate.format('ddd');
   const month = dateFormate.format('MMM');
   const active = dateNumber === selectedDay;
-  
+
   return (
         <>
-            <Button className={'days-button'}
-              style={{backgroundColor: active ? '#28A3DA': 'white'}}
-              onClick={(e) =>  handleDaysClick(dateNumber, info)}
-              >
-            <span className="days-button-text">{dateNumber} {now} { window.screen.availWidth >  700 && month}</span>
-            </Button>
+          <Button className={'days-button'}
+            style={{backgroundColor: active ? '#28A3DA': 'white'}}
+            onClick={(e) =>  handleDaysClick(dateNumber, info)}
+            >
+          <span className="days-button-text">{dateNumber} {now} { window.screen.availWidth >  700 && month}</span>
+          </Button>
         </>
   );
 };
@@ -65,7 +65,7 @@ const HorizontalCalendar = (props) => {
             <i className="fas fa-chevron-left" onClick={() => {
                 if(lastIndex > size) {
                     setLastIndex(lastIndex - size)
-                } 
+                }
             }}></i>
 
             {dates.slice(lastIndex - size, lastIndex).map(info => {
@@ -77,7 +77,7 @@ const HorizontalCalendar = (props) => {
                     setLastIndex(lastIndex + size)
                 }
             }}></i>
-        
+
         </div>
         <div className="slot-calendar" style={{display: 'flex', flexDirection: 'row', paddingTop: '10px'}}>
             <DatePicker

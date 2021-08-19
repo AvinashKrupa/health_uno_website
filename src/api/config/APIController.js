@@ -19,9 +19,12 @@ export const API = {
   GETSPECIALITIES: 'specialities',
   GETQUALIFICATIONS: 'qualifications',
   GETSLOTS: 'slot/getSlots',
+  REGISTERDOCTOR: 'auth/registerDoctor',
+  GETDOCTORDETAILS: 'doctor/getDoctorDetails',
   GETAVAILABLESLOT :'slot/getAvailableSlots',
   BOOKAPPOINTMENT: 'patient/bookAppointment',
   CONFIRMPAYENT: 'transaction/confirmPayment',
+  GETAPPOINTMENTS: 'patient/getAppointments',
   /**
    * Doctor related APIS
    */

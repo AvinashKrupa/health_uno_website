@@ -84,7 +84,7 @@ const RegistrationComponent = ({history}) => {
     const cityInfo = value.split('|');
     setCity(cityInfo[1])
   }
-    
+
   const handleDiabetic = (id) => {
     setIsDiabetic(id === 'yes');
 
@@ -106,7 +106,7 @@ const RegistrationComponent = ({history}) => {
   }
 
   const handleSurgerys = (id) => {
-     setIsSurgery(id === 'yes') 
+     setIsSurgery(id === 'yes')
 
     const newSurgerys =  hypertensives.map((item) => {
          return Object.assign({}, item, {checked: item.id === id});
@@ -116,7 +116,7 @@ const RegistrationComponent = ({history}) => {
   }
 
   const handleAllergies = (id) => {
-    setIsAllergie(id === 'yes') 
+    setIsAllergie(id === 'yes')
 
    const newAllergies =  allergies.map((item) => {
         return Object.assign({}, item, {checked: item.id === id});
@@ -126,7 +126,7 @@ const RegistrationComponent = ({history}) => {
  }
 
  const handleCovids = (id) => {
-  setIsCovid(id === 'yes') 
+  setIsCovid(id === 'yes')
 
  const newCovids =  covids.map((item) => {
       return Object.assign({}, item, {checked: item.id === id});
@@ -325,12 +325,11 @@ function registerUserAPICalling() {
   post(API.REGISTERPATIENT, params, true)
     .then(response => {
       if (response.status === 200) {
-        console.log('response: ', response);
          const user = response.data.data['user'];
 
           if(user) {
             storeData('userInfo', JSON.stringify(user));
-            setUserInfo(user)
+            setUserInfo(user);
           }
         addToast(response.data.message, { appearance: 'success' });
         history.push('/patient/home')
@@ -498,7 +497,7 @@ function registerUserAPICalling() {
                   <br /> <Form.Control type="date"  onChange={(e) => setDiabeticValue(e.target.value)}/>
                </Col>
               }
-             
+
             </Row>
           </Col>
           <Col md>
@@ -528,7 +527,7 @@ function registerUserAPICalling() {
                 handleSelect={handleSurgerys}
               />
             </Row>
-            { isSurgery && 
+            { isSurgery &&
               <Row>
                 <TextArea
                  id={'surgery'}
@@ -553,7 +552,7 @@ function registerUserAPICalling() {
               />
             </Row>
             <Row>
-              {isAllergie && 
+              {isAllergie &&
                <TextArea
                 id={'textareaSurgery'}
                 value={allergieValue}
@@ -575,7 +574,7 @@ function registerUserAPICalling() {
               />
             </Row>
             <Row>
-             { isCovid && 
+             { isCovid &&
                 <Col>
                   <br />
                   <br /> <Form.Control type="date"  onChange={(e) => handleCovidDate(e.target.value)}/>
@@ -610,7 +609,7 @@ function registerUserAPICalling() {
           </Col>
           <Col md></Col>
         </Row>
-       
+
         <Row>
           <CustomButton text={'Continue'} className="primary registration-btn" onClick={() => {
               if (validation()) {
@@ -618,7 +617,7 @@ function registerUserAPICalling() {
               }
             }
           }></CustomButton>
-          
+
        </Row>
       </div>
     </div>

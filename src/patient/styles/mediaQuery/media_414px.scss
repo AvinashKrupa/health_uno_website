@@ -11,7 +11,7 @@
             top: 0px;
         }
     }
-    
+
     .speciality-card-container {
         margin: 10px 20px !important;
     }
@@ -30,9 +30,15 @@
         height: 135px;
     }
 
-    .MuiCardContent-root {
-        padding-left: unset !important;
-    }
+    .doctor-card-doctor-name {
+        font-size: 15px !important;
+     }
+
+    .top-consultants-card-container, .doctor-card-container {
+        .MuiCardContent-root {
+            padding-left: unset !important;
+        }
+      }
 
     .color_card_circle img {
         left: -50px !important;
@@ -75,6 +81,7 @@
         margin-bottom: 10px !important;
         margin-right: 10px !important
     }
+
     .patient-slot-booking {
         .fa-chevron-left {
             padding-right: 15px !important;
@@ -82,7 +89,7 @@
         .fa-chevron-right {
             padding-left: 10px !important;
         }
-    } 
+    }
     .patient-slot-booking-cal {
         flex-direction: column-reverse !important;
         .fa-calendar-alt-slot {
@@ -99,11 +106,15 @@
         width: 71px;
         font-weight: 500;
         line-height: unset;
-        letter-spacing: unset; 
+        letter-spacing: unset;
         padding-top: 10px;
     }
 
     .slot-evening, .slot-day {
         margin-top: 20px;
+    }
+
+    .modal-content {
+        right: 38px;
     }
 }
