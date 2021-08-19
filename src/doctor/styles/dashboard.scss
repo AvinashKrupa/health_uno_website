@@ -82,8 +82,10 @@
   border-radius: 12px!important;
 
   .image-container{
-    flex: 1;
-    background-color: palegreen;
+    display: flex;
+    align-items: center;
+    flex: 1.2;
+    //background-color: palegreen;
     //position: absolute;
     width: 109.2px;
     height: 112px;

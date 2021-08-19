@@ -9,7 +9,10 @@ const PatientAppointmentCard = (props) => {
     <>
     <Card className="patient-appointment-container">
         <div className="image-container">
-            <img src={props?.image}/>
+            <img src={props?.image} style={{
+                maxWidth:"100%",
+                maxHeight:"100%"
+            }}/>
         </div>
         <div className="content-container">
             <div style={{display:"flex", flexDirection:"row", marginBottom: "10px"}}>
