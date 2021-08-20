@@ -14,6 +14,7 @@ import { storeData } from "../../storage/LocalStorage/LocalAsyncStorage";
 import CustomButton from '../../commonComponent/Button';
 import { useToasts } from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
+import useUserStore from "../store/userStore";
 
 const timeOut = 60;
 const DoctorOTP = ({history}) => {
@@ -24,6 +25,7 @@ const DoctorOTP = ({history}) => {
   const handleChange = otp => setOTP(otp);
   const [restart, setReStart] = useState(false);
   const [timer, setTimer] = useState(timeOut);
+  const setUserInfo =  useUserStore((state) => state.setUserInfo)
 
   const verifyOTP = () => {
     let params = {
@@ -44,14 +46,20 @@ const DoctorOTP = ({history}) => {
 
           if (temp != null) {
             storeData('TEMP_TOKEN', temp);
-          } 
+          }
+            const user = response.data.data['user'];
 
-          const session = response.data.data['session'];     
+            if(user) {
+                storeData('userInfo', JSON.stringify(user));
+                setUserInfo(user)
+            }
+
+          const session = response.data.data['session'];
 
           if (session != null) {
             storeData('ACCESS_TOKEN', session.access_token);
             storeData('REFRESH_TOKEN', session.refresh_token);
-            history.push('/doctor/homePage'); 
+            history.push('/doctor/home');
           } else {
             history.push('/doctor/registration')
           }
@@ -87,7 +95,7 @@ const DoctorOTP = ({history}) => {
         addToast(error.response.data.message, { appearance: 'error' });
       });
   }
-  
+
   useEffect(() => {
     setMobileNumber(authContext.phone);
     return () => {};
@@ -135,7 +143,7 @@ const DoctorOTP = ({history}) => {
                         <p>Track and manage all your appointments and modify them with our user-friendly UI</p>
                     </Col>
                 </div>
-                
+
                 <div className='description'>
                     <Col lg='1'>
                         <Image src={frame}></Image>
@@ -155,10 +163,10 @@ const DoctorOTP = ({history}) => {
                         <p> Ask another panel physician to join your current/upcoming consultation and provide additional advice as required</p>
                     </Col>
                 </div>
-            </Col>  
+            </Col>
             <Col lg='1' md='8' sm='0'></Col>
           </Row>
-          <Row className='doctor-image' > 
+          <Row className='doctor-image' >
             <Col  lg='1'></Col>
             <Col  lg='8'> <Image src={group}></Image></Col>
             <Col  lg='2'></Col>
@@ -185,7 +193,7 @@ const DoctorOTP = ({history}) => {
                       <span>Verify OTP</span>
                         <div className='edit-number'>
                           <p> We have sent OTP on your mobile number {authContext.phone}</p> { <Link to='/'><i class="fas fa-pen"></i></Link>}
-                        </div > 
+                        </div >
                   </Row>
                   <div className='otp-container'>
                     <br />
@@ -201,7 +209,7 @@ const DoctorOTP = ({history}) => {
                   <br />
                   <div className="div-center">
                     <CustomButton
-                      disabled={otp.length !== 4} 
+                      disabled={otp.length !== 4}
                       onClick={verifyOTP}
                       text={'Verify OTP'}
                       ></CustomButton>
@@ -224,4 +232,4 @@ const DoctorOTP = ({history}) => {
   );
 };
 
-export default DoctorOTP;  
+export default DoctorOTP;

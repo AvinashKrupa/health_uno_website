@@ -74,6 +74,7 @@ instance.interceptors.response.use(
           {headers: headers},
         )
         .then(res => {
+          console.log('res: ', res);
           if (res.status === 200) {
             storeData('ACCESS_TOKEN', res.data.data.access_token);
             storeData('REFRESH_TOKEN', res.data.data.refresh_token);

@@ -7,7 +7,8 @@ import DoctorLogin from "./doctor/view/DoctorLogin";
 import PatientLogin from './patient/view/loginAndRegistration/PatientLogin';
 import DoctorOTP from "./doctor/view/DoctorOTP";
 import MultiStepFormRegistration from "./doctor/view/multiStepForm/MultiStepFormRegistration";
-import DoctorHomePage from './doctor/view/DoctorHomePage';
+import DoctorHomePage from "./doctor/view/Home/DoctorHomePage";
+import UpcomingAppointments from "./doctor/view/Home/UpcomingAppointments";
 import TopConsultants from './patient/view/Home/TopConsultants';
 import Specialities from './patient/view/Home/Specialities'
 import DoctorDetails from "./patient/view/doctorDetail/DoctorDetail";
@@ -21,10 +22,12 @@ function App() {
     <div className="App">
         <BrowserRouter>
           <Route exact path="/" component={PatientLogin} />
-          <Route exact path="/doctor/homePage" component={DoctorHomePage} />
+          <Route exact path="/doctor/home" component={DoctorHomePage} />
           <Route exact path="/doctor" component={DoctorLogin} />
           <PrivateRoute exact path='/doctor/otp' component={DoctorOTP} />
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />
+          <PrivateRoute exact path='/doctor/upcomingAppointments' component={UpcomingAppointments} />
+          <PrivateRoute exact path='/doctor/search' component={UpcomingAppointments} />
           <PrivateRoute exact path='/patient/otp' component={OTP} />
           <PrivateRoute exact path='/patient/registration' component={Registration} />
           <PrivateRoute exact path='/patient/home' component={PatientHomePage} />
@@ -33,8 +36,8 @@ function App() {
           <PrivateRoute exact path='/patient/doctorDetails/:doctor_id' component={DoctorDetails} />
           <PrivateRoute exact path='/patient/slotBooking/:doctor_id' component={PatientSlotBooking} />
           <PrivateRoute exact path='/patient/bookingSummary/:doctor_id' component={PatientBookingSummary} />
-          <PrivateRoute exact path='/patient/appointments' component={Appointments} />
-           <PrivateRoute exact path='/patient/videoMeeting' component={VideoMeeting} />
+          <PrivateRoute exact path='/patient/appointments/' component={Appointments} />
+          <PrivateRoute exact path='/patient/videoMeeting' component={VideoMeeting} />
 
         </BrowserRouter>
     </div>
