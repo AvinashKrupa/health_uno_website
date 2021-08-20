@@ -1,39 +1,32 @@
-import moment from "moment";
-import { Row, Col, Button, Image } from "react-bootstrap";
+import { Row, Col, Image } from "react-bootstrap";
 import Timer from "../../../commonComponent/Timer";
 import ModalDialog from '../../../commonComponent/ModalDialog'
 import CustomButton from '../../../commonComponent/Button'
 import { useState } from "react";
 import { Card, CardContent, CardMedia } from "@material-ui/core";
-import datetimeDifference from "datetime-difference";
 import TextArea from '../../../commonComponent/TextArea';
 import { useToasts } from 'react-toast-notifications';
-// import doctor_image from "./Doctor Image.svg";
-// import video_camera from "./Video Camera.svg";
+import {camera} from "../../../constants/PatientImages";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 const DoctorAppointmentsCard = (props) => {
-const [toggleModal, setToggleModal] = useState(false);
-const [reason, setReason] = useState('');
-const { addToast } = useToasts();
+  
+  const [toggleModal, setToggleModal] = useState(false);
+  const [reason, setReason] = useState('');
+  const { addToast } = useToasts();
+  const [id, setId] = useState(props?.appointment._id);
 
-function getTimer(timeString, returnMinutes = false) {
-const dateOneObj = new Date('2021-08-19, 11:40:00');
-const dateTwoObj = new Date();
-const milliseconds = dateTwoObj - dateOneObj;
-const hours = parseFloat(milliseconds / 36e5).toFixed(3);
-const result = datetimeDifference(dateOneObj, dateTwoObj); 
-// console.log('result: ', result);
+function getTimer(timeString) {
+  const dateOneObj = new Date(timeString);
+  const dateTwoObj = new Date();
+  const milliseconds = dateTwoObj - dateOneObj;
+  const hours = parseFloat(milliseconds / 36e5).toFixed(3);
 
-
-    if(returnMinutes) {
-      // console.log('Math.abs(Math.floor(milliseconds/1000/60/1000)): ', Math.abs(Math.floor(milliseconds/100/60)));
-        return  result;
-        
-    }  else if(Math.sign(hours) < 0) {
-        return hours >= -1
-    }  else if(Math.sign(hours) < 0) {
-        return false;
-    }
+  if(Math.sign(hours) < 0) {
+      return hours >= -1
+  }  else if(Math.sign(hours) < 0) {
+      return false;
+  }
 }    
 
 function convert24hto12h(timeString, ampmRequired = true) {
@@ -47,7 +40,9 @@ function onSubmit() {
   if(reason === '') {
     addToast('Please enter cancel reason', { appearance: 'error' });
   } else {
-    setToggleModal(false)
+    setToggleModal(false);
+    props.cancelAppointment(id, reason);
+    setReason('');
   }
   
 }
@@ -64,7 +59,13 @@ const btn = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
           </div>
           <div>
             <CardContent>
-                <div className="doctor-card-doctor-name">{`Dr ${props?.appointment.first_name}, ${props?.appointment.last_name}`}</div>
+                <div className="doctor-card-doctor-name">{`Dr ${props?.appointment.first_name}, ${props?.appointment.last_name}`}
+                  <Image
+                    className="card-image-video-camera"
+                    src={camera}
+                    alt="Video Camera"
+                  />
+                </div>
                 <div className="doctor-card-doctor-details"> {`${props?.appointment.address.city}, ${props?.appointment.address.country} | ${props?.appointment.exp} Y Exp`}</div>
                 <div>
                   <span className="doctor-card-fee-label">Fee:</span>
@@ -83,20 +84,27 @@ const btn = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
 
                   </span>
                 </span>
-                <div>
+                <div style={{position: 'relative'}}>
                     <spam className="card-text-date-and-time">
                         {`${props?.appointment.time.date}, ${convert24hto12h(props?.appointment.time.slot)}`}
+                        <span className="card-text-time">{ timerEnable && <Timer time={props?.appointment.time.utc_time}></Timer> }</span>
                     </spam>
-                    <span className="card-text-time">{timerEnable && <Timer time={getTimer(`${props?.appointment.time.date} ${props?.appointment.time.slot}`, true)}></Timer> }</span>
                 </div>
                 <Row className="card-buttons-row">
                   <Col>
+                 {props.appointment.status === 'scheduled' ?
                     <CustomButton
                       className="card-button-join"
-                      // disabled={otp.length !== 4} 
-                      // onClick={verifyOTP}
+                      onClick={() =>  props.history.push("/patient/videoMeeting")}
                       text={'Join meeting'}
                       ></CustomButton>
+                    :
+                    <CustomButton
+                      className="card-button-join"
+                      onClick={() =>  props.history.push(`/patient/slotBooking/${props?.appointment.doctor_id}`)}
+                      text={'Rebook'}
+                      ></CustomButton>
+                  }
                   </Col>
                   <Col>
                   { props.appointment.status === 'scheduled' ? 
@@ -108,17 +116,20 @@ const btn = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
           </div>
         </div>
       </Card>
-      <ModalDialog btnText={'Confirm'} onSubmit={onSubmit} show={toggleModal} title={'Reason for Cancellation'} closeDialog={() => setToggleModal(!toggleModal)}>
-            <TextArea
-                 id={'reason'}
-                 value={reason}
-                 placeholder="Please mention in brief"
-                 onChange={setReason}
-                 rows={4}
-                 cols={35}
-                 ></TextArea>
+      <ModalDialog btnText={'Confirm'} onSubmit={onSubmit} show={toggleModal} title={'Cancel Appointment'} closeDialog={() =>{ 
+        setReason('');
+        setToggleModal(!toggleModal)}
+      }>
+          <TextArea
+                id={'reason'}
+                label='Describe the reason'
+                value={reason}
+                onChange={setReason}
+                rows={4}
+                cols={35}
+          ></TextArea>
       </ModalDialog>
     </>
   );
 };
-export default DoctorAppointmentsCard;
+export default withRouter(DoctorAppointmentsCard);

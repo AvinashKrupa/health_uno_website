@@ -1,8 +1,9 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {forwardRef, memo, useEffect, useState} from 'react';
 import moment from 'moment';
-import { Button, } from "react-bootstrap";
+import { Button, Image} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {calendar} from '../../../constants/PatientImages';
 
 
 const HorizontalCalendar = (props) => {
@@ -57,6 +58,15 @@ const HorizontalCalendar = (props) => {
   );
 };
 
+const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+ <>
+  <span className="example-custom-input" onClick={onClick} ref={ref} style={{display: 'flex'}}>
+    {moment(value).format("MMM YYYY")}<Image className='fa-calendar-alt-slot' src={calendar}></Image>
+  </span>
+  
+ </>
+));
+
   return (
       <div className='patient-slot-booking-cal' style={{display: 'flex', flexDirection: 'row'}}>
         <div className='patient-slot-booking'
@@ -86,9 +96,10 @@ const HorizontalCalendar = (props) => {
                 maxDate={new Date( new Date().getFullYear(), new Date().getMonth()+1, 15)}
                 minDate={new Date( new Date().getFullYear(), new Date().getMonth(), 15)}
                 placeholderText="Select a date before 30 days in the future"
+                customInput={<ExampleCustomInput />}
 
             />
-            <i className="fas fa-calendar-alt fa-calendar-alt-slot"></i>
+            
         </div>
     </div>
   );

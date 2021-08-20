@@ -25,6 +25,7 @@ export const API = {
   BOOKAPPOINTMENT: 'patient/bookAppointment',
   CONFIRMPAYENT: 'transaction/confirmPayment',
   GETAPPOINTMENTS: 'patient/getAppointments',
+  CANCELAPPOINTMENT: 'patient/cancelAppointment',
 };
 
 export function post(endPoint, params, isStringfy = true) {

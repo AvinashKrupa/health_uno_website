@@ -31,7 +31,7 @@
     }
 
     .doctor-card-doctor-name {
-        font-size: 15px !important;
+        font-size: 12px !important;
      }
 
     .top-consultants-card-container, .doctor-card-container {
@@ -92,13 +92,14 @@
     } 
     .patient-slot-booking-cal {
         flex-direction: column-reverse !important;
-        .fa-calendar-alt-slot {
-            display: none !important;
-        }
 
         .slot-calendar {
             padding-top: unset !important;
             margin-bottom: 10px;
+        }
+
+        .react-datepicker__input-container {
+            padding-left: 30px;
         }
     }
 
@@ -115,6 +116,20 @@
     }
 
     .modal-content {
-        right: 38px;
+        top: 30px;
+        width: 400px; 
+        height: 400px; 
+    }
+
+    .doctor-card-doctor-name {
+        .card-image-video-camera {
+            position: absolute;
+            left: 165px;
+        }
+    }
+
+    .card-text-time {
+        position: absolute;
+        left: 80px;
     }
 }

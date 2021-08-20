@@ -18,7 +18,9 @@
         object-fit: cover;
     }
     .card-text-time {
-        margin-left: 60px !important;
+        // margin-left: 60px !important;
+        position: absolute;
+        left: 50px;
     }
 
     .upcoming-appointment-card-container {
@@ -31,7 +33,7 @@
         }
       }
       .doctor-card-doctor-name {
-        font-size: 14px !important;
+        font-size: 12px !important;
        }
 
     .top-consultants-container {
@@ -147,12 +149,17 @@
     .patient-slot-booking-cal {
         flex-direction: column-reverse !important;
         .fa-calendar-alt-slot {
-            display: none !important;
+            width: 35px;
+            height: 30px;
         }
 
         .slot-calendar {
             padding-top: unset !important;
             margin-bottom: 10px;
+        }
+
+        .react-datepicker__input-container {
+            padding-left: 20px;
         }
     }
 
@@ -166,6 +173,7 @@
 
     .slot-evening, .slot-day {
         margin-top: 20px;
+        // margin-bottom: 32px;
     }
 
     .back-navigation {
@@ -182,7 +190,24 @@
           margin-left: -110px;
         }
       }
-   
+
+
+      .doctor-card-doctor-name {
+        .card-image-video-camera {
+            position: absolute;
+            left: 140px;
+        }
+      }
+
+      .modal-content {
+        top: 30px;
+        width: 360px; 
+        height: 400px; 
+    }
+
+    .slot-summary-doc-details {
+        margin-left: 40px;
+    }
 }
 
 @media only screen and (max-width: 375px) { 

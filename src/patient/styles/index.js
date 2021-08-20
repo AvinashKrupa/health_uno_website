@@ -15,7 +15,7 @@ import './horizontal_calendar.scss';
 import './appointments.scss';
 import './doctor_appointments_card.scss';
 import './model.scss'; 
-
+import './videoMeeting.scss'; 
 
 
 // Doctor scss
@@ -34,3 +34,4 @@ import './mediaQuery/media_375px.scss'
 import './mediaQuery/media_414px.scss'
 import './mediaQuery/media_768px.scss'
 import './mediaQuery/media_1024px.scss'
+import './mediaQuery/media_1500Up.scss'

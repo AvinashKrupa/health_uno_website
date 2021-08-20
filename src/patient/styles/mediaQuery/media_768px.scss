@@ -5,7 +5,7 @@
     }
 
     .doctor-card-doctor-name {
-        font-size: 18px !important;
+        font-size: 14px !important;
      }
 
     .doctor-card-image {
@@ -42,7 +42,33 @@
             top: unset
         }
     }
+
     .modal-content {
-        right: 80px;
+        top: 30px;
+        width: 500px; 
+        height: 400px; 
     }
+
+    .doctor-card-doctor-name {
+        .card-image-video-camera {
+            position: absolute;
+            left: 140px;
+        }
+    }
+
+    .patient-slot-booking-cal { 
+        .react-datepicker__input-container {
+            padding-left: 130px;
+        }
+    }
+
+    .slot-summary-doc-details {
+        margin-left: unset;
+    }
+
+    .card-text-time {
+        position: absolute;
+        left: 50px;
+    }
+    
 }

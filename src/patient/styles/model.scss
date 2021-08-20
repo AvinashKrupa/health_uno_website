@@ -1,23 +1,54 @@
+// .modal-content {
+//     height: 294px;
+//     width: 351px; 
+
+//     position: absolute;
+//     top: 80px;
+//     right: 15px;
+
+//     button {
+//       margin-top: 30px;
+//       margin-bottom: 20px;
+//       width: 320px;
+//       height : 50px;
+//     }
+
+//     .textarea-field {
+//       height: 96px !important;
+//     }
+//   }
+
+//   .model-title {
+//     margin: 25px 80px 0px 80px;
+//   }
+
+.modal-header {
+    background: #28A3DA;
+}
+
+.modal-title {
+    margin: auto;
+    color: white;
+}
+
 .modal-content {
-    height: 294px;
-    width: 351px; 
+    .card-text-close {
+        width: 121px;
+        height: 40px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: -0.42px;
+        border: 1px solid #28A3DA;
+        box-sizing: border-box;
+        border-radius: 6px;
+        background: white;
+        color: #28A3DA;
+      }
 
-    position: absolute;
-    top: 80px;
-    right: 15px;
-
-    button {
-      margin-top: 30px;
-      margin-bottom: 20px;
-      width: 320px;
-      height : 50px;
-    }
-
-    .textarea-field {
-      height: 96px !important;
-    }
-  }
-
-  .model-title {
-    margin: 25px 80px 0px 80px;
-  }
+      button {
+        width: 121px;
+        height: 40px;
+      }
+}
