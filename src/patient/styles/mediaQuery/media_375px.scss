@@ -149,8 +149,8 @@
     .patient-slot-booking-cal {
         flex-direction: column-reverse !important;
         .fa-calendar-alt-slot {
-            width: 35px;
-            height: 30px;
+            width: 30px;
+            height: 26px;
         }
 
         .slot-calendar {
@@ -207,6 +207,33 @@
 
     .slot-summary-doc-details {
         margin-left: 40px;
+    }
+
+    .meeting-page-column-content-container {
+        .back-navigation {
+            margin-bottom: unset !important;   
+            margin-top: unset !important;   
+            margin-left: 20px !important;
+        }
+
+        .meeting-page-text-below-image, .meeting-detail-text {
+            display:  none !important;
+        }
+
+        .meeting-page-button-white {
+            margin-top: unset !important;
+        }
+
+        .meeting-button {
+            margin-left: 5px;
+            button {
+                width: 160px !important;
+            }
+
+            .meeting-page-button-blue {
+                margin-left: 32px !important;
+            }
+        }
     }
 }
 

@@ -253,7 +253,7 @@ const PatientBookingSummary = (props) => {
                         <CustomButton
                         className={'patient-order-booking-btn'}
                         onClick={bookSlots}
-                        text={`${doctorDetails.fee} Pay & Book`}
+                        text={`Pay ₹${doctorDetails.fee}`}
                         ></CustomButton>
                     </div>
                 </Col>

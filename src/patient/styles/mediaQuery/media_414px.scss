@@ -133,4 +133,14 @@
         position: absolute;
         left: 80px;
     }
+
+    .meeting-page-column-content-container { 
+        .meeting-page-patient-image  {
+            width: 335px !important;
+        }
+
+            .meeting-button {
+                margin-left: unset !important;
+            }
+    }
 }

@@ -39,7 +39,7 @@ function App() {
           <PrivateRoute exact path='/patient/slotBooking/:doctor_id' component={PatientSlotBooking} />
           <PrivateRoute exact path='/patient/bookingSummary/:doctor_id' component={PatientBookingSummary} />
           <PrivateRoute exact path='/patient/appointments/' component={Appointments} />
-          <PrivateRoute exact path='/patient/videoMeeting' component={VideoMeeting} />
+          <PrivateRoute exact path='/patient/videoMeeting/:doctor_id' component={VideoMeeting} />
 
         </BrowserRouter>
     </div>

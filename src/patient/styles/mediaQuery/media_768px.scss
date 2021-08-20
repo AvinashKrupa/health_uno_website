@@ -70,5 +70,46 @@
         position: absolute;
         left: 50px;
     }
+
+
+    .meeting-page-column-content-container {
+        .meeting-page-text-below-image {
+            display: block !important;
+        }
+
+        .meeting-detail-text  {
+            display: block !important;
+        }
+
+        .meeting-page-patient-image {
+            width: 557px !important;
+        }
+
+        .meeting-button {
+            margin-left:  unset !important;
+            margin-top: 55px !important;
+
+            button {
+                width: 206px !important;
+            }
+        }
+
+        .meeting-page-text-below-image {
+            margin-top: 146px;
+          }
+          
+          .meeting-page-column-content {
+              margin-left: 10px;
+          }
+
+          .meeting-page-button-blue {
+              margin-left:  32px!important;
+          }
+
+          .back-navigation {
+              margin-left: unset !important;
+          }
+    }
+    
     
 }

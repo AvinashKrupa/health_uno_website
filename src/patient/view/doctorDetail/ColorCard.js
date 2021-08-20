@@ -47,7 +47,7 @@ const ColorCards = (props) => {
              </div>
             <Card className="color_card_container_3">
                 <Row  className='circle-card-content'>
-                <span className="color_card_text_h3">{props.fee}</span>
+                <span className="color_card_text_h3">₹{props.fee}</span>
                 <span className="color_card_text_h4">Fee</span>
                 </Row>
             </Card>
