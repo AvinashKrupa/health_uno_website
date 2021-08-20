@@ -70,9 +70,9 @@ const UpcomingAppointments = (props) => {
 
   const CustomDateComponent = forwardRef(({ value, onClick }, ref) => (
       <>
-        <span className="example-custom-input" onClick={onClick} ref={ref} style={{display: 'flex'}}>
-          {moment(value).format("MMM YYYY")}<Image src={calendar_blue} />
-        </span>
+        <div className="calender-date-upcoming" onClick={onClick} ref={ref} style={{display: 'flex', flexDirection:"row"}}>
+          {moment(value).format("MMM YYYY")}<div style={{marginLeft:10}}><Image src={calendar_blue} /></div>
+        </div>
       </>
   ));
 
