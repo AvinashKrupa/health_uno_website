@@ -81,6 +81,7 @@
 
 
 .patient-appointment-container{
+  cursor: pointer;
   margin-bottom: 10%;
   display: flex;
   width: 100%;
@@ -148,6 +149,9 @@
       line-height: 17px;
       letter-spacing: -0.5880004167556763px;
       text-align: left;
+      //min-width: 100%;
+      //width: 100%;
+      //max-width: 100%;
     }
     .status-info{
       position: relative;
