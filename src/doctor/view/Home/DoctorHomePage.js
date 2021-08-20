@@ -78,7 +78,10 @@ const DoctorHomePage = (props) => {
     clearTimeout(timer);
     timer = setTimeout(function () {
       setSearchText(txt);
-      props.history.push("/doctor/upcomingAppointments");
+      props.history.push({
+        pathname: '/doctor/upcomingAppointments',
+        state: { title: 'Search Appointments' }
+      });
     }, 1000);
   }
 
@@ -113,7 +116,11 @@ const DoctorHomePage = (props) => {
               </div>
               <div className="upcoming-appointment-container">
                 <span className="upcoming-appointment-text">Upcoming Appointments</span>
-                <span className="upcoming-appointment-view_all" style={{cursor: 'pointer'}} onClick={(e) => props.history.push("/doctor/upcomingAppointments")}>View all</span>
+                <span className="upcoming-appointment-view_all" style={{cursor: 'pointer'}} onClick={(e) =>
+                    props.history.push({
+                      pathname: '/doctor/upcomingAppointments',
+                      state: { title: 'Upcoming Appointments' }
+                    })}>View all</span>
               </div>
               <HorizontalCalendarForDoctor
                   date={currentDate}

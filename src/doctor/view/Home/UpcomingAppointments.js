@@ -80,7 +80,7 @@ const UpcomingAppointments = (props) => {
             <Col lg="1" sm="1" xs='1'/>
             <Col lg="10" sm="10" xs='10'>
               <Row className='back-navigation'>
-                <Link to='/doctor/home'><i class="fas fa-arrow-left"></i><span>Upcoming Appointments</span></Link>
+                <Link to='/doctor/home'><i class="fas fa-arrow-left"></i><span>{props.location.state.title}</span></Link>
               </Row>
               <div className='search-container' style={{display: "flex", justifyContent: 'space-between'}}>
                 <SearchInputWithIcon
