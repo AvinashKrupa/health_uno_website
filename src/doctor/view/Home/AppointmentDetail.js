@@ -1,0 +1,138 @@
+import {Col, Image, Row} from "react-bootstrap";
+import {API, post} from '../../../api/config/APIController';
+import React, {forwardRef, useEffect, useState} from "react";
+import {useToasts} from 'react-toast-notifications';
+import {Link} from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import useSearchStore from '../../store/searchStore';
+import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
+import PatientAppointmentCard from "../../components/PatientAppointmentCard";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import {calendar_blue} from "../../../constants/DoctorImages";
+import {Card} from "@material-ui/core";
+
+const AppointmentDetail = (props) => {
+  let timer = null;
+  const {addToast} = useToasts();
+  let [searchText, setSearchText] = useState(useSearchStore(state => state.searchText));
+  let [appointmentDetail, setAppointmentDetail] = useState([]);
+  const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
+
+  useEffect(() => {
+    getAppointmentDetail();
+    return () => {};
+  }, [props.match.params.appointment_id]);
+
+  // useEffect(() => {
+  //   getAppointmentDetail();
+  // }, [searchText]);
+  //
+  // useEffect(() => {
+  //   getAppointmentDetail();
+  // }, [currentDate]);
+
+
+  function callBackFilter(data) {
+    getAppointmentDetail(data.sortBy, data.min, data.max, data.selectedLanguages);
+  }
+
+  function getAppointmentDetail() {
+    let params = {
+      appointment_id: props.match.params.appointment_id,
+    };
+    post(API.APPOINTMENT_DETAIL_API, params)
+        .then(response => {
+          if (response.status === 200) {
+            setAppointmentDetail(response.data.data);
+          } else {
+            addToast(response.data.message, {appearance: "error"});
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, {appearance: "error"});
+        });
+  }
+
+
+  return (
+        <div>
+          <Row className='top-consultants-container'>
+            <Col lg="1" sm="1" xs='1'/>
+            <Col lg="10" sm="10" xs='10'>
+              <Row className='back-navigation'>
+                <div style={{backgroundColor: '', display:"flex", flexDirection: "row", justifyContent:"space-between"}}>
+                    <div style={{cursor: 'pointer'}}>
+                        <i onClick={()=>props.history.goBack()} class="fas fa-arrow-left"></i>
+                        <span style={{marginLeft:10}}>Appointments Details</span>
+                    </div>
+                </div>
+              </Row>
+                <Row style={{ marginTop: "32px",  }}>
+                    <Col>
+                        <div className="appointment-detail-card-container">
+                            <div className="image-container">
+                                <img src={appointmentDetail?.patient?.user?.dp} style={{
+                                    maxWidth:"100%",
+                                    maxHeight:"100%"
+                                }}/>
+                            </div>
+                            <div className="detail-container">
+                                <div>{`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}</div>
+
+                                <div>Age: 34 years</div>
+                                <div>{appointmentDetail?.patient?.user?.dob}</div>
+
+
+                                <div>Purpose: Headache</div>
+                                <div>{appointmentDetail?.patient?.user?.dob}</div>
+
+
+                                <div>{appointmentDetail?.time?.slot}</div>
+
+
+                                <div>{appointmentDetail?.time?.date}</div>
+
+
+                                <div>Comments: </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa cursus mauris magna eget vel, iaculis libero. Viverra eleifend ultrices et feugiat.</div>
+                            </div>
+                        </div>
+                        <div style={{backgroundColor: 'lightcyan'}}>Add Doctor</div>
+                    </Col>
+                    {/*<Col>*/}
+                    {/*<div style={{backgroundColor: 'blue'}}>hello</div>*/}
+                    {/*</Col>*/}
+                </Row>
+              {/*<Row style={{display: 'flex', flexDirection: 'row'}} className='top-consultants-card-container'>*/}
+              {/*  {appointmentDetail.map((doctor) => {*/}
+              {/*    return (*/}
+              {/*        <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>*/}
+              {/*          <PatientAppointmentCard*/}
+              {/*              key={doctor._id}*/}
+              {/*              id={doctor._id}*/}
+              {/*              image={doctor.dp}*/}
+              {/*              // name={`${doctor.first_name} ${doctor.last_name}`}*/}
+              {/*              name={`${doctor.first_name}`}*/}
+              {/*              purpose={doctor.reason}*/}
+              {/*              status={doctor.status}*/}
+              {/*              onTime={doctor.time.slot}*/}
+              {/*              onDate={doctor.time.date}*/}
+              {/*          />*/}
+              {/*        </Grid>*/}
+              {/*    )*/}
+              {/*  })}*/}
+              {/*  {!appointmentDetail.length &&*/}
+              {/*    <div className="empty-list-container">*/}
+              {/*      <h4>No appointments found</h4>*/}
+              {/*    </div>*/}
+              {/*  }*/}
+              {/*</Row>*/}
+            </Col>
+            <Col lg="1" sm="1" xs='1'/>
+          </Row>
+        </div>
+  );
+};
+
+export default AppointmentDetail;

@@ -1,14 +1,12 @@
 import { Card } from "@material-ui/core";
 import {calendar,clock} from "../../constants/DoctorImages";
-import {Link} from 'react-router-dom';
 import {Image} from "react-bootstrap";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 const PatientAppointmentCard = (props) => {
   return (
     <>
-    <Card className="patient-appointment-container" onClick={() =>{
-        console.log('user clicked' );
-    }}>
+    <Card className="patient-appointment-container" onClick={() =>  props.history.push(`/doctor/appointmentDetail/${props.id}`)}>
         <div className="image-container">
             <img src={props?.image} style={{
                 maxWidth:"100%",
@@ -46,4 +44,4 @@ const PatientAppointmentCard = (props) => {
     </>
   );
 };
-export default PatientAppointmentCard;
+export default withRouter(PatientAppointmentCard);
