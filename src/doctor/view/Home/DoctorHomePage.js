@@ -150,14 +150,16 @@ const DoctorHomePage = (props) => {
               );
             })}
             {!appointments.length &&
-            <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
               <div className="empty-list-container">
                 <h4>No appointments found</h4>
               </div>
-            </Grid>
             }
           </Row>
-          <CarouselComponent sliders={slider} />
+          <Row style={{ marginTop: "32px" }}>
+            <Col>
+              <CarouselComponent sliders={slider} />
+            </Col>
+          </Row>
         </Col>
         <Col lg="1" sm="1" xs="1" />
       </Row>

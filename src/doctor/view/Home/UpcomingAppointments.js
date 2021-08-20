@@ -119,11 +119,9 @@ const UpcomingAppointments = (props) => {
                   )
                 })}
                 {!appointments.length &&
-                      <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
-                        <div className="empty-list-container">
-                          <h4>No appointments found</h4>
-                        </div>
-                      </Grid>
+                  <div className="empty-list-container">
+                    <h4>No appointments found</h4>
+                  </div>
                 }
               </Row>
             </Col>
