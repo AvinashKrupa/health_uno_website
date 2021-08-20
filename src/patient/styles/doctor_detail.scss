@@ -36,8 +36,7 @@
     font-weight: 500;
     line-height: 17px;
     letter-spacing: -0.30000001192092896px;
-    text-align: left;
-    color: rgba(246, 146, 30, 1);
+    color: rgba(27, 27, 27, 0.5)
   }
   
   .doctor_details_button {
@@ -56,10 +55,14 @@
     .doctor_details_h3 {
       margin-top: 50px;
     }
-    
-    img {
-      margin-left: 70px !important;
+
+    .doctor-detail-container {
+      img {
+        margin-left: 70px !important;
+      }
     }
+    
+    
   }
   @media only screen and (max-width: 376px) { 
     .carousel_container {
@@ -67,8 +70,10 @@
       width: 314px !important;
     }
 
-    img {
-      margin-left: 80px !important;
+    .doctor-detail-container {
+      img {
+        margin-left: 80px !important;
+      }
     }
   }
 

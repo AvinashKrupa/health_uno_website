@@ -48,7 +48,8 @@ import { isEmpty } from "../../../utils/Validators";
       const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
       setCurrentDate(selectedDate);
       setSelectedDay(moment(date).format('DD'));
-      setDate(selectedDate)
+      setDate(selectedDate);
+      setSlot('');
     }
 
   function setSlotData(id, startTime) {
@@ -59,10 +60,10 @@ import { isEmpty } from "../../../utils/Validators";
 
   const onDateSelect = (dateNumber, date) => {
     const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
-    console.log('selectedDate: ', date);
     setCurrentDate(selectedDate)
     setSelectedDay(dateNumber);
-    setDate(date)
+    setDate(date);
+    setSlot('');
 
   };
 
@@ -145,7 +146,7 @@ import { isEmpty } from "../../../utils/Validators";
                 slot_id={slot}
               />
               {  Object.entries(dataMorningShift).length > 0 &&
-                <Row className='slot-day'>
+                <Row className='slot-day' style={{marginTop: '30px', marginBottom: '32px'}}>
                   <Col lg='3'>
                       <span className="H4">Day Shift</span>
                   </Col>
@@ -154,7 +155,7 @@ import { isEmpty } from "../../../utils/Validators";
               {  Object.entries(dataMorningShift).length > 0 && dayShiftSlot()}
               <div className='slot-evening'>
               {Object.entries(dataEveningShift).length  > 0 &&
-                <Row>
+                <Row  style={{marginTop: '30px', marginBottom: '32px'}}>
                   <Col lg='3'>
                       <span className="H4">Evening Shift</span>
                   </Col>
@@ -162,7 +163,7 @@ import { isEmpty } from "../../../utils/Validators";
               }
               { Object.entries(dataEveningShift).length > 0 && EveningShiftSlot()}
               </div>
-              { ( Object.entries(dataEveningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) &&
+              { ( Object.entries(dataMorningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) &&
                 <div style={{textAlign: 'center'}}>
                     <CustomButton
                       className={'patient-slot-booking-btn'}

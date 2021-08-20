@@ -24,6 +24,8 @@
     padding-left: 10px !important;
     border-color: #28A3DA;
     color: #28A3DA;
+    width: 35px;
+    height: 35px;
 }
 
 .patient-slot-booking-btn {
@@ -46,11 +48,15 @@
 }
 
 .patient-booking-detail {
-    .textarea-label {
+    .textarea-label, .form-label {
         font-weight: 500;
         font-size: 20px;
     }
-    
+    .form-group {
+       br {
+           display: none;
+       } 
+    }
 }
 
 .slot-appointment-detail {

@@ -14,8 +14,16 @@ import minus from "../patient/assets/minus.png";
 import icon_badge from "../patient/assets/icon_badge.svg";
 import icon_man from "../patient/assets/icon_man.svg";
 import icon_money from "../patient/assets/icon_money.svg";
+import camera from "../patient/assets/camera.svg";
+import help from "../patient/assets/help.svg";
+import meeting from "../patient/assets/meeting.svg";
+import blackArrow from "../patient/assets/blackArrow.svg";
+import calendar from "../patient/assets/calendar.png";
+
+
 
 export { group, logo, frame, doctor, plant, phone,
          doctorCard, tooth, heart, brain, arrowRight,
          filter, minus, icon_badge, icon_man, icon_money,
+         camera, meeting, help, blackArrow, calendar
        };

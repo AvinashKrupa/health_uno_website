@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import {API, post} from '../../../api/config/APIController';
 import { useToasts } from 'react-toast-notifications';
 import CustomButton from '../../../commonComponent/Button';
+import Input from '../../../commonComponent/Input';
 import TextArea from '../../../commonComponent/TextArea';
 import patientSlotBookingStore from "../../store/patientSlotBookingStore";
 import moment from "moment";
@@ -23,6 +24,7 @@ const PatientBookingSummary = (props) => {
     const startTime = patientSlotBookingStore((state) => state.startTime);
     const [doctorDetails, setDoctorDetails] = useState('');
     const [complaints, setComplaints] = useState('');
+    const [purpose, setPurpose] = useState('');
     let transactionID = '';
     const slot_id =  patientSlotBookingStore((state) => state.slot_id);
 
@@ -41,7 +43,7 @@ const PatientBookingSummary = (props) => {
     }
 
     function validation() {
-        if (isEmpty(complaints)) {
+        if (isEmpty(purpose)) {
           addToast('Please enter the purpose', { appearance: 'error' });
           return false;
         } else if (isEmpty(slot_id)) {
@@ -60,10 +62,9 @@ const PatientBookingSummary = (props) => {
 
     function bookSlots() {
         const isValid = validation();
-
         if(isValid) {
             let params = {
-                reason: complaints,
+                reason: purpose,
                 doctor_id: props.match.params.doctor_id,
                 slot_id: slot_id,
                 slot: startTime,
@@ -135,6 +136,7 @@ const PatientBookingSummary = (props) => {
             .then(result => {
               if (result.status === 200) {
                 addToast('Slot is successfully booked', { appearance: 'success' });
+                props.history.push('/patient/appointments')
               } else {
                   addToast(result.data.message, { appearance: 'error' });
               }
@@ -142,8 +144,6 @@ const PatientBookingSummary = (props) => {
             .catch(error => {
               addToast(error.response.data.message, { appearance: 'error' });
             });
-
-
         },
         };
     }
@@ -164,20 +164,18 @@ const PatientBookingSummary = (props) => {
                             <Row>
                                 <Col>
                                     <Row>
-                                        <Col lg="1" >
+                                        <Col lg="2" md='12' >
                                             <Image src={doctorDetails.dp} className='doctor-detail-image'
                                                 style={{height: '150px',
                                                 width: '150px',
                                                 borderRadius: '78px',
                                                 border: '1px solid #000000',
+                                                marginLeft: '20px'
                                             }}/>
-                                        </Col>
-                                        <Col lg="9" style={{ marginLeft: "50px" }}>
-                                            <Row>
-                                                <Col lg="3" style={{padding: '20px'}}>
+                                            <Col className='slot-summary-doc-details' style={{padding: '20px'}}>
                                                     <span
                                                         className="doctor_details_h3"
-                                                        style={{ marginBottom: "6px" }}
+                                                        style={{ marginBottom: "6px"}}
                                                     >
                                                     {`Dr ${doctorDetails.first_name} ${doctorDetails.last_name}`}
                                                     </span>
@@ -196,7 +194,11 @@ const PatientBookingSummary = (props) => {
                                                     </span>
                                                     </Row>
                                                 </Col>
-                                                <Col>
+                                        </Col>
+                                        <Col lg="8" md='12'style={{ marginLeft: "50px" }}>
+                                            <Row>
+
+                                                <Col lg="10"  md='12'>
                                                     <Row style={{ marginTop: "20px", marginBottom: "48px" }} className='color-card-container'>
                                                         {doctorDetails &&  <ColorCard fee={doctorDetails.fee} exp={doctorDetails.exp} total_patients={doctorDetails.total_patients}/>}
                                                     </Row>
@@ -207,18 +209,30 @@ const PatientBookingSummary = (props) => {
                                     </Row>
 
                                     <Row className='patient-booking-detail'>
-                                        <Col lg="4">
+                                        <Col lg="3" style={{paddingTop: '5px'}}>
+                                            <Container>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Purpose"
+                                                    id="purpose"
+                                                    label="Purpose"
+                                                    value={purpose}
+                                                    onChange={setPurpose}
+                                                />
+                                            </Container>
+                                        </Col>
+                                        <Col lg="3">
                                             <TextArea
-                                                label="Purpose"
+                                                label="Complaints"
                                                 type="textarea"
                                                 row="3"
                                                 value={complaints}
-                                                placeholder="Write here"
+                                                placeholder="Describe your complaints here"
                                                 onChange={setComplaints}
                                             />
                                         </Col>
 
-                                        <Col lg="4">
+                                        <Col lg="3">
                                         <Container className='slot-appointment-container'>
                                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                                     <span className='textarea-label'> Appointment Details</span><Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-pen"></i></Link>
@@ -239,7 +253,7 @@ const PatientBookingSummary = (props) => {
                         <CustomButton
                         className={'patient-order-booking-btn'}
                         onClick={bookSlots}
-                        text={'Pay & Book'}
+                        text={`${doctorDetails.fee} Pay & Book`}
                         ></CustomButton>
                     </div>
                 </Col>

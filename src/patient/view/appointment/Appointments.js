@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 
 const Appointments = (props) => {
   useEffect(() => {
-    getAppointments();
+    getUpcomingAppointments();
     getPreviousAppointments();
     return () => {};
   }, []);
@@ -26,7 +26,7 @@ const Appointments = (props) => {
     setPrevious(!previous);
   };
 
-  function getAppointments() {
+  function getUpcomingAppointments() {
     let params = {
       limit: 20,
       page:1,
@@ -80,6 +80,25 @@ const Appointments = (props) => {
       });
   }
 
+  function cancelAppointment(id, reason) {
+    let params = {
+      appointment_id: id,
+      cancel_reason: reason,
+   }
+
+    post(API.CANCELAPPOINTMENT, params)
+      .then(response => {
+        if (response.status === 200) {
+          getUpcomingAppointments()
+        } else {
+          addToast(response.data.message, { appearance: 'error' });
+        }
+      })
+      .catch(error => {
+        addToast(error.response.data.message, { appearance: 'error' });
+      });
+  }
+
   return (
     <>
       <Row>
@@ -118,7 +137,7 @@ const Appointments = (props) => {
                 { upcomingAppointments.map((appointment) => {
                   return(
                     <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1} className="appointment-page-cards-upcoming">
-                      <DoctorAppointmentsCard appointment={appointment} />
+                      <DoctorAppointmentsCard appointment={appointment} cancelAppointment={cancelAppointment} />
                     </Grid>
                   )
                 })}

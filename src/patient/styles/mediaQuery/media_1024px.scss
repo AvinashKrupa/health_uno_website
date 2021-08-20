@@ -2,9 +2,9 @@
 
     .upcoming-appointment-card-image {
         height: 99px;
-        width: 98px;
-        margin-right: 32px;
-        margin-left: 24px;
+        width: 89px;
+        margin-right: 33px;
+        margin-left: 35px;
         margin-top: 25px;
         margin-bottom: 1px;
     }
@@ -49,13 +49,13 @@
     }
     .patient-slot-booking-cal {
         flex-direction: row !important;
-        .fa-calendar-alt-slot {
-            display: block !important;
-        }
 
         .slot-calendar {
             padding-top: 10px !important;
             margin-bottom: 10px;
+        }
+        .react-datepicker__input-container {
+            padding-left: unset;
         }
     }
 
@@ -79,4 +79,34 @@
         margin-top: unset !important;
     }
 
+    .doctor-card-doctor-name {
+        .card-image-video-camera {
+            position: absolute;
+            left: 190px;
+        }
+    }
+
+    .slot-summary-doc-details {
+        margin-left: unset;
+    }
+
+    .card-text-time {
+        position: absolute;
+        left: 100px;
+    }
+
+}
+
+@media only screen and (min-width: 1366px) {
+    .doctor-card-doctor-name {
+        .card-image-video-camera {
+            position: absolute;
+            left: 170px;
+        }
+    }
+
+    .card-text-time {
+        position: absolute;
+        left: 80px;
+    }
 }
