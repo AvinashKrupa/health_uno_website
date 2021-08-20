@@ -34,8 +34,8 @@ const PatientAppointmentCard = (props) => {
                     <Image src={clock} />
                 </div>
                 <span className="time-info space-10">{props.onTime}</span></div>
-            <div style={{display:"flex", flexDirection:"row", justifyContent: "space-between", alignItems: "baseline", marginLeft: 20}}>
-                <div className="" >
+            <div className="appointment-calendar-container">
+                <div className="appointment-calendar-image-icon" >
                     <Image src={calendar} />
                 </div>
                 <span className="time-info space-10">{props.onDate}</span>

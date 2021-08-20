@@ -1,15 +1,15 @@
 /**
  Common styles
  */
-.grey{
+.grey {
   color: rgba(27, 27, 27, 0.5);
 }
 
-.space-10{
+.space-10 {
   margin-left: 10px;
 }
 
-.empty-list-container{
+.empty-list-container {
   height: 300px;
   text-align-last: center;
   padding-top: 40px;
@@ -22,6 +22,7 @@
   display: flex;
   flex-direction: row;
   flex: 1;
+
   .text-welcome-header {
     font-family: Montserrat;
     font-size: 24px;
@@ -33,6 +34,7 @@
     color: rgba(27, 27, 27, 0.6);
     margin-right: 8px;
   }
+
   .text-welcome-subheader {
     font-family: Montserrat;
     font-size: 24px;
@@ -54,7 +56,8 @@
   justify-content: space-between;
   margin-top: 32px;
   margin-bottom: 24px;
-  .upcoming-appointment-text{
+
+  .upcoming-appointment-text {
     font-family: Montserrat;
     font-size: 20px;
     font-style: normal;
@@ -65,7 +68,8 @@
     color: #1B1B1B;
 
   }
-  .upcoming-appointment-view_all{
+
+  .upcoming-appointment-view_all {
     font-family: Montserrat;
     font-size: 16px;
     font-style: normal;
@@ -78,9 +82,7 @@
 }
 
 
-
-
-.patient-appointment-container{
+.patient-appointment-container {
   cursor: pointer;
   margin-bottom: 10%;
   display: flex;
@@ -92,10 +94,10 @@
   padding: 21px;
 
   background: #FFFFFF;
-  box-shadow: 5.6px 5.6px 49px rgba(0, 0, 0, 0.1)!important;
-  border-radius: 12px!important;
+  box-shadow: 5.6px 5.6px 49px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
 
-  .image-container{
+  .image-container {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -109,8 +111,9 @@
 
     border-radius: 16px;
   }
-  .content-container{
-    flex:3;
+
+  .content-container {
+    flex: 3;
     //background-color: lightgoldenrodyellow;
     margin-left: 6%;
     width: 109.2px;
@@ -120,7 +123,7 @@
     border-radius: 16px;
     padding-top: 3%;
 
-    .patient-name{
+    .patient-name {
       font-family: Montserrat;
       font-size: 18px;
       font-style: normal;
@@ -130,7 +133,8 @@
       text-align: left;
       color: #1B1B1B;
     }
-    .purpose-info{
+
+    .purpose-info {
       color: #1B1B1B;
       font-family: Montserrat;
       font-size: 14px;
@@ -140,7 +144,8 @@
       letter-spacing: -0.5880004167556763px;
       text-align: left;
     }
-    .time-info{
+
+    .time-info {
       color: rgba(27, 27, 27, 0.5);
       font-family: Montserrat;
       font-size: 14px;
@@ -153,7 +158,8 @@
       //width: 100%;
       //max-width: 100%;
     }
-    .status-info{
+
+    .status-info {
       position: relative;
       top: -8px;
       font-family: Montserrat;
@@ -168,22 +174,24 @@
   }
 }
 
-.calendar-container{
+.calendar-container {
   flex-direction: row;
   display: flex;
   align-items: center;
+
   .react-datepicker-wrapper {
     padding-left: 0px !important;
     box-sizing: initial;
-    input{
+
+    input {
       border: none;
     }
   }
 }
 
-.calender-date-upcoming{
+.calender-date-upcoming {
   font-family: Montserrat;
-  font-size: 14px!important;
+  font-size: 14px !important;
   font-style: normal;
   font-weight: 400;
   line-height: 17px;
@@ -191,3 +199,27 @@
   text-align: center;
   align-items: center;
 }
+
+.appointment-calendar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-left: 20px;
+}
+.appointment-calendar-image-icon {
+  img{
+    margin-left: 10px !important;
+  }
+}
+
+//@media only screen and (max-width: 414px) {
+//  .appointment-calendar-container {
+//    display: flex;
+//    flex-direction: row;
+//    justify-content: space-between;
+//    align-items: baseline;
+//    margin-left: unset;
+//    flex-wrap: wrap;
+//  }
+//}
