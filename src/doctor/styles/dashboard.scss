@@ -166,3 +166,15 @@
   }
 }
 
+.calendar-container{
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  .react-datepicker-wrapper {
+    padding-left: 0px !important;
+    box-sizing: initial;
+    input{
+      border: none;
+    }
+  }
+}
