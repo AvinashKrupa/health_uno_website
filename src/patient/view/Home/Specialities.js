@@ -82,11 +82,8 @@ const Specialities = (props) => {
             <Col>
               <span className="patient-homepage-text-h4">Specialities</span>
             </Col>
-            <Col style={{ textAlign: "right" }}>
-              <span className="patient-homepage-link-text ">View All</span>
-            </Col>
           </Row>
-          <Row>
+          <Row className='specialities-container'>
             { getSpecializationList() }
           </Row>
         </Col>

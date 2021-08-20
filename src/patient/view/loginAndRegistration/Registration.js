@@ -8,7 +8,7 @@ const Registration = () => {
   return (
     <Container className='registration-container'>
       <Row className='heading'>
-        <Link to='/otp'><i class="fas fa-arrow-left"></i><span>Complete Profile</span></Link>
+        <Link to='/patient/otp'><i class="fas fa-arrow-left"></i><span>Complete Profile</span></Link>
       </Row>
       <Row>
         <Col className="col-md-3">

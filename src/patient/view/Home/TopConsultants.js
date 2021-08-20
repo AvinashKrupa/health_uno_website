@@ -11,6 +11,7 @@ import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
 import TopConsultantsFilter from '../../commonComponentPatient/TopConsultantsFilter'
 import { Button } from "react-bootstrap";
 import { filter } from "../../../constants/PatientImages";
+import SimilarDoctorsCard  from '../doctorDetail/SimilarDoctorsCard'
 
 const TopConsultants = (props) => {
   let timer = null;
@@ -77,6 +78,7 @@ const TopConsultants = (props) => {
           </Row>
           <div className='search-container' style={{display: "flex", justifyContent:'space-between'}}>
             <SearchInputWithIcon
+              col='12'
               placeholder="Search doctors"
               defaultValue={searchText}
               className='patient-homepage-search'
@@ -89,16 +91,16 @@ const TopConsultants = (props) => {
           </div>
          
           <Row style={{display: 'flex', flexDirection: 'row'}} className='top-consultants-card-container'>
-          {consultants.map((consultant) => {
+          {consultants.map((doctor) => {
               return(
                 <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1}>
-                  <DoctorCard
-                    id={consultant._id}
-                    image={consultant.dp}
-                    name={`${consultant.first_name}, ${consultant.last_name}`}
-                    fees={consultant.fee}
-                    details={`${consultant.city}, ${consultant.country} | ${consultant.exp} Y Exp`}
-                    qualifications={consultant.specialities}
+                   <SimilarDoctorsCard
+                        id={doctor._id}
+                        image={doctor.dp}
+                        name={`${doctor.first_name} ${doctor.last_name}`}
+                        fees={doctor.fee}
+                        details={`${doctor.city}, ${doctor.country} | ${doctor.exp} Y Exp`}
+                        qualifications={doctor.specialities}
                   />
                 </Grid>
               )

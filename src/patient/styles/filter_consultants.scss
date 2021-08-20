@@ -12,12 +12,14 @@
   }
   
   .filter_menu_h5 {
-    width: 60px;
+    max-width: 100px;
+    width: 100px;
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
     letter-spacing: -0.30000001192092896px;
-    margin: 40px;
+    margin: 24px;
+    height: 40px;
   }
   
   .filter_menu_button {

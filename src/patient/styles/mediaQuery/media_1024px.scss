@@ -1,0 +1,112 @@
+@media only screen and (min-width: 1024px) {
+
+    .upcoming-appointment-card-image {
+        height: 99px;
+        width: 89px;
+        margin-right: 33px;
+        margin-left: 35px;
+        margin-top: 25px;
+        margin-bottom: 1px;
+    }
+
+    .top-consultants-card-container, .doctor-card-container {
+        .MuiCardContent-root {
+            padding-left: 25px !important;
+        }
+    }
+
+    .doctor-card-image {
+        height: 151px;
+        width: 132px;
+        margin-right: 10px;
+        margin-left: 24px;
+        margin-top: 19px;
+        margin-bottom: 1px;
+    }
+
+    //slot booking
+    .slot-timings-title {
+        margin-right: unset !important;
+    }
+
+    .slot-timings-button, .days-button {
+        width: 160px !important;
+        margin-bottom: 10px !important;
+        margin-right: 5px;
+    }
+
+    .slot-timings-button {
+        height: 50px;
+    }
+
+    .patient-slot-booking {
+        .fa-chevron-left {
+            padding-right: 51px !important;
+        }
+        .fa-chevron-right {
+            padding-left: 51px !important;
+        }
+    } 
+    .patient-slot-booking-cal {
+        flex-direction: row !important;
+        
+        .slot-calendar {
+            padding-top: 10px !important;
+            margin-bottom: 10px;
+        }
+        .react-datepicker__input-container {
+            padding-left: unset;
+        }
+    }
+
+    .slot-timings-title {
+        width: 71px;
+        font-weight: 500;
+        line-height: unset;
+        letter-spacing: unset; 
+        padding-top: 10px;
+    }
+
+    .slot-evening, .slot-day {
+        margin-top: 47px;
+    }
+
+    .back-navigation {
+        margin-bottom: 43px !important;
+    }
+
+    .slot-appointment-container {
+        margin-top: unset !important;
+    }
+
+    .doctor-card-doctor-name {
+        .card-image-video-camera {
+            position: absolute;
+            left: 190px;
+        }
+    }
+
+    .slot-summary-doc-details {
+        margin-left: unset;
+    }
+
+    .card-text-time {
+        position: absolute;
+        left: 100px;
+    }
+
+}
+
+@media only screen and (min-width: 1366px) { 
+    .doctor-card-doctor-name {
+        .card-image-video-camera {
+            position: absolute;
+            left: 170px;
+        }
+    }
+
+    .card-text-time {
+        position: absolute;
+        left: 80px;
+    }
+}

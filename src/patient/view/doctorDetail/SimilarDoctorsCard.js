@@ -1,47 +1,41 @@
 import { Card, CardContent, CardMedia } from "@material-ui/core";
-import { Row, Col } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 
 const DoctorCard = (props) => {
-  const { image, name, details, id } = props;
   return (
     <>
-      <Card className="doctor-card-container">
-        <Row>
-          <Col lg="4">
-            <CardMedia className="doctor-card-image" image={image}></CardMedia>
-          </Col>
-          <Col lg="8">
+    <Card className="doctor-card-container">
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div>
+          <CardMedia className="doctor-card-image" image={props?.image}></CardMedia>
+          </div>
+          <div>
             <CardContent>
-              <Row>
-                <Row>
-                  <span
+                <span className="doctor-card-doctor-name">{props.name}</span>
+                <span className="doctor-card-doctor-details">{props?.details}</span>
+                <span>
+                  <span className="doctor-card-fee-label">Fee:</span>
+                  <span className="doctor-card-fee-value">Rs {props.fees}</span>{" "}
+                </span>
+                <span style={{marginTop: "5px" }}>
+                <span
                     className="doctor-card-specialization-text"
-                    style={{ marginLeft: "34px" }}
+                    style={{  marginTop: "10px" }}
                   >
                     {
-                      props.qualifications.map((s) => {
+                      props?.qualifications.map((s) => {
                           return(<span key={s} style={{ padding: '5px', marginRight: '10px'}} className='doctor-card-specialization-container'>{s}</span>)
                       })
                     }
 
                   </span>
-                </Row>
-                <Row>
-                  <span className="doctor-card-doctor-name">{name}</span>
-                </Row>
-                <Row>
-                  <span className="doctor-card-doctor-details">{details}</span>
-                </Row>
-                <Row style={{ marginTop: "30px" }}>
-                <Link to={`/patient/doctorDetails/${id}`}>
+                </span>
+                <Link to={`/patient/doctorDetails/${props.id}`}>
                   <span className="doctor-card-details-link">View Details</span>
                 </Link>
-                </Row>
-              </Row>
             </CardContent>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </Card>
     </>
   );

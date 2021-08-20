@@ -3,7 +3,7 @@ import { Form, Row, Col, InputGroup } from "react-bootstrap";
 const SearchInputWithIcon = (props) => {
   return (
     <Row style={{ marginTop: "33px"}}>
-        <Col lg='6'>
+        <Col lg={props.col ? props.col : '6'}>
             <InputGroup>
                 <i className="fas fa-search"></i>
                 <Form.Control

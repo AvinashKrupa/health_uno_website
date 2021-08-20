@@ -11,7 +11,10 @@ import DoctorHomePage from './doctor/view/DoctorHomePage';
 import TopConsultants from './patient/view/Home/TopConsultants';
 import Specialities from './patient/view/Home/Specialities'
 import DoctorDetails from "./patient/view/doctorDetail/DoctorDetail";
-// import PatientSlotBooking from "./patient/view/slotBooking/PatientSlotBooking";
+import PatientSlotBooking from "./patient/view/slotBooking/PatientSlotBooking";
+import PatientBookingSummary from "./patient/view/slotBooking/PatientBookingSummary";
+import Appointments from "./patient/view/appointment/Appointments";
+import VideoMeeting from "./patient/view/Meeting/VideoMeeting";
 
 function App() {
   return (
@@ -28,7 +31,11 @@ function App() {
           <PrivateRoute exact path='/patient/topConsultants' component={TopConsultants} />
           <PrivateRoute exact path='/patient/specialities' component={Specialities} />
           <PrivateRoute exact path='/patient/doctorDetails/:doctor_id' component={DoctorDetails} />
-          {/* <PrivateRoute exact path='/patient/bookSlot/:doctor_id' component={PatientSlotBooking} /> */}
+          <PrivateRoute exact path='/patient/slotBooking/:doctor_id' component={PatientSlotBooking} />
+          <PrivateRoute exact path='/patient/bookingSummary/:doctor_id' component={PatientBookingSummary} />
+          <PrivateRoute exact path='/patient/appointments' component={Appointments} />
+           <PrivateRoute exact path='/patient/videoMeeting' component={VideoMeeting} />
+
         </BrowserRouter>
     </div>
   );

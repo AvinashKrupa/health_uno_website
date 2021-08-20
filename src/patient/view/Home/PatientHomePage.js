@@ -9,6 +9,7 @@ import CarouselComponent from "../../../commonComponent/CarouselComponent";
 import Grid from "@material-ui/core/Grid";
 import useSearchStore from "../../store/searchStore";
 import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
+import SimilarDoctorsCard from "./../doctorDetail/SimilarDoctorsCard";
 
 const PatientHomePage = (props) => {
   let timer = null;
@@ -86,8 +87,8 @@ const PatientHomePage = (props) => {
               <span className="patient-homepage-link-text " style={{cursor: 'pointer'}} onClick={(e) => props.history.push("/patient/specialities")}>View All</span>
             </Col>
           </Row>
-          <Row>
-            {specialities && specialities.slice(0, 9).map((specialitie) => {
+          <Row className='specialities-container'>
+            {specialities && specialities.slice(0, 8).map((specialitie) => {
               return (
                 <SpecialityCard
                   icon={specialitie.image}
@@ -106,17 +107,18 @@ const PatientHomePage = (props) => {
             </Col>
           </Row>
           <Row style={{ display: "flex", flexDirection: "row" }}>
-            {consultants && consultants.slice(0, 3).map((consultant) => {
+            {consultants && consultants.slice(0, 3).map((doctor) => {
               return (
                 <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
-                  <DoctorCard
-                    id={consultant._id}
-                    image={consultant.dp}
-                    name={`${consultant.first_name}, ${consultant.last_name}`}
-                    fees={consultant.fee}
-                    details={`${consultant.city}, ${consultant.country} | ${consultant.exp} Y Exp`}
-                    qualifications={consultant.specialities}
-                  />
+                    <SimilarDoctorsCard
+                        id={doctor._id}
+                        image={doctor.dp}
+                        name={`${doctor.first_name} ${doctor.last_name}`}
+                        fees={doctor.fee}
+                        details={`${doctor.city}, ${doctor.country} | ${doctor.exp}  Y Exp`}
+                        qualifications={doctor.specialities}
+                    />
+
                 </Grid>
               );
             })}

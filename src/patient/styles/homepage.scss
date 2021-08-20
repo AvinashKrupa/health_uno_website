@@ -14,6 +14,7 @@
   .button {
     width: 350px;
     background-color: #28A3DA !important;
+    height: 50px;
   }
 
   .left-nav {
@@ -70,12 +71,15 @@
 }
 
 .right-nav {
-  padding-left: 100px !important;
+  padding-left: 30px !important;
   padding-top: 136px !important;
+
+  
 
   h3 {
     font-weight: 400;
   }
+  
 } 
 
   @media only screen and (min-width: 1180px) {
@@ -94,7 +98,7 @@
 
   @media only screen and (max-width: 768px) {
     .left-nav {
-     display: none;
+      display: none;
      }
   }
 
@@ -103,6 +107,48 @@
      display: none;
      }
   }
+
+  @media only screen and (min-width: 992px) {
+    .right-nav {
+          padding-left: 180px !important;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+
+     .right-nav {
+      padding-left: 180px !important;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .login-btn {
+      width: 300px !important;
+     }
+
+     .right-nav {
+      padding-top: 80px !important;
+      .form-control {
+        max-width: 230px !important;
+      }
+    }
+
+     .logo {
+        img {
+          margin-left: 5px !important;
+        }
+    }
+     
+  }
+
+  @media only screen and (max-width: 375px) {
+     .logo {
+      img {
+        margin-left: 5px !important;
+      }
+    }
+     
+  }
   
   .main-container {
      img {
@@ -110,4 +156,8 @@
       max-height: 100vh;
       height: auto;
      }
+  }
+
+  .button {
+    background-color: #28A3DA  !important;
   }

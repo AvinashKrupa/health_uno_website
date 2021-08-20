@@ -5,7 +5,7 @@ import { Row, Col, Image, InputGroup } from "react-bootstrap";
 const ColorCards = (props) => {
   return (
     <Row>
-        <Col lg="4" md='4' sm='6' xs='12'>
+        <Col lg="4" md='6' sm='6' xs='12'>
             <div className='circle-card-icon'>
                 <InputGroup>
                     <div className="color_card_circle" style={{ background: "#b8509e" }} >
@@ -21,10 +21,10 @@ const ColorCards = (props) => {
             </Card>
         </Col>
      
-        <Col lg="4" md='4' sm='6' xs='12'>
+        <Col lg="4" md='6' sm='6' xs='12'>
              <div className='circle-card-icon'>
                 <InputGroup>
-                    <div className="color_card_circle"style={{ background: "#b8509e" }} >
+                    <div className="color_card_circle"style={{ background: "#28A3DA" }} >
                         <Image src={icon_badge} />
                     </div>
                 </InputGroup>
@@ -37,10 +37,10 @@ const ColorCards = (props) => {
             </Card>
         </Col>
 
-        <Col lg="4" md='4' sm='6' xs='12'>
+        <Col lg="4" md='6' sm='6' xs='12'>
             <div className='circle-card-icon'>
                 <InputGroup>
-                    <div className="color_card_circle" style={{ background: "#b8509e" }}>
+                    <div className="color_card_circle" style={{ background: "#12B829" }}>
                         <Image src={icon_money} />
                     </div>
                 </InputGroup>

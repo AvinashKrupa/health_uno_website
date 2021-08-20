@@ -1,4 +1,12 @@
 .registration-container {
+
+  .row {
+    .container {
+      margin-top: 22px;
+    }
+  }
+
+
    
     h4 {
       margin-top: 33px;
@@ -20,6 +28,7 @@
       margin-top: 50px;
       width: 335px;
       margin-bottom: 54px;
+      height: 50px;
     }
     .fa-camera {
       position: relative;
