@@ -44,7 +44,7 @@
             padding-right: 51px !important;
         }
         .fa-chevron-right {
-            padding-left: 51px !important;
+            padding-left: 45px !important;
         }
     }
     .patient-slot-booking-cal {
@@ -94,6 +94,28 @@
         position: absolute;
         left: 100px;
     }
+
+
+    .meeting-page-column-content-container {
+        .meeting-page-patient-image  {
+            width: 450px !important;
+        }
+
+        .meeting-page-column-content {
+            margin-left: 50px !important;
+        }
+
+        .meeting-page-text-below-image {
+            margin-top: 40px;
+        }
+
+        .meeting-button {
+            button {
+                width: 165px !important;
+            }
+        }
+    }
+     
 
 }
 

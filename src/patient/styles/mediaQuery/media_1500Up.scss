@@ -11,4 +11,24 @@
         left: 104px;
     }
 
+    .meeting-page-column-content-container {
+        .meeting-page-patient-image  {
+            width: 557px !important;
+        }
+
+        .meeting-page-column-content {
+            margin-left: 162px !important;
+        }
+
+        .meeting-page-text-below-image {
+            margin-top: 146px;
+        }
+
+        .meeting-button {
+            button {
+                width: 206px !important;
+            }
+        }
+    }
+
 }

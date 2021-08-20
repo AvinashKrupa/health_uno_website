@@ -47,7 +47,7 @@ const DoctorDetails = (props) => {
                     <>
                         <Row style={{ marginBottom: "50px" }} className='doctor-back-navigation'>
                         <Row className='back-navigation'>
-                            <Link to='/patient/home'><i class="fas fa-arrow-left"></i><span>Doctor Details</span></Link>
+                            <Link to='/patient/topConsultants'><i class="fas fa-arrow-left"></i><span>Doctor Details</span></Link>
                         </Row>
                         </Row>
                         <Row>
