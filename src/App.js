@@ -26,6 +26,7 @@ function App() {
           <PrivateRoute exact path='/doctor/otp' component={DoctorOTP} />
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />
           <PrivateRoute exact path='/doctor/upcomingAppointments' component={UpcomingAppointments} />
+          <PrivateRoute exact path='/doctor/search' component={UpcomingAppointments} />
           <PrivateRoute exact path='/patient/otp' component={OTP} />
           <PrivateRoute exact path='/patient/registration' component={Registration} />
           <PrivateRoute exact path='/patient/home' component={PatientHomePage} />

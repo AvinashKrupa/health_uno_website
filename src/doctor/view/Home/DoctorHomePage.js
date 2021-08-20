@@ -79,7 +79,7 @@ const DoctorHomePage = (props) => {
     timer = setTimeout(function () {
       setSearchText(txt);
       props.history.push({
-        pathname: '/doctor/upcomingAppointments',
+        pathname: '/doctor/search',
         state: { title: 'Search Appointments' }
       });
     }, 1000);
