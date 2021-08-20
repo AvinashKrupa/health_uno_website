@@ -85,8 +85,9 @@
 .patient-appointment-container{
   margin-bottom: 10%;
   display: flex;
-  width: 450px;
-  height: 154px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 154px;
   left: 134px;
   top: 391px;
   padding: 21px;
@@ -98,6 +99,7 @@
   .image-container{
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     flex: 1.2;
     //background-color: palegreen;
     //position: absolute;
