@@ -54,12 +54,12 @@ const DoctorHomePage = (props) => {
       sort_key: "created_at",
       date: currentDate,
       status: [
-        "pending",
+        // "pending",
         "scheduled",
-        "cancelled",
-        "rejected",
+        // "cancelled",
+        // "rejected",
         "ongoing",
-        "completed"
+        // "completed"
       ]
     }, true)
       .then((response) => {
