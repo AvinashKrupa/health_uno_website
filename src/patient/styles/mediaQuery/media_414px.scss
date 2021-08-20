@@ -79,7 +79,8 @@
     .slot-timings-button, .days-button {
         width: 65px !important;
         margin-bottom: 10px !important;
-        margin-right: 10px !important
+        margin-right: 10px !important;
+        height: 100%;
     }
 
     .patient-slot-booking {
@@ -117,8 +118,8 @@
 
     .modal-content {
         top: 30px;
-        width: 400px; 
-        height: 400px; 
+        width: 400px;
+        height: 400px;
     }
 
     .doctor-card-doctor-name {

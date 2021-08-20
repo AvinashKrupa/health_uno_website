@@ -9,6 +9,7 @@ import DoctorOTP from "./doctor/view/DoctorOTP";
 import MultiStepFormRegistration from "./doctor/view/multiStepForm/MultiStepFormRegistration";
 import DoctorHomePage from "./doctor/view/Home/DoctorHomePage";
 import UpcomingAppointments from "./doctor/view/Home/UpcomingAppointments";
+import AppointmentDetail from "./doctor/view/Home/AppointmentDetail";
 import TopConsultants from './patient/view/Home/TopConsultants';
 import Specialities from './patient/view/Home/Specialities'
 import DoctorDetails from "./patient/view/doctorDetail/DoctorDetail";
@@ -28,6 +29,7 @@ function App() {
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />
           <PrivateRoute exact path='/doctor/upcomingAppointments' component={UpcomingAppointments} />
           <PrivateRoute exact path='/doctor/search' component={UpcomingAppointments} />
+          <PrivateRoute exact path='/doctor/appointmentDetail/:appointment_id' component={AppointmentDetail} />
           <PrivateRoute exact path='/patient/otp' component={OTP} />
           <PrivateRoute exact path='/patient/registration' component={Registration} />
           <PrivateRoute exact path='/patient/home' component={PatientHomePage} />

@@ -2,6 +2,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Row, Col, Image } from "react-bootstrap";
 import {arrowRight} from "../constants/PatientImages";
+import React from "react";
 
 const CarouselComponent = ({sliders}) => {
   const responsive = {
@@ -36,7 +37,7 @@ const CarouselComponent = ({sliders}) => {
   return (
     <>
       <Row>
-        <Col lg="8">
+        <Col lg="16" sm="16" xs="16">
           <Carousel
             autoPlay={true}
             customLeftArrow={<></>}

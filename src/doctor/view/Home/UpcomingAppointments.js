@@ -1,6 +1,6 @@
 import {Col, Image, Row} from "react-bootstrap";
 import {API, post} from '../../../api/config/APIController';
-import React, {useEffect, useState} from "react";
+import React, {forwardRef, useEffect, useState} from "react";
 import {useToasts} from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -68,6 +68,14 @@ const UpcomingAppointments = (props) => {
     }, 1000);
   }
 
+  const CustomDateComponent = forwardRef(({ value, onClick }, ref) => (
+      <>
+        <div className="calender-date-upcoming" onClick={onClick} ref={ref} style={{display: 'flex', flexDirection:"row"}}>
+          {moment(value).format("MMM YYYY")}<div style={{marginLeft:10}}><Image src={calendar_blue} /></div>
+        </div>
+      </>
+  ));
+
   return (
         <div>
           <Row className='top-consultants-container'>
@@ -83,9 +91,8 @@ const UpcomingAppointments = (props) => {
                         maxDate={new Date(new Date().getFullYear(), new Date().getMonth() + 1, 15)}
                         minDate={new Date(new Date().getFullYear(), new Date().getMonth(), 15)}
                         placeholderText="Select a date before 30 days in the future"
-
+                        customInput={<CustomDateComponent />}
                     />
-                    <Image src={calendar_blue} />
                   </div>
                 </div>
               </Row>
@@ -119,11 +126,9 @@ const UpcomingAppointments = (props) => {
                   )
                 })}
                 {!appointments.length &&
-                      <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
-                        <div className="empty-list-container">
-                          <h4>No appointments found</h4>
-                        </div>
-                      </Grid>
+                  <div className="empty-list-container">
+                    <h4>No appointments found</h4>
+                  </div>
                 }
               </Row>
             </Col>

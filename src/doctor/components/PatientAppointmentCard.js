@@ -1,14 +1,12 @@
 import { Card } from "@material-ui/core";
 import {calendar,clock} from "../../constants/DoctorImages";
-import {Link} from 'react-router-dom';
 import {Image} from "react-bootstrap";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 const PatientAppointmentCard = (props) => {
   return (
     <>
-    <Card className="patient-appointment-container" onClick={() =>{
-        console.log('user clicked' );
-    }}>
+    <Card className="patient-appointment-container" onClick={() =>  props.history.push(`/doctor/appointmentDetail/${props.id}`)}>
         <div className="image-container">
             <img src={props?.image} style={{
                 maxWidth:"100%",
@@ -34,8 +32,8 @@ const PatientAppointmentCard = (props) => {
                     <Image src={clock} />
                 </div>
                 <span className="time-info space-10">{props.onTime}</span></div>
-            <div style={{display:"flex", flexDirection:"row", justifyContent: "space-between", alignItems: "baseline", marginLeft: 20}}>
-                <div className="" >
+            <div className="appointment-calendar-container">
+                <div className="appointment-calendar-image-icon" >
                     <Image src={calendar} />
                 </div>
                 <span className="time-info space-10">{props.onDate}</span>
@@ -46,4 +44,4 @@ const PatientAppointmentCard = (props) => {
     </>
   );
 };
-export default PatientAppointmentCard;
+export default withRouter(PatientAppointmentCard);
