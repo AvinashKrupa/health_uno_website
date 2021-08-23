@@ -22,6 +22,7 @@ import '../../doctor/styles/multiStepForm.scss';
 import '../../doctor/styles/patientRegistrationPage1.scss';
 import '../../doctor/styles/profilePictureColumn.scss';
 import '../../doctor/styles/dashboard.scss';
+import '../../doctor/styles/videoMeeting.scss';
 
 
 // Common

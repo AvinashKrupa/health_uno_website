@@ -1,0 +1,27 @@
+// on top of patient css
+.meeting-page-text-patient-name{
+  margin-top: 30px!important;
+}
+
+.meeting-page-purpose{
+  font-family: Montserrat;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 31px;
+  letter-spacing: -0.8941941261291504px;
+  text-align: left;
+}
+.meeting-page-purpose-title{
+  margin-top: 24px;
+  color: rgba(27, 27, 27, 0.5);
+}
+.meeting-page-purpose-description{
+  color: rgba(27, 27, 27, 1);
+}
+
+@media only screen and (min-width: 1024px){
+  .meeting-page-column-content-container .meeting-button button {
+    width: 195px !important;
+  }
+}

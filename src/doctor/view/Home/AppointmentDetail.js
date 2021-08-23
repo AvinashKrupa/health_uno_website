@@ -95,7 +95,7 @@ const AppointmentDetail = (props) => {
 
                                 <div className="field-container">
                                     <div className="field-title">Purpose:</div>
-                                    <div className="field-description">Headache</div>
+                                    <div className="field-description">{appointmentDetail?.reason}</div>
                                 </div>
 
 
@@ -130,7 +130,7 @@ const AppointmentDetail = (props) => {
                         <div style={{ display:"flex", justifyContent: "center"} }>
                             <Button className="initiate-call-button-container"
                                     onClick={() => {
-                                        props.history.push(`/doctor/videoMeeting/${appointmentDetail?.doctor}`)
+                                        props.history.push(`/doctor/videoMeeting/${appointmentDetail?._id}`)
                                     }}
                             >
                                 Initiate Call
