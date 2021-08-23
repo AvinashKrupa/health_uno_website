@@ -241,17 +241,15 @@
   background: #FFFFFF!important;
   box-shadow: 5.6px 5.6px 49px rgba(0, 0, 0, 0.1) !important;
   border-radius: 12px !important;
+  flex-wrap: wrap;
 
   .image-container{
     flex:1;
     display: flex;
-    justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: 230px;
-    height: 230px;
-    min-width: 230px;
-    min-height: 230px;
+    min-width: 160px;
+    min-height: 160px;
     max-height: 230px;
     max-width: 230px;
     img {
@@ -353,4 +351,55 @@
   letter-spacing: -0.420000284910202px;
   text-align: left;
   color: #1B1B1B;
+}
+
+.initiate-call-button-container{
+  height: 51.25px;
+  width: 335px;
+  border-radius: 8px!important;
+  color: #FFFFFF;
+  background: #28A3DA!important;
+  position: inherit;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.30000001192092896px;
+  text-align: center;
+
+}
+
+/**
+  Media queries
+ */
+  @media screen and (max-width: 425px) {
+    .view-report-button {
+      width: auto;
+      height: 40px;
+    }
+  .appointment-detail-card-container{
+    display: block;
+
+    .detail-container{
+      margin-top: 8%;
+    }
+
+    .image-container {
+      max-width: 160px;
+
+      img {
+        //flex-shrink: 0;
+        //min-width: 100%;
+        //min-height: 100%;
+        //width: 100%;
+        //height: 100%;
+      }
+    }
+  }
+    .row-add-doctor {
+      margin-top: 5%;
+      height: 10%;
+    }
 }

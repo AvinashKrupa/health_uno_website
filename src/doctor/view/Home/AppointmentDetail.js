@@ -126,10 +126,13 @@ const AppointmentDetail = (props) => {
                             <div className="row-add-doctor-text">Add Doctor</div>
                             <div><Image src={plus_icon} /></div>
                         </div>
+
+                        <div style={{ display:"flex", justifyContent: "center"} }>
+                            <Button className="initiate-call-button-container">
+                                Initiate Call
+                            </Button>
+                        </div>
                     </Col>
-                    {/*<Col>*/}
-                    {/*<div style={{backgroundColor: 'blue'}}>hello</div>*/}
-                    {/*</Col>*/}
                 </Row>
               {/*<Row style={{display: 'flex', flexDirection: 'row'}} className='top-consultants-card-container'>*/}
               {/*  {appointmentDetail.map((doctor) => {*/}
