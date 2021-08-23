@@ -81,7 +81,7 @@ const AppointmentDetail = (props) => {
                                 <div className="field-container" style={{justifyContent: "space-between"}}>
                                     <div className="patient-name">{`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}</div>
                                     <div style={{marginRight:'2%'}}>
-                                        <Button className="view-report-button">
+                                        <Button className="view-report-button" onClick={()=>props.history.push('/doctor/reports')}>
                                             View Reports
                                         </Button>
                                     </div>
@@ -128,7 +128,11 @@ const AppointmentDetail = (props) => {
                         </div>
 
                         <div style={{ display:"flex", justifyContent: "center"} }>
-                            <Button className="initiate-call-button-container">
+                            <Button className="initiate-call-button-container"
+                                    onClick={() => {
+                                        props.history.push(`/doctor/videoMeeting/${appointmentDetail?.doctor}`)
+                                    }}
+                            >
                                 Initiate Call
                             </Button>
                         </div>
