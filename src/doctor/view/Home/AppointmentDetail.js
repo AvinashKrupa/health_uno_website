@@ -1,4 +1,4 @@
-import {Col, Image, Row} from "react-bootstrap";
+import {Button, Col, Image, Row} from "react-bootstrap";
 import {API, post} from '../../../api/config/APIController';
 import React, {forwardRef, useEffect, useState} from "react";
 import {useToasts} from 'react-toast-notifications';
@@ -9,7 +9,7 @@ import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import {calendar_blue} from "../../../constants/DoctorImages";
+import {calendar, clock, plus_icon} from "../../../constants/DoctorImages";
 import {Card} from "@material-ui/core";
 
 const AppointmentDetail = (props) => {
@@ -78,27 +78,54 @@ const AppointmentDetail = (props) => {
                                 }}/>
                             </div>
                             <div className="detail-container">
-                                <div>{`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}</div>
+                                <div className="field-container" style={{justifyContent: "space-between"}}>
+                                    <div className="patient-name">{`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}</div>
+                                    <div style={{marginRight:'2%'}}>
+                                        <Button className="view-report-button">
+                                            View Reports
+                                        </Button>
+                                    </div>
+                                </div>
 
-                                <div>Age: 34 years</div>
-                                <div>{appointmentDetail?.patient?.user?.dob}</div>
+                                <div className="field-container">
+                                    <div className="field-title">Age:</div>
+                                    <div className="field-description">{`${moment().diff(appointmentDetail?.patient?.user?.dob, 'years',false)} years`}</div>
+                                    {/*<div className="field-description">{moment(appointmentDetail?.patient?.user?.dob).format("DD - MM - YYYY")}</div>*/}
+                                </div>
+
+                                <div className="field-container">
+                                    <div className="field-title">Purpose:</div>
+                                    <div className="field-description">Headache</div>
+                                </div>
 
 
-                                <div>Purpose: Headache</div>
-                                <div>{appointmentDetail?.patient?.user?.dob}</div>
+
+                                <div className="field-container">
+                                    <div style={{display:"flex", flexDirection:"row", justifyContent: "space-between", alignItems: "baseline"}}>
+                                        <div className="" >
+                                            <Image src={clock} />
+                                        </div>
+                                        <div className="field-description">{appointmentDetail?.time?.slot}</div>
+                                        <div className="appointment-calendar-container">
+                                            <div className="appointment-calendar-image-icon" >
+                                                <Image src={calendar} />
+                                            </div>
+                                            <div className="field-description">{moment(appointmentDetail?.time?.date).format("DD - MM - YYYY")}</div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                                <div>{appointmentDetail?.time?.slot}</div>
-
-
-                                <div>{appointmentDetail?.time?.date}</div>
-
-
-                                <div>Comments: </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa cursus mauris magna eget vel, iaculis libero. Viverra eleifend ultrices et feugiat.</div>
+                                <div className="field-container">
+                                    <div className="field-title">Comments: </div>
+                                    <div className="field-description" style={{width: '80%'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa cursus mauris magna eget vel, iaculis libero. Viverra eleifend ultrices et feugiat.</div>
+                                </div>
                             </div>
                         </div>
-                        <div style={{backgroundColor: 'lightcyan'}}>Add Doctor</div>
+                        <div className="row-add-doctor">
+                            <div className="row-add-doctor-text">Add Doctor</div>
+                            <div><Image src={plus_icon} /></div>
+                        </div>
                     </Col>
                     {/*<Col>*/}
                     {/*<div style={{backgroundColor: 'blue'}}>hello</div>*/}

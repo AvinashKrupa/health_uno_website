@@ -266,5 +266,91 @@
   .detail-container{
     flex:4;
     margin-left: 6%;
+    .field-container{
+      display: flex;
+      flex-direction: row;
+      margin-top: 2%;
+    }
+    .view-report-button {
+      position: inherit;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 17px;
+      letter-spacing: -0.420000284910202px;
+      text-align: center;
+      width: 150px;
+      height: 40px;
+      background: #28A3DA;
+      border-radius: 6px!important;
+    }
+
+    .patient-name{
+      font-family: Montserrat;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 29px;
+      letter-spacing: -0.5880004167556763px;
+      text-align: left;
+      color: #1B1B1B;
+
+    }
+    .field-title{
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: -0.420000284910202px;
+      text-align: left;
+      color: #1B1B1B;
+    }
+    .field-description{
+      margin-left: 8px;
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: -0.420000284910202px;
+      text-align: left;
+      color: #8F8F8F;
+
+    }
+    .button-text{
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 17px;
+      letter-spacing: -0.420000284910202px;
+      text-align: center;
+      color: #FFFFFF;
+    }
   }
+}
+
+.row-add-doctor{
+  background-color: #FFFFFF;
+  box-shadow: 5.6px 5.6px 49px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 50px;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 4%;
+  padding-right: 4%;
+}
+.row-add-doctor-text{
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.420000284910202px;
+  text-align: left;
+  color: #1B1B1B;
 }
