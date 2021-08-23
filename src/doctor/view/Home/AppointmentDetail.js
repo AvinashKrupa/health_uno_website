@@ -57,7 +57,7 @@ const AppointmentDetail = (props) => {
 
   return (
         <div>
-          <Row className='top-consultants-container'>
+          <Row>
             <Col lg="1" sm="1" xs='1'/>
             <Col lg="10" sm="10" xs='10'>
               <Row className='back-navigation'>

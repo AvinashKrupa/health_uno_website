@@ -27,6 +27,7 @@ import '../../doctor/styles/dashboard.scss';
 // Common
 import './text_area.scss';
 import '../../doctor/styles/slot_generator.scss';
+import '../../common/global.scss';
 
 
 //Media query
