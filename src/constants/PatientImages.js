@@ -19,11 +19,12 @@ import help from "../patient/assets/help.svg";
 import meeting from "../patient/assets/meeting.svg";
 import blackArrow from "../patient/assets/blackArrow.svg";
 import calendar from "../patient/assets/calendar.png";
-
+import patientIcon from "../patient/assets/patientIcon.png"; 
+ 
 
 
 export { group, logo, frame, doctor, plant, phone,
          doctorCard, tooth, heart, brain, arrowRight,
          filter, minus, icon_badge, icon_man, icon_money,
-         camera, meeting, help, blackArrow, calendar
+         camera, meeting, help, blackArrow, calendar, patientIcon
        };
