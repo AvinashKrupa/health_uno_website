@@ -12,6 +12,7 @@ import UpcomingAppointments from "./doctor/view/Home/UpcomingAppointments";
 import AppointmentDetail from "./doctor/view/Home/AppointmentDetail";
 import Reports from "./doctor/view/Home/Reports";
 import VideoMeetingDoctorSide from "./doctor/view/Meeting/VideoMeeting";
+import AddDoctor from "./doctor/view/AddDoctor";
 import TopConsultants from './patient/view/Home/TopConsultants';
 import Specialities from './patient/view/Home/Specialities'
 import DoctorDetails from "./patient/view/doctorDetail/DoctorDetail";
@@ -34,6 +35,7 @@ function App() {
           <PrivateRoute exact path='/doctor/appointmentDetail/:appointment_id' component={AppointmentDetail} />
           <PrivateRoute exact path='/doctor/reports' component={Reports} />
           <PrivateRoute exact path='/doctor/videoMeeting/:appointment_id' component={VideoMeetingDoctorSide} />
+          <PrivateRoute exact path='/doctor/select' component={AddDoctor} />
           <PrivateRoute exact path='/patient/otp' component={OTP} />
           <PrivateRoute exact path='/patient/registration' component={Registration} />
           <PrivateRoute exact path='/patient/home' component={PatientHomePage} />
