@@ -18,16 +18,20 @@ import './model.scss';
 import './videoMeeting.scss';
 
 // Doctor scss
+import '../../doctor/styles/appointment-detail.scss';
 import '../../doctor/styles/multiStepForm.scss';
-import '../../doctor/styles/patientRegistrationPage1.scss';
+import '../../doctor/styles/doctorRegistrationPage.scss';
 import '../../doctor/styles/profilePictureColumn.scss';
 import '../../doctor/styles/dashboard.scss';
+import '../../doctor/styles/reports.scss';
 import '../../doctor/styles/videoMeeting.scss';
+import '../../doctor/styles/upcoming_appointments.scss';
 
 
 // Common
 import './text_area.scss';
 import '../../doctor/styles/slot_generator.scss';
+import '../../doctor/styles/common.scss';
 import '../../common/global.scss';
 
 

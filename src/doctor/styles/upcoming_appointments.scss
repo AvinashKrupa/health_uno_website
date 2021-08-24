@@ -1,0 +1,30 @@
+/**
+  Upcoming Appointment page
+ */
+
+.calendar-container {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+
+  .react-datepicker-wrapper {
+    padding-left: 0px !important;
+    box-sizing: initial;
+
+    input {
+      border: none;
+    }
+  }
+}
+
+.calender-date-upcoming {
+  font-family: Montserrat;
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: -0.420000284910202px;
+  text-align: center;
+  align-items: center;
+}
+
