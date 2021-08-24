@@ -10,13 +10,40 @@ import SelectedDoctorCard from "../../components/SelectedDoctorCard";
 const AppointmentDetail = (props) => {
     const {addToast} = useToasts();
     let [appointmentDetail, setAppointmentDetail] = useState([]);
-    const selectedDoctor = addDoctorStore((state) => state.selectedDoctor);
+    let [addDoctor, setAddDoctor] = useState(addDoctorStore(state => state.selectedDoctor));
+
+    const removeSelectedDoctor = () => {
+        let params = {
+            appointment_id: appointmentDetail._id,
+            doctor_id: additional_doc[0]._id,
+        };
+        post(API.REMOVE_ADDITIONAL_DOCTOR, params)
+            .then(response => {
+                if (response.status == 200) {
+                    setAddDoctor({});
+                    addToast(response.data.message, { appearance: 'success' });
+                } else {
+                    addToast(response.data.message, {appearance: "error"});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: "error"});
+            });
+    }
 
     useEffect(() => {
         getAppointmentDetail();
         return () => {
         };
     }, [props.match.params.appointment_id]);
+
+    useEffect(() => {
+        getAppointmentDetail();
+        return () => {
+        };
+    }, [addDoctor]);
+
+
 
     function getAppointmentDetail() {
         let params = {
@@ -35,7 +62,7 @@ const AppointmentDetail = (props) => {
             });
     }
 
-    const isSelectedDoctor = Object.keys(selectedDoctor).length
+    const {additional_doc} =appointmentDetail || []
     return (
         <div>
             <Row>
@@ -112,21 +139,23 @@ const AppointmentDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            {!isSelectedDoctor && <div className="row-add-doctor" onClick={() => props.history.push(`/doctor/select/${appointmentDetail?._id}`)}>
+                            {!additional_doc?.length && <div className="row-add-doctor" onClick={() => props.history.push(`/doctor/select/${appointmentDetail?._id}`)}>
                                 <div className="row-add-doctor-text">Add Doctor</div>
                                 <div><Image src={plus_icon}/></div>
                             </div>}
-                            {!!isSelectedDoctor &&
-                            <div className='selected-doctor-main-container'>
-                                <SelectedDoctorCard
-                                    id={selectedDoctor.id}
-                                    image={selectedDoctor.image}
-                                    name={selectedDoctor.name}
-                                    fees={selectedDoctor.fees}
-                                    details={selectedDoctor.details}
-                                    qualifications={selectedDoctor.qualifications}
-                                    appointmentId={props.match.params.appointment_id}
-                                />
+                            {
+                                !!additional_doc?.length &&
+                                <div className='selected-doctor-main-container'>
+                                    <SelectedDoctorCard
+                                        id={additional_doc[0]._id}
+                                        image={additional_doc[0].dp}
+                                        name={`${additional_doc[0].first_name} ${additional_doc[0].last_name}`}
+                                        fees={appointmentDetail.fee}
+                                        details={`${additional_doc[0].address.city}, ${additional_doc[0].address.country} | ${additional_doc[0].exp} Y Exp`}
+                                        qualifications={additional_doc[0].specialities}
+                                        appointmentId={appointmentDetail._id}
+                                        removeSelectedDoctor={removeSelectedDoctor}
+                                    />
                                 </div>
                             }
 
@@ -145,7 +174,6 @@ const AppointmentDetail = (props) => {
                         </Col>
                     </Row>
                 </Col>
-                <Col lg="1" sm="1" xs='1'/>
             </Row>
         </div>
     );
