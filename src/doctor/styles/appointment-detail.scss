@@ -127,22 +127,46 @@
   color: #1B1B1B;
 }
 
-.initiate-call-button-container{
-  height: 51.25px;
-  width: 335px;
-  border-radius: 8px!important;
-  color: #FFFFFF;
-  background: #28A3DA!important;
-  position: inherit;
+.bottom-container{
 
-  font-family: Montserrat;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px;
-  letter-spacing: -0.30000001192092896px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  .initiate-call-button-container{
+    height: 51.25px;
+    width: 335px;
+    border-radius: 8px!important;
+    color: #FFFFFF;
+    background: #28A3DA!important;
+    position: inherit;
 
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.30000001192092896px;
+    text-align: center;
+  }
+
+  .cancel-meeting-button{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    height: 20px;
+    width: 124px;
+    left: 698px;
+    top: 804px;
+    border-radius: 0;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: -0.3px;
+    color: #F15D4A;
+  }
 }
 
 /**

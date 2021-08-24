@@ -127,7 +127,7 @@ const AppointmentDetail = (props) => {
                             <div><Image src={plus_icon} /></div>
                         </div>
 
-                        <div style={{ display:"flex", justifyContent: "center"} }>
+                        <div className="bottom-container">
                             <Button className="initiate-call-button-container"
                                     onClick={() => {
                                         props.history.push(`/doctor/videoMeeting/${appointmentDetail?._id}`)
@@ -135,6 +135,9 @@ const AppointmentDetail = (props) => {
                             >
                                 Initiate Call
                             </Button>
+                            <div className="cancel-meeting-button">
+                                Cancel Meeting
+                            </div>
                         </div>
                     </Col>
                 </Row>
