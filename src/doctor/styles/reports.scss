@@ -76,3 +76,8 @@
       min-width: 280px;
     }
 }
+@media screen and (max-width: 320px) {
+    .report-container{
+      min-width: 180px;
+    }
+}
