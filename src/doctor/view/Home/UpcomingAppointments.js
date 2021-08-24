@@ -9,7 +9,7 @@ import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import {calendar_blue} from "../../../constants/DoctorImages";
+import {back_icon, calendar_blue} from "../../../constants/DoctorImages";
 
 const UpcomingAppointments = (props) => {
   let timer = null;
@@ -83,7 +83,10 @@ const UpcomingAppointments = (props) => {
             <Col lg="10" sm="10" xs='10'>
               <Row className='back-navigation'>
                 <div style={{backgroundColor: '', display:"flex", flexDirection: "row", justifyContent:"space-between"}}>
-                <Link to='/doctor/home'><i class="fas fa-arrow-left"></i><span>{props.location.state.title}</span></Link>
+                  <div className="back-nav-container">
+                    <img src={back_icon} alt='back_icon-img' onClick={()=>props.history.goBack()}></img>
+                    <span>{props.location.state.title}</span>
+                  </div>
                   <div className="calendar-container">
                     <DatePicker
                         selected={new Date(currentDate)}

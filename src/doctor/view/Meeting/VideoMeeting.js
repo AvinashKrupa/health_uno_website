@@ -3,6 +3,7 @@ import { Row, Col, Button, Image } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
+import {back_icon, calendar_blue} from "../../../constants/DoctorImages";
 
 const VideoMeeting = (props) => {
     let [appointmentDetail, setAppointmentDetail] = useState([]);
@@ -38,16 +39,9 @@ function getAppointmentDetail() {
             <Col lg='1' sm='1' xs='1' />
               <Col className="meeting-page-column-content-container">
                   <Row className='back-navigation'>
-                      <div style={{
-                          backgroundColor: '',
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between"
-                      }}>
-                          <div style={{cursor: 'pointer'}}>
-                              <i onClick={() => props.history.goBack()} className="fas fa-arrow-left"></i>
-                              <span style={{marginLeft: 10}}>Appointment Details</span>
-                          </div>
+                      <div className="back-nav-container">
+                          <img src={back_icon} alt='back_icon-img' onClick={()=>props.history.goBack()}></img>
+                          <span>Appointments Details</span>
                       </div>
                   </Row>
                 <Row className="meeting-page-content-wrapper-container">

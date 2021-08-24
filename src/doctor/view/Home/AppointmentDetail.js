@@ -9,7 +9,7 @@ import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import {calendar, clock, plus_icon} from "../../../constants/DoctorImages";
+import {calendar, clock, plus_icon, back_icon} from "../../../constants/DoctorImages";
 import {Card} from "@material-ui/core";
 
 const AppointmentDetail = (props) => {
@@ -62,9 +62,9 @@ const AppointmentDetail = (props) => {
             <Col lg="10" sm="10" xs='10'>
               <Row className='back-navigation'>
                 <div style={{backgroundColor: '', display:"flex", flexDirection: "row", justifyContent:"space-between"}}>
-                    <div style={{cursor: 'pointer'}}>
-                        <i onClick={()=>props.history.goBack()} class="fas fa-arrow-left"></i>
-                        <span style={{marginLeft:10}}>Appointments Details</span>
+                    <div className="back-nav-container">
+                        <img src={back_icon} alt='back_icon-img' onClick={()=>props.history.goBack()}></img>
+                        <span>Appointments Details</span>
                     </div>
                 </div>
               </Row>
