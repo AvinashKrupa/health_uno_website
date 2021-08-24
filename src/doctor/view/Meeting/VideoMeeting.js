@@ -10,7 +10,6 @@ const VideoMeeting = (props) => {
 
     useEffect(() => {
         getAppointmentDetail();
-        debugger
         return () => {};
     }, [props.match.params.appointment_id]);
 

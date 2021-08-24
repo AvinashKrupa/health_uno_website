@@ -206,7 +206,77 @@
 }
 
 
+
+.select-doctor:hover{
+  border: 2px solid #28A3DA;
+}
+.selected-doctor-main-container{
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+/**
+  Selected Doctor Card Styles
+ */
+.selected-doctor-container{
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 12px;
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.16) !important;
+  border-radius: 12px;
+
+  .specialities-text{
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: -0.420000284910202px;
+  text-align: left;
+  color: #F6921E;
+
+}
+  .name{
+    margin-top: 12px;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.420000284910202px;
+    text-align: left;
+    color: #1B1B1B;
+
+  }
+  .description{
+    margin-top: 12px;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: -0.420000284910202px;
+    text-align: left;
+    color: #1B1B1B80;
+  }
+  .time{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.420000284910202px;
+    text-align: left;
+    color: #1B1B1B80;
+  }
+}
+
 @media screen and (max-width: 320px) {
+  .selected-doctor-container{
+    width: 100% !important;
+  }
   .appointment-detail-card-container{
     display: block;
 
@@ -234,7 +304,7 @@
     align-items: baseline;
     margin-left: 0px!important;
   }
-}
-.select-doctor:hover{
-  border: 2px solid #28A3DA;
+  .initiate-call-button-container{
+    width: 200px!important;
+  }
 }

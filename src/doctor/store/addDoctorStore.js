@@ -1,7 +1,7 @@
 import create from 'zustand'
 
 const addDoctorStore = create(set => ({
-  selectedDoctor: '',
+  selectedDoctor: {},
   setAddDoctor: (doctor) => set({ selectedDoctor: doctor }),
 }));
 

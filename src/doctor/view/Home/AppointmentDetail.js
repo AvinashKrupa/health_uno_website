@@ -5,6 +5,7 @@ import {useToasts} from 'react-toast-notifications';
 import moment from "moment";
 import {back_icon, calendar, clock, plus_icon} from "../../../constants/DoctorImages";
 import addDoctorStore from "../../store/addDoctorStore";
+import SelectedDoctorCard from "../../components/SelectedDoctorCard";
 
 const AppointmentDetail = (props) => {
     const {addToast} = useToasts();
@@ -34,7 +35,7 @@ const AppointmentDetail = (props) => {
             });
     }
 
-    console.log('Debug :', selectedDoctor);
+    const isSelectedDoctor = Object.keys(selectedDoctor).length
     return (
         <div>
             <Row>
@@ -111,10 +112,22 @@ const AppointmentDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row-add-doctor" onClick={() => props.history.push('/doctor/select')}>
+                            {!isSelectedDoctor && <div className="row-add-doctor" onClick={() => props.history.push('/doctor/select')}>
                                 <div className="row-add-doctor-text">Add Doctor</div>
                                 <div><Image src={plus_icon}/></div>
-                            </div>
+                            </div>}
+                            {!!isSelectedDoctor &&
+                            <div className='selected-doctor-main-container'>
+                                <SelectedDoctorCard
+                                    id={selectedDoctor.id}
+                                    image={selectedDoctor.image}
+                                    name={selectedDoctor.name}
+                                    fees={selectedDoctor.fees}
+                                    details={selectedDoctor.details}
+                                    qualifications={selectedDoctor.qualifications}
+                                />
+                                </div>
+                            }
 
                             <div className="bottom-container">
                                 <Button className="initiate-call-button-container"
