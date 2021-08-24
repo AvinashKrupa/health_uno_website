@@ -179,3 +179,32 @@
 }
 
 
+@media screen and (max-width: 320px) {
+  .appointment-detail-card-container{
+    display: block;
+
+    .detail-container{
+      margin-top: 8%;
+    }
+
+    .image-container {
+      max-width: 130px;
+      min-width: 100px;
+    }
+  }
+  .view-report-button {
+    width: 80px!important;
+    height: auto!important;
+  }
+  .row-add-doctor {
+    margin-top: 5%;
+    height: 8%;
+  }
+  .appointment-calendar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-left: 0px!important;
+  }
+}
