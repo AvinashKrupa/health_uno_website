@@ -226,6 +226,18 @@
   border-radius: 12px;
   box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.16) !important;
   border-radius: 12px;
+  min-width: 400px;
+  width: 400px;
+  max-width: 400px;
+
+  .image {
+    height: 135px;
+    width: 132px;
+    margin-right: 32px;
+    margin-left: 24px;
+    margin-top: 19px;
+    margin-bottom: 1px;
+  }
 
   .specialities-text{
   font-family: Montserrat;
@@ -272,11 +284,29 @@
     color: #1B1B1B80;
   }
 }
+@media screen and (max-width: 425px) {
+  .selected-doctor-container{
+    min-width: 320px!important;
+    width: 320px!important;
+    max-width: 320px!important;
+  }
+}
 
 @media screen and (max-width: 320px) {
   .selected-doctor-container{
-    width: 100% !important;
+    min-width: 280px!important;
+    width: 280px!important;
+    max-width: 280px!important;
   }
+  .image {
+    height: 60px!important;
+    width: 60px!important;
+    margin-right: 0px!important;
+    margin-left: 24px;
+    margin-top: 19px;
+    margin-bottom: 1px;
+  }
+
   .appointment-detail-card-container{
     display: block;
 

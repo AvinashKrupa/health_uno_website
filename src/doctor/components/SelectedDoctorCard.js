@@ -9,9 +9,9 @@ const SelectedDoctorCard = (props) => {
             <Card className="selected-doctor-container">
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     <div>
-                        <CardMedia className="doctor-card-image" image={props?.image}></CardMedia>
+                        <CardMedia className="image" image={props?.image}></CardMedia>
                     </div>
-                    <div style={{width:'200px'}}>
+                    <div>
                         <CardContent>
                             <div style={{display:"flex", flexDirection:"row"}}>
                                 <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
