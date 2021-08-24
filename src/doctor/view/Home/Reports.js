@@ -22,18 +22,13 @@ const Reports = (props) => {
                         </div>
                     </Row>
                     <Row style={{marginTop: "32px",}}>
-                        <Col>
+                        <Col className="report-cards-container">
+                            <ReportCard/>
+                            <ReportCard/>
+                            <ReportCard/>
+                            <ReportCard/>
                             <ReportCard/>
                         </Col>
-                        <Col>
-                            <ReportCard/>
-                        </Col>
-                    </Row>
-                    <Row style={{marginTop: "32px",}}>
-                        <Col>
-                            <ReportCard/>
-                        </Col>
-                        <Col/>
                     </Row>
                 </Col>
                 <Col lg="1" sm="1" xs='1'/>

@@ -1,14 +1,24 @@
 /**
   Report Card Styles
  */
+.report-cards-container{
+  display: flex;
+  flex-wrap: wrap;
+}
 .report-container{
+  flex-wrap: wrap;
   height: 136px;
-  //width: 728px;
+  //max-width: 728px;
+  min-width: 528px;
+  width: 528px;
+  max-width: 528px;
   left: 174px;
   top: 207px;
   background: #FFFFFF;
   box-shadow: 4px 4px 35px rgba(0, 0, 0, 0.1);
-  border-radius: 12px!important;;
+  border-radius: 12px!important;
+  margin-right: 10px;
+  margin-bottom: 10px;
 
   display: flex;
   flex-direction: row;
@@ -62,5 +72,7 @@
   Media queries
  */
   @media screen and (max-width: 425px) {
-
+    .report-container{
+      min-width: 280px;
+    }
 }
