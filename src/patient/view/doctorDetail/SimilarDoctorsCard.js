@@ -2,9 +2,10 @@ import { Card, CardContent, CardMedia } from "@material-ui/core";
 import {Link} from 'react-router-dom';
 
 const DoctorCard = (props) => {
+    const similarDoctorContainer = props.from ==='doctor' ? 'doctor-card-container select-doctor' : 'doctor-card-container';
   return (
     <>
-    <Card className="doctor-card-container">
+    <Card className={similarDoctorContainer} onClick={()=>props.from ==='doctor' ? props.onDoctorSelect(props) : null}>
         <div style={{display: 'flex', flexDirection: 'row'}}>
           <div>
           <CardMedia className="doctor-card-image" image={props?.image}></CardMedia>
@@ -30,9 +31,9 @@ const DoctorCard = (props) => {
 
                   </span>
                 </span>
-                <Link to={`/patient/doctorDetails/${props.id}`}>
-                  <span className="doctor-card-details-link">View Details</span>
-                </Link>
+                {props.from !=='doctor' && <Link to={`/patient/doctorDetails/${props.id}`}>
+                    <span className="doctor-card-details-link">View Details</span>
+                </Link>}
             </CardContent>
           </div>
         </div>
