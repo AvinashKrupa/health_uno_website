@@ -25,9 +25,6 @@ const SelectedDoctorCard = (props) => {
             .catch(error => {
                 addToast(error.response.data.message, {appearance: "error"});
             });
-
-
-
     }
     return (
         <>

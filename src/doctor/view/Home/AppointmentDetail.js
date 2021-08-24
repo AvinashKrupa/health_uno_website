@@ -112,7 +112,7 @@ const AppointmentDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            {!isSelectedDoctor && <div className="row-add-doctor" onClick={() => props.history.push('/doctor/select')}>
+                            {!isSelectedDoctor && <div className="row-add-doctor" onClick={() => props.history.push(`/doctor/select/${appointmentDetail?._id}`)}>
                                 <div className="row-add-doctor-text">Add Doctor</div>
                                 <div><Image src={plus_icon}/></div>
                             </div>}

@@ -25,8 +25,23 @@ const AddDoctor = (props) => {
   }, [searchText]);
 
   const onDoctorSelect = (doctor) => {
-    setAddDoctor(doctor);
-    props.history.goBack();
+    let params = {
+      appointment_id: props.match.params.appointment_id,
+      doctor_id: doctor.id,
+    };
+    post(API.ADD_ADDITIONAL_DOCTOR, params)
+        .then(response => {
+          if (response.status == 200) {
+            setAddDoctor(doctor);
+            props.history.goBack();
+            addToast(response.data.message, { appearance: 'success' })
+          } else {
+            addToast(response.data.message, {appearance: "error"});
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, {appearance: "error"});
+        });
   }
 
   function callBackFilter(data) {
