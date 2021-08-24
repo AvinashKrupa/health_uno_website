@@ -33,6 +33,8 @@ export const API = {
   DOCTOR_HOME_CONTENT_API: 'doctor/homeContent',
   DOCTOR_GET_APPOINTMENTS_API: 'doctor/getAppointments',
   APPOINTMENT_DETAIL_API: 'appointment/getDetails',
+  REMOVE_ADDITIONAL_DOCTOR: 'appointment/removeAdditionalDoctor',
+  ADD_ADDITIONAL_DOCTOR: 'appointment/addDoctor',
 };
 
 export function post(endPoint, params, isStringfy = true) {

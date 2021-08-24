@@ -125,6 +125,7 @@ const AppointmentDetail = (props) => {
                                     fees={selectedDoctor.fees}
                                     details={selectedDoctor.details}
                                     qualifications={selectedDoctor.qualifications}
+                                    appointmentId={props.match.params.appointment_id}
                                 />
                                 </div>
                             }
