@@ -133,7 +133,7 @@ import { isEmpty } from "../../../utils/Validators";
     <>
       <Row>
         <Col lg='1' sm='1' xs='1'></Col>
-          <Col lg='10' xs='11'>
+          <Col lg='10' xs='11'  className='screen-768'>
               <Row style={{marginTop: '37px', marginBottom: '43px'}} className='back-navigation' >
                   <Link to={`/patient/doctorDetails/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Book Slot</span></Link>
               </Row>
