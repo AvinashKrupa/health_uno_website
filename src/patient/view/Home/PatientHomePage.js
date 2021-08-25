@@ -1,4 +1,6 @@
 import DoctorCard from "../../commonComponentPatient/DoctorCard";
+import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { Row, Col } from "react-bootstrap";
 import SpecialityCard from "../../commonComponentPatient/SpecialityCard";
 import { API, get, post } from "../../../api/config/APIController";
@@ -10,6 +12,8 @@ import Grid from "@material-ui/core/Grid";
 import useSearchStore from "../../store/searchStore";
 import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
 import SimilarDoctorsCard from "./../doctorDetail/SimilarDoctorsCard";
+
+
 
 const PatientHomePage = (props) => {
   let timer = null;
@@ -65,9 +69,98 @@ const PatientHomePage = (props) => {
   return (
     <>
       <Row className="patient-home-container">
-        <Col lg="1" sm="1" xs="1" />
+        <Col lg="1" sm="1" xs="1"> 
+<div className="sidebarMenu">
+
+
+  <SideNav
+    onSelect={(selected) => {
+        // Add your code here
+    }}
+>
+
+    <SideNav.Toggle />
+    <SideNav.Nav defaultSelected="home">
+    <NavItem className="setLogo">
+            <NavIcon>
+                <img src={process.env.PUBLIC_URL + '/assets/logo.png'} ></img>
+            </NavIcon>
+            <NavText className="setLogotext">
+                HealthUno
+            </NavText>
+        </NavItem>
+        <NavItem eventKey="home">
+            <NavIcon>
+                <i className="fa fa-fw fa-home" style={{ fontSize: '1.65em' }} />
+            </NavIcon>
+            <NavText>
+                Home
+            </NavText>
+        </NavItem>
+        <NavItem eventKey="Appointments">
+            <NavIcon>
+                <i className="fa fa-fw fa-calendar" style={{ fontSize: '1.75em' }} />
+            </NavIcon>
+            <NavText>
+            Appointments
+            </NavText>
+        </NavItem>
+
+        <NavItem eventKey="Prescriptions">
+            <NavIcon>
+                <i className="fa fa-fw fa-briefcase" style={{ fontSize: '1.75em' }} />
+            </NavIcon>
+            <NavText>
+            Prescriptions
+            </NavText>
+        </NavItem>
+
+        <NavItem eventKey="Profile">
+            <NavIcon>
+                <i className="fa fa-fw fa-user" style={{ fontSize: '1.75em' }} />
+            </NavIcon>
+            <NavText>
+            Profile
+            </NavText>
+        </NavItem>
+        
+        {/* <NavItem eventKey="charts">
+            <NavIcon>
+                <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
+            </NavIcon>
+            <NavText>
+                Charts
+            </NavText>
+            <NavItem eventKey="charts/linechart">
+                <NavText>
+                    Line Chart
+                </NavText>
+            </NavItem>
+            <NavItem eventKey="charts/barchart">
+                <NavText>
+                    Bar Chart
+                </NavText>
+            </NavItem>
+        </NavItem> */}
+    </SideNav.Nav>
+</SideNav>
+</div>
+ 
+          {/* <div className="sidebarMenu">
+            <div className="logo"><img src="https://healthuno-dev-public.s3.ap-south-1.amazonaws.com/profile-images/avatar.png"></img></div>
+            <ui>
+              <li><a href="#"><i className="fa fa-home"></i><p>Home</p> </a></li>
+              <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><p>Appointments</p> </a></li>
+              <li><a href="#"><i class="fa fa-briefcase" aria-hidden="true"></i><p>Prescriptions</p> </a></li>
+              <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><p>Profile</p> </a></li>
+            </ui>
+          </div>
+         */}
+        </Col>
+
+
         <Col lg="10" sm="10" xs="10">
-          <Row className="search-container">
+          <Row className="search-container mobileviewSearch">
             <SearchInputWithIcon
               className="patient-homepage-search"
               placeholder="Search doctors"

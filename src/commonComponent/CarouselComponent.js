@@ -37,7 +37,7 @@ const CarouselComponent = ({sliders}) => {
   return (
     <>
       <Row>
-        <Col lg="16" sm="16" xs="16">
+        <Col lg="12">
           <Carousel
             autoPlay={true}
             customLeftArrow={<></>}
@@ -74,7 +74,7 @@ const CarouselComponent = ({sliders}) => {
                       src={slider.image}
                       alt="carousel_image_1"
                       className="carousel_image"
-                      style={{ marginLeft: "108px" }}
+                      style={{ marginLeft: "80px",  width: "100%" }}
                     />
                   </Col>
                   <Col lg="9">
@@ -82,8 +82,8 @@ const CarouselComponent = ({sliders}) => {
                       <span
                         className="carousel_h3"
                         style={{
-                          marginBottom: "16px",
-                          marginTop: "74px",
+                          marginBottom: "50px",
+                          marginTop: "40px",
                           paddingLeft: "130px",
                         }}
                       >
