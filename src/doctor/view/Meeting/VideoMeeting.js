@@ -77,8 +77,6 @@ const VideoMeeting = (props) => {
                                 Need Help?
                             </div>
                         </div>
-
-
                         <div className="doctor-meeting-page-column-content">
                             <div className='doctor-meeting-patient-info-container'>
                                 {renderTestButtons && <div className="meeting-testing-button-container">
@@ -109,6 +107,11 @@ const VideoMeeting = (props) => {
                                     Join Meeting
                                 </Button>
                             </div>
+                            {renderTestButtons && <div className="doctor-meeting-cancel-container">
+                                <Button className="doctor-meeting-cancel-button" onClick={()=> setRenderTestButtons(false)}>
+                                    Cancel
+                                </Button>
+                            </div>}
                         </div>
                     </div>
                 </Col>

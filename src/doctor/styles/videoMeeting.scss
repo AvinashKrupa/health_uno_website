@@ -103,6 +103,25 @@
     .patient-description-detail{
       color: #000000;
     }
+    .doctor-meeting-cancel-container {
+      align-content: center;
+      display: flex;
+      justify-content: center;
+    }
+    .doctor-meeting-cancel-button {
+      margin-top: 2%;
+      margin-bottom: 20px;
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: -0.420000284910202px;
+      text-align: center;
+      color: #F15D4A;
+      border:none;
+      background: white;
+    }
     .doctor-meeting-button-container {
       display: flex;
       flex-direction: row;
@@ -185,5 +204,8 @@
       width: 106px!important;
       margin-left: 32px ;
     }
+  }
+  .doctor-meeting-page-container .doctor-meeting-page-column-content .meeting-testing-button-container .testing-button{
+    width: auto!important;
   }
 }
