@@ -17,8 +17,8 @@
   background: #FFFFFF;
   box-shadow: 4px 4px 35px rgba(0, 0, 0, 0.1);
   border-radius: 12px!important;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 
   display: flex;
   flex-direction: row;
@@ -44,6 +44,7 @@
     letter-spacing: -0.420000284910202px;
     text-align: left;
     color:rgba(27, 27, 27, 0.5);
+    margin-top: 15px;
   }
   .report-view-button{
     height: 32px;
@@ -74,10 +75,17 @@
   @media screen and (max-width: 425px) {
     .report-container{
       min-width: 280px;
+
+      .report-date-info{
+        margin-top: 12px;
+      }
     }
 }
 @media screen and (max-width: 320px) {
     .report-container{
       min-width: 180px;
+      .report-date-info{
+        margin-top: 6px;
+      }
     }
 }
