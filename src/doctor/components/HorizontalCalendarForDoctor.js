@@ -38,10 +38,11 @@ const HorizontalCalendarForDoctor = (props) => {
         return (
             <>
                 <Button className={'days-button'}
-                        style={{backgroundColor: active ? '#28A3DA' : 'white'}}
+                        style={{backgroundColor: active ? '#28A3DA' : '#FFFFFF', color: active ? '#FFFFFF' : '#28A3DA'}}
                         onClick={(e) => handleDaysClick(dateNumber, info)}
                 >
                     <span
+                        style={{color: active ? '#FFFFFF' : '#000000'}}
                         className="days-button-text">{dateNumber} {now} {window.screen.availWidth > 700 && month}</span>
                 </Button>
             </>
