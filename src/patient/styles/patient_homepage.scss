@@ -39,12 +39,13 @@
 
 
   // SIDEBAR MENU CODE
-  .sidebarMenu{
-  
-     height: 100%;
-     margin: 0px;
-     padding: 10px;
- }
+  .sidebarMenu {
+    height: 100%;
+    margin: 0px;
+    padding: 10px;
+    background: #f3f3f3;
+    width: 63px;
+}
 
 .sidebarMenu li  p {
   margin-bottom: .5rem;
@@ -188,14 +189,26 @@ font-size: 30px;
       top: -4px;
       left: 370px;
     }
-
-
-
     .sidenav---sidenav---_2tBP {
       left: -70px !important;
+      }
+      .sidenav---sidenav---_2tBP.sidenav---expanded---1KdUL {
+        left: 0px !important;
+    }
+    .sidebarMenu {
+      background: transparent;
+     
   }
-  .sidenav---sidenav---_2tBP.sidenav---expanded---1KdUL {
-    left: 0px !important;
+  
+}
+
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) { 
+  nav.sidenav---sidenav---_2tBP.sidenav---collapsed---LQDEv .sidenav---sidenav-toggle---1KRjR {
+    position: absolute;
+    top: 0px;
+    left: 414px;
 }
 }
     

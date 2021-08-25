@@ -1,5 +1,8 @@
 @media only screen and (min-width: 768px) {
-
+    .searchRow{
+        margin-top: 65px !important;
+        --bs-gutter-x: 0rem;
+    }
     .search-container input {
         width: 620px !important;
     }
