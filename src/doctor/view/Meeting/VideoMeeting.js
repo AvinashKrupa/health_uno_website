@@ -36,58 +36,54 @@ function getAppointmentDetail() {
         { appointmentDetail &&
           <Row>
             <Col lg='1' sm='1' xs='1' />
-              <Col className="meeting-page-column-content-container">
+              <Col lg="10" sm="10" xs='10'>
                   <Row className='back-navigation'>
                       <div className="back-nav-container">
                           <img src={back_icon} alt='back_icon-img' onClick={()=>props.history.goBack()}></img>
                           <span>Appointments Details</span>
                       </div>
                   </Row>
-                <Row className="meeting-page-content-wrapper-container">
-                  <Col className="meeting-page-column-image">
-                    <Image
-                      src={meeting}
-                      alt="Patient Image"
-                      className="meeting-page-patient-image"
-                    />
-                    <p className="meeting-page-text-below-image">
-                      <Image
-                        src={help}
-                        alt="Help Circle"
-                        calssName="meeting-page-help-circle"
-                        style={{ marginRight: "16px" }}
-                      />
-                      Need Help?
-                    </p>
-                  </Col>
-                  <Col className="meeting-page-column-content">
-                    <Row style={{ marginTop: "13px" }}>
-                      <div className='meeting-detail-text' >
-                        <Row>
-                          <span className="meeting-page-text-grey">Meeting with</span>
-                        </Row>
-                        <Row>
-                          <span className="meeting-page-text-patient-name meeting-page-text-doctor-name">
+                <div className="doctor-meeting-page-container">
+                    <div className="doctor-meeting-page-video-container">
+                        <Image
+                            src={meeting}
+                            alt="Patient Image"
+                            className="meeting-video"
+                        />
+                        <div className="doctor-meeting-page-help">
+                            <Image
+                                src={help}
+                                alt="Help Circle"
+                                className="doctor-meeting-need-help-button"
+                                style={{ marginRight: "16px" }}
+                            />
+                            Need Help?
+                        </div>
+                    </div>
+
+
+                  <div className="doctor-meeting-page-column-content">
+                    {/*<Row style={{ marginTop: "13px" }}>*/}
+                      <div className='' >
+                          <span className="meeting-with-text">Meeting with</span>
+                          <div className="patient-name">
                           {`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}
-                          </span>
-                        </Row>
-                        <Row>
-                            <div className="meeting-page-purpose meeting-page-purpose-title ">
-                                Purpose: <span className="meeting-page-purpose-description">{appointmentDetail?.reason}</span>
+                          </div>
+                            <div className="patient-description patient-description-title ">
+                                Purpose: <span className="patient-description-detail">{appointmentDetail?.reason}</span>
                             </div>
-                        </Row>
                       </div>
-                      <Row className='meeting-button'>
-                          <Button className="meeting-page-button-white">
+                      <div className='doctor-meeting-button-container'>
+                          <Button className="doctor-meeting-test-button">
                             Test Video and Audio
                           </Button>
-                          <Button className="meeting-page-button-blue">
+                          <Button className="doctor-meeting-join-meeting-button">
                             Join Meeting
                           </Button>
-                      </Row>
-                    </Row>
-                  </Col>
-                </Row>
+                      </div>
+                    {/*</Row>*/}
+                  </div>
+                </div>
               </Col>
           </Row>
         }

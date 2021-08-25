@@ -1,27 +1,163 @@
 // on top of patient css
-.meeting-page-text-patient-name{
-  margin-top: 30px!important;
+
+.doctor-meeting-page-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+.doctor-meeting-page-video-container{
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .meeting-video{
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .doctor-meeting-page-help {
+    font-family: Montserrat;
+    font-size: 16px !important;
+    font-style: normal;
+    font-weight: 500 !important;
+    line-height: 20px !important;
+    letter-spacing: -0.30000001192092896px;
+    text-align: center;
+    margin-top: 146px;
+  }
+  .doctor-meeting-need-help-button {
+    height: 24px;
+    width: 24px;
+  }
 }
 
-.meeting-page-purpose{
-  font-family: Montserrat;
-  font-size: 26px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 31px;
-  letter-spacing: -0.8941941261291504px;
-  text-align: left;
-}
-.meeting-page-purpose-title{
-  margin-top: 24px;
-  color: rgba(27, 27, 27, 0.5);
-}
-.meeting-page-purpose-description{
-  color: rgba(27, 27, 27, 1);
+
+
+  .doctor-meeting-page-column-content{
+    margin-top: 40px;
+    margin-left: 160px;
+    .meeting-with-text{
+      font-family: Montserrat;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: -0.8941941261291504px;
+      text-align: center;
+      color: #8D8D8D;
+
+    }
+    .patient-name{
+      margin-top: 50px;
+      margin-bottom: 24px;
+      font-family: Montserrat;
+      font-size: 38px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 47px;
+      letter-spacing: -0.8941941261291504px;
+      //text-align: center;
+      color: #1B1B1B;
+
+    }
+    .patient-description{
+      font-family: Montserrat;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 31px;
+      letter-spacing: -0.8941941261291504px;
+      text-align: left;
+    }
+    .patient-description-title{
+      color: rgba(27, 27, 27, 0.5);
+    }
+    .patient-description-detail{
+      color: #000000;
+    }
+    .doctor-meeting-button-container {
+      display: flex;
+      flex-direction: row;
+      margin-top: 60px;
+      margin-bottom: 60px;
+
+      .doctor-meeting-test-button {
+        height: 59px;
+        width: 206px;
+        border-radius: 6px;
+        font-family: Montserrat;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: -0.30000001192092896px;
+        text-align: center;
+        color: #28a3da;
+        border: 1px solid rgba(40, 163, 218, 1);
+        background: white;
+      }
+
+      .doctor-meeting-join-meeting-button {
+        height: 59px;
+        width: 206px;
+        border-radius: 6px;
+        font-family: Montserrat;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: -0.30000001192092896px;
+        text-align: center;
+        border: 1px solid rgba(40, 163, 218, 1) ;
+        background: #28a3da ;
+        margin-left: 32px ;
+      }
+    }
+  }
 }
 
-@media only screen and (min-width: 1024px){
-  .meeting-page-column-content-container .meeting-button button {
-    width: 195px !important;
+@media screen and (max-width: 1024px) {
+  .doctor-meeting-page-column-content{
+    margin-top: 40px!important;
+    margin-left: 40px!important;
+  }
+  .doctor-meeting-page-help{
+    margin-top: 40px!important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .doctor-meeting-page-column-content{
+    margin-top: 40px!important;
+    margin-left: 60px!important;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .doctor-meeting-page-video-container{
+    .meeting-video{
+      width: 90% !important;
+    }
+  }
+
+  .doctor-meeting-page-column-content{
+    margin-top: 40px!important;
+    margin-left: 60px!important;
+  }
+  .doctor-meeting-button-container {
+    margin-top: 60px;
+    margin-bottom: 60px;
+
+    .doctor-meeting-test-button {
+      height: auto!important;
+      width: 136px!important;
+    }
+
+    .doctor-meeting-join-meeting-button {
+      height: 59px!important;
+      width: 106px!important;
+      margin-left: 32px ;
+    }
   }
 }
