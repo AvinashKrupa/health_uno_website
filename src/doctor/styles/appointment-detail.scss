@@ -201,7 +201,7 @@
   }
   .row-add-doctor {
     margin-top: 5%;
-    height: 10%;
+    height: 60px;
   }
 }
 
@@ -290,6 +290,10 @@
     width: 320px!important;
     max-width: 320px!important;
   }
+  .view-report-button {
+    width: auto!important;
+    height: auto!important;
+  }
 }
 
 @media screen and (max-width: 320px) {
@@ -325,7 +329,6 @@
   }
   .row-add-doctor {
     margin-top: 5%;
-    height: 8%;
   }
   .appointment-calendar-container {
     display: flex;

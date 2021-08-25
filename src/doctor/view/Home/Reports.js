@@ -25,7 +25,6 @@ const Reports = (props) => {
                         </Col>
                     </Row>
                 </Col>
-                <Col lg="1" sm="1" xs='1'/>
             </Row>
         </div>
     );
