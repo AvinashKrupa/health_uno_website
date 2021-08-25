@@ -107,11 +107,12 @@ const VideoMeeting = (props) => {
                                     Join Meeting
                                 </Button>
                             </div>
-                            {renderTestButtons && <div className="doctor-meeting-cancel-container">
-                                <Button className="doctor-meeting-cancel-button" onClick={()=> setRenderTestButtons(false)}>
+                            {renderTestButtons && (<div className="doctor-meeting-cancel-container">
+                                <Button className="doctor-meeting-cancel-button"
+                                        onClick={() => setRenderTestButtons(false)}>
                                     Cancel
                                 </Button>
-                            </div>}
+                            </div>)}
                         </div>
                     </div>
                 </Col>
@@ -119,7 +120,6 @@ const VideoMeeting = (props) => {
             }
         </>
     );
-}
-;
+};
 
 export default VideoMeeting;
