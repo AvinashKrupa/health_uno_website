@@ -1,4 +1,6 @@
+import moment from 'moment';
 import React, {Component} from 'react';
+import { getData } from '../storage/LocalStorage/LocalAsyncStorage';
 
 class MessageList extends Component {
     constructor(props) {
@@ -9,7 +11,7 @@ class MessageList extends Component {
     }
 
     componentDidMount() {
-        document.body.classList.add('chat-page');
+        // document.body.classList.add('chat-page');
 
     }
 
@@ -20,20 +22,18 @@ class MessageList extends Component {
     }
 
     componentWillUnmount() {
-        document.body.classList.remove('chat-page');
+        // document.body.classList.remove('chat-page');
     }
 
     render() {
+        console.log('this.state.messages', this.state.messages);
         return (
             <div className="chat-body">
                 <div className="chat-scroll">
                     <ul className="list-unstyled">
                         {this.state.messages.map(message => {
                             return (
-                                <li className={message.fromSelf ? "media sent" : "media received"}>
-                                    {message.sender.dp && message.sender.dp !== "" && <div className="avatar">
-                                        <img src={message.sender.dp} alt="User" className="avatar-img rounded-circle"/>
-                                    </div>}
+                                <li className={message.sender._id === JSON.parse(getData('userInfo'))._id ? "media sent" : "media received"}>
                                     <div className="media-body">
                                         <div className="msg-box">
                                             <div>
@@ -42,12 +42,12 @@ class MessageList extends Component {
                                             </div>
                                         </div>
                                         <ul className="chat-msg-info">
-                                                    <li>
-                                                        <div className="chat-time">
-                                                            <span>{message.created_at}</span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                            <li>
+                                                <div className="chat-time">
+                                                    <span>{moment(message.created_at).format('LT')}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </li>
                             )

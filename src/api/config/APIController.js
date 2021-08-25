@@ -25,6 +25,7 @@ export const API = {
   CONFIRMPAYENT: 'transaction/confirmPayment',
   GETAPPOINTMENTS: 'patient/getAppointments',
   CANCELAPPOINTMENT: 'patient/cancelAppointment',
+  GETMESSAGES: 'chat/getMessages',
   /**
    * Doctor related APIS
    */
@@ -33,6 +34,7 @@ export const API = {
   DOCTOR_HOME_CONTENT_API: 'doctor/homeContent',
   DOCTOR_GET_APPOINTMENTS_API: 'doctor/getAppointments',
   APPOINTMENT_DETAIL_API: 'appointment/getDetails',
+  
 };
 
 export function post(endPoint, params, isStringfy = true) {

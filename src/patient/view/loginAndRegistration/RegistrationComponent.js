@@ -588,7 +588,7 @@ function registerUserAPICalling() {
             <Input
               type="textarea"
               label="Other medical conditions"
-              placeholder="English"
+              placeholder="Add conditions"
               value={otherMedical}
               onChange={setOtherMedical}
             />

@@ -51,7 +51,7 @@ const DoctorDetails = (props) => {
                         </Row>
                         </Row>
                         <Row>
-                            <Col lg="8">
+                            <Col lg={(window.screen.availWidth  > 768 &&  window.screen.availWidth < 1300) ? '12': '8' } className='doctor-detail-card-main-container'>
                             <Row>
                                 <Col lg="3">
                                     <Image src={doctorDetails.dp} className='doctor-detail-image'
@@ -165,7 +165,7 @@ const DoctorDetails = (props) => {
                             </Row>
                             </Col>
                             <Col lg="4">
-                            <Row>
+                            <Row className='doctor_details-doctor-card-remove-pad'>
                                 <span
                                 className="doctor_details_h3"
                                 style={{ marginBottom: "17px" }}

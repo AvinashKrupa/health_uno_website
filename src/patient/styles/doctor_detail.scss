@@ -41,13 +41,20 @@
   
   .doctor_details_button {
     height: 50px !important;
-    width: 335px !important;
+    width: 270px !important;
     background: rgba(40, 163, 218, 1) !important;
     margin-left: auto;
     margin-right: 50px;
     box-shadow: 4px 4px 35px 0px rgba(0, 0, 0, 0.1);
     border-radius: 8px !important;
     margin-bottom: 51px;
+  }
+
+  .doctor_details-doctor-card-remove-pad {
+   .doctor-card-container {
+    padding-left:  unset !important;
+    padding-right:  unset !important;
+   }
   }
 
 

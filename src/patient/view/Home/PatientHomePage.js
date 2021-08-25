@@ -88,7 +88,7 @@ const PatientHomePage = (props) => {
             </Col>
           </Row>
           <Row className='specialities-container'>
-            {specialities && specialities.slice(0, 8).map((specialitie) => {
+            {specialities && specialities.slice(0, window.screen.availWidth > 1200 ? 8 : 5 ).map((specialitie) => {
               return (
                 <SpecialityCard
                   icon={specialitie.image}
