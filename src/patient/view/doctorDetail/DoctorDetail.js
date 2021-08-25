@@ -41,7 +41,7 @@ const DoctorDetails = (props) => {
         <>
         <Row>
             <Col lg="1" md='1' sm='1' xs='1'/>
-            <Col lg="11"  md='11' sm='11'  xs='10' className='doctor-detail-container'>
+            <Col lg="11"  md='11' sm='11'  xs='10' className='screen-768 doctor-detail-container'>
                 {
                     doctorDetails &&
                     <>

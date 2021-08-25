@@ -1,4 +1,6 @@
 import DoctorCard from "../../commonComponentPatient/DoctorCard";
+import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { Row, Col } from "react-bootstrap";
 import SpecialityCard from "../../commonComponentPatient/SpecialityCard";
 import { API, get, post } from "../../../api/config/APIController";
@@ -10,6 +12,8 @@ import Grid from "@material-ui/core/Grid";
 import useSearchStore from "../../store/searchStore";
 import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
 import SimilarDoctorsCard from "./../doctorDetail/SimilarDoctorsCard";
+
+
 
 const PatientHomePage = (props) => {
   let timer = null;
@@ -60,14 +64,12 @@ const PatientHomePage = (props) => {
       setSearchText(txt);
       props.history.push("/patient/topConsultants");
     }, 1000);
-  }
+  } 
 
   return (
     <>
-      <Row className="patient-home-container">
-        <Col lg="1" sm="1" xs="1" />
-        <Col lg="10" sm="10" xs="10">
-          <Row className="search-container">
+        <Col lg="10" sm="10" xs="10" className='screen-768'>
+          <Row className="search-container mobileviewSearch">
             <SearchInputWithIcon
               className="patient-homepage-search"
               placeholder="Search doctors"
@@ -124,9 +126,6 @@ const PatientHomePage = (props) => {
             })}
           </Row>
         </Col>
-        <Col lg="1" sm="1" xs="1" />
-      </Row>
-      <Grid container spacing={1}></Grid>
     </>
   );
 };

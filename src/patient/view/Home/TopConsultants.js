@@ -71,8 +71,8 @@ const TopConsultants = (props) => {
     <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter}>
       <div>
       <Row className='top-consultants-container'>
-        <Col lg="1" sm="1" xs='1' />
-        <Col lg="10" sm="10" xs='10'>
+        <Col lg="1"  sm="1" xs='1' />
+        <Col lg="10" sm="10" xs='10' className='screen-768'>
           <Row className='back-navigation'>
             <Link to='/patient/home'><i class="fas fa-arrow-left"></i><span>Top Consultants</span></Link>
           </Row>

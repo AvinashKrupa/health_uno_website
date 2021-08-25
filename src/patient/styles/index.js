@@ -17,6 +17,8 @@ import './doctor_appointments_card.scss';
 import './model.scss';
 import './videoMeeting.scss';
 import './invite.scss'
+import './AddPrescription.scss';
+
 
 // Doctor scss
 import '../../doctor/styles/multiStepForm.scss';

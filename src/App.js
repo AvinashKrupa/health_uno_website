@@ -19,6 +19,7 @@ import Appointments from "./patient/view/appointment/Appointments";
 import VideoMeeting from "./patient/view/Meeting/VideoMeeting";
 import Chat from "./chat/Chat";
 import Invite from "./patient/view/invite/Invite"
+import AddPrescription from "./patient/view/loginAndRegistration/AddPrescription";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <PrivateRoute exact path='/Chat' component={Chat} />
           <PrivateRoute exact path='/patient/profile/invite' component={Invite} />
           
+          <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription} />
         </BrowserRouter>
     </div>
   );
