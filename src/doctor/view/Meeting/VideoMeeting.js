@@ -3,11 +3,12 @@ import {Button, Col, Image, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {useToasts} from "react-toast-notifications";
 import {API, post} from "../../../api/config/APIController";
-import {back_icon} from "../../../constants/DoctorImages";
+import {back_icon, camera_off_icon, mic_on_icon} from "../../../constants/DoctorImages";
 
 const VideoMeeting = (props) => {
     let [appointmentDetail, setAppointmentDetail] = useState([]);
     let [havePermissions, setHavePermissions] = useState(false);
+    let [renderTestButtons, setRenderTestButtons] = useState(false);
 
     useEffect(() => {
         getAppointmentDetail();
@@ -20,8 +21,9 @@ const VideoMeeting = (props) => {
     function checkPermissions() {
         const permissions = navigator.mediaDevices.getUserMedia({audio: true, video: true})
         permissions.then((stream) => {
-            addToast('Permission has been granted to use Mic and Camera', { appearance: 'success' })
+            addToast('Permission has been granted to use Mic and Camera', {appearance: 'success'})
             setHavePermissions(true)
+            setRenderTestButtons(true)
         })
             .catch((err) => {
                 setHavePermissions(false)
@@ -78,26 +80,35 @@ const VideoMeeting = (props) => {
 
 
                         <div className="doctor-meeting-page-column-content">
-                            {/*<Row style={{ marginTop: "13px" }}>*/}
-                            <div className=''>
-                                <span className="meeting-with-text">Meeting with</span>
-                                <div className="patient-name">
-                                    {`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}
-                                </div>
-                                <div className="patient-description patient-description-title ">
-                                    Purpose: <span
-                                    className="patient-description-detail">{appointmentDetail?.reason}</span>
-                                </div>
+                            <div className='doctor-meeting-patient-info-container'>
+                                {renderTestButtons && <div className="meeting-testing-button-container">
+                                    <Button className="testing-button">
+                                        <img className="testing-icon" src={mic_on_icon}/>Mic is On
+                                    </Button>
+                                    <Button className="testing-button" style={{marginTop: '16px'}}>
+                                        <img className="testing-icon" src={camera_off_icon}/>Camera is On
+                                    </Button>
+                                </div>}
+                                {!renderTestButtons && <>
+                                    <span className="meeting-with-text">Meeting with</span>
+                                    <div className="patient-name">
+                                        {`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}
+                                    </div>
+                                    <div className="patient-description patient-description-title ">
+                                        Purpose: <span
+                                        className="patient-description-detail">{appointmentDetail?.reason}</span>
+                                    </div>
+                                </>
+                                }
                             </div>
                             <div className='doctor-meeting-button-container'>
-                                <Button className="doctor-meeting-test-button" onClick={()=> checkPermissions()}>
+                                <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
                                     Test Video and Audio
                                 </Button>
                                 <Button className="doctor-meeting-join-meeting-button">
                                     Join Meeting
                                 </Button>
                             </div>
-                            {/*</Row>*/}
                         </div>
                     </div>
                 </Col>
@@ -105,6 +116,7 @@ const VideoMeeting = (props) => {
             }
         </>
     );
-};
+}
+;
 
 export default VideoMeeting;

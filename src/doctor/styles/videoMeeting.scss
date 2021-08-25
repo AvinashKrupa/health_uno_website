@@ -38,6 +38,32 @@
   .doctor-meeting-page-column-content{
     margin-top: 40px;
     margin-left: 160px;
+      .meeting-testing-button-container{
+        display: flex;
+        flex-direction: column;
+
+        .testing-icon{
+          margin-right: 16px;
+        }
+        .testing-button{
+          text-align: left;
+          font-family: Montserrat;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 20px;
+          letter-spacing: -0.30000001192092896px;
+          background: white;
+          height: 66px;
+          width: 444px;
+          left: 790px;
+          top: 275px;
+          border-radius: 6px;
+          border: 2px solid #C4C4C4;
+          box-sizing: border-box;
+          color: #1B1B1B;
+        }
+      }
     .meeting-with-text{
       font-family: Montserrat;
       font-size: 20px;
