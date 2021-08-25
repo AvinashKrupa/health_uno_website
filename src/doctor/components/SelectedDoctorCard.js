@@ -3,7 +3,7 @@ import {Card, CardContent, CardMedia} from "@material-ui/core";
 import {RiDeleteBinLine} from 'react-icons/ri'
 import addDoctorStore from "../store/addDoctorStore";
 import {useToasts} from "react-toast-notifications";
-
+import {delete_icon} from "../../constants/DoctorImages";
 
 const SelectedDoctorCard = (props) => {
 
@@ -13,7 +13,7 @@ const SelectedDoctorCard = (props) => {
         <>
             <Card className="selected-doctor-container">
                 <div style={{display: 'flex', flexDirection: 'row'}}>
-                    <div>
+                    <div className="image-profile-container">
                         <CardMedia className="image" image={props?.image}></CardMedia>
                     </div>
                     <div>
@@ -37,7 +37,7 @@ const SelectedDoctorCard = (props) => {
                                     <div className="description">{props?.details}</div>
                                 </div>
                                 <div style={{marginLeft:"4%"}}>
-                                    <RiDeleteBinLine color={'#f24823'} size={20} onClick={()=>props.removeSelectedDoctor()}/>
+                                    <img src={delete_icon} onClick={()=>props.removeSelectedDoctor()}/>
                                 </div>
                             </div>
                         </CardContent>

@@ -8,6 +8,7 @@ import filter_icon from "../doctor/assets/icon-filter.svg";
 import back_icon from "../doctor/assets/icon-back.svg";
 import mic_on_icon from "../doctor/assets/mic-on.svg";
 import camera_off_icon from "../doctor/assets/camera-off.svg";
+import delete_icon from "../doctor/assets/delete-doctor.svg";
 
 export {
     doctor,
@@ -20,4 +21,5 @@ export {
     back_icon,
     camera_off_icon,
     mic_on_icon,
+    delete_icon
 };
