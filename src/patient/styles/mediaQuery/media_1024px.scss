@@ -16,8 +16,8 @@
     }
 
     .doctor-card-image {
-        height: 151px;
-        width: 132px;
+        height: 122px;
+        width: 105px;
         margin-right: 10px;
         margin-left: 24px;
         margin-top: 19px;
@@ -30,7 +30,7 @@
     }
 
     .slot-timings-button, .days-button {
-        width: 160px !important;
+        width: 80px !important;
         margin-bottom: 10px !important;
         margin-right: 5px;
     }
@@ -65,10 +65,6 @@
         line-height: unset;
         letter-spacing: unset;
         padding-top: 10px;
-    }
-
-    .slot-evening, .slot-day {
-        margin-top: 47px;
     }
 
     .back-navigation {
@@ -115,6 +111,10 @@
             }
         }
     }
+
+    .patient-booking-detail .textarea-label, .patient-booking-detail .form-label {
+        font-size: 15px !important;
+    }
      
 
 }
@@ -131,4 +131,28 @@
         position: absolute;
         left: 80px;
     }
+
+    .patient-booking-detail .textarea-label, .patient-booking-detail .form-label {
+        font-size: 20px !important;
+    }
+
+    .slot-timings-button, .days-button {
+        width: 90px !important;
+        margin-bottom: 10px !important;
+        margin-right: 5px;
+    }
 }
+
+
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1300px) {
+    .doctor-card-image {
+        height: 122px;
+        width: 105px;
+        margin-right: 10px;
+        margin-left: 24px;
+        margin-top: 19px;
+        margin-bottom: 1px;
+  }
+}
+

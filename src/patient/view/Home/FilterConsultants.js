@@ -176,7 +176,6 @@ const FilterConsultants = (props) => {
             {showLanguages ? (
                 <div
                   className="filter_menu_scrollable_div"
-                  style={{ height: "150px", marginTop: "13px"}}
                 >
                   <CheckboxList onClick={handleLanguageGroup} list={languages} />
                 </div>

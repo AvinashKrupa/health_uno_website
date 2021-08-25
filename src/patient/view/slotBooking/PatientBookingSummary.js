@@ -164,7 +164,7 @@ const PatientBookingSummary = (props) => {
                             <Row>
                                 <Col>
                                     <Row>
-                                        <Col lg="2" md='12' >
+                                        <Col lg={(window.screen.availWidth  > 768 &&  window.screen.availWidth < 1300) ? '3': '2' } md='12' >
                                             <Image src={doctorDetails.dp} className='doctor-detail-image'
                                                 style={{height: '150px',
                                                 width: '150px',
@@ -195,10 +195,10 @@ const PatientBookingSummary = (props) => {
                                                     </Row>
                                                 </Col>
                                         </Col>
-                                        <Col lg="8" md='12'style={{ marginLeft: "50px" }}>
+                                        <Col lg="8" md='12'style={{ marginLeft: "20px" }}>
                                             <Row>
 
-                                                <Col lg="10"  md='12'>
+                                                <Col lg={(window.screen.availWidth  > 768 &&  window.screen.availWidth < 1300) ? '12': '10' }  md='10'>
                                                     <Row style={{ marginTop: "20px", marginBottom: "48px" }} className='color-card-container'>
                                                         {doctorDetails &&  <ColorCard fee={doctorDetails.fee} exp={doctorDetails.exp} total_patients={doctorDetails.total_patients}/>}
                                                     </Row>
@@ -221,7 +221,7 @@ const PatientBookingSummary = (props) => {
                                                 />
                                             </Container>
                                         </Col>
-                                        <Col lg="3">
+                                        <Col  lg={(window.screen.availWidth  > 768 &&  window.screen.availWidth < 1300) ? '4': '3' }>
                                             <TextArea
                                                 label="Complaints"
                                                 type="textarea"
@@ -232,7 +232,7 @@ const PatientBookingSummary = (props) => {
                                             />
                                         </Col>
 
-                                        <Col lg="3">
+                                        <Col lg={(window.screen.availWidth  > 768 &&  window.screen.availWidth < 1300) ? '4': '3' }>
                                         <Container className='slot-appointment-container'>
                                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                                     <span className='textarea-label'> Appointment Details</span><Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-pen"></i></Link>
