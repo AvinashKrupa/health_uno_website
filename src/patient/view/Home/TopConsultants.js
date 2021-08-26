@@ -68,8 +68,8 @@ const TopConsultants = (props) => {
   }
 
   return (
-    <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter}>
-      <div>
+    <div>
+      <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter}/>
       <Row className='top-consultants-container'>
         <Col lg="1"  sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10' className='screen-768'>
@@ -109,9 +109,7 @@ const TopConsultants = (props) => {
         </Col>
         <Col lg="1" sm="1" xs='1'/>
       </Row>
-    </div>
-    </TopConsultantsFilter>
-    
+    </div>    
   );
 };
 
