@@ -3,15 +3,13 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import {withRouter} from 'react-router-dom/cjs/react-router-dom.min';
 import {getData} from "./storage/LocalStorage/LocalAsyncStorage";
 
-const sidebar = ['home', 'appointments'];
+const sidebar = ['home', 'appointments', 'profile'];
 
 const Sidebar = (props) => {
-    debugger
     return (
         <div className="sidebarMenu">
             <SideNav onSelect={(selected) => {
                 const userType = JSON.parse(getData('USER_TYPE'))
-                debugger
                 let routeName = '/patient/'
                 if (userType === 2) {
                     routeName = '/doctor/'

@@ -13,8 +13,6 @@ export const API = {
   GETTOPCONSULTANT: 'patient/getTopConsultants',
   GETLANGUAGE: 'languages',
   FILEUPLOAD: 'fileUpload',
-  GETPROFILE: 'user/profile',
-  UPDATEPROFILE: 'user/updateProfile',
   GETDEPARTMENTS: 'departments',
   GETSPECIALITIES: 'specialities',
   GETQUALIFICATIONS: 'qualifications',
@@ -36,6 +34,8 @@ export const API = {
   APPOINTMENT_DETAIL_API: 'appointment/getDetails',
   REMOVE_ADDITIONAL_DOCTOR: 'appointment/removeAdditionalDoctor',
   ADD_ADDITIONAL_DOCTOR: 'appointment/addDoctor',
+  GET_PROFILE: 'user/profile',
+  UPDATE_PROFILE: 'user/updateProfile',
 };
 
 export function post(endPoint, params, isStringfy = true) {
