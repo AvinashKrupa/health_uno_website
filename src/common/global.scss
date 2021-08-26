@@ -1,0 +1,27 @@
+body {
+  .btn-primary{
+    border-color: rgba(27, 27, 27, 0.2) !important;
+  }
+  .btn-primary:hover {
+    border-color: #28A3DA;
+  }
+  .btn-primary:focus {
+    box-shadow: unset;
+    border: 2px solid #28A3DA;
+  }
+  .btn-primary:hover {
+    opacity: 0.8;
+  }
+  .back-nav-container{
+    display: flex;
+    align-items: center;
+    >img{
+      height: 20px;
+      width: 31px;
+      cursor: pointer;
+    }
+    >span{
+      margin-left:10px
+    }
+  }
+}
