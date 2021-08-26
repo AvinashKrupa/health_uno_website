@@ -19,8 +19,8 @@ const SelectedDoctorCard = (props) => {
                     <div>
                         <CardContent>
                             <div style={{display:"flex", flexDirection:"row"}}>
-                                <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-                                    <div style={{display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+                                <div style={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
+                                    <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
                                     <span
                                         // className="doctor-card-specialization-text"
                                         style={{marginTop: "10px"}}
