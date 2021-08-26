@@ -118,7 +118,7 @@ const DoctorHomePage = (props) => {
                 <span className="upcoming-appointment-text">Upcoming Appointments</span>
                 <span className="upcoming-appointment-view_all" style={{cursor: 'pointer'}} onClick={(e) =>
                     props.history.push({
-                      pathname: '/doctor/upcomingAppointments',
+                      pathname: '/doctor/appointments',
                       state: { title: 'Upcoming Appointments' }
                     })}>View all</span>
               </div>

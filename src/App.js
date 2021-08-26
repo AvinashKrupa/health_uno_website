@@ -29,11 +29,11 @@ function App() {
     <div className="App">
         <BrowserRouter>
           <Route exact path="/" component={PatientLogin} />
-          <Route exact path="/doctor/home" component={DoctorHomePage} />
           <Route exact path="/doctor" component={DoctorLogin} />
           <PrivateRoute exact path='/doctor/otp' component={DoctorOTP} />
+          <PrivateRoute exact path="/doctor/home" component={DoctorHomePage} />
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />
-          <PrivateRoute exact path='/doctor/upcomingAppointments' component={UpcomingAppointments} />
+          <PrivateRoute exact path='/doctor/appointments' component={UpcomingAppointments} />
           <PrivateRoute exact path='/doctor/search' component={UpcomingAppointments} />
           <PrivateRoute exact path='/doctor/appointmentDetail/:appointment_id' component={AppointmentDetail} />
           <PrivateRoute exact path='/doctor/reports' component={Reports} />
@@ -51,7 +51,7 @@ function App() {
           <PrivateRoute exact path='/patient/videoMeeting/:doctor_id' component={VideoMeeting} />
           <PrivateRoute exact path='/Chat' component={Chat} />
           <PrivateRoute exact path='/patient/profile/invite' component={Invite} />
-          
+
           <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription} />
         </BrowserRouter>
     </div>
