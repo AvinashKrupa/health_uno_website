@@ -45,7 +45,7 @@ const EditProfile = (props) => {
                     setLastName(user.last_name);
                     setEmail(user.email);
                     setGender(user.gender);
-                    setDescription(user.desc);
+                    setDescription(additionalInfo.desc);
                     setMobile(user.mobile_number);
                     setBirthDate(user.dob);
                     setAddressLine1(additionalInfo.address.line1);
@@ -69,7 +69,7 @@ const EditProfile = (props) => {
             last_name: lastName,
             mobile_number: mobile,
             email: email,
-            description: description,
+            desc: description,
             type: '2',
         };
 

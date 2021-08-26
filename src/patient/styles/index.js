@@ -29,6 +29,7 @@ import '../../doctor/styles/dashboard.scss';
 import '../../doctor/styles/reports.scss';
 import '../../doctor/styles/videoMeeting.scss';
 import '../../doctor/styles/upcoming_appointments.scss';
+import '../../doctor/styles/editProfile.scss';
 
 
 // Common
