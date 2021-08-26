@@ -24,11 +24,12 @@ import copy from "../patient/assets/copy.png";
 import InviteImage from "../patient/assets/InviteImage.png"; 
 import send from "../patient/assets/send.png"; 
 import upload from "../patient/assets/upload.svg"
+import pdf from "../patient/assets/pdf.png"
 
 
 export { group, logo, frame, doctor, plant, phone,
          doctorCard, tooth, heart, brain, arrowRight,
          filter, minus, icon_badge, icon_man, icon_money,
          camera, meeting, help, blackArrow, calendar, patientIcon,
-         copy, InviteImage, send,upload
+         copy, InviteImage, send,upload,pdf
        };
