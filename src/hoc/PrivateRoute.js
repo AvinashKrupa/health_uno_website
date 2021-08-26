@@ -3,8 +3,12 @@ import { Route, Redirect } from 'react-router-dom';
 import {AuthContext} from '../context/AuthContextProvider';
 import { getData } from '../storage/LocalStorage/LocalAsyncStorage';
 import jwt_decode from "jwt-decode";
+import MainView from '../MainView';
+
+const basicRoutes = ['/', '/doctor',  '/doctor/otp', '/doctor/registration', '/patient/otp', '/patient/registration']
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  console.log('rest: ', rest);
 
   // var token = jwt_decode(getData('ACCESS_TOKEN'));
   // const authContext = useContext(AuthContext);
@@ -26,11 +30,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   // );
 
   <Route {...rest} render={props =>
-    true  ? (
-      true ? <Component {...props} /> :  <Redirect to='/doctor'/>
-    ) : (
-      <Component {...props} />
-    )
+    basicRoutes.includes(rest.path)  ? <Component {...props} /> : (
+      <MainView>
+         <Component {...props} />
+      </MainView>)
   }
   />
   );

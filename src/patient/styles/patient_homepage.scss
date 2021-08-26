@@ -34,6 +34,109 @@
     text-align: right;
     color: rgba(40, 163, 218, 1);
   }
+
+
+
+
+  // SIDEBAR MENU CODE
+  .sidebarMenu {
+    height: 100%;
+    margin: 0px;
+    padding: 10px;
+    background: #f3f3f3;
+    width: 63px;
+}
+
+.sidebarMenu li  p {
+  margin-bottom: .5rem;
+}
+
+ .sidebarMenu li{
+  list-style: none;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  padding: 3px;
+  margin: 0px;
+  font-size: 11px;
+  margin-bottom: 30px;
+ }
+     
+ .sidebarMenu li a{
+  color: #1B1B1B;
+  text-decoration: none;
+ }
+
+ .sidebarMenu li:hover{
+   background: #28A3DA;
+ }
+ .sidebarMenu li a:hover{
+  color: #fff;
+  text-decoration: none;
+ }
+.sidebarMenu .logo{
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #1B1B1B;
+
+}
+
+
+
+
+.sidebarMenu .logo img{
+  width: 18px;
+  border-radius: 50px;
+}
+
+.sidebarMenu  .fa{
+  font-size: 24px !important;
+    color: #1B1B1B !important;
+}
+
+.sidenav---sidenav---_2tBP {
+  background: #F3F3F3 !important;
+  
+  
+}
+.sidenav---sidenav-toggle---1KRjR .sidenav---icon-bar---u1f02 {
+  background-color: #000 !important;
+}
+
+
+.sidenav---navicon---3gCRo, .sidenav---navtext---1AE_f{
+  color: #1B1B1B;
+}
+.sidenav---navtext---1AE_f{
+  color: #000 !important;
+  font-size: 16px;
+  position: relative;
+  top: -3px;
+  left: 15px;
+}
+
+
+.sidenav---sidenav-navitem---uwIJ-.sidenav---selected---1EK3y.sidenav---highlighted---oUx9u {
+  border-radius: 8px;
+  // background: #2f87af;
+  width: 97%;
+  height: 60px;
+  color: #ccc !important;
+}
+
+.sidenav---sidenav-navitem---uwIJ- {
+  margin-bottom: 10px !important;
+}
+.setLogo .sidenav---navtext---1AE_f{
+font-size: 30px;
+    color: #70bfe6 !important;
+    font-weight: bold;
+    position: relative;
+    left: 11px;
+    top: -1px;
+}
+
+
   
   .patient-homepage-motion-images {
     height: 252px;
@@ -78,8 +181,38 @@
       background-color: unset !important;
       border-color: unset !important;
     }
-          
+       
   }
+  @media only screen and (max-width: 767px) {
+    nav.sidenav---sidenav---_2tBP.sidenav---collapsed---LQDEv .sidenav---sidenav-toggle---1KRjR {
+      position: absolute;
+      top: -4px;
+      left: 370px;
+    }
+    .sidenav---sidenav---_2tBP {
+      left: -70px !important;
+      }
+      .sidenav---sidenav---_2tBP.sidenav---expanded---1KdUL {
+        left: 0px !important;
+    }
+    .sidebarMenu {
+      background: transparent;
+     
+  }
+  
+}
+
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) { 
+  nav.sidenav---sidenav---_2tBP.sidenav---collapsed---LQDEv .sidenav---sidenav-toggle---1KRjR {
+    position: absolute;
+    top: 0px;
+    left: 414px;
+}
+}
+    
+
 
 
   @media only screen and (max-width: 480px) { 
@@ -107,4 +240,5 @@
       }
     }
   }
-
+    
+ 

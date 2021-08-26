@@ -16,6 +16,9 @@ import './appointments.scss';
 import './doctor_appointments_card.scss';
 import './model.scss';
 import './videoMeeting.scss';
+import './invite.scss'
+import './AddPrescription.scss';
+
 
 // Doctor scss
 import '../../doctor/styles/appointment-detail.scss';
@@ -33,6 +36,7 @@ import './text_area.scss';
 import '../../doctor/styles/slot_generator.scss';
 import '../../doctor/styles/common.scss';
 import '../../common/global.scss';
+import './chat.scss';
 
 
 //Media query

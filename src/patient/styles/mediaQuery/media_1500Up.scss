@@ -1,4 +1,10 @@
 @media only screen and (min-width: 1500px) {
+
+    .slot-timings-button, .days-button {
+        width: 165px !important;
+        margin-bottom: 10px !important;
+        margin-right: 5px;
+    }
     .doctor-card-doctor-name {
         .card-image-video-camera {
             position: absolute;

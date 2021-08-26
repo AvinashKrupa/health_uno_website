@@ -25,6 +25,7 @@ export const API = {
   CONFIRMPAYENT: 'transaction/confirmPayment',
   GETAPPOINTMENTS: 'patient/getAppointments',
   CANCELAPPOINTMENT: 'patient/cancelAppointment',
+  GETMESSAGES: 'chat/getMessages',
   /**
    * Doctor related APIS
    */

@@ -1,11 +1,14 @@
 @media only screen and (min-width: 768px) {
-
+    .searchRow{
+        margin-top: 65px !important;
+        --bs-gutter-x: 0rem;
+    }
     .search-container input {
         width: 620px !important;
     }
 
     .doctor-card-doctor-name {
-        font-size: 14px !important;
+        font-size: 16px !important;
      }
 
     .doctor-card-image {
@@ -110,6 +113,13 @@
               margin-left: unset !important;
           }
     }
-    
+
+    .doctor_details_button {
+        margin-top: unset!important;
+        margin-bottom: unset !important;
+    }
+    .screen-768 {
+        padding-left: 50px;
+    }
     
 }

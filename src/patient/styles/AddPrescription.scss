@@ -1,0 +1,145 @@
+.addPrescription{padding: 10px;}
+.card-body {
+    flex: 1 1 auto;
+    padding: 0rem 1rem 1rem 1rem;
+}
+
+
+.addPrescription .form-check-label {
+    width: 93px !important;
+   text-align: left !important;
+
+}
+
+.form-check-input {
+    margin-left: 7px !important;
+    border-radius: 20px !important;
+
+}
+
+
+.addPrescription .form-check {
+    display: inline-block;
+    min-height: 1.5rem;
+    padding-left: 1.5em;
+    margin-bottom: .125rem;
+    clear: both;
+    width: 50%;
+    padding-left: 0px;
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: 6px !important;
+}
+
+.timeSlots .form-label {
+    visibility: hidden;
+ }
+
+ .addPrescription .prescriptionSection .form-check{
+    width: 145px !important;
+ }
+
+ button.button.primary.SendPrescription.btn.btn-primary{
+    background: #28A3DA !important;
+    border-color: #28A3DA;
+    border-radius: 5px !important;
+    padding: 12px;
+}
+
+.sendPrescriptionAction{
+    width: 300px;
+    text-align: center;
+    margin: 50px auto;
+    background: #28A3DA !important;
+    border-radius: 20px;
+}
+
+.addPrescription p{
+    color: #000;
+    font-size: 17px;
+    margin: 10px 0px;
+    
+}
+
+.addPrescription .Choosetemplate p{
+    color: #27a3da;
+    
+}
+
+.Choosetemplate{text-align: right;}
+.choosetemp{
+    padding: 15px 0px;
+    border-top: 2px solid #E5E5E5;
+    margin: 31px 0px 0px -10px;
+}
+
+.actionSave{
+    text-align: center;
+    margin: 38px 0px;
+    border-bottom: 2px solid #E5E5E5;
+}
+
+.actionSave button{
+    padding: 10px 40px;
+    margin-top: 30px;
+    margin: 30px 15px;
+}
+
+.actionSave button.btn.btn-outline-primary{
+    border: 1.5px solid #28A3DA;
+    color: #28A3DA;
+}
+.actionSave button.btn.btn-secondary, .btn-check:focus+.btn-secondary, .btn-secondary:focus{
+    color: #fff;
+    background-color: #27a3da;
+    border-color: #27a3da;
+}
+
+
+.btn-outline-primary:hover {
+    color: #fff !important;
+    background-color: #27a3da;
+    border-color: #27a3da;
+}
+
+
+.addPrescription .investigationscheck .form-check-label {
+    width: 70%!important;
+    text-align: left !important;
+    font-size: 16px !important;
+    color: #27a3da;
+}
+.otherdoage .form-group{
+    margin-top: -35px;
+}
+.AddAnotherTest p{
+    color: #27a3da;
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+.topsctionName .form-group{
+    margin-top: -10px;
+}
+
+.addPrescription .Choosetemplate p {
+    margin-top: -33px;
+}
+
+    .timeSlots .form-group{
+        margin-top: -55px;
+    }
+    .actionSave button {
+        padding: 9px 80px;
+        margin-top: 33px;
+        margin: 10px 15px;
+    }
+    .searchRow{
+        margin-top: 65px !important;
+        --bs-gutter-x: 0rem;
+    }
+    
+  }
