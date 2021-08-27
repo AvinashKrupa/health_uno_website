@@ -14,7 +14,7 @@ const HorizontalCalendarForDoctor = (props) => {
         let datesArr = [];
 
         for (let i = 0; i < 7; i++) {
-            let dateValue = moment().startOf('isoWeek').add(i, 'days').format('DD MMM YYYY').toString();
+            let dateValue = moment().add(i, 'days').format('DD MMM YYYY').toString();
             datesArr.push(dateValue);
         }
 
