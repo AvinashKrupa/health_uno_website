@@ -1,9 +1,9 @@
 import SideNav, {NavIcon, NavItem, NavText} from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import {withRouter} from 'react-router-dom/cjs/react-router-dom.min';
 import {getData} from "./storage/LocalStorage/LocalAsyncStorage";
+import { withRouter } from 'react-router-dom'
 
-const sidebar = ['home', 'appointments', 'profile'];
+const sidebar = ['home', 'appointments', 'profile']
 
 const Sidebar = (props) => {
     return (

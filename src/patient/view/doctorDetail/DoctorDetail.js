@@ -164,8 +164,8 @@ const DoctorDetails = (props) => {
                                 </Col>
                             </Row>
                             </Col>
-                            <Col lg="4">
-                            <Row className='doctor_details-doctor-card-remove-pad'>
+                            <Col lg={(window.screen.availWidth  > 800 &&  window.screen.availWidth < 1100) ? '12': '4' }>
+                            <Row className='doctor_details-doctor-card-remove-pad' style={{ justifyContent: (window.screen.availWidth  > 800 &&  window.screen.availWidth < 1100) ? 'space-around' : ''}}>
                                 <span
                                 className="doctor_details_h3"
                                 style={{ marginBottom: "17px" }}

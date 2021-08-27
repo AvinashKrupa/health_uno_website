@@ -89,3 +89,8 @@
   .input-range__label.input-range__label--max {
     display: none;
   }
+
+  .filter_menu_scrollable_div {
+    max-height: 150px !important;
+    overflow-y: scroll;
+  }

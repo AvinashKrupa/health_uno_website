@@ -102,10 +102,10 @@ const Appointments = (props) => {
   return (
     <>
       <Row>
-        <Col lg='1' sm='1' xs='1'>
+        <Col lg='1' md='1' sm='1' xs='1'>
 
         </Col>
-        <Col  lg='10' sm='10' xs='10'  className="screen-768 appointment-page-content-column">
+        <Col  lg='10' md='11' sm='10' xs='10'  className="screen-768 appointment-page-content-column">
           <Row>
             <span className="appointment-page-text-heading">Appointments</span>
           </Row>
@@ -155,9 +155,9 @@ const Appointments = (props) => {
             )}
           </Row>
         </Col>
-        <Col lg='1' sm='1' xs='1'>
+        {/* <Col lg='1' sm='1' xs='1'>
 
-        </Col>
+        </Col> */}
       </Row>
     </>
   );

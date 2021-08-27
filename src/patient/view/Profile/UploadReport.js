@@ -62,7 +62,8 @@ const UploadReport = (props) => {
                   <Dropzone
                     onDrop={acceptedFiles =>
                       setFiles(acceptedFiles.map(file => file))}
-                    accept="image/jpeg,*.pdf"
+                      accept="image/jpeg,*.pdf"
+                      multiple={false}
 
                   >
                     {({ getRootProps, getInputProps }) => (

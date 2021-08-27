@@ -68,7 +68,7 @@ const OTP = ({history}) => {
         }
       })
       .catch(error => {
-        addToast(error.response.data.message, { appearance: 'error' });
+        addToast('Please go back and enter your mobile number again', { appearance: 'error' });
       });
   }
 
