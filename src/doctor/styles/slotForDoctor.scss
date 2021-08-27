@@ -1,0 +1,170 @@
+.doctor-slot-booking {
+  .fa-chevron-right {
+    padding-left: 45px;
+    padding-top: 20px;
+  }
+
+  .fa-chevron-left {
+    padding-right: 51px;
+    padding-top: 20px;
+  }
+}
+
+
+.doctor-slot-booking-btn {
+  margin-top: 54px;
+  width: 335px;
+  height: 50px;
+  background: #28A3DA;
+  border-radius: 8px;
+  margin-bottom: 61px;
+}
+
+.doctor-slot-booking-cal {
+    display: flex;
+    flex-direction: row;
+
+  .doctor-slot-booking {
+
+  }
+
+  .doctor-days-button {
+
+    height: 55px;
+    border-radius: 12px;
+    border: 2px solid rgba(27, 27, 27, 0.2);
+    margin-right: 10px;
+    margin-bottom: 48px;
+    background: white;
+  }
+
+  .doctor-days-button-text {
+
+  }
+}
+
+
+
+@media only screen and (min-width: 375px) {
+  .slot-timings-button, .doctor-days-button {
+    width: 65px !important;
+    margin-bottom: 10px !important;
+    margin-right: 5px;
+  }
+
+  .slot-timings-button {
+    height: 40px;
+  }
+
+  .doctor-days-button {
+    height: 60px;
+  }
+
+
+  .doctor-slot-booking {
+    .fa-chevron-left {
+      padding-right: 15px !important;
+    }
+    .fa-chevron-right {
+      padding-left: 15px !important;
+    }
+  }
+  .doctor-slot-booking-cal {
+    flex-direction: column-reverse !important;
+    .fa-calendar-alt-slot {
+      width: 30px;
+      height: 26px;
+    }
+
+    .slot-calendar {
+      padding-top: unset !important;
+      margin-bottom: 10px;
+    }
+
+    .react-datepicker__input-container {
+      padding-left: 20px;
+    }
+  }
+
+
+
+}
+
+
+@media only screen and (min-width: 414px) {
+
+  .slot-timings-button, .doctor-days-button {
+    width: 65px !important;
+    margin-bottom: 10px !important;
+    margin-right: 10px !important;
+    height: 100%;
+  }
+
+  .doctor-slot-booking {
+    .fa-chevron-left {
+      padding-right: 15px !important;
+    }
+    .fa-chevron-right {
+      padding-left: 10px !important;
+    }
+  }
+  .doctor-slot-booking-cal {
+    flex-direction: column-reverse !important;
+
+    .slot-calendar {
+      padding-top: unset !important;
+      margin-bottom: 10px;
+    }
+
+    .react-datepicker__input-container {
+      padding-left: 30px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .doctor-days-button {
+    height: auto!important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .doctor-slot-booking-cal {
+    .react-datepicker__input-container {
+      padding-left: 130px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+
+  .slot-timings-button, .doctor-days-button {
+    width: 160px !important;
+    margin-bottom: 10px !important;
+    margin-right: 5px;
+  }
+
+  .slot-timings-button {
+    height: 50px;
+  }
+
+  .doctor-slot-booking {
+    .fa-chevron-left {
+      padding-right: 51px !important;
+    }
+    .fa-chevron-right {
+      padding-left: 45px !important;
+    }
+  }
+  .doctor-slot-booking-cal {
+    flex-direction: row !important;
+
+    .slot-calendar {
+      padding-top: 10px !important;
+      margin-bottom: 10px;
+    }
+    .react-datepicker__input-container {
+      padding-left: unset;
+    }
+  }
+}

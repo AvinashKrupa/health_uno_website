@@ -23,6 +23,7 @@ import './AddPrescription.scss';
 // Doctor scss
 import '../../doctor/styles/appointment-detail.scss';
 import '../../doctor/styles/multiStepForm.scss';
+import '../../doctor/styles/slotForDoctor.scss';
 import '../../doctor/styles/doctorRegistrationPage.scss';
 import '../../doctor/styles/profilePictureColumn.scss';
 import '../../doctor/styles/dashboard.scss';
