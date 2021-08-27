@@ -2,7 +2,7 @@
   Appointment Detail Page
  */
 
-.appointment-detail-card-container{
+.appointment-detail-card-container {
   margin-bottom: 2%;
   display: flex;
   width: 100%;
@@ -12,13 +12,13 @@
   top: 391px;
   padding: 21px;
 
-  background: #FFFFFF!important;
+  background: #FFFFFF !important;
   box-shadow: 5.6px 5.6px 49px rgba(0, 0, 0, 0.1) !important;
   border-radius: 12px !important;
   flex-wrap: wrap;
 
-  .image-container{
-    flex:1;
+  .image-container {
+    flex: 1;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -26,6 +26,7 @@
     min-height: 160px;
     max-height: 230px;
     max-width: 230px;
+
     img {
       flex-shrink: 0;
       min-width: 100%;
@@ -35,14 +36,16 @@
     }
   }
 
-  .detail-container{
-    flex:4;
+  .detail-container {
+    flex: 4;
     margin-left: 6%;
-    .field-container{
+
+    .field-container {
       display: flex;
       flex-direction: row;
       margin-top: 15px;
     }
+
     .view-report-button {
       position: inherit;
       font-family: Montserrat;
@@ -55,10 +58,10 @@
       width: 150px;
       height: 40px;
       background: #28A3DA;
-      border-radius: 6px!important;
+      border-radius: 6px !important;
     }
 
-    .patient-name{
+    .patient-name {
       font-family: Montserrat;
       font-size: 24px;
       font-style: normal;
@@ -69,7 +72,8 @@
       color: #1B1B1B;
 
     }
-    .field-title{
+
+    .field-title {
       font-family: Montserrat;
       font-size: 16px;
       font-style: normal;
@@ -79,7 +83,8 @@
       text-align: left;
       color: #1B1B1B;
     }
-    .field-description{
+
+    .field-description {
       margin-left: 8px;
       font-family: Montserrat;
       font-size: 16px;
@@ -91,7 +96,8 @@
       color: #8F8F8F;
 
     }
-    .button-text{
+
+    .button-text {
       font-family: Montserrat;
       font-size: 14px;
       font-style: normal;
@@ -104,7 +110,7 @@
   }
 }
 
-.row-add-doctor{
+.row-add-doctor {
   background-color: #FFFFFF;
   box-shadow: 5.6px 5.6px 49px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -116,10 +122,12 @@
   padding-left: 4%;
   padding-right: 4%;
 }
-.row-add-doctor:hover{
+
+.row-add-doctor:hover {
   border: 2px solid #28A3DA;
 }
-.row-add-doctor-text{
+
+.row-add-doctor-text {
   font-family: Montserrat;
   font-size: 16px;
   font-style: normal;
@@ -130,18 +138,19 @@
   color: #1B1B1B;
 }
 
-.bottom-container{
+.bottom-container {
 
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  .initiate-call-button-container{
+
+  .initiate-call-button-container {
     height: 51.25px;
     width: 335px;
-    border-radius: 8px!important;
+    border-radius: 8px !important;
     color: #FFFFFF;
-    background: #28A3DA!important;
+    background: #28A3DA !important;
     position: inherit;
 
     font-family: Montserrat;
@@ -153,7 +162,7 @@
     text-align: center;
   }
 
-  .cancel-meeting-button{
+  .cancel-meeting-button {
     margin-top: 5%;
     margin-bottom: 5%;
     height: 20px;
@@ -176,10 +185,10 @@
   Media queries
  */
 @media screen and (max-width: 425px) {
-  .appointment-detail-card-container{
+  .appointment-detail-card-container {
     display: block;
 
-    .detail-container{
+    .detail-container {
       margin-top: 8%;
     }
 
@@ -206,11 +215,11 @@
 }
 
 
-
-.select-doctor:hover{
+.select-doctor:hover {
   border: 2px solid #28A3DA;
 }
-.selected-doctor-main-container{
+
+.selected-doctor-main-container {
   display: flex;
   margin-top: 40px;
   margin-bottom: 40px;
@@ -220,10 +229,10 @@
 /**
   Selected Doctor Card Styles
  */
-.selected-doctor-container{
+.selected-doctor-container {
   display: flex;
   flex-wrap: wrap;
-  border-radius: 12px!important;
+  border-radius: 12px !important;
   box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.16) !important;
   border-radius: 12px;
   min-width: 400px;
@@ -240,20 +249,26 @@
     margin-bottom: 1px;
   }
 
-  .specialities-text{
-  font-family: Montserrat;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 15px;
-  letter-spacing: -0.420000284910202px;
-  text-align: left;
-  color: #1B1B1B80;
-  background: #FFFFFF;
-  box-shadow: 0px 0px 4px rgb(0 0 0 / 25%);
-  border-radius: 3px;
-}
-  .name{
+  .delete-button {
+    position: relative;
+    left: 30px;
+  }
+
+  .specialities-text {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.420000284910202px;
+    text-align: left;
+    color: #1B1B1B80;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px rgb(0 0 0 / 25%);
+    border-radius: 3px;
+  }
+
+  .name {
     margin-top: 12px;
     font-family: Montserrat;
     font-size: 16px;
@@ -265,7 +280,8 @@
     color: #1B1B1B;
 
   }
-  .description{
+
+  .description {
     margin-top: 12px;
     font-family: Montserrat;
     font-size: 12px;
@@ -276,7 +292,8 @@
     text-align: left;
     color: #1B1B1B80;
   }
-  .time{
+
+  .time {
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -287,35 +304,36 @@
     color: #1B1B1B80;
   }
 }
+
 @media screen and (max-width: 425px) {
-  .selected-doctor-container{
-    min-width: 360px!important;
-    width: 360px!important;
-    max-width: 360px!important;
+  .selected-doctor-container {
+    min-width: 360px !important;
+    width: 360px !important;
+    max-width: 360px !important;
   }
   .view-report-button {
-    width: auto!important;
-    height: auto!important;
+    width: auto !important;
+    height: auto !important;
   }
 }
 
 @media screen and (max-width: 375px) {
 
-  .appointment-detail-card-container{
-    width: 338px!important;
-    max-width: 338px!important;
+  .appointment-detail-card-container {
+    width: 338px !important;
+    max-width: 338px !important;
   }
-  .selected-doctor-container{
-    min-width: 340px!important;
-    width: 340px!important;
-    max-width: 340px!important;
+  .selected-doctor-container {
+    min-width: 340px !important;
+    width: 340px !important;
+    max-width: 340px !important;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .appointment-detail-card-container{
-    width: 360px!important;
-    max-width: 360px!important;
+  .appointment-detail-card-container {
+    width: 360px !important;
+    max-width: 360px !important;
   }
   .selected-doctor-container {
     .image-profile-container {
@@ -329,30 +347,36 @@
 
   }
 }
-@media screen and (max-width: 325px) {
-  .selected-doctor-container{
-    min-width: 310px!important;
-    width: 310px!important;
-    max-width: 310px!important;
-  }
 
+@media screen and (max-width: 325px) {
+  .selected-doctor-container {
+    min-width: 300px !important;
+    width: 300px !important;
+    max-width: 300px !important;
+
+    .delete-button {
+      position: relative;
+      left: 24px;
+    }
+  }
 }
+
 @media screen and (max-width: 320px) {
   .image {
     height: 75px !important;
     width: 70px !important;
-    margin-right: 0px!important;
+    margin-right: 0px !important;
     margin-left: 24px;
     margin-top: 19px;
     margin-bottom: 1px;
   }
 
-  .appointment-detail-card-container{
-    width: 309px!important;
-    max-width: 309px!important;
+  .appointment-detail-card-container {
+    width: 309px !important;
+    max-width: 309px !important;
     display: block;
 
-    .detail-container{
+    .detail-container {
       margin-top: 8%;
     }
 
@@ -362,8 +386,8 @@
     }
   }
   .view-report-button {
-    width: 80px!important;
-    height: auto!important;
+    width: 80px !important;
+    height: auto !important;
   }
   .row-add-doctor {
     margin-top: 5%;
@@ -373,9 +397,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    margin-left: 0px!important;
+    margin-left: 0px !important;
   }
-  .initiate-call-button-container{
-    width: 200px!important;
+  .initiate-call-button-container {
+    width: 200px !important;
   }
 }
