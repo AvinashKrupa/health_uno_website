@@ -19,7 +19,8 @@ import './videoMeeting.scss';
 import './invite.scss'
 import './AddPrescription.scss';
 import './upload_report.scss'
-
+import './report.scss'
+import './report_card.scss'
 
 // Doctor scss
 import '../../doctor/styles/appointment-detail.scss';

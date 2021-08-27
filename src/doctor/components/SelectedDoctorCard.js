@@ -1,6 +1,6 @@
 import {API, get, post} from '../../api/config/APIController';
 import {Card, CardContent, CardMedia} from "@material-ui/core";
-import {RiDeleteBinLine} from 'react-icons/ri'
+// import {RiDeleteBinLine} from 'react-icons/ri'
 import addDoctorStore from "../store/addDoctorStore";
 import {useToasts} from "react-toast-notifications";
 import {delete_icon} from "../../constants/DoctorImages";

@@ -25,6 +25,7 @@ import Chat from "./chat/Chat";
 import Invite from "./patient/view/invite/Invite"
 import AddPrescription from "./patient/view/loginAndRegistration/AddPrescription";
 import UploadReport from "./patient/view/Profile/UploadReport"
+import Report from "./patient/view/Profile/Report";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           <PrivateRoute exact path='/patient/videoMeeting/:doctor_id' component={VideoMeeting} />
           <PrivateRoute exact path='/Chat' component={Chat} />
           <PrivateRoute exact path='/patient/profile/invite' component={Invite} />
+          <PrivateRoute exact path='/patient/profile/report' component={Report} />
 
           <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription} />
           <PrivateRoute exact path='/patient/profile/upload' component={UploadReport} />
