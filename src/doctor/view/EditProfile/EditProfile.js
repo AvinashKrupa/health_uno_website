@@ -4,7 +4,7 @@ import {Col, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {API, get, post} from '../../../api/config/APIController';
 import {useToasts} from "react-toast-notifications";
-import ProfilePictureColumn from "./profilePictureColumn";
+import ProfilePictureColumn from "./editProfilePictureColumn";
 import CustomButton from "../../../commonComponent/Button";
 
 const EditProfile = (props) => {
@@ -136,7 +136,7 @@ const EditProfile = (props) => {
     }
 
     return (
-        <div className='form-wizard' style={{marginLeft:'20px'}}>
+        <div className='form-wizard edit-profile-container'>
             <div className="registration-page-1-container">
                 <Row>
                     <Col lg="4">
@@ -145,7 +145,7 @@ const EditProfile = (props) => {
                     <Col lg='6'>
                         <Row>
                             <Row>
-                                <h2 className="sub-title" style={{marginLeft:0}}>Edit Profile</h2>
+                                <h2 className="sub-title">Edit Profile</h2>
                             </Row>
                             <Col className="registration-page-1-column">
                                 <Input label="First Name" type="text" placeholder="eg John" value={firstName}
@@ -158,10 +158,10 @@ const EditProfile = (props) => {
                         </Row>
                         <Row>
                             <Col>
-                                <Input label="Mobile Number" type="number" value={mobile} onChange={setMobile}/>
+                                <Input label="Mobile Number" type="number" readonly="true" value={mobile} onChange={setMobile}/>
                             </Col>
                             <Col>
-                                <Input label="Email" type="email" value={email} onChange={setEmail}/>
+                                <Input label="Email" type="email" readonly="true" value={email} onChange={setEmail}/>
                             </Col>
                         </Row>
                         <Row>
@@ -253,21 +253,19 @@ const EditProfile = (props) => {
                                     </Col>
                                 </Row>
                             </Col>
+
                         </Row>
+                        <Col className='form-btn'>
+                            <CustomButton
+                                className='multistepform-button'
+                                disabled={false}
+                                onClick={updateUserProfile}
+                                text={'Submit'}
+                            ></CustomButton>
+                        </Col>
                     </Col>
                     <Col lg='2'> </Col>
                 </Row>
-                <Row>
-                    <Col className='form-btn'>
-                        <CustomButton
-                            className='multistepform-button'
-                            disabled={false}
-                            onClick={updateUserProfile}
-                            text={'Submit'}
-                        ></CustomButton>
-                    </Col>
-                </Row>
-
             </div>
         </div>
 
