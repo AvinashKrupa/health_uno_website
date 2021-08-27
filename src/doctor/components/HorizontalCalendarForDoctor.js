@@ -37,21 +37,21 @@ const HorizontalCalendarForDoctor = (props) => {
 
         return (
             <>
-                <Button className={'days-button'}
+                <Button className={'doctor-days-button'}
                         style={{backgroundColor: active ? '#28A3DA' : '#FFFFFF', color: active ? '#FFFFFF' : '#28A3DA'}}
                         onClick={(e) => handleDaysClick(dateNumber, info)}
                 >
                     <span
                         style={{color: active ? '#FFFFFF' : '#000000'}}
-                        className="days-button-text">{dateNumber} {now} {window.screen.availWidth > 700 && month}</span>
+                        className="doctor-days-button-text">{dateNumber} {now} {window.screen.availWidth > 700 && month}</span>
                 </Button>
             </>
         );
     };
 
     return (
-        <div className='patient-slot-booking-cal' style={{display: 'flex', flexDirection: 'row'}}>
-            <div className='patient-slot-booking'
+        <div className='doctor-slot-booking-cal'>
+            <div className='doctor-slot-booking'
                  style={{display: "flex", flexDirection: "row"}}
             >
                 {dates.slice(lastIndex - size, lastIndex).map(info => {

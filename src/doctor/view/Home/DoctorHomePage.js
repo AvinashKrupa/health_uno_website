@@ -98,7 +98,7 @@ const DoctorHomePage = (props) => {
   }
   return (
     <>
-      <Row className="patient-home-container">
+      <Row className="doctor-home-container">
         <Col lg="1" sm="1" xs="1" />
         <Col lg="10" sm="10" xs="10">
           <Row className="search-container">
