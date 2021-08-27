@@ -20,6 +20,8 @@ const SelectedDoctorCard = (props) => {
                         <CardContent>
                             <div style={{display:"flex", flexDirection:"row"}}>
                                 <div style={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
+                                    <div className="name">{props.name}</div>
+                                    <div className="description">{props?.details}</div>
                                     <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
                                     <span
                                         // className="doctor-card-specialization-text"
@@ -33,10 +35,8 @@ const SelectedDoctorCard = (props) => {
                                     }
                                 </span>
                                     </div>
-                                    <div className="name">{props.name}</div>
-                                    <div className="description">{props?.details}</div>
                                 </div>
-                                <div style={{marginLeft:"4%"}}>
+                                <div>
                                     <img src={delete_icon} onClick={()=>props.removeSelectedDoctor()}/>
                                 </div>
                             </div>
