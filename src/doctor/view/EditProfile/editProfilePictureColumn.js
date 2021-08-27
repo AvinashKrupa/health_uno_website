@@ -2,7 +2,7 @@ import {doctor} from "../../../constants/DoctorImages";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import React from "react";
 
-const editProfilePictureColumn = () => {
+const editProfilePictureColumn = (props) => {
     return (
         <Container className="profile-left-Column">
             <Row>
@@ -13,10 +13,10 @@ const editProfilePictureColumn = () => {
             </Row>
             <Row className="profile-container">
                 <Col lg="10">
-                    <span className="doctor-name">Dr Name</span>
+                    <span className="doctor-name">Dr {props.doctorName}</span>
                 </Col>
                 <Col lg="10">
-                    <span className="doctor-detail">+91- 8972899112 | Id: #233245</span>
+                    <span className="doctor-detail">+91 - {props.doctorMobile} | Id: #{props.doctorId}</span>
                 </Col>
                 <Col lg="12">
 
@@ -36,7 +36,7 @@ const editProfilePictureColumn = () => {
 
                             </Row>
                             <Row className="doctor-detail-appointment-count">
-                                <div>100</div>
+                                <div>1983</div>
                             </Row>
                         </div>
                         <div className="doctor-appointment-count-container">
@@ -44,7 +44,7 @@ const editProfilePictureColumn = () => {
                                 <div>Scheduled Appointment</div>
                             </Row>
                             <Row className="doctor-detail-appointment-count">
-                                <div>8726</div>
+                                <div>872</div>
                             </Row>
                         </div>
 

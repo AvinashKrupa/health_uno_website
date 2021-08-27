@@ -21,6 +21,7 @@ const EditProfile = (props) => {
     const [addressLine2, setAddressLine2] = useState('');
     const [description, setDescription] = useState('');
     const [country, setCountry] = useState('');
+    const [doctorMedId, setDoctorMedId] = useState('');
 
     useEffect(() => {
         getUserProfile()
@@ -41,6 +42,7 @@ const EditProfile = (props) => {
                 if (response.status == 200) {
                     let user = response.data.data.user;
                     let additionalInfo = response.data.data.additional_info;
+                    setDoctorMedId(additionalInfo.qualif.med_reg_num);
                     setFirstName(user.first_name);
                     setLastName(user.last_name);
                     setEmail(user.email);
@@ -140,7 +142,7 @@ const EditProfile = (props) => {
             <div className="registration-page-1-container">
                 <Row>
                     <Col lg="4">
-                        <ProfilePictureColumn/>
+                        <ProfilePictureColumn doctorName={`${firstName} ${lastName}`} doctorId={doctorMedId} doctorMobile={mobile} />
                     </Col>
                     <Col lg='6'>
                         <Row>
@@ -257,10 +259,10 @@ const EditProfile = (props) => {
                         </Row>
                         <Col className='form-btn'>
                             <CustomButton
-                                className='multistepform-button'
+                                className='multistepform-button edit-profile-update-button'
                                 disabled={false}
                                 onClick={updateUserProfile}
-                                text={'Submit'}
+                                text={'Update'}
                             ></CustomButton>
                         </Col>
                     </Col>
