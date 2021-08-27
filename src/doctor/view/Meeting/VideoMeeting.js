@@ -5,10 +5,24 @@ import {useToasts} from "react-toast-notifications";
 import {API, post} from "../../../api/config/APIController";
 import {back_icon, camera_off_icon, mic_on_icon} from "../../../constants/DoctorImages";
 
+const Video = ({ stream }) => {
+    const localVideo = React.createRef();
+    useEffect(() => {
+        if (localVideo.current) localVideo.current.srcObject = stream;
+    }, [stream, localVideo]);
+
+    return (
+        <div>
+            <video className="meeting-video"  ref={localVideo} autoPlay />
+        </div>
+    );
+};
+
 const VideoMeeting = (props) => {
     let [appointmentDetail, setAppointmentDetail] = useState([]);
     let [havePermissions, setHavePermissions] = useState(false);
     let [renderTestButtons, setRenderTestButtons] = useState(false);
+    const [streams, setStreams] = useState([]);
 
     useEffect(() => {
         getAppointmentDetail();
@@ -24,6 +38,7 @@ const VideoMeeting = (props) => {
             addToast('Permission has been granted to use Mic and Camera', {appearance: 'success'})
             setHavePermissions(true)
             setRenderTestButtons(true)
+            setStreams([...streams, stream]);
         })
             .catch((err) => {
                 setHavePermissions(false)
@@ -62,11 +77,18 @@ const VideoMeeting = (props) => {
                     </Row>
                     <div className="doctor-meeting-page-container">
                         <div className="doctor-meeting-page-video-container">
-                            <Image
-                                src={meeting}
-                                alt="Patient Image"
-                                className="meeting-video"
-                            />
+                            {!renderTestButtons &&
+                                <Image
+                                    src={meeting}
+                                    alt="Patient Image"
+                                    className="meeting-video"
+                                />
+                            }
+                            {renderTestButtons && <div className="meeting-video">
+                                {
+                                    streams.map(s => <Video stream={s}/>)
+                                }
+                            </div>}
                             <div className="doctor-meeting-page-help">
                                 <Image
                                     src={help}
@@ -109,7 +131,10 @@ const VideoMeeting = (props) => {
                             </div>
                             {renderTestButtons && (<div className="doctor-meeting-cancel-container">
                                 <Button className="doctor-meeting-cancel-button"
-                                        onClick={() => setRenderTestButtons(false)}>
+                                        onClick={() => {
+                                            setStreams([]);
+                                            setRenderTestButtons(false)
+                                        }}>
                                     Cancel
                                 </Button>
                             </div>)}

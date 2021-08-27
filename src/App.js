@@ -41,6 +41,7 @@ function App() {
           <PrivateRoute exact path='/doctor/videoMeeting/:appointment_id' component={VideoMeetingDoctorSide} />
           <PrivateRoute exact path='/doctor/select/:appointment_id' component={AddDoctor} />
           <PrivateRoute exact path='/doctor/profile' component={EditProfile} />
+          <PrivateRoute exact path='/doctor/AddPrescription' component={AddPrescription} />
           <PrivateRoute exact path='/patient/otp' component={OTP} />
           <PrivateRoute exact path='/patient/registration' component={Registration} />
           <PrivateRoute exact path='/patient/home' component={PatientHomePage} />
@@ -53,8 +54,6 @@ function App() {
           <PrivateRoute exact path='/patient/videoMeeting/:doctor_id' component={VideoMeeting} />
           <PrivateRoute exact path='/Chat' component={Chat} />
           <PrivateRoute exact path='/patient/profile/invite' component={Invite} />
-
-          <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription} />
         </BrowserRouter>
     </div>
   );
