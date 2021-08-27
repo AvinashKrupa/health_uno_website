@@ -22,6 +22,7 @@ const EditProfile = (props) => {
     const [description, setDescription] = useState('');
     const [country, setCountry] = useState('');
     const [doctorMedId, setDoctorMedId] = useState('');
+    const [appointmentStats, setAppointmentStats] = useState({});
 
     useEffect(() => {
         getUserProfile()
@@ -55,6 +56,7 @@ const EditProfile = (props) => {
                     setState(additionalInfo.address.state);
                     setCity(additionalInfo.address.city);
                     setCountry(additionalInfo.address.country);
+                    setAppointmentStats(additionalInfo.appointment_stats);
                 } else {
                     addToast(response.data.message, {appearance: 'error'});
                 }
@@ -142,7 +144,7 @@ const EditProfile = (props) => {
             <div className="registration-page-1-container">
                 <Row>
                     <Col lg="4">
-                        <ProfilePictureColumn doctorName={`${firstName} ${lastName}`} doctorId={doctorMedId} doctorMobile={mobile} />
+                        <ProfilePictureColumn doctorName={`${firstName} ${lastName}`} doctorId={doctorMedId} doctorMobile={mobile} appointmentStats={appointmentStats}/>
                     </Col>
                     <Col lg='6'>
                         <Row>

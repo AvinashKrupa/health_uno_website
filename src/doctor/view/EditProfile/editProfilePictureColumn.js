@@ -36,7 +36,7 @@ const editProfilePictureColumn = (props) => {
 
                             </Row>
                             <Row className="doctor-detail-appointment-count">
-                                <div>1983</div>
+                                <div>{props.appointmentStats.completed}</div>
                             </Row>
                         </div>
                         <div className="doctor-appointment-count-container">
@@ -44,7 +44,7 @@ const editProfilePictureColumn = (props) => {
                                 <div>Scheduled Appointment</div>
                             </Row>
                             <Row className="doctor-detail-appointment-count">
-                                <div>872</div>
+                                <div>{props.appointmentStats.scheduled}</div>
                             </Row>
                         </div>
 
