@@ -3,11 +3,11 @@ import MessagePane from "./MessagePane";
 class Chat extends Component {
     render() {
         return (
-            <div>
+            <div style={{marginTop: '70px'}}>
                 <div className="page-wrapper">
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-xl-8">
+                            <div>
                                 <div className="chat-window">
                                     <MessagePane receiver_id={"yatish"} openModal={(id) => this.openModal(id)}/>
                                 </div>

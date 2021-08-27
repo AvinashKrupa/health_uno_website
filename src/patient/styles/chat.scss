@@ -74,12 +74,17 @@
   -----------------------*/
   
   .chat-window {
-      border: 1px solid #e0e3e4;
+      // border: 1px solid #e0e3e4;
       // display: flex;
       flex-wrap: wrap;
       position: relative;
       margin-bottom: 1.875rem;
-    margin: 50px;
+      // margin: 50px;
+
+      //custom
+      background: #FFFFFF;
+      box-shadow: 4px 4px 35px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
   }
   .chat-window .chat-cont-left {
       border-right: 1px solid #e0e3e4;

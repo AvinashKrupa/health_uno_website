@@ -9,12 +9,19 @@ const Sidebar = (props) => {
     return (
         <div className="sidebarMenu">
             <SideNav onSelect={(selected) => {
-                const userType = JSON.parse(getData('USER_TYPE'))
-                let routeName = '/patient/'
+                const userType = JSON.parse(getData('USER_TYPE'));
+                let routeName = '/patient/';
+            
                 if (userType === 2) {
                     routeName = '/doctor/'
                 }
-                sidebar.includes(selected) && props.history.push(`${routeName}${selected}`)
+
+                if( selected === 'profile' && userType === 1) {
+                    selected = 'profile/editProfile';
+                    props.history.push(`${routeName}${selected}`);
+                }
+
+                sidebar.includes(selected) && props.history.push(`${routeName}${selected}`);
             }}>
                 <SideNav.Toggle/>
                 <SideNav.Nav defaultSelected="home">
