@@ -5,9 +5,10 @@ import Selector from "../../../commonComponent/Select";
 import TextArea from "../../../commonComponent/TextArea";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import CustomButton from '../../../commonComponent/Button';
+import {back_icon} from "../../../constants/DoctorImages";
 
 
-const AddPrescription = ({history}) => {
+const AddPrescription = (props) => {
   let [medicineCount, setMedicineCount] = useState(1);
 
 
@@ -212,9 +213,14 @@ const AddPrescription = ({history}) => {
       <Row>
         <Col lg="1" sm="1" xs='1'/>
         <Col lg="10" sm="10" xs='10'>
+          <Row className='back-navigation'>
+            <div className="back-nav-container">
+              <img src={back_icon} alt='back_icon-img' onClick={() => props.history.goBack()}></img>
+              <span>Add Prescription</span>
+            </div>
+          </Row>
           <div className="container">
             <div className="addPrescription">
-              <h2>Add Prescription</h2>
               <Row className="topsctionName">
                 <Col xs={12} md={4}>
                   <Input
@@ -259,7 +265,7 @@ const AddPrescription = ({history}) => {
 
               </Row>
 
-              {[...Array(medicineCount)].map((value: undefined, index: number) => (
+              {[...Array(medicineCount)].map((value, index) => (
                       renderAddMedicineComponent()
                   )
               )}
