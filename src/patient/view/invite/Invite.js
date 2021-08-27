@@ -17,16 +17,10 @@ const Invite = (props) => {
   return (
     <>
       <Row>
-        <Col lg="1" sm="1" xs="1" />
-        <Col lg="10" md="10" sm="10" xs="10">
-          <Row className="header">
-            <span>Profile</span>
+          <Row className="header" style={{marginTop: '70px'}}>  
           </Row>
           <Row>
-            <Col lg="3">
-              <Image className="profile-image" src="" />
-            </Col>
-            <Col lg="9">
+            <Col lg="12">
              <div className="invite-user">
                 <div>
                     <Image className="invite-image" src={InviteImage} />
@@ -55,8 +49,6 @@ const Invite = (props) => {
              </div>
             </Col>
           </Row>
-        </Col>
-        <Col lg="1" sm="1" xs="1" />
       </Row>
     </>
   );

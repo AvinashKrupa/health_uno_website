@@ -18,8 +18,8 @@ const FilterConsultants = (props) => {
     }, []);
 
     const { addToast } = useToasts();
-    let [minMax, setMinMax] = useState({ min: 100, max: 1000 });
-    const [showLanguages, setShowLanguages] = useState(true);
+    let [minMax, setMinMax] = useState({ min: 250, max: 5000 });
+    const [showLanguages, setShowLanguages] = useState(false);
     const [languages, setLanguages] = useState([]);
     const [selectedLanguages, setSelectedLanguages] = useState([]);
     const [sortBy, setSortBy] = useState('asc');
@@ -78,7 +78,7 @@ const FilterConsultants = (props) => {
   return (
     <>
       <Row className="filter_menu_continer">
-        <Col style={{ paddingLeft: "26px", paddingRight: "16px" }}>
+        <Col style={{ paddingLeft: "26px", paddingRight: "26px" }}>
           <Row style={{ marginTop: "40px" }} className='filter-close'>
             <span
               style={{
@@ -117,7 +117,7 @@ const FilterConsultants = (props) => {
               <Button
                 value={'asc'}
                 className="filter_menu_button"
-                style={{ marginLeft: "18px", backgroundColor: sortBy === 'asc' ? '#28A3DA' : ''  }}
+                style={{ marginLeft: "18px", color: sortBy === "asc" ? "white" : "",backgroundColor: sortBy === 'asc' ? '#28A3DA' : ''  }}
                 onClick={(e) => { 
                     isDefaultSet = false
                     setSortBy(e.target.value)
@@ -128,7 +128,9 @@ const FilterConsultants = (props) => {
               <Button
                 value={'desc'}
                 className="filter_menu_button"
-                style={{ marginLeft: "18px",  backgroundColor: sortBy === 'desc' ? '#28A3DA' : '' }}
+                style={{ marginLeft: "18px", color: sortBy === "desc" ? "white" : "",
+
+                backgroundColor: sortBy === 'desc' ? '#28A3DA' : '' }}
                 onClick={(e) => { 
                     isDefaultSet = false
                     setSortBy(e.target.value)
@@ -148,7 +150,7 @@ const FilterConsultants = (props) => {
             <InputRange
               step={100}
               className="filter_menu_inputrange"
-              minValue={100}
+              minValue={250}
               maxValue={5000}
               value={minMax}
               onChange={(value) => {
@@ -177,7 +179,7 @@ const FilterConsultants = (props) => {
                 <div
                   className="filter_menu_scrollable_div"
                 >
-                  <CheckboxList onClick={handleLanguageGroup} list={languages} />
+                  <CheckboxList onClick={handleLanguageGroup} list={languages.concat('1', '2')} />
                 </div>
             ) : null}
           </Row>
