@@ -45,7 +45,7 @@ const UpcomingAppointments = (props) => {
         // "cancelled",
         // "rejected",
         "ongoing",
-        // "completed"
+        "completed"
       ]
     };
     post(API.DOCTOR_GET_APPOINTMENTS_API, params)
@@ -85,7 +85,7 @@ const UpcomingAppointments = (props) => {
                 <div style={{backgroundColor: '', display:"flex", flexDirection: "row", justifyContent:"space-between"}}>
                   <div className="back-nav-container">
                     <img src={back_icon} alt='back_icon-img' onClick={()=>props.history.goBack()}></img>
-                    <span>{props.location?.state?.title || 'Upcoming Appointments'}</span>
+                    <span>{props.location?.state?.title || 'All Appointments'}</span>
                   </div>
                   <div className="calendar-container">
                     <DatePicker

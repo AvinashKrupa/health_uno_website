@@ -119,7 +119,7 @@ const DoctorHomePage = (props) => {
                 <span className="upcoming-appointment-view_all" style={{cursor: 'pointer'}} onClick={(e) =>
                     props.history.push({
                       pathname: '/doctor/appointments',
-                      state: { title: 'Upcoming Appointments' }
+                      state: { title: 'All Appointments' }
                     })}>View all</span>
               </div>
               <HorizontalCalendarForDoctor
