@@ -6,7 +6,7 @@
   margin-bottom: 2%;
   display: flex;
   width: 100%;
-  max-width: 100%;
+  //max-width: 100%;
   //max-height: 154px;
   left: 134px;
   top: 391px;
@@ -229,6 +229,7 @@
   min-width: 400px;
   width: auto;
   max-width: 410px;
+  height: 150px;
 
   .image {
     height: 100%;
@@ -247,8 +248,10 @@
   line-height: 15px;
   letter-spacing: -0.420000284910202px;
   text-align: left;
-  color: #F6921E;
-
+  color: #1B1B1B80;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 4px rgb(0 0 0 / 25%);
+  border-radius: 3px;
 }
   .name{
     margin-top: 12px;
@@ -286,9 +289,9 @@
 }
 @media screen and (max-width: 425px) {
   .selected-doctor-container{
-    min-width: 320px!important;
-    width: 320px!important;
-    max-width: 320px!important;
+    min-width: 360px!important;
+    width: 360px!important;
+    max-width: 360px!important;
   }
   .view-report-button {
     width: auto!important;
@@ -296,7 +299,24 @@
   }
 }
 
+@media screen and (max-width: 375px) {
+
+  .appointment-detail-card-container{
+    width: 338px!important;
+    max-width: 338px!important;
+  }
+  .selected-doctor-container{
+    min-width: 340px!important;
+    width: 340px!important;
+    max-width: 340px!important;
+  }
+}
+
 @media screen and (max-width: 425px) {
+  .appointment-detail-card-container{
+    width: 360px!important;
+    max-width: 360px!important;
+  }
   .selected-doctor-container {
     .image-profile-container {
       align-self: center !important;
@@ -306,14 +326,18 @@
       height: 90px !important;
       width: 75px !important;
     }
+
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 325px) {
   .selected-doctor-container{
-    min-width: 280px!important;
-    width: 280px!important;
-    max-width: 280px!important;
+    min-width: 310px!important;
+    width: 310px!important;
+    max-width: 310px!important;
   }
+
+}
+@media screen and (max-width: 320px) {
   .image {
     height: 75px !important;
     width: 70px !important;
@@ -324,6 +348,8 @@
   }
 
   .appointment-detail-card-container{
+    width: 309px!important;
+    max-width: 309px!important;
     display: block;
 
     .detail-container{

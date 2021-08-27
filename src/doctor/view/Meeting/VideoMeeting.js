@@ -3,12 +3,37 @@ import {Button, Col, Image, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {useToasts} from "react-toast-notifications";
 import {API, post} from "../../../api/config/APIController";
-import {back_icon, camera_off_icon, mic_on_icon} from "../../../constants/DoctorImages";
+import {back_icon, camera_off_icon, camera_on_icon, mic_off_icon, mic_on_icon} from "../../../constants/DoctorImages";
+
+const Video = ({stream}) => {
+    const localVideo = React.createRef();
+    useEffect(() => {
+        if (localVideo.current) localVideo.current.srcObject = stream;
+    }, [stream, localVideo]);
+
+    return (
+        <div>
+            <video className="meeting-video" ref={localVideo} autoPlay/>
+        </div>
+    );
+};
 
 const VideoMeeting = (props) => {
     let [appointmentDetail, setAppointmentDetail] = useState([]);
     let [havePermissions, setHavePermissions] = useState(false);
     let [renderTestButtons, setRenderTestButtons] = useState(false);
+    let [micStatus, setMicStatus] = useState(false);
+    let [videoStatus, setVideoStatus] = useState(false);
+    const [streams, setStreams] = useState([]);
+    const [tracks, setTracks] = useState([]);
+
+    useEffect(() => {
+            stopVideo()
+    }, [videoStatus]);
+
+    useEffect(() => {
+        stopMic()
+    }, [micStatus]);
 
     useEffect(() => {
         getAppointmentDetail();
@@ -18,16 +43,30 @@ const VideoMeeting = (props) => {
 
     const {addToast} = useToasts();
 
+    function stopMic(){
+        if(tracks.length){
+            tracks[0].enabled = !micStatus
+        }
+    }
+    function stopVideo(){
+        if(tracks.length) {
+            tracks[1].enabled = !videoStatus
+        }
+    }
+
     function checkPermissions() {
         const permissions = navigator.mediaDevices.getUserMedia({audio: true, video: true})
         permissions.then((stream) => {
             addToast('Permission has been granted to use Mic and Camera', {appearance: 'success'})
             setHavePermissions(true)
             setRenderTestButtons(true)
+            setStreams([...streams, stream]);
+            const tracks = stream.getTracks();
+            setTracks(tracks)
         })
             .catch((err) => {
                 setHavePermissions(false)
-                addToast('Permission denied to use Mic and Camera', {appearance: "error"});
+                addToast('Please enable both Mic and Camera use permission and refresh the page', {appearance: "error"});
             });
     }
 
@@ -62,11 +101,18 @@ const VideoMeeting = (props) => {
                     </Row>
                     <div className="doctor-meeting-page-container">
                         <div className="doctor-meeting-page-video-container">
+                            {!renderTestButtons &&
                             <Image
                                 src={meeting}
                                 alt="Patient Image"
                                 className="meeting-video"
                             />
+                            }
+                            {renderTestButtons && <div className="meeting-video">
+                                {
+                                    streams.map(s => <Video stream={s}/>)
+                                }
+                            </div>}
                             <div className="doctor-meeting-page-help">
                                 <Image
                                     src={help}
@@ -80,11 +126,16 @@ const VideoMeeting = (props) => {
                         <div className="doctor-meeting-page-column-content">
                             <div className='doctor-meeting-patient-info-container'>
                                 {renderTestButtons && <div className="meeting-testing-button-container">
-                                    <Button className="testing-button">
-                                        <img className="testing-icon" src={mic_on_icon}/>Mic is On
+                                    <Button className="testing-button" onClick={() => setMicStatus(!micStatus)}>
+                                        {!micStatus && <><img className="testing-icon"
+                                                             src={mic_on_icon}/><span>Mic is On</span></>}
+                                        {micStatus && <><img className="testing-icon" src={mic_off_icon}/><span>Mic is Off</span></>}
                                     </Button>
-                                    <Button className="testing-button" style={{marginTop: '16px'}}>
-                                        <img className="testing-icon" src={camera_off_icon}/>Camera is On
+                                    <Button className="testing-button" onClick={() => setVideoStatus(!videoStatus)}
+                                            style={{marginTop: '16px'}}>
+                                        {videoStatus && <><img className="testing-icon"
+                                                                src={camera_off_icon}/><span>Camera is Off</span></>}
+                                        {!videoStatus && <><img className="testing-icon" src={camera_on_icon}/><span>Camera is On</span></>}
                                     </Button>
                                 </div>}
                                 {!renderTestButtons && <>
@@ -109,7 +160,10 @@ const VideoMeeting = (props) => {
                             </div>
                             {renderTestButtons && (<div className="doctor-meeting-cancel-container">
                                 <Button className="doctor-meeting-cancel-button"
-                                        onClick={() => setRenderTestButtons(false)}>
+                                        onClick={() => {
+                                            setStreams([]);
+                                            setRenderTestButtons(false)
+                                        }}>
                                     Cancel
                                 </Button>
                             </div>)}

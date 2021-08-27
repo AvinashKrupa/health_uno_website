@@ -11,7 +11,14 @@
 
 }
 
+.dosage-container{
+    align-self: flex-end;
+    margin-left: 10px;
+}
+
 .form-check-input {
+    margin-top: 4px!important;
+    margin-right: 8px!important;
     margin-left: 7px !important;
     border-radius: 20px !important;
 
@@ -39,6 +46,10 @@
  .addPrescription .prescriptionSection .form-check{
     width: 145px !important;
  }
+.addPrescription .form-check{
+     margin-top: 15px;
+    width: 145px !important;
+ }
 
  button.button.primary.SendPrescription.btn.btn-primary{
     background: #28A3DA !important;
@@ -59,12 +70,12 @@
     color: #000;
     font-size: 17px;
     margin: 10px 0px;
-    
+
 }
 
 .addPrescription .Choosetemplate p{
     color: #27a3da;
-    
+
 }
 
 .Choosetemplate{text-align: right;}
@@ -141,5 +152,5 @@
         margin-top: 65px !important;
         --bs-gutter-x: 0rem;
     }
-    
+
   }

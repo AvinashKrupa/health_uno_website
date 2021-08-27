@@ -22,7 +22,7 @@ instance.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token;
     }
-
+    config.headers['timezone'] = 'Asia/Calcutta';
     config.headers['Content-Type'] = 'application/json';
     return config;
   },
@@ -41,7 +41,7 @@ instance.interceptors.response.use(
         storeData('ACCESS_TOKEN', response.data.data.session.access_token);
         storeData('REFRESH_TOKEN', response.data.data.session.refresh_token);
         storeData('USER_TYPE', token.selected_profile);
-       
+
       }
     }
     return response;
@@ -63,7 +63,7 @@ instance.interceptors.response.use(
       const headers = {
         'Content-Type': 'application/json',
       };
-      
+
       const refresh_token =  getData('REFRESH_TOKEN');
       headers['Authorization'] = 'Bearer ' + refresh_token;
 
