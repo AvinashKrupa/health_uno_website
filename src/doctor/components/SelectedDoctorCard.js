@@ -37,7 +37,7 @@ const SelectedDoctorCard = (props) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <img src={delete_icon} onClick={()=>props.removeSelectedDoctor()}/>
+                                    <img className="delete-button" src={delete_icon} onClick={()=>props.removeSelectedDoctor()}/>
                                 </div>
                             </div>
                         </CardContent>
