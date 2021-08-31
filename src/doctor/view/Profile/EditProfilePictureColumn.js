@@ -1,0 +1,157 @@
+import {doctor} from "../../../constants/DoctorImages";
+import {Col, Container, Image, Row} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {API, get} from "../../../api/config/APIController";
+import {useToasts} from "react-toast-notifications";
+import { withRouter } from 'react-router-dom'
+import ProfileButton from "../../../commonComponent/ProfileButton";
+
+const EditProfilePictureColumn = (props) => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [doctorMedId, setDoctorMedId] = useState('');
+    const [appointmentStats, setAppointmentStats] = useState({});
+    const {addToast} = useToasts();
+    useEffect(() => {
+        getUserProfile()
+        return () => {
+        };
+    }, []);
+    function getUserProfile() {
+        get(API.GET_PROFILE)
+            .then(response => {
+                if (response.status === 200) {
+                    let user = response.data.data.user;
+                    let additionalInfo = response.data.data.additional_info;
+                    setDoctorMedId(additionalInfo.qualif.med_reg_num);
+                    setFirstName(user.first_name);
+                    setLastName(user.last_name);
+                    setMobile(user.mobile_number);
+                    setAppointmentStats(additionalInfo.appointment_stats);
+                } else {
+                    addToast(response.data.message, {appearance: 'error'});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: 'error'});
+            });
+    }
+
+    return (
+        <Container className="profile-left-Column">
+            <Row>
+                <h2 className="profile-tile-text">Profile</h2>
+            </Row>
+            <Row>
+                <Image src={doctor} className="profile-picture-image"/>
+            </Row>
+            <Row className="profile-container">
+                <Col lg="10">
+                    <span className="doctor-name">{`Dr ${firstName} ${lastName}`}</span>
+                </Col>
+                <Col lg="10">
+                    <span className="doctor-detail">+91 - {mobile} | Id: #{doctorMedId}</span>
+                </Col>
+                <Col lg="12">
+
+
+
+
+                    <div style={{
+                        flexDirection: "row",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginLeft: '10%',
+                        marginRight: '10%'
+                    }}>
+                        <div className="doctor-appointment-count-container">
+                            <Row className="doctor-detail-appointment">
+                                <div>Completed Appointments</div>
+
+                            </Row>
+                            <Row className="doctor-detail-appointment-count">
+                                <div>{appointmentStats?.completed}</div>
+                            </Row>
+                        </div>
+                        <div className="doctor-appointment-count-container">
+                            <Row className="doctor-detail-appointment">
+                                <div>Scheduled Appointment</div>
+                            </Row>
+                            <Row className="doctor-detail-appointment-count">
+                                <div>{appointmentStats?.scheduled}</div>
+                            </Row>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                    {/*<div style={{*/}
+                    {/*    flexDirection: "row",*/}
+                    {/*    display: "flex",*/}
+                    {/*    justifyContent: "space-between",*/}
+                    {/*    marginLeft: '20%',*/}
+                    {/*    marginRight: '20%'*/}
+                    {/*}}>*/}
+                    {/*    */}
+                    {/*    */}
+                    {/*</div>*/}
+
+                </Col>
+                <Row style={{cursor: 'pointer'}}>
+                    <Col lg='3' sm='1' xs='1'></Col>
+                    <Col lg='6'>
+                        <ProfileButton
+                            active={props.match.params.type}
+                            route={'editProfile'}
+                            fontText={'fa-pen'}
+                            btnText={'Edit Profile'}
+                            onClick={ () => {props.history.push('/doctor/profile/editProfile')}}
+                        >
+                        </ProfileButton>
+                        <ProfileButton
+                            active={props.match.params.type}
+                            route={'uploadReport'}
+                            fontText={'fa-upload'}
+                            btnText={'Update Schedule'}
+                            onClick={ () => {props.history.push('/doctor/profile/uploadReport')}}
+                        >
+                        </ProfileButton>
+                        <ProfileButton
+                            active={props.match.params.type}
+                            route={'support'}
+                            fontText={'fa-question-circle'}
+                            btnText={'Help and Support'}
+                            onClick={ () => {props.history.push('/doctor/profile/support')}}
+                        >
+                        </ProfileButton>
+
+                        <ProfileButton
+                            active={props.match.params.type}
+                            route={'invite'}
+                            fontText={'fa-share-alt'}
+                            btnText={'Refer and Invite'}
+                            onClick={ () => {props.history.push('/doctor/profile/invite')}}
+                        >
+                        </ProfileButton>
+                        <ProfileButton
+                            active={props.match.params.type}
+                            route={'about'}
+                            fontText={'fa-question-circle'}
+                            btnText={'About Us'}
+                            onClick={ () => {window.location.replace('https://healthuno.com/#')}}
+                        >
+                        </ProfileButton>
+                    </Col>
+                </Row>
+            </Row>
+            <Row>
+            </Row>
+        </Container>
+    );
+};
+
+export default withRouter(EditProfilePictureColumn);

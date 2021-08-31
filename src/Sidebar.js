@@ -11,12 +11,12 @@ const Sidebar = (props) => {
             <SideNav onSelect={(selected) => {
                 const userType = JSON.parse(getData('USER_TYPE'));
                 let routeName = '/patient/';
-            
+
                 if (userType === 2) {
                     routeName = '/doctor/'
                 }
 
-                if( selected === 'profile' && userType === 1) {
+                if( selected === 'profile') {
                     selected = 'profile/editProfile';
                     props.history.push(`${routeName}${selected}`);
                 }
