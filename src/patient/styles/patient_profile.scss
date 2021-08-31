@@ -1,8 +1,6 @@
 .patient-profile-btn {
     // background: rgba(40, 163, 218, 0.2);
     border-radius: 12px;
-    height: 50px;
-    width: 226px;
     padding: 13px;
     margin-top: 10px;
 }
@@ -12,5 +10,9 @@
     box-shadow: 4px 4px 35px rgb(0 0 0 / 10%);
     border-radius: 12px;
     padding: 50px;
-    margin-top: 70px;
+    margin: 70px 0 0 20px;
+    @media only screen and (max-width: 414px) {
+        padding: 20px;
+        margin: 0;
+      }
 }

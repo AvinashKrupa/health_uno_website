@@ -64,7 +64,6 @@ const UploadReport = (props) => {
   return (
     <>
       <Row>
-          <Row className="header" style={{marginTop: '70px'}}>
           </Row>
           <Row >
             <Col lg="12">
@@ -133,7 +132,6 @@ const UploadReport = (props) => {
                 </div>
               </div>
             </Col>
-          </Row>
       </Row>
     </>
   );
