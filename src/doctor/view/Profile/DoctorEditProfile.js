@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {API, get, post} from '../../../api/config/APIController';
 import {useToasts} from "react-toast-notifications";
 import CustomButton from "../../../commonComponent/Button";
+import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 
 const DoctorEditProfile = (props) => {
     // Get state and language from server
@@ -22,7 +23,8 @@ const DoctorEditProfile = (props) => {
     const [country, setCountry] = useState('');
 
     useEffect(() => {
-        getUserProfile()
+        getUserProfile();
+        getState();
         return () => {
         };
     }, []);
@@ -66,10 +68,15 @@ const DoctorEditProfile = (props) => {
         let params = {
             first_name: firstName,
             last_name: lastName,
-            mobile_number: mobile,
-            email: email,
             desc: description,
             type: '2',
+            address: {
+                line1: addressLine1,
+                line2: addressLine2,
+                state: state,
+                city: city,
+                country: country
+            }
         };
 
         post(API.UPDATE_PROFILE, params, true)
@@ -187,7 +194,6 @@ const DoctorEditProfile = (props) => {
             <Row>
                 <Col>
                     <Input
-                        readonly="true"
                         type="text"
                         placeholder="Enter address"
                         id="addressLine1"
@@ -198,7 +204,6 @@ const DoctorEditProfile = (props) => {
                 </Col>
                 <Col>
                     <Input
-                        readonly="true"
                         type="text"
                         placeholder="Enter address (optional)"
                         id="addressLine2"
@@ -211,37 +216,35 @@ const DoctorEditProfile = (props) => {
             <Row className="g-2">
                 <Col md>
                     <Input
-                        disabled={true}
                         value={country}
                         type="text"
                         placeholder="India"
                         id="country"
                         label="Country"
-                        readOnly={true}
                     />
                 </Col>
                 <Col md>
                     <Row className="g-2">
                         <Col md>
-                            <Input
+                            <KeyValueSelector
+                                defaultValue={state}
                                 disabled={true}
                                 value={state}
-                                type="text"
-                                placeholder="India"
-                                id="country"
                                 label="State"
-                                readOnly={true}
+                                id="state"
+                                options={dataState}
+                                handleSelect={setIdAndState}
                             />
                         </Col>
                         <Col md>
-                            <Input
-                                disabled={true}
+                            <KeyValueSelector
+                                defaultValue={city}
+                                // value='0'
+                                id="city"
+                                options={dataCity}
+                                handleSelect={setCityValue}
                                 value={city}
-                                type="text"
-                                placeholder="India"
-                                id="country"
                                 label="City"
-                                readOnly={true}
                             />
                         </Col>
                     </Row>
