@@ -76,7 +76,7 @@ const EditProfilePictureColumn = (props) => {
                         </div>
                         <div className="doctor-appointment-count-container">
                             <Row className="doctor-detail-appointment">
-                                <div>Scheduled Appointment</div>
+                                <div>Scheduled Appointments</div>
                             </Row>
                             <Row className="doctor-detail-appointment-count">
                                 <div>{appointmentStats?.scheduled}</div>
@@ -115,11 +115,11 @@ const EditProfilePictureColumn = (props) => {
                         <AnchorLink href='#second-page'>
                             <ProfileButton
                                 active={props.match.params.type}
-                                route={'uploadReport'}
-                                fontText={'fa-upload'}
+                                route={'updateSchedule'}
+                                fontText={'fa-calendar'}
                                 btnText={'Update Schedule'}
                                 onClick={() => {
-                                    props.history.push('/doctor/profile/uploadReport')
+                                    props.history.push('/doctor/profile/updateSchedule')
                                 }}
                             >
                             </ProfileButton>

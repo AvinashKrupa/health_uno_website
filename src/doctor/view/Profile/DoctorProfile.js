@@ -4,6 +4,7 @@ import ProfilePictureColumn from "./EditProfilePictureColumn";
 import EditProfilePage from "./DoctorEditProfile";
 import Invite from "../../../patient/view/invite/Invite";
 import Chat from "../../../chat/Chat";
+import UpdateSchedule from "./UpdateSchedule";
 
 const DoctorProfile = (props) => {
     const type = props.match.params.type
@@ -18,6 +19,11 @@ const DoctorProfile = (props) => {
                     {
                         type === 'editProfile' && (
                             <EditProfilePage></EditProfilePage>
+                        )
+                    }
+                    {
+                        type === 'updateSchedule' && (
+                            <UpdateSchedule></UpdateSchedule>
                         )
                     }
                     {
