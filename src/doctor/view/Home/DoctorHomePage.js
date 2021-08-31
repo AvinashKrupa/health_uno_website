@@ -29,7 +29,9 @@ const DoctorHomePage = (props) => {
   }, []);
 
   useEffect(() => {
-    getDoctorAppointments();
+    setTimeout(function () {
+      getDoctorAppointments()
+    }, 500);
   }, [currentDate]);
 
   function getHomeContent() {
