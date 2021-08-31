@@ -4,9 +4,10 @@ import {Col, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {API, get, post} from '../../../api/config/APIController';
 import {useToasts} from "react-toast-notifications";
-import ProfilePictureColumn from "./EditPatientProfileColumn";
 import CustomButton from "../../../commonComponent/Button";
-
+import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
+import { isEmpty } from "../../../utils/Validators";
+ 
 const PatientEditProfile = (props) => {
     // Get state and language from server
     const [firstName, setFirstName] = useState('');
@@ -21,29 +22,26 @@ const PatientEditProfile = (props) => {
     const [addressLine2, setAddressLine2] = useState('');
     const [description, setDescription] = useState('');
     const [country, setCountry] = useState('');
-    const [doctorMedId, setDoctorMedId] = useState('');
     const [appointmentStats, setAppointmentStats] = useState({});
+    const [stateName, setStateName] = useState('');
 
-    // useEffect(() => {
-    //     getUserProfile()
-    //     return () => {
-    //     };
-    // }, []);
+    useEffect(() => {
+        getUserProfile();
+        return () => {
+        };
+    }, []);
 
 
     const [dataState, setDataState] = useState([]);
     const [dataCity, setDataCity] = useState([]);
     const {addToast} = useToasts();
 
-    let genderOptions = ["Male", "Female", "Other"];
-
     function getUserProfile() {
         get(API.GET_PROFILE)
             .then(response => {
-                if (response.status == 200) {
+                if (response.data.status === 200) {
                     let user = response.data.data.user;
                     let additionalInfo = response.data.data.additional_info;
-                    setDoctorMedId(additionalInfo.qualif.med_reg_num);
                     setFirstName(user.first_name);
                     setLastName(user.last_name);
                     setEmail(user.email);
@@ -57,12 +55,14 @@ const PatientEditProfile = (props) => {
                     setCity(additionalInfo.address.city);
                     setCountry(additionalInfo.address.country);
                     setAppointmentStats(additionalInfo.appointment_stats);
+                    getState(additionalInfo.address.state);
                 } else {
                     addToast(response.data.message, {appearance: 'error'});
                 }
             })
             .catch(error => {
-                addToast(error.response.data.message, {appearance: 'error'});
+                console.log('error: ', error);
+                // addToast(error.response.data.message, {appearance: 'error'});
             });
     }
 
@@ -71,10 +71,14 @@ const PatientEditProfile = (props) => {
         let params = {
             first_name: firstName,
             last_name: lastName,
-            mobile_number: mobile,
-            email: email,
             desc: description,
-            type: '2',
+            address: {
+                line1: addressLine1,
+                line2: addressLine2,
+                state: state,
+                city: city,
+                country: 'india'
+            }
         };
 
         post(API.UPDATE_PROFILE, params, true)
@@ -92,8 +96,9 @@ const PatientEditProfile = (props) => {
 
     const setIdAndState = (value) => {
         const stateInfo = value.split('|');
-        getCity(stateInfo[0])
+        getCity(stateInfo[0]);
         setState(stateInfo[1]);
+        console.log('(stateInfo[1]: ', stateInfo[1]);
         stateInfo[1] === 'Select state' && setCity('Select city')
     }
 
@@ -103,7 +108,7 @@ const PatientEditProfile = (props) => {
     }
 
     // Get city from server
-    function getCity(id) {
+    function getCity(id, cityId) {
         post(API.GETCITY, {countryId: 101, stateId: parseInt(id)})
             .then(response => {
                 if (response.status === 200) {
@@ -111,6 +116,7 @@ const PatientEditProfile = (props) => {
                         return {value: info.name, id: info.id};
                     });
                     setDataCity(data);
+                    setCity('Select city')
                 } else {
                     addToast(response.data.message, {appearance: 'error'});
                 }
@@ -122,11 +128,14 @@ const PatientEditProfile = (props) => {
 
 
     // Get state from server
-    function getState() {
+    function getState(stateId) {
         post(API.GETSTATE, {countryId: 101})
             .then(response => {
                 if (response.status === 200) {
                     let data = response.data.data.map((info) => {
+                        if(info.name.toString() === stateId) {
+                            setStateName(info.name)
+                        }
                         return {value: info.name, id: info.id};
                     });
                     setDataState(data);
@@ -139,11 +148,36 @@ const PatientEditProfile = (props) => {
             });
     }
 
+    function validation() {
+        console.log(isEmpty(description), description);
+        if (isEmpty(firstName)) {
+          addToast('Please enter first name', { appearance: 'error' });
+          return false;
+        } else if (isEmpty(lastName)) {
+          addToast('Please enter last name', { appearance: 'error' });
+          return false;
+        } else if (description === undefined || isEmpty(description)) {
+            addToast('Please enter profile description', { appearance: 'error' });
+            return false;
+        } else if (isEmpty(addressLine1)) {
+          addToast('Please enter address line 1', { appearance: 'error' });
+          return false;
+        } else if (isEmpty(state) || state === 'Select state') {
+          addToast('Please select state', { appearance: 'error' });
+          return false;
+        } else if (isEmpty(city) || city === 'Select city') {
+          addToast('Please select city', { appearance: 'error' });
+          return false;
+        }  else {
+          return true;
+        }
+      }
+
     return (
         <div className="edit-patient-container">
             <Row>
                 <Row>
-                    {/* <h2 className="sub-title">Edit Profile</h2> */}
+                    {/* <h2 className="sub-title"></h2> */}
                 </Row>
                 <Col className="registration-page-1-column">
                     <Input label="First Name" type="text" placeholder="eg John" value={firstName}
@@ -228,25 +262,23 @@ const PatientEditProfile = (props) => {
                 <Col md>
                     <Row className="g-2">
                         <Col md>
-                            <Input
-                                disabled={true}
-                                value={state}
-                                type="text"
-                                placeholder="India"
-                                id="country"
+                            <KeyValueSelector
+                                defaultValue={stateName}
+                                value={stateName}
                                 label="State"
-                                readOnly={true}
+                                id="state"
+                                options={dataState}
+                                handleSelect={setIdAndState}
                             />
                         </Col>
                         <Col md>
-                            <Input
-                                disabled={true}
-                                value={city}
-                                type="text"
-                                placeholder="India"
-                                id="country"
-                                label="City"
-                                readOnly={true}
+                            <KeyValueSelector
+                                defaultValue={city}
+                                 value='0'
+                                 label="City"
+                                 id="city"
+                                 options={dataCity}
+                                 handleSelect={setCityValue}
                             />
                         </Col>
                     </Row>
@@ -257,7 +289,11 @@ const PatientEditProfile = (props) => {
                 <CustomButton
                     className='multistepform-button edit-profile-update-button'
                     disabled={false}
-                    onClick={updateUserProfile}
+                    onClick={() => {
+                        if(validation()) {
+                            updateUserProfile();
+                        }
+                    }}
                     text={'Update'}
                 ></CustomButton>
             </Col>
