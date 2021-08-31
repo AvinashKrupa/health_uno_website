@@ -6,18 +6,18 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const Invite = (props) => {
 
-  const [copyContent,setCopyContent]=useState("http/:Healthunoapp/invite");
+  const [copyContent,setCopyContent]=useState("http//:healthunoapp/invite");
 
   const handleCopy = (e) =>{
     e.preventDefault();
     setCopyContent(e.target.value)
    }
-  
+
 
   return (
     <>
-      <Row>
-          <Row className="header" style={{marginTop: '70px'}}>  
+      <Row id='invite-user'>
+          <Row className="header" style={{marginTop: '70px'}}>
           </Row>
           <Row>
             <Col lg="12">
@@ -31,16 +31,16 @@ const Invite = (props) => {
                 </div>
                 <div className="invite-link">
                 <form>
-                      <input type="text"value="http/:Healthunoapp/invite" readOnly  onChange={(e)=>handleCopy(e)}/>
-                     
-                      <CopyToClipboard text={'http/:Healthunoapp/invite'}
+                      <input type="text"value="http//:healthunoapp/invite" readOnly  onChange={(e)=>handleCopy(e)}/>
+
+                      <CopyToClipboard text={'http//:healthunoapp/invite'}
                         >
                         <button className="copy-button" >
                           Copy Code
                           <Image className="copy" src={copy} onClick={handleCopy}/>
                         </button>
                       </CopyToClipboard>
-                      
+
                     </form>
                     <div>
                       <CustomButton text={'Share'} className="share-button" onClick={() => {}}></CustomButton>

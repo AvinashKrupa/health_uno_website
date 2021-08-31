@@ -1,9 +1,10 @@
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import {doctor} from "../../../constants/DoctorImages";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {API, get} from "../../../api/config/APIController";
 import {useToasts} from "react-toast-notifications";
-import { withRouter } from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import ProfileButton from "../../../commonComponent/ProfileButton";
 
 const EditProfilePictureColumn = (props) => {
@@ -18,6 +19,7 @@ const EditProfilePictureColumn = (props) => {
         return () => {
         };
     }, []);
+
     function getUserProfile() {
         get(API.GET_PROFILE)
             .then(response => {
@@ -56,8 +58,6 @@ const EditProfilePictureColumn = (props) => {
                 <Col lg="12">
 
 
-
-
                     <div style={{
                         flexDirection: "row",
                         display: "flex",
@@ -84,10 +84,6 @@ const EditProfilePictureColumn = (props) => {
                         </div>
 
 
-
-
-
-
                     </div>
                     {/*<div style={{*/}
                     {/*    flexDirection: "row",*/}
@@ -103,46 +99,64 @@ const EditProfilePictureColumn = (props) => {
                 </Col>
                 <Row style={{cursor: 'pointer'}}>
                     <Col lg='3' sm='1' xs='1'></Col>
-                    <Col lg='6'>
-                        <ProfileButton
-                            active={props.match.params.type}
-                            route={'editProfile'}
-                            fontText={'fa-pen'}
-                            btnText={'Edit Profile'}
-                            onClick={ () => {props.history.push('/doctor/profile/editProfile')}}
-                        >
-                        </ProfileButton>
-                        <ProfileButton
-                            active={props.match.params.type}
-                            route={'uploadReport'}
-                            fontText={'fa-upload'}
-                            btnText={'Update Schedule'}
-                            onClick={ () => {props.history.push('/doctor/profile/uploadReport')}}
-                        >
-                        </ProfileButton>
-                        <ProfileButton
-                            active={props.match.params.type}
-                            route={'support'}
-                            fontText={'fa-question-circle'}
-                            btnText={'Help and Support'}
-                            onClick={ () => {props.history.push('/doctor/profile/support')}}
-                        >
-                        </ProfileButton>
+                    <Col lg='6' className="center-column">
+                        <AnchorLink href='#second-page'>
+                            <ProfileButton
+                                active={props.match.params.type}
+                                route={'editProfile'}
+                                fontText={'fa-pen'}
+                                btnText={'Edit Profile'}
+                                onClick={() => {
+                                    props.history.push('/doctor/profile/editProfile')
+                                }}
+                            >
+                            </ProfileButton>
+                        </AnchorLink>
+                        <AnchorLink href='#second-page'>
+                            <ProfileButton
+                                active={props.match.params.type}
+                                route={'uploadReport'}
+                                fontText={'fa-upload'}
+                                btnText={'Update Schedule'}
+                                onClick={() => {
+                                    props.history.push('/doctor/profile/uploadReport')
+                                }}
+                            >
+                            </ProfileButton>
+                        </AnchorLink>
+                        <AnchorLink href='#second-page'>
+                            <ProfileButton
+                                active={props.match.params.type}
+                                route={'support'}
+                                fontText={'fa-question-circle'}
+                                btnText={'Help and Support'}
+                                onClick={() => {
+                                    props.history.push('/doctor/profile/support')
+                                }}
+                            >
+                            </ProfileButton>
+                        </AnchorLink>
 
-                        <ProfileButton
-                            active={props.match.params.type}
-                            route={'invite'}
-                            fontText={'fa-share-alt'}
-                            btnText={'Refer and Invite'}
-                            onClick={ () => {props.history.push('/doctor/profile/invite')}}
-                        >
-                        </ProfileButton>
+                        <AnchorLink href='#second-page'>
+                            <ProfileButton
+                                active={props.match.params.type}
+                                route={'invite'}
+                                fontText={'fa-share-alt'}
+                                btnText={'Refer and Invite'}
+                                onClick={() => {
+                                    props.history.push('/doctor/profile/invite')
+                                }}
+                            >
+                            </ProfileButton>
+                        </AnchorLink>
                         <ProfileButton
                             active={props.match.params.type}
                             route={'about'}
                             fontText={'fa-question-circle'}
                             btnText={'About Us'}
-                            onClick={ () => {window.location.replace('https://healthuno.com/#')}}
+                            onClick={() => {
+                                window.location.replace('https://healthuno.com/#')
+                            }}
                         >
                         </ProfileButton>
                     </Col>

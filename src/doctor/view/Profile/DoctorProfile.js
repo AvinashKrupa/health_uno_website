@@ -14,7 +14,7 @@ const DoctorProfile = (props) => {
                 <Col lg="4">
                     <ProfilePictureColumn/>
                 </Col>
-                <Col lg='6'>
+                <Col lg='6' id="second-page">
                     {
                         type === 'editProfile' && (
                             <EditProfilePage></EditProfilePage>
