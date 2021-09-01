@@ -14,15 +14,17 @@ const editProfilePictureColumn = (props) => {
                 <Image src={doctor} className="profile-picture-image"/>
             </Row>
             <Row className="profile-container">
-                <Col lg="10">
+                
+                <Col lg="12">
                     <span className="doctor-name">{props.doctorName}</span>
                 </Col>
-                <Col lg="10">
+                <Col lg="12">
                     <span className="doctor-detail">+91 - {props.doctorMobile} | HealthUno Id: {props.doctorId}</span>
                 </Col>
+                <Col>
                 <Row style={{cursor: 'pointer'}}>
-                    <Col lg='3' sm='1' xs='1'></Col>
-                    <Col lg='6'>
+                    {/* <Col lg='3' sm='1' xs='1'></Col> */}
+                    <Col className="button-section" >
                     <ProfileButton
                         active={props.match.params.type}
                         route={'editProfile'}
@@ -66,6 +68,7 @@ const editProfilePictureColumn = (props) => {
                     </ProfileButton>
                     </Col>
                 </Row>
+                </Col>
             </Row>
             <Row>
             </Row>

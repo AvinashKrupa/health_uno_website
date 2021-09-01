@@ -1,6 +1,5 @@
 
 .edit-profile-container {
-  margin-left: 20px;
 
   .sub-title {
     font-family: Montserrat;
@@ -19,9 +18,12 @@
     margin-top: 90px;
   }
 }
-
+.button-section{
+  padding: 15px;
+}
 
 .profile-left-Column {
+  padding: 0px;
   .profile-container {
     display: flex;
     justify-content: center;
@@ -29,19 +31,19 @@
   }
 
   .profile-tile-text {
-    font-family: Montserrat;
-    font-size: 20px;
+    padding: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: -0.4200002849px;
-    text-align: left;
-    color: #1B1B1B;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    /* margin-left: 50px; */
-    justify-content: center;
-    display: flex;
+    color: #1B1B1B;  
+    @media only screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+  }
+    
   }
 
   .doctor-name {
@@ -70,7 +72,7 @@
     line-height: 20px;
     letter-spacing: -0.30000001192092896px;
     text-align: left;
-    color: rgba(27, 27, 27, 0.6)
+    color: rgba(27, 27, 27, 0.6);
   }
 
   .doctor-appointment-count-container {
@@ -108,22 +110,14 @@
 
 @media screen and (max-width: 768px) {
   .edit-profile-container {
-    margin-left: 24px;
-
 
     .sub-title {
       margin-top: 20px;
       margin-bottom: -5px;
     }
-
   }
   .form-wizard .multistepform-button {
     width: 255px;
   }
 }
 
-@media screen and (max-width: 425px) {
-  .edit-profile-container {
-    margin-left: 19px;
-  }
-}

@@ -17,7 +17,6 @@ const Invite = (props) => {
   return (
     <>
       <Row>
-          <Row className="header" style={{marginTop: '70px'}}>  
           </Row>
           <Row>
             <Col lg="12">
@@ -49,7 +48,6 @@ const Invite = (props) => {
              </div>
             </Col>
           </Row>
-      </Row>
     </>
   );
 };

@@ -241,6 +241,18 @@
         }
     
     }
+
+    .upload-report, .invite-user {
+        margin-bottom: 40px;
+    }
+
+    .upload-button {
+        margin-top: 50px !important;
+    }
+
+    .invite-image {
+        padding-top: unset !important;
+    }
 }
 
 @media only screen and (max-width: 375px) {
