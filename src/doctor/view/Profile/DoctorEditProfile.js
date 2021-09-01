@@ -147,20 +147,20 @@ const DoctorEditProfile = (props) => {
                 <Row>
                      <h2 className="sub-title">Edit Profile</h2>
                 </Row>
-                <Col className="registration-page-1-column">
+                <Col md className="registration-page-1-column">
                     <Input label="First Name" type="text" placeholder="eg John" value={firstName}
                             onChange={setFirstName}/>
                 </Col>
-                <Col className="registration-page-1-column">
+                <Col md className="registration-page-1-column">
                     <Input label="Last Name" type="text" placeholder="eg Doe" value={lastName}
                             onChange={setLastName}/>
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col md>
                     <Input label="Mobile Number" type="number" readonly="true" value={mobile} onChange={setMobile}/>
                 </Col>
-                <Col>
+                <Col md>
                     <Input label="Email" type="email" readonly="true" value={email} onChange={setEmail}/>
                 </Col>
             </Row>
@@ -169,7 +169,7 @@ const DoctorEditProfile = (props) => {
                     <Input label="Date of Birth" type="date" readonly="true" onChange={setBirthDate}
                             value={birthDate}/>
                 </Col>
-                <Col>
+                <Col md>
                     <Input
                         readonly="true"
                         label="Gender"
@@ -192,7 +192,7 @@ const DoctorEditProfile = (props) => {
             </Row>
 
             <Row>
-                <Col>
+                <Col md>
                     <Input
                         type="text"
                         placeholder="Enter address"
@@ -202,7 +202,7 @@ const DoctorEditProfile = (props) => {
                         onChange={setAddressLine1}
                     />
                 </Col>
-                <Col>
+                <Col md>
                     <Input
                         type="text"
                         placeholder="Enter address (optional)"
