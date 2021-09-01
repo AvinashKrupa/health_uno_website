@@ -99,7 +99,7 @@ const EditProfilePictureColumn = (props) => {
                 </Col>
                 <Row style={{cursor: 'pointer'}}>
                     <Col lg='3' sm='1' xs='1'></Col>
-                    <Col lg='6' className="center-column">
+                    <Col lg='6' className="center-column" style={{marginTop:15}}>
                         <AnchorLink href='#second-page'>
                             <ProfileButton
                                 active={props.match.params.type}
