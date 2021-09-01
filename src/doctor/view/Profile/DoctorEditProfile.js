@@ -142,7 +142,7 @@ const DoctorEditProfile = (props) => {
     }
 
     return (
-        <div className="form-wizard edit-patient-container">
+        <div className="form-wizard edit-doctor-container">
             <Row>
                 <Row>
                      <h2 className="sub-title">Edit Profile</h2>
