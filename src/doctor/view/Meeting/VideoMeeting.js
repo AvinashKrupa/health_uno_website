@@ -65,8 +65,8 @@ const VideoMeeting = (props) => {
             setTracks(tracks)
         })
             .catch((err) => {
-                setHavePermissions(false)
-                addToast('Please enable both Mic and Camera use permission and refresh the page', {appearance: "error"});
+                    setHavePermissions(false)
+                    addToast('Please enable permissions and refresh the page', {appearance: "error"});
             });
     }
 
@@ -151,10 +151,10 @@ const VideoMeeting = (props) => {
                                 }
                             </div>
                             <div className='doctor-meeting-button-container'>
-                                <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
+                                {!renderTestButtons && <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
                                     Test Video and Audio
-                                </Button>
-                                <Button className="doctor-meeting-join-meeting-button">
+                                </Button>}
+                                <Button className="doctor-meeting-join-meeting-button" onClick={() => {window.open(`https://dev.healthuno.com:6005/${props.match.params.appointment_id}`)}}>
                                     Join Meeting
                                 </Button>
                             </div>
