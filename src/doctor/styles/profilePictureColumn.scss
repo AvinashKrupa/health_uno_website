@@ -6,6 +6,14 @@
   @media only screen and (max-width: 768px) {
       width: 150px;
   }
+
+  @media only screen and (min-width: 1000px) {
+    width: 170px;
+  }
+
+  @media only screen and (min-width: 1300px) {
+    width: 208px;
+  }
 }
 
 .profile-picture-text {

@@ -20,7 +20,6 @@ const PatientEditProfile = (props) => {
     const [state, setState] = useState('');
     const [addressLine1, setAddressLine1] = useState('');
     const [addressLine2, setAddressLine2] = useState('');
-    const [description, setDescription] = useState('');
     const [country, setCountry] = useState('');
     const [appointmentStats, setAppointmentStats] = useState({});
     const [stateName, setStateName] = useState('');
@@ -46,7 +45,6 @@ const PatientEditProfile = (props) => {
                     setLastName(user.last_name);
                     setEmail(user.email);
                     setGender(user.gender);
-                    setDescription(additionalInfo.desc);
                     setMobile(user.mobile_number);
                     setBirthDate(user.dob);
                     setAddressLine1(additionalInfo.address.line1);
@@ -71,13 +69,12 @@ const PatientEditProfile = (props) => {
         let params = {
             first_name: firstName,
             last_name: lastName,
-            desc: description,
             address: {
                 line1: addressLine1,
                 line2: addressLine2,
                 state: state,
                 city: city,
-                country: 'india'
+                country: 'India'
             }
         };
 
@@ -149,16 +146,12 @@ const PatientEditProfile = (props) => {
     }
 
     function validation() {
-        console.log(isEmpty(description), description);
         if (isEmpty(firstName)) {
           addToast('Please enter first name', { appearance: 'error' });
           return false;
         } else if (isEmpty(lastName)) {
           addToast('Please enter last name', { appearance: 'error' });
           return false;
-        } else if (description === undefined || isEmpty(description)) {
-            addToast('Please enter profile description', { appearance: 'error' });
-            return false;
         } else if (isEmpty(addressLine1)) {
           addToast('Please enter address line 1', { appearance: 'error' });
           return false;
@@ -175,29 +168,29 @@ const PatientEditProfile = (props) => {
 
     return (
         <div className="edit-patient-container">
-            <Row>
+            <Row  className="g-2">
                 <Row>
                     {/* <h2 className="sub-title"></h2> */}
                 </Row>
-                <Col className="registration-page-1-column">
+                <Col className="registration-page-1-column" md>
                     <Input label="First Name" type="text" placeholder="eg John" value={firstName}
                             onChange={setFirstName}/>
                 </Col>
-                <Col className="registration-page-1-column">
+                <Col className="registration-page-1-column" md>
                     <Input label="Last Name" type="text" placeholder="eg Doe" value={lastName}
                             onChange={setLastName}/>
                 </Col>
             </Row>
-            <Row>
-                <Col>
+            <Row className="g-2">
+                <Col md>
                     <Input label="Mobile Number" type="number" readonly="true" value={mobile} onChange={setMobile}/>
                 </Col>
                 <Col>
                     <Input label="Email" type="email" readonly="true" value={email} onChange={setEmail}/>
                 </Col>
             </Row>
-            <Row>
-                <Col>
+            <Row className="g-2">
+                <Col md>
                     <Input label="Date of Birth" type="date" readonly="true" onChange={setBirthDate}
                             value={birthDate}/>
                 </Col>
@@ -210,23 +203,10 @@ const PatientEditProfile = (props) => {
                     />
                 </Col>
             </Row>
-            <Row className='form-wizard-text-area'>
-                <Col>
-                    <TextArea
-                        label="Profile description"
-                        type="textarea"
-                        row="3"
-                        value={description}
-                        placeholder="Write here"
-                        onChange={setDescription}
-                    />
-                </Col>
-            </Row>
 
             <Row>
-                <Col>
+                <Col md>
                     <Input
-                        readonly="true"
                         type="text"
                         placeholder="Enter address"
                         id="addressLine1"
@@ -235,9 +215,8 @@ const PatientEditProfile = (props) => {
                         onChange={setAddressLine1}
                     />
                 </Col>
-                <Col>
+                <Col md>
                     <Input
-                        readonly="true"
                         type="text"
                         placeholder="Enter address (optional)"
                         id="addressLine2"
@@ -285,7 +264,8 @@ const PatientEditProfile = (props) => {
                 </Col>
 
             </Row>
-            <Col className='form-btn'>
+            <Col className='form-btn' style={{margin: 'inherit',
+                 textAlign: 'center'}}>
                 <CustomButton
                     className='multistepform-button edit-profile-update-button'
                     disabled={false}

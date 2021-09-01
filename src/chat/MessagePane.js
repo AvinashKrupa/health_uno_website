@@ -9,6 +9,7 @@ import { Image } from 'react-bootstrap';
 class MessagePane extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             room_id: null,
             selectedConv: props.selectedConv,
@@ -16,6 +17,7 @@ class MessagePane extends Component {
             text: "",
             messages: [],
             socketObj: null,
+           
         }
     }
 
@@ -96,17 +98,15 @@ class MessagePane extends Component {
     sendMessage() {
         if (this.state.socketObj && this.state.text !== '') {
             console.log("Sending Message>>>", this.state.text)
-            this.state.socketObj.emit("sendMessage", {
-                message: this.state.text,
-                sender: this.state.user_id,
-            });
+            
             let finalMessage = {
                 message: this.state.text,
                 sender: {_id: this.state.user_id, name: this.state.user_id, avatar: ""},
                 created_at: new Date().toDateString()
             }
-            let messages = this.state.messages
-            messages.push(finalMessage)
+            this.state.socketObj.emit("sendMessage", finalMessage);
+            let messages = this.state.messages;
+            messages.push(finalMessage);
             this.setState({text: "", messages: messages})
         }
 
@@ -147,11 +147,11 @@ class MessagePane extends Component {
                      <div className="message-type">
                     <form>
                       <input type="text" value={this.state.text} placeholder="Type something" onChange={(e) => this.handleTextChange(e)}/>
-                      <button>
-                        send <Image className="vector" src={send} onClick={(e) => {
+                      <button onClick={(e) => {
                                 e.preventDefault();
                                 this.sendMessage()
-                            }} />
+                            }}> 
+                        send <Image className="vector" src={send}  />
                       </button>
                     </form>
                   </div>
