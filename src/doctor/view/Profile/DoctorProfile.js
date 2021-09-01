@@ -5,6 +5,7 @@ import EditProfilePage from "./DoctorEditProfile";
 import Invite from "../../../patient/view/invite/Invite";
 import Chat from "../../../chat/Chat";
 import UpdateSchedule from "./UpdateSchedule";
+import AboutUs from "../../../commonComponent/AboutUs";
 
 const DoctorProfile = (props) => {
     const type = props.match.params.type
@@ -34,6 +35,11 @@ const DoctorProfile = (props) => {
                     {
                         type === 'support' && (
                             <Chat></Chat>
+                        )
+                    }
+                    {
+                        type === 'about' && (
+                            <AboutUs></AboutUs>
                         )
                     }
                 </Col>

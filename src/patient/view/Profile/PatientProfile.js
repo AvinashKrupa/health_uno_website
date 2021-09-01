@@ -7,6 +7,7 @@ import PatientEditProfile from "./PatientEditProfile";
 import Invite from "../invite/Invite";
 import UploadReport from "./UploadReport";
 import Chat from "../../../chat/Chat";
+import AboutUs from "../../../commonComponent/AboutUs";
 
 
 const   PatientProfile = (props) => {
@@ -39,6 +40,11 @@ const   PatientProfile = (props) => {
                         {
                             type === 'uploadReport' && (
                                 <UploadReport></UploadReport>
+                            )
+                        }
+                        {
+                            type === 'about' && (
+                                <AboutUs></AboutUs>
                             )
                         }
                     </Col>

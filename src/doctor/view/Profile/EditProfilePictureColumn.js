@@ -155,7 +155,7 @@ const EditProfilePictureColumn = (props) => {
                             fontText={'fa-question-circle'}
                             btnText={'About Us'}
                             onClick={() => {
-                                window.location.replace('https://healthuno.com/#')
+                                props.history.push('/doctor/profile/about')
                             }}
                         >
                         </ProfileButton>
