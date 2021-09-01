@@ -10,6 +10,7 @@ import PatientAppointmentCard from "../../components/PatientAppointmentCard";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import {back_icon, calendar_blue} from "../../../constants/DoctorImages";
+import Spinner from "../../../commonComponent/Spinner";
 
 const UpcomingAppointments = (props) => {
   let timer = null;
@@ -17,6 +18,7 @@ const UpcomingAppointments = (props) => {
   let [searchText, setSearchText] = useState(useSearchStore(state => state.searchText));
   let [appointments, setAppointments] = useState([]);
   const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
+  let [appointmentLoaderStatus, setAppointmentLoaderStatus] = useState(false);
 
   useEffect(() => {
     getUpcomingAppointments();
@@ -48,16 +50,20 @@ const UpcomingAppointments = (props) => {
         "completed"
       ]
     };
+    setAppointmentLoaderStatus(true)
     post(API.DOCTOR_GET_APPOINTMENTS_API, params)
         .then(response => {
           if (response.status === 200) {
+            setAppointmentLoaderStatus(false)
             setAppointments(response.data.data.docs);
           } else {
             addToast(response.data.message, {appearance: "error"});
+            setAppointmentLoaderStatus(false)
           }
         })
         .catch(error => {
           addToast(error.response.data.message, {appearance: "error"});
+          setAppointmentLoaderStatus(false)
         });
   }
 
@@ -111,7 +117,12 @@ const UpcomingAppointments = (props) => {
               </div>
 
               <Row style={{display: 'flex', flexDirection: 'row'}} className='top-consultants-card-container'>
-                {appointments.map((doctor) => {
+                {appointmentLoaderStatus &&
+                <div className="empty-list-container">
+                  <Spinner showLoader={appointmentLoaderStatus} width={60} height={60}/>
+                </div>
+                }
+                {!appointmentLoaderStatus && appointments.map((doctor) => {
                   return (
                       <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
                         <PatientAppointmentCard
@@ -128,7 +139,7 @@ const UpcomingAppointments = (props) => {
                       </Grid>
                   )
                 })}
-                {!appointments.length &&
+                {!appointmentLoaderStatus && !appointments.length &&
                   <div className="empty-list-container">
                     <h4>No appointments found</h4>
                   </div>
