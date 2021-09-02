@@ -9,7 +9,7 @@ class Chat extends Component {
                         <div className="row">
                             <div>
                                 <div className="chat-window">
-                                    <MessagePane receiver_id={"yatish"} openModal={(id) => this.openModal(id)}/>
+                                        <MessagePane receiver_id={"612363d240eef4f51b11e4de"} openModal={(id) => this.openModal(id)}/>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ChatType, getNewSocket} from "./SocketManager";  
+import {ChatType, getNewSocket} from "./SocketManager";
 import MessageList from "./MessageList";
 import { API, post } from '../api/config/APIController';
 import { getData } from '../storage/LocalStorage/LocalAsyncStorage';
@@ -9,7 +9,7 @@ import { Image } from 'react-bootstrap';
 class MessagePane extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             room_id: null,
             selectedConv: props.selectedConv,
@@ -17,16 +17,15 @@ class MessagePane extends Component {
             text: "",
             messages: [],
             socketObj: null,
-           
         }
     }
 
     getRoomId = () => {
-        const compare = this.state.user_id.toString().localeCompare('612363d240eef4f51b11e4de'.toString())
+        const compare = this.state.user_id.localeCompare(this.props.receiver_id)
         if (compare < 0) {
-            return  this.state.user_id + "_612363d240eef4f51b11e4de";
+            return  this.state.user_id +"_" +this.props.receiver_id;
         } else if (compare > 0) {
-            return  "612363d240eef4f51b11e4de_" +  this.state.user_id;
+            return  this.state.receiver_id +"_" +this.props.user_id;
         }
     }
 
@@ -44,7 +43,7 @@ class MessagePane extends Component {
                   } else {
                     // addToast(response.data.message, { appearance: 'error' });
                   }
-               
+
             })
             .catch(error => {
                 console.log('error:post ', error);
@@ -57,11 +56,12 @@ class MessagePane extends Component {
 
     initializeChatWithUser() {
         let socketObj = getNewSocket()
+        const userType = JSON.parse(getData('USER_TYPE'));
 
         socketObj.auth = {
             user_id: this.state.user_id,
-            chat_type: ChatType.CHAT_TYPE_DOC_TO_PATIENT,
-            receiver_id: '612363d240eef4f51b11e4de',
+            chat_type: userType === 1 ?ChatType.CHAT_TYPE_PATIENT_TO_SUPPORT: ChatType.CHAT_TYPE_DOC_TO_SUPPORT,
+            receiver_id: this.props.receiver_id,
             conversation_id: ''
         };
         socketObj.connect();
@@ -80,7 +80,7 @@ class MessagePane extends Component {
 
         socketObj.on('onNewMessage', data => {
             console.log('onNewMessage>>>>', data);
-            let messages = JSON.parse(JSON.stringify(this.state.messages))  
+            let messages = JSON.parse(JSON.stringify(this.state.messages))
             messages.push(data)
             this.setState({
                 messages: messages,
@@ -98,7 +98,7 @@ class MessagePane extends Component {
     sendMessage() {
         if (this.state.socketObj && this.state.text !== '') {
             console.log("Sending Message>>>", this.state.text)
-            
+
             let finalMessage = {
                 message: this.state.text,
                 sender: {_id: this.state.user_id, name: this.state.user_id, avatar: ""},
@@ -150,7 +150,7 @@ class MessagePane extends Component {
                       <button onClick={(e) => {
                                 e.preventDefault();
                                 this.sendMessage()
-                            }}> 
+                            }}>
                         send <Image className="vector" src={send}  />
                       </button>
                     </form>

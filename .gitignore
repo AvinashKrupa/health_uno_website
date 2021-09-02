@@ -2,3 +2,5 @@ node_modules
 /.idea/doctor-website.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+localhost.pem
+localhost-key.pem
