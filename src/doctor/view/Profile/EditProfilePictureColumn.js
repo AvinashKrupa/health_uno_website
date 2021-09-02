@@ -49,10 +49,10 @@ const EditProfilePictureColumn = (props) => {
                 <Image src={doctor} className="profile-picture-image"/>
             </Row>
             <Row className="profile-container">
-                <Col lg="10">
+                <Col lg="12">
                     <span className="doctor-name">{`Dr ${firstName} ${lastName}`}</span>
                 </Col>
-                <Col lg="10">
+                <Col lg="12">
                     <span className="doctor-detail">+91 - {mobile} | Id: #{doctorMedId}</span>
                 </Col>
                 <Col lg="12">
@@ -97,70 +97,73 @@ const EditProfilePictureColumn = (props) => {
                     {/*</div>*/}
 
                 </Col>
-                <Row style={{cursor: 'pointer'}}>
-                    <Col lg='3' sm='1' xs='1'></Col>
-                    <Col lg='6' className="center-column" style={{marginTop:15}}>
-                        <AnchorLink href='#second-page'>
-                            <ProfileButton
-                                active={props.match.params.type}
-                                route={'editProfile'}
-                                fontText={'fa-pen'}
-                                btnText={'Edit Profile'}
-                                onClick={() => {
-                                    props.history.push('/doctor/profile/editProfile')
-                                }}
-                            >
-                            </ProfileButton>
-                        </AnchorLink>
-                        <AnchorLink href='#second-page'>
-                            <ProfileButton
-                                active={props.match.params.type}
-                                route={'updateSchedule'}
-                                fontText={'fa-calendar'}
-                                btnText={'Update Schedule'}
-                                onClick={() => {
-                                    props.history.push('/doctor/profile/updateSchedule')
-                                }}
-                            >
-                            </ProfileButton>
-                        </AnchorLink>
-                        <AnchorLink href='#second-page'>
-                            <ProfileButton
-                                active={props.match.params.type}
-                                route={'support'}
-                                fontText={'fa-question-circle'}
-                                btnText={'Help and Support'}
-                                onClick={() => {
-                                    props.history.push('/doctor/profile/support')
-                                }}
-                            >
-                            </ProfileButton>
-                        </AnchorLink>
+                <Col>
+                    <Row style={{cursor: 'pointer'}}>
+                        <Col className="button-section">
+                            <AnchorLink href='#second-page'>
+                                <ProfileButton
+                                    active={props.match.params.type}
+                                    route={'editProfile'}
+                                    fontText={'fa-pen'}
+                                    btnText={'Edit Profile'}
+                                    onClick={() => {
+                                        props.history.push('/doctor/profile/editProfile')
+                                    }}
+                                >
+                                </ProfileButton>
+                            </AnchorLink>
+                            <AnchorLink href='#second-page'>
+                                <ProfileButton
+                                    active={props.match.params.type}
+                                    route={'updateSchedule'}
+                                    fontText={'fa-calendar'}
+                                    btnText={'Update Schedule'}
+                                    onClick={() => {
+                                        props.history.push('/doctor/profile/updateSchedule')
+                                    }}
+                                >
+                                </ProfileButton>
+                            </AnchorLink>
+                            <AnchorLink href='#second-page'>
+                                <ProfileButton
+                                    active={props.match.params.type}
+                                    route={'support'}
+                                    fontText={'fa-question-circle'}
+                                    btnText={'Help and Support'}
+                                    onClick={() => {
+                                        props.history.push('/doctor/profile/support')
+                                    }}
+                                >
+                                </ProfileButton>
+                            </AnchorLink>
 
-                        <AnchorLink href='#second-page'>
-                            <ProfileButton
-                                active={props.match.params.type}
-                                route={'invite'}
-                                fontText={'fa-share-alt'}
-                                btnText={'Refer and Invite'}
-                                onClick={() => {
-                                    props.history.push('/doctor/profile/invite')
-                                }}
-                            >
-                            </ProfileButton>
-                        </AnchorLink>
-                        <ProfileButton
-                            active={props.match.params.type}
-                            route={'about'}
-                            fontText={'fa-question-circle'}
-                            btnText={'About Us'}
-                            onClick={() => {
-                                props.history.push('/doctor/profile/about')
-                            }}
-                        >
-                        </ProfileButton>
-                    </Col>
-                </Row>
+                            <AnchorLink href='#second-page'>
+                                <ProfileButton
+                                    active={props.match.params.type}
+                                    route={'invite'}
+                                    fontText={'fa-share-alt'}
+                                    btnText={'Refer and Invite'}
+                                    onClick={() => {
+                                        props.history.push('/doctor/profile/invite')
+                                    }}
+                                >
+                                </ProfileButton>
+                            </AnchorLink>
+                            <AnchorLink href='#second-page'>
+                                <ProfileButton
+                                    active={props.match.params.type}
+                                    route={'about'}
+                                    fontText={'fa-question-circle'}
+                                    btnText={'About Us'}
+                                    onClick={() => {
+                                        props.history.push('/doctor/profile/about')
+                                    }}
+                                >
+                                </ProfileButton>
+                            </AnchorLink>
+                        </Col>
+                    </Row>
+                </Col>
             </Row>
             <Row>
             </Row>

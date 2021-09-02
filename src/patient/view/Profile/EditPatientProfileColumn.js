@@ -3,6 +3,7 @@ import {doctor} from "../../../constants/DoctorImages";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import React from "react";
 import ProfileButton from "../../../commonComponent/ProfileButton";
+import { withRouter } from 'react-router-dom'
 
 const editProfilePictureColumn = (props) => {
     return (

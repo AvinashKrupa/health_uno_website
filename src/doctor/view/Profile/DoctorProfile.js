@@ -11,12 +11,12 @@ const DoctorProfile = (props) => {
     const type = props.match.params.type
 
     return (
-        <div className='form-wizard edit-profile-container'>
+        <Col lg="10" sm="10" xs="10" >
             <Row>
-                <Col lg="4">
+                <Col lg="3">
                     <ProfilePictureColumn/>
                 </Col>
-                <Col lg='6' id="second-page">
+                <Col lg='9' id="second-page">
                     {
                         type === 'editProfile' && (
                             <EditProfilePage></EditProfilePage>
@@ -43,10 +43,8 @@ const DoctorProfile = (props) => {
                         )
                     }
                 </Col>
-                <Col lg='2'> </Col>
             </Row>
-        </div>
-
+        </Col>
     );
 };
 export default DoctorProfile;
