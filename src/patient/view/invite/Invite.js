@@ -16,9 +16,7 @@ const Invite = (props) => {
 
   return (
     <>
-      <Row id='invite-user'>
-          <Row className="header" style={{marginTop: '70px'}}>
-          </Row>
+      <Row>
           <Row>
             <Col lg="12">
              <div className="invite-user">

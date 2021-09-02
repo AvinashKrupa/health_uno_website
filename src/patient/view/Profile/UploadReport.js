@@ -24,13 +24,12 @@ const UploadReport = (props) => {
   };
 
   const thumb = {
-    display: 'inline-flex',
+    display: '-webkit-inline-box',
     borderRadius: 2,
-    border: '1px solid #eaeaea',
     marginBottom: 8,
     marginRight: 8,
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
     padding: 4,
     boxSizing: 'border-box'
   };
@@ -64,7 +63,6 @@ const UploadReport = (props) => {
   return (
     <>
       <Row>
-          <Row className="header" style={{marginTop: '70px'}}>
           </Row>
           <Row >
             <Col lg="12">
@@ -96,7 +94,7 @@ const UploadReport = (props) => {
                         <p>{moment(fileName.lastModifiedDate).format('ll')}</p>
 
                       </div>
-                      <button className="view-button">Delete</button>
+                      <button className="view-button" onClick={() => setFiles([])}>Delete</button>
                     </div>))}
                   <Dropzone
                     onDrop={acceptedFiles =>
@@ -125,7 +123,9 @@ const UploadReport = (props) => {
                 <div className="note">
                   Please upload report in pdf or jpeg format
                 </div>
+                {files.length > 0 && <h4>Preview</h4>}
                 <aside style={thumbsContainer}>
+                  
                   {thumbs}
                 </aside>
                 <div className="button-div">
@@ -133,7 +133,6 @@ const UploadReport = (props) => {
                 </div>
               </div>
             </Col>
-          </Row>
       </Row>
     </>
   );
