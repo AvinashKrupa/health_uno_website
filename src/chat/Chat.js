@@ -3,7 +3,7 @@ import MessagePane from "./MessagePane";
 class Chat extends Component {
     render() {
         return (
-            <div style={{marginTop: '70px'}}>
+            <div style={{marginTop: '70px', marginLeft:'20px'}}>
                 <div className="page-wrapper">
                     <div className="container-fluid">
                         <div className="row">

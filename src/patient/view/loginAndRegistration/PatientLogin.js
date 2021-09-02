@@ -15,13 +15,20 @@ import {API, post} from '../../../api/config/APIController';
 import {AuthContext} from '../../../context/AuthContextProvider';
 import CustomButton from '../../../commonComponent/Button';
 import {useToasts} from 'react-toast-notifications';
+import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const PatientLogin = ({history}) => {
   const { addToast } = useToasts();
   const authContext = useContext(AuthContext);
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [mobileNumber, setMobileNumber] = useState(authContext.phone ? authContext.phone : '');
 
   const onClick = () => {
+
+    if(isNaN(mobileNumber)) {
+      addToast('Please enter the valid number', { appearance: 'error' });
+      return;
+    }
+    
     let params = {
       mobile_number: mobileNumber,
       country_code: '+91',
@@ -32,6 +39,7 @@ const PatientLogin = ({history}) => {
     post(API.SENDOTP, params, true)
       .then(response => {
         if (response.status === 200) {
+          storeData('USER_TYPE', 1)
           addToast(response.data.message, { appearance: 'success' });
           history.push('/patient/otp');
         }  else {
@@ -101,22 +109,27 @@ const PatientLogin = ({history}) => {
                   <H1 text={'Hello there !'}></H1>
                   <H3 text={'Welcome'}></H3>
                   <p> Sign in to continue with your mobile number </p>
-                  <InputGroup size="sm" style={{ maxWidth: "350px" }} onChange={(e) => setMobileNumber(e.target.value)}>
-                    <DropdownButton variant="outline-secondary" title="+91">
-                      <Dropdown.Item>+91</Dropdown.Item>
-                    </DropdownButton>
-                    <FormControl type="number" />
-                    <p className="description-small">
-                      A 4 digit OTP will be sent through SMS to verify your mobile
-                      number
-                    </p>
-                  </InputGroup>
-                  <CustomButton
-                      className={'login-btn'}
-                      disabled={mobileNumber.length !== 10} 
-                      onClick={onClick}
-                      text={'Continue'}
-                  ></CustomButton>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    onClick();
+                  }}>
+                    <InputGroup size="sm" style={{ maxWidth: "350px" }} onChange={(e) => setMobileNumber(e.target.value)}>
+                      <DropdownButton variant="outline-secondary" title="+91">
+                        <Dropdown.Item>+91</Dropdown.Item>
+                      </DropdownButton>
+                      <FormControl  value={mobileNumber} type="text" />
+                      <p className="description-small">
+                        A 4 digit OTP will be sent through SMS to verify your mobile
+                        number
+                      </p>
+                    </InputGroup>
+                    <CustomButton
+                        className={'login-btn'}
+                        disabled={mobileNumber.length !== 10} 
+                        onClick={onClick}
+                        text={'Continue'}
+                    ></CustomButton>
+                  </form>
                 </div>
                 
             </div>

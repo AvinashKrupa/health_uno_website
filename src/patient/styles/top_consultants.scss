@@ -10,6 +10,12 @@
 
 .back-navigation {
     margin-top: 32px;
+    button {
+        outline: none;
+        border: none;
+        background: none;
+        text-align: left;
+       }
 
     span {
         font-size: 24px;

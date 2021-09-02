@@ -13,7 +13,7 @@ const SlotGenerator = (props) => {
             <button style={{backgroundColor:  slot.status === 'unavailable' ? 'grey' : ''}} className={`slot-timings-button ${props.selectedSlots.indexOf(slot.slot_id) > -1 ? 'active' : ''}`}  onClick={(e) => {
               userType === 2 ? props.handleSlotClick(slot.slot_id, slot.start) :  slot.status === 'available' &&  props.handleSlotClick(slot.slot_id, slot.start)
             }}>
-              <span className="slot-timings-button-text">{slot.start}</span>
+              <span className="slot-timings-button-text" style={{color: props.selectedSlots.indexOf(slot.slot_id) > -1 ? "white" : ""}}>{slot.start}</span>
              </button>
           )
       })}

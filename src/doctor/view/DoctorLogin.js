@@ -15,6 +15,7 @@ import {API, post} from '../../api/config/APIController';
 import {AuthContext} from '../../context/AuthContextProvider';
 import CustomButton from './../../commonComponent/Button';
 import {useToasts} from 'react-toast-notifications';
+import { storeData } from "../../storage/LocalStorage/LocalAsyncStorage";
 
 const DoctorLogin = ({history}) => {
   const { addToast } = useToasts();
@@ -32,6 +33,7 @@ const DoctorLogin = ({history}) => {
     post(API.SENDOTP, params, true)
       .then(response => {
         if (response.status === 200) {
+          storeData('USER_TYPE', 2)
           addToast(response.data.message, { appearance: 'success' });
           history.push('/doctor/otp');
         }  else {

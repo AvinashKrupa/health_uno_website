@@ -36,7 +36,10 @@
   }
   
   
-  .doctor-card-details-link {
+  .doctor-card-details-button {
+    outline: none;
+    border: none;
+    background: none; 
     margin-top: 10px;
     height: 15px;
     font-size: 12px;
