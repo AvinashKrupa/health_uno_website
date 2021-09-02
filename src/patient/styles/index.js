@@ -40,6 +40,7 @@ import '../../doctor/styles/editProfile.scss';
 import './text_area.scss';
 import '../../doctor/styles/slot_generator.scss';
 import '../../doctor/styles/common.scss';
+import '../../doctor/styles/about-us.scss';
 import '../../common/global.scss';
 import './chat.scss';
 

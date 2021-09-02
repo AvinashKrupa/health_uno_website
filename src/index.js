@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import index from './patient/styles/index';
 import App from './App';

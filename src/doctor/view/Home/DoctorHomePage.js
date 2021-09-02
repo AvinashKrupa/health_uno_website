@@ -11,6 +11,7 @@ import moment from "moment";
 import HorizontalCalendarForDoctor from "../../components/HorizontalCalendarForDoctor";
 import {getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
+import Spinner from "../../../commonComponent/Spinner";
 
 const DoctorHomePage = (props) => {
   let timer = null;
@@ -19,6 +20,7 @@ const DoctorHomePage = (props) => {
   const setSearchText = useSearchStore((state) => state.setSearchText);
   let [slider, setSlider] = useState([]);
   let [appointments, setAppointments] = useState([]);
+  let [appointmentLoaderStatus, setAppointmentLoaderStatus] = useState(false);
   const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
   const [selectedDay, setSelectedDay] = useState(moment(currentDate).format('DD'));
 
@@ -29,7 +31,9 @@ const DoctorHomePage = (props) => {
   }, []);
 
   useEffect(() => {
-    getDoctorAppointments();
+    setTimeout(function () {
+      getDoctorAppointments()
+    }, 500);
   }, [currentDate]);
 
   function getHomeContent() {
@@ -47,6 +51,7 @@ const DoctorHomePage = (props) => {
   }
 
   function getDoctorAppointments() {
+    setAppointmentLoaderStatus(true)
     post(API.DOCTOR_GET_APPOINTMENTS_API, {
       limit: 20,
       page:1,
@@ -64,12 +69,15 @@ const DoctorHomePage = (props) => {
     }, true)
       .then((response) => {
         if (response.status === 200) {
+          setAppointmentLoaderStatus(false)
           setAppointments(response.data.data.docs);
         } else {
+          setAppointmentLoaderStatus(false)
           addToast(response.data.message, { appearance: "error" });
         }
       })
       .catch((error) => {
+        setAppointmentLoaderStatus(false)
         addToast(error.response.data.message, { appearance: "error" });
       });
   }
@@ -132,7 +140,12 @@ const DoctorHomePage = (props) => {
             </Col>
           </Row>
           <Row style={{ marginTop: "32px", marginBottom: "32px", display: "flex", flexDirection: "row" }}>
-            {appointments && appointments.map((doctor) => {
+            {appointmentLoaderStatus &&
+            <div className="empty-list-container">
+              <Spinner showLoader={appointmentLoaderStatus} width={60} height={60}/>
+            </div>
+            }
+            {!appointmentLoaderStatus && appointments && appointments.map((doctor) => {
               return (
                 <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
                     <PatientAppointmentCard
@@ -149,7 +162,7 @@ const DoctorHomePage = (props) => {
                 </Grid>
               );
             })}
-            {!appointments.length &&
+            {!appointmentLoaderStatus && !appointments.length &&
               <div className="empty-list-container">
                 <h4>No appointments found</h4>
               </div>
