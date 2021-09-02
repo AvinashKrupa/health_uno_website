@@ -518,52 +518,56 @@ function registerUserAPICalling() {
               }
             </Row>
           </Col>
-          <Col md>
-            <Row>
-              <Radio
-                label="Any past surgery?"
-                id="radioSurgery"
-                options={surgerys}
-                handleSelect={handleSurgerys}
-              />
-            </Row>
-            { isSurgery &&
-              <Row>
-                <TextArea
-                 id={'surgery'}
-                 value={surgeryValue}
-                 placeholder="Please mention in brief"
-                 onChange={setSurgeryValue}
-                 rows={4}
-                 cols={35}
-                 ></TextArea>
-              </Row>
-            }
-          </Col>
+          <Col md></Col>
         </Row>
         <Row className="g-2">
           <Col md>
-            <Row>
-              <Radio
-                label="Any allergies to medications?"
-                id="radioAllergies"
-                options={allergies}
-                handleSelect={handleAllergies}
-              />
-            </Row>
-            <Row>
-              {isAllergie &&
-               <TextArea
-                id={'textareaSurgery'}
-                value={allergieValue}
-                placeholder="Please mention in brief"
-                onChange={seAllergieValue}
-                rows={4}
-                cols={35}
-               ></TextArea>
+              <Row>
+                <Radio
+                  label="Any past surgery?"
+                  id="radioSurgery"
+                  options={surgerys}
+                  handleSelect={handleSurgerys}
+                />
+              </Row>
+              { isSurgery &&
+                <Row>
+                  <TextArea
+                  id={'surgery'}
+                  value={surgeryValue}
+                  placeholder="Please mention in brief"
+                  onChange={setSurgeryValue}
+                  rows={4}
+                  cols={35}
+                  ></TextArea>
+                </Row>
               }
-            </Row>
-          </Col>
+            </Col>
+            <Col md>
+              <Row>
+                <Radio
+                  label="Any allergies to medications?"
+                  id="radioAllergies"
+                  options={allergies}
+                  handleSelect={handleAllergies}
+                />
+              </Row>
+              <Row>
+                {isAllergie &&
+                <TextArea
+                  id={'textareaSurgery'}
+                  value={allergieValue}
+                  placeholder="Please mention in brief"
+                  onChange={seAllergieValue}
+                  rows={4}
+                  cols={35}
+                ></TextArea>
+                }
+              </Row>
+            </Col>
+            <Col md></Col>
+        </Row>
+        <Row className="g-2">
           <Col md>
             <Row>
               <Radio
@@ -582,16 +586,19 @@ function registerUserAPICalling() {
               }
             </Row>
           </Col>
+          <Col md></Col>
         </Row>
         <Row className="g-2">
           <Col md>
-            <Input
-              type="textarea"
+            <TextArea
               label="Other medical conditions"
-              placeholder="Add conditions"
+              id={'other-condition'}
               value={otherMedical}
+              placeholder="Add conditions"
               onChange={setOtherMedical}
-            />
+              rows={1}
+              cols={20}
+            ></TextArea>
           </Col>
           <Col md>
             <Input

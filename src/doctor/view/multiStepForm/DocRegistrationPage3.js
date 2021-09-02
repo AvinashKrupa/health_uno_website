@@ -61,7 +61,7 @@ import { useToasts } from "react-toast-notifications";
             return info;
           });
         
-          let group = data.reduce((r, a) => {
+          let group = data.reduce((r, a) => {   
             r[a.time] = [...r[a.time] || [], a];
             return r;
           }, {});
@@ -134,7 +134,7 @@ const handleEveningSlotClick = (id) => {
                       let  active = selectedDays.includes(day);
                     return (
                       <Button className={'days-button'}  onClick={(e) =>  handleDaysClick(day)} style={{backgroundColor: active ? '#28A3DA': 'white'}}>
-                      <span className="days-button-text">{day}</span>
+                      <span className="days-button-text" style={{ color: active ? "white" : ""}}>{day}</span>
                       </Button>
                     )
                   })}

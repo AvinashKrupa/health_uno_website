@@ -8,7 +8,7 @@ import MainView from '../MainView';
 const basicRoutes = ['/', '/doctor',  '/doctor/otp', '/doctor/registration', '/patient/otp', '/patient/registration']
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  console.log('rest: ', rest);
+  // console.log('rest: ', rest);
 
   // var token = jwt_decode(getData('ACCESS_TOKEN'));
   // const authContext = useContext(AuthContext);

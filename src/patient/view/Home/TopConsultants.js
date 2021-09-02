@@ -74,7 +74,7 @@ const TopConsultants = (props) => {
         <Col lg="1"  sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10' className='screen-768'>
           <Row className='back-navigation'>
-            <Link to='/patient/home'><i class="fas fa-arrow-left"></i><span>Top Consultants</span></Link>
+            <div><i class="fas fa-arrow-left" style={{cursor: 'pointer', paddingRight: '27px'}} onClick={() =>  props.history.push('/patient/home')}></i><span>Top Consultants</span></div>
           </Row>
           <div className='search-container' style={{display: "flex", justifyContent:'space-between'}}>
             <SearchInputWithIcon

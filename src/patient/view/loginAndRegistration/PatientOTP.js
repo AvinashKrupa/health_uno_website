@@ -16,7 +16,7 @@ import { useToasts } from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 import useUserStore from '../../store/userStore';
 
-const timeOut = 60;
+const timeOut = 90;
 const OTP = ({history}) => {
   const { addToast } = useToasts();
   const authContext = useContext(AuthContext);
