@@ -49,13 +49,10 @@ class MessagePane extends Component {
                 loading:true,
             })
             const response = await post(API.GETMESSAGES, {"limit": 10, "page": pageId, room_id: this.getRoomId()});
-            console.log('amit calling api with :',pageId );
             if (response.status === 200) {
                 console.log('response: ', response);
                 if (!this.state.messages.length) {
-                    const result = response.data.data.docs;
-                    console.log('amit first time result :',result);
-                    debugger
+                    const result = response.data.data.docs.reverse();
                     this.setState({
                         messages: result,
                         pageId: pageId+1,
@@ -64,17 +61,7 @@ class MessagePane extends Component {
                         loading:false,
                     })
                 } else {
-                    // messages: [...prevState.selectedLicencesId, item]
-                    // this.setState(
-                    //     prevState => ({
-                    //         ...prevState,
-                    //         messages: prevState.messages.unshift(data),
-                    //     })
-                    // )
-                    debugger
-                    const result = _.concat(this.state.messages,response.data.data.docs)
-                    console.log('amit appending :',_.concat(response.data.data.docs, this.state.messages) );
-                        // messages: this.state.messages.unshift(response.data.data.docs.reverse()),
+                    const result = _.concat(response.data.data.docs.reverse(),this.state.messages,)
                     this.setState({
                         loading:false,
                         messages:result,
@@ -120,8 +107,6 @@ class MessagePane extends Component {
         socketObj.on('onNewMessage', data => {
             console.log('onNewMessage>>>>', data);
             let messages = JSON.parse(JSON.stringify(this.state.messages))
-            console.log('amit onNewMessage single:', data);
-            console.log('amit onNewMessage :', messages);
             messages.push(data)
             this.setState({
                 messages: messages,

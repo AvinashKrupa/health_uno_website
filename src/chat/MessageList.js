@@ -26,7 +26,6 @@ class MessageList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('amit nextProps :',nextProps );
         this.setState({
             messages: nextProps.messages,
         });
@@ -42,15 +41,12 @@ class MessageList extends Component {
     }
 
     handleScrollTop = (e) => {
-        debugger
         if(e.target.scrollTop <5 && this.props.shouldScrollMore && !this.props.loadingChatIndicator){
-            console.log('amit user is on top :', );
             this.props.loadMessagesForUser(this.props.pageId)
         }
     }
 
     render() {
-        console.log('this.state.messages', this.state.messages);
         return (
             <div className="chat-body">
                 <div className="chat-scroll" onScroll={this.handleScrollTop}>
