@@ -46,6 +46,8 @@
        
       img {
         width: 50px;
+        height: 50px;
+        margin-right: 17px;
         margin-top: 5px;
       }
 
@@ -68,6 +70,15 @@
     margin-top: 16px;
     margin-bottom: 58px;
   }
+  .dropdown-menu {
+    min-width: 68px;
+  }
+  //remove arrows in input number
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 .right-nav {
@@ -79,7 +90,6 @@
   h3 {
     font-weight: 400;
   }
-  
 } 
 
   @media only screen and (min-width: 1180px) {
@@ -161,3 +171,33 @@
   .button {
     background-color: #28A3DA  !important;
   }
+
+
+  // for 1440 x 900 Macbook
+@media only screen and (max-width: 1444px) and (min-width: 1436px) {
+  .login-container {
+    .doctor-image {
+      img {
+        margin-top: -8px;
+      }
+    }
+  }
+}
+
+// for 1366 x 768 Macbook
+@media only screen and (max-width: 1370px) and (min-width: 1362px) {
+  .login-container {
+    .doctor-image {
+      img {
+        margin-top: -33px;
+      }
+    }
+    .text-container {
+      padding-top: 69px;
+    }
+    .right-nav {
+      padding-top: 100px !important;
+      padding-left: 130px !important;
+    }
+  }
+}

@@ -23,6 +23,7 @@ const OTP = ({history}) => {
   const [otp, setOTP]  = useState('');
   const [mobileNumber, setMobileNumber] = useState(authContext.phone);
   const handleChange = otp => setOTP(otp);
+  const maskedMobileNo = Array.from(authContext.phone);
   const [restart, setReStart] = useState(false);
   const [timer, setTimer] = useState(timeOut);
   const setUserInfo =  useUserStore((state) => state.setUserInfo)
@@ -158,7 +159,7 @@ const OTP = ({history}) => {
                 <Image src={plant}
                 ></Image>
                 <div>
-                  <H3 text='Book virtual Appointments with AYUSH doctors'></H3>
+                  <H3 text='Book Virtual Appointments with AYUSH Doctors'></H3>
                   <p>
                     Book  virtual Appointments with AYUSH doctors and get medicines delivered to your doorstep.
                   </p>
@@ -193,7 +194,7 @@ const OTP = ({history}) => {
                   <Row className='verify-otp'>
                       <span>Verify OTP</span>
                         <div className='edit-number'>
-                          <p> We have sent OTP on your mobile number {authContext.phone}</p> { <Link to='/'><i class="fas fa-pen"></i></Link>}
+                          <p> We have sent OTP on your mobile number {maskedMobileNo[0]}{maskedMobileNo[1]}******{maskedMobileNo[8]}{maskedMobileNo[9]}</p> { <Link to='/'><i class="fas fa-pen"></i></Link>}
                         </div > 
                   </Row>
                   <div className='otp-container'>

@@ -14,6 +14,7 @@ import CustomButton from '../../../commonComponent/Button';
 import { withRouter } from "react-router-dom";
 import useUserStore from '../../store/userStore'
 import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import Spinner from "../../../commonComponent/Spinner";
 
 const RegistrationComponent = ({history}) => {
 
@@ -65,6 +66,7 @@ const RegistrationComponent = ({history}) => {
   const [dataCity, setDataCity] = useState([]);
   const [dataLanguage, setDataLanguage] = useState([]);
   const [language, setLanguage] = useState('');
+  let [loader, setLoader] = useState(false);
 
   const setLanguageValue = (value) => {
     const lanInfo = value.split('|');
@@ -173,18 +175,22 @@ function getState() {
 
 // Get city from server
 function getCity(id) {
+  setLoader(true)
   post(API.GETCITY, {countryId: 101, stateId: parseInt(id)})
     .then(response => {
       if (response.status === 200) {
         let data = response.data.data.map((info) => {
           return {value: info.name, id: info.id};
         });
+        setLoader(false)
         setDataCity(data);
       } else {
+        setLoader(false)
         addToast(response.data.message, { appearance: 'error' });
       }
     })
     .catch(error => {
+      setLoader(false)
       addToast(error.response.data.message, { appearance: 'error' });
     });
 }
@@ -454,7 +460,12 @@ function registerUserAPICalling() {
                   handleSelect={setIdAndState}
                 />
               </Col>
-              <Col md>
+              <Col md style={{position: "relative"}}>
+                { loader &&
+                  <div style={{position: "absolute", zIndex: 6, top: '60px', left: '60px'}}>
+                      <Spinner showLoader={loader} width={40} height={40}/>
+                  </div>
+                }
                 <KeyValueSelector
                   value='0'
                   label="City"
@@ -518,7 +529,6 @@ function registerUserAPICalling() {
               }
             </Row>
           </Col>
-          <Col md></Col>
         </Row>
         <Row className="g-2">
           <Col md>
@@ -565,7 +575,6 @@ function registerUserAPICalling() {
                 }
               </Row>
             </Col>
-            <Col md></Col>
         </Row>
         <Row className="g-2">
           <Col md>

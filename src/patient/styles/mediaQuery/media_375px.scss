@@ -178,6 +178,12 @@
 
     .back-navigation {
         margin-bottom: 30px !important;
+       button {
+        outline: none;
+        border: none;
+        background: none;
+        text-align: left;
+       }
     }
 
     .slot-appointment-container {
@@ -195,7 +201,7 @@
       .doctor-card-doctor-name {
         .card-image-video-camera {
             position: absolute;
-            left: 140px;
+            left: 125px;
         }
       }
 
