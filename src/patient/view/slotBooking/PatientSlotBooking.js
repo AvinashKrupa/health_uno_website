@@ -9,6 +9,7 @@ import CustomButton from '../../../commonComponent/Button';
 import {Link} from 'react-router-dom';
 import patientSlotBookingStore from "../../store/patientSlotBookingStore";
 import { isEmpty } from "../../../utils/Validators";
+import { back_icon } from "../../../constants/DoctorImages";
 
   const PatientSlotBooking = (props) => {
     const { addToast } = useToasts();
@@ -134,9 +135,13 @@ import { isEmpty } from "../../../utils/Validators";
       <Row>
         <Col lg='1' sm='1' xs='1'></Col>
           <Col lg='10' xs='11'  className='screen-768'>
-              <Row style={{marginTop: '37px', marginBottom: '43px'}} className='back-navigation' >
+              {/* <Row style={{marginTop: '37px', marginBottom: '43px'}} className='back-navigation' >
                   <Link to={`/patient/doctorDetails/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Book Slot</span></Link>
-              </Row>
+              </Row> */}
+                <button className="back-nav-container back-navigation">
+                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
+                    <span>Book Slot</span>
+                </button>
                <HorizontalCalendar
                 date={currentDate}
                 numberOfDays={15}

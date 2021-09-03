@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
 import {Link} from 'react-router-dom'
+import { back_icon } from "../../../constants/DoctorImages";
 
 const VideoMeeting = (props) => {
   useEffect(() => {
@@ -33,9 +34,13 @@ function getDoctorDetails() {
           <Row>
             <Col lg='1' sm='1' xs='1' />
               <Col className="meeting-page-column-content-container">
-                <Row className='back-navigation'>
+                {/* <Row className='back-navigation'>
                   <Link to='/patient/appointments'><i class="fas fa-arrow-left"></i><span>Appointment Details</span></Link>
-                </Row>
+                </Row> */}
+                <button className="back-nav-container back-navigation">
+                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
+                    <span>Appointments Details</span>
+                </button>
                 <Row className="meeting-page-content-wrapper-container">
                   <Col className="meeting-page-column-image">
                     <Image

@@ -12,6 +12,7 @@ import TopConsultantsFilter from '../../commonComponentPatient/TopConsultantsFil
 import { Button } from "react-bootstrap";
 import { filter } from "../../../constants/PatientImages";
 import SimilarDoctorsCard  from '../doctorDetail/SimilarDoctorsCard'
+import { back_icon } from "../../../constants/DoctorImages";
 
 const TopConsultants = (props) => {
   let timer = null;
@@ -73,9 +74,13 @@ const TopConsultants = (props) => {
       <Row className='top-consultants-container'>
         <Col lg="1"  sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10' className='screen-768'>
-          <div className='back-navigation'>
+          {/* <div className='back-navigation'>
             <button><i class="fas fa-arrow-left" style={{cursor: 'pointer', paddingRight: '27px'}} onClick={() =>  props.history.push('/patient/home')}></i><span>Top Consultants</span></button>
-          </div>
+          </div> */}
+          <button className="back-nav-container back-navigation">
+                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.push('/patient/home')}></img>
+                    <span>Top Consultants</span>
+          </button>
           <div className='search-container' style={{display: "flex", justifyContent:'space-between'}}>
             <SearchInputWithIcon
               col='12'

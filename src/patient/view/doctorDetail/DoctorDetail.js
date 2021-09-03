@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import {API, post} from '../../../api/config/APIController';
 import { useToasts } from 'react-toast-notifications';
 import CustomButton from '../../../commonComponent/Button';
+import { back_icon } from "../../../constants/DoctorImages";
 
 const DoctorDetails = (props) => {
 
@@ -46,9 +47,13 @@ const DoctorDetails = (props) => {
                     doctorDetails &&
                     <>
                         <Row style={{ marginBottom: "50px" }} className='doctor-back-navigation'>
-                        <Row className='back-navigation'>
+                        {/* <Row className='back-navigation'>
                             <Link to='/patient/topConsultants'><i class="fas fa-arrow-left"></i><span>Doctor Details</span></Link>
-                        </Row>
+                        </Row> */}
+                         <button className="back-nav-container back-navigation">
+                            <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
+                            <span>Doctor Details</span>
+                        </button>
                         </Row>
                         <Row>
                             <Col lg={(window.screen.availWidth  > 768 &&  window.screen.availWidth < 1300) ? '12': '8' } className='doctor-detail-card-main-container'>

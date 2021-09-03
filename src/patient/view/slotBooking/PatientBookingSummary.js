@@ -11,6 +11,7 @@ import patientSlotBookingStore from "../../store/patientSlotBookingStore";
 import moment from "moment";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import { isEmpty } from "../../../utils/Validators";
+import { back_icon } from "../../../constants/DoctorImages";
 
 const PatientBookingSummary = (props) => {
 
@@ -157,9 +158,13 @@ const PatientBookingSummary = (props) => {
                         doctorDetails &&
                         <>
                             <Row style={{ marginBottom: "50px" }} className='doctor-back-navigation'>
-                                <Row className='back-navigation'>
+                                {/* <Row className='back-navigation'>
                                     <Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Summary</span></Link>
-                                </Row>
+                                </Row> */}
+                                <button className="back-nav-container back-navigation">
+                                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
+                                    <span>Summary</span>
+                                </button>
                             </Row>
                             <Row>
                                 <Col>
