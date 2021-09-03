@@ -19,56 +19,57 @@ class UploadImage extends Component {
     });
   }
 
-onChange = (Blob) => {
+  onChange = (Blob) => {
     console.log('Blob: ', Blob);
     this.uploadProfileImage(Blob)
 
-}
- uploadProfileImage(file) { 
-     console.log('file: ', file);
+  }
+  uploadProfileImage(file) {
+    console.log('file: ', file);
     let photo = file;
-    let bodyFormData = new FormData(); 
+    let bodyFormData = new FormData();
     if (photo !== undefined) {
-        bodyFormData.append('file', file);
-    } 
+      bodyFormData.append('file', file);
+    }
     bodyFormData.append('type', 'profile');
     this.uploadImageWithData(API.FILEUPLOAD, bodyFormData)
-    .then(response => {
-         console.log('response: ', response); 
-    })
-    .catch(error => {
-         console.log('error: ', error); 
-    })
-}
+      .then(response => {
+        console.log('response: ', response);
+      })
+      .catch(error => {
+        console.log('error: ', error);
+      })
+  }
   uploadImageWithData(endPoint, formData) {
-      console.log('endPoint: ', endPoint);
-    return new Promise(async (resolve, reject) => { 
-    axios({
+    console.log('endPoint: ', endPoint);
+    return new Promise(async (resolve, reject) => {
+      axios({
         method: 'post',
         url: Constants.BASE_URL + endPoint, data: formData,
         headers: { 'Content-Type': undefined, }
-     })
-    .then(response => { 
-        console.log('uploadImageWithData: ', response);
-        resolve(response.data); 
-    }).catch(err => { 
-        reject(err);
-     }); 
+      })
+        .then(response => {
+          console.log('uploadImageWithData: ', response);
+          this.props.getImage(response.data.data.url)
+          resolve(response.data);
+        }).catch(err => {
+          reject(err);
+        });
     });
-}
+  }
 
 
   render() {
     return (<div>
-      <Upload type="drag" beforeUpload={this.beforeUpload} ><a>Upload Image</a></Upload>
       <CropViewer
-        onChange={this.onChange}
-        getSpinContent={() => <span>loading...</span> }
+        onChange={this.onChange}        
+        getSpinContent={() => <span></span>}
         renderModal={() => <Dialog />}
-        locale="en"
-        ref={ele => this.cropper = ele}
         circle
-      />
+        fileType="image/jpeg"
+        showSelected={false}
+        accept="image/gif,image/jpeg,image/png,image/bmp,image/x-png,image/pjpeg"
+      ><i className="fas fa-camera" /></CropViewer>
     </div>);
   }
 }
