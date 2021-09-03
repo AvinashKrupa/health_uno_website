@@ -1,12 +1,12 @@
 const io = require("socket.io-client");
-const URL = "http://dev.healthuno.com:6003";
+const URL = "https://dev.healthuno.com:6003";
 // const URL = "http://localhost:3007";
 const options = {
     reconnection: true,
     forceNew: true,
     reconnectionDelay: 500,
     reconnectionAttempts: Infinity,
-    transports: ['websocket'],
+    transports: ['websocket','https'],
 }
 export const ChatType = {
     CHAT_TYPE_DOC_TO_DOC: 0,

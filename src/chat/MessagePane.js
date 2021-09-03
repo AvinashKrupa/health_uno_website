@@ -1,15 +1,16 @@
+import _ from "lodash";
 import React, {Component} from 'react';
-import {ChatType, getNewSocket} from "./SocketManager";  
+import {ChatType, getNewSocket} from "./SocketManager";
 import MessageList from "./MessageList";
-import { API, post } from '../api/config/APIController';
-import { getData } from '../storage/LocalStorage/LocalAsyncStorage';
-import { send } from '../constants/PatientImages';
-import { Image } from 'react-bootstrap';
+import {API, post} from '../api/config/APIController';
+import {getData} from '../storage/LocalStorage/LocalAsyncStorage';
+import {send} from '../constants/PatientImages';
+import {Image} from 'react-bootstrap';
 
 class MessagePane extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             room_id: null,
             selectedConv: props.selectedConv,
@@ -17,16 +18,19 @@ class MessagePane extends Component {
             text: "",
             messages: [],
             socketObj: null,
-           
+            pageId: 1,
+            totalMessages: null,
+            shouldScrollMore: true,
+            loading: false,
         }
     }
 
     getRoomId = () => {
-        const compare = this.state.user_id.toString().localeCompare('612363d240eef4f51b11e4de'.toString())
+        const compare = this.state.user_id.localeCompare(this.props.receiver_id)
         if (compare < 0) {
-            return  this.state.user_id + "_612363d240eef4f51b11e4de";
+            return this.state.user_id + "_" + this.props.receiver_id;
         } else if (compare > 0) {
-            return  "612363d240eef4f51b11e4de_" +  this.state.user_id;
+            return this.state.receiver_id + "_" + this.props.user_id;
         }
     }
 
@@ -34,34 +38,56 @@ class MessagePane extends Component {
     async componentDidMount() {
         document.body.classList.add('chat-page');
         this.initializeChatWithUser()
+        await this.loadMessagesForUser(this.state.pageId)
+
+    }
+
+    loadMessagesForUser = async (pageId) => {
         try {
             console.log('GETMESSAGES');
-            post(API.GETMESSAGES, { room_id: this.getRoomId()}).then(response => {
-
-                if (response.status === 200) {
-                    console.log('response: ', response);
-                    this.setState({messages: response.data.data.docs.reverse()})
-                  } else {
-                    // addToast(response.data.message, { appearance: 'error' });
-                  }
-               
+            this.setState({
+                loading:true,
             })
-            .catch(error => {
-                console.log('error:post ', error);
-            // addToast(error.response.data.message, { appearance: 'error' });
-            });
+            const response = await post(API.GETMESSAGES, {"limit": 10, "page": pageId, room_id: this.getRoomId()});
+            if (response.status === 200) {
+                console.log('response: ', response);
+                if (!this.state.messages.length) {
+                    const result = response.data.data.docs.reverse();
+                    this.setState({
+                        messages: result,
+                        pageId: pageId+1,
+                        totalMessages: response.data.data.total,
+                        shouldScrollMore: this.state.messages.length < response.data.data.total ,
+                        loading:false,
+                    })
+                } else {
+                    const result = _.concat(response.data.data.docs.reverse(),this.state.messages,)
+                    this.setState({
+                        loading:false,
+                        messages:result,
+                        pageId: pageId+1,
+                        shouldScrollMore: this.state.messages.length < response.data.data.total ,
+                    })
+                }
+
+                return Promise.resolve()
+            }
         } catch (e) {
+            this.setState({
+                loading:false,
+            })
             console.log("Error>>>", e)
         }
     }
 
     initializeChatWithUser() {
         let socketObj = getNewSocket()
+        const userType = JSON.parse(getData('USER_TYPE'));
 
         socketObj.auth = {
             user_id: this.state.user_id,
-            chat_type: ChatType.CHAT_TYPE_DOC_TO_PATIENT,
-            receiver_id: '612363d240eef4f51b11e4de',
+            chat_type: userType === 1 ? ChatType.CHAT_TYPE_PATIENT_TO_SUPPORT : ChatType.CHAT_TYPE_DOC_TO_SUPPORT,
+            receiver_id: this.props.receiver_id,
             conversation_id: ''
         };
         socketObj.connect();
@@ -80,7 +106,7 @@ class MessagePane extends Component {
 
         socketObj.on('onNewMessage', data => {
             console.log('onNewMessage>>>>', data);
-            let messages = JSON.parse(JSON.stringify(this.state.messages))  
+            let messages = JSON.parse(JSON.stringify(this.state.messages))
             messages.push(data)
             this.setState({
                 messages: messages,
@@ -98,7 +124,7 @@ class MessagePane extends Component {
     sendMessage() {
         if (this.state.socketObj && this.state.text !== '') {
             console.log("Sending Message>>>", this.state.text)
-            
+
             let finalMessage = {
                 message: this.state.text,
                 sender: {_id: this.state.user_id, name: this.state.user_id, avatar: ""},
@@ -132,7 +158,7 @@ class MessagePane extends Component {
         return (
             <div className="chat-cont-right">
                 <div className="chat-header">
-                HealthUno Healthcare India Pvt Ltd.
+                    HealthUno Healthcare India Pvt Ltd.
                     <div className="media">
                         <div className="media-img-wrap">
                             <div className="avatar avatar-online">
@@ -142,19 +168,21 @@ class MessagePane extends Component {
                         </div>
                     </div>
                 </div>
-                <MessageList messages={this.state.messages} user_id={this.state.user_id}/>
+                <MessageList messages={this.state.messages} user_id={this.state.user_id}
+                             loadMessagesForUser={this.loadMessagesForUser} pageId={this.state.pageId} shouldScrollMore={this.state.shouldScrollMore} loadingChatIndicator={this.state.loading}/>
                 <div className="chat-footer">
-                     <div className="message-type">
-                    <form>
-                      <input type="text" value={this.state.text} placeholder="Type something" onChange={(e) => this.handleTextChange(e)}/>
-                      <button onClick={(e) => {
+                    <div className="message-type">
+                        <form>
+                            <input type="text" value={this.state.text} placeholder="Type something"
+                                   onChange={(e) => this.handleTextChange(e)}/>
+                            <button onClick={(e) => {
                                 e.preventDefault();
                                 this.sendMessage()
-                            }}> 
-                        send <Image className="vector" src={send}  />
-                      </button>
-                    </form>
-                  </div>
+                            }}>
+                                send <Image className="vector" src={send}/>
+                            </button>
+                        </form>
+                    </div>
 
                 </div>
             </div>

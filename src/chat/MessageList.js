@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, {Component} from 'react';
+
 import { getData } from '../storage/LocalStorage/LocalAsyncStorage';
 
 class MessageList extends Component {
@@ -7,11 +8,20 @@ class MessageList extends Component {
         super(props);
         this.state = {
             messages: props.messages || [],
+            user_id: props.user_id
         }
+        this.timerId = null;
     }
 
     componentDidMount() {
-        // document.body.classList.add('chat-page');
+        document.body.classList.add('chat-page');
+        this.scrollToBottom()
+
+    }
+    componentDidUpdate() {
+        // if(this.props.pageId ===1){
+        this.scrollToBottom();
+        // }
 
     }
 
@@ -22,23 +32,33 @@ class MessageList extends Component {
     }
 
     componentWillUnmount() {
-        // document.body.classList.remove('chat-page');
+        document.body.classList.remove('chat-page');
+    }
+
+    scrollToBottom = () => {
+        const {messageList} = this.refs;
+        messageList.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+    }
+
+    handleScrollTop = (e) => {
+        if(e.target.scrollTop <5 && this.props.shouldScrollMore && !this.props.loadingChatIndicator){
+            this.props.loadMessagesForUser(this.props.pageId)
+        }
     }
 
     render() {
-        console.log('this.state.messages', this.state.messages);
         return (
             <div className="chat-body">
-                <div className="chat-scroll">
-                    <ul className="list-unstyled">
+                <div className="chat-scroll" onScroll={this.handleScrollTop}>
+                    <ul className="list-unstyled" ref={"messageList"}>
                         {this.state.messages.map(message => {
                             return (
-                                <li className={message.sender._id === JSON.parse(getData('userInfo'))._id ? "media sent" : "media received"}>
+                                <li key={message._id} className={message.sender._id === this.state.user_id ? "media sent" : "media received"}>
                                     <div className="media-body">
                                         <div className="msg-box">
                                             <div>
                                                 <p>{message.message}</p>
-                                                
+
                                             </div>
                                         </div>
                                         <ul className="chat-msg-info">
