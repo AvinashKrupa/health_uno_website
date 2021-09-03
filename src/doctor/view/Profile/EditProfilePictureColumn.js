@@ -6,6 +6,7 @@ import {API, get} from "../../../api/config/APIController";
 import {useToasts} from "react-toast-notifications";
 import {withRouter} from 'react-router-dom'
 import ProfileButton from "../../../commonComponent/ProfileButton";
+import {Card} from "@material-ui/core";
 
 const EditProfilePictureColumn = (props) => {
     const [firstName, setFirstName] = useState('');
@@ -56,34 +57,39 @@ const EditProfilePictureColumn = (props) => {
                     <span className="doctor-detail">+91 - {mobile} | Id: #{doctorMedId}</span>
                 </Col>
                 <Col lg="12">
-
-
                     <div style={{
-                        flexDirection: "row",
+                        flexDirection: "column",
                         display: "flex",
-                        justifyContent: "space-between",
-                        marginLeft: '10%',
-                        marginRight: '10%'
                     }}>
-                        <div className="doctor-appointment-count-container">
-                            <Row className="doctor-detail-appointment">
-                                <div>Completed Appointments</div>
+                        <Row className="doctor-appointment-count-title">Appointments</Row>
+                        <div className="doctor-appointment-count-cards-container">
+                            <div className="doctor-appointment-count-container">
+                                <Card className="doctor-appointment-count-card">
+                                    <div className="doctor-appointment-count-card-subcontainer">
+                                        <Row className="doctor-detail-appointment">
+                                            <div>Scheduled</div>
+                                        </Row>
+                                        <Row className="doctor-detail-appointment-count">
+                                            <div>{appointmentStats?.scheduled}</div>
+                                        </Row>
+                                    </div>
+                                </Card>
+                            </div>
+                            <div className="doctor-appointment-count-container">
+                                <Card className="doctor-appointment-count-card">
+                                    <div className="doctor-appointment-count-card-subcontainer">
+                                        <Row className="doctor-detail-appointment">
+                                            <div>Completed</div>
+                                        </Row>
+                                        <Row className="doctor-detail-appointment-count">
+                                            <div>{appointmentStats?.completed}</div>
+                                        </Row>
+                                    </div>
+                                </Card>
+                            </div>
 
-                            </Row>
-                            <Row className="doctor-detail-appointment-count">
-                                <div>{appointmentStats?.completed}</div>
-                            </Row>
+
                         </div>
-                        <div className="doctor-appointment-count-container">
-                            <Row className="doctor-detail-appointment">
-                                <div>Scheduled Appointments</div>
-                            </Row>
-                            <Row className="doctor-detail-appointment-count">
-                                <div>{appointmentStats?.scheduled}</div>
-                            </Row>
-                        </div>
-
-
                     </div>
                     {/*<div style={{*/}
                     {/*    flexDirection: "row",*/}
