@@ -33,7 +33,7 @@ const TopConsultants = (props) => {
 
   function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '') {
     let params = {
-      limit: 10,
+      limit: 15,
       page: page,
       filter: {
         text: searchText,
@@ -105,7 +105,6 @@ const TopConsultants = (props) => {
               next={fetchMoreData}
               hasMore={true}
               className="load-data"
-              
             >
               <Row style={{ display: 'flex', flexDirection: 'row' }} className='top-consultants-card-container'>
                 {consultants.map((doctor) => {
