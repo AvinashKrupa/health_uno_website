@@ -1,14 +1,14 @@
 import moment from 'moment';
 import React, {Component} from 'react';
 
-import { getData } from '../storage/LocalStorage/LocalAsyncStorage';
-
 class MessageList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             messages: props.messages || [],
-            user_id: props.user_id
+            user_id: props.user_id,
+            scrollPosition: 'bottom'
+
         }
         this.timerId = null;
     }
@@ -18,10 +18,11 @@ class MessageList extends Component {
         this.scrollToBottom()
 
     }
+
     componentDidUpdate() {
-        // if(this.props.pageId ===1){
-        this.scrollToBottom();
-        // }
+        if (this.state.scrollPosition === 'bottom') {
+            this.scrollToBottom();
+        }
 
     }
 
@@ -41,8 +42,18 @@ class MessageList extends Component {
     }
 
     handleScrollTop = (e) => {
-        if(e.target.scrollTop <5 && this.props.shouldScrollMore && !this.props.loadingChatIndicator){
+        if (e.target.scrollTop < 5 && this.props.shouldScrollMore && !this.props.loadingChatIndicator) {
+            e.target.scrollTop += 10;
+            this.setState({
+                scrollPosition: 'top'
+            })
             this.props.loadMessagesForUser(this.props.pageId)
+        }
+        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+        if (bottom) {
+            this.setState({
+                scrollPosition: 'bottom'
+            })
         }
     }
 
@@ -53,7 +64,8 @@ class MessageList extends Component {
                     <ul className="list-unstyled" ref={"messageList"}>
                         {this.state.messages.map(message => {
                             return (
-                                <li key={message._id} className={message.sender._id === this.state.user_id ? "media sent" : "media received"}>
+                                <li key={message._id}
+                                    className={message.sender._id === this.state.user_id ? "media sent" : "media received"}>
                                     <div className="media-body">
                                         <div className="msg-box">
                                             <div>
