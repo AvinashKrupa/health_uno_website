@@ -27,6 +27,7 @@ import AddPrescription from "./patient/view/loginAndRegistration/AddPrescription
 import UploadReport from "./patient/view/Profile/UploadReport"
 import Report from "./patient/view/Profile/Report";
 import PatientProfile from "./patient/view/Profile/PatientProfile";
+import PDFViewer from "./commonComponent/PDFViewer";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
           <PrivateRoute exact path='/patient/report' component={Report} />
           <PrivateRoute exact path='/patient/profile/:type' component={PatientProfile} />
           <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription} />
+          <PrivateRoute exact path='/patient/PDF' component={PDFViewer} />
           {/* <PrivateRoute exact path='/patient/profile/upload' component={UploadReport} /> */}
         </BrowserRouter>
     </div>

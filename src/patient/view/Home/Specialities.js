@@ -68,7 +68,7 @@ const Specialities = (props) => {
         <Col lg="1" sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10' className='screen-768'>
           <Row className='back-navigation'>
-            <Link to='/patient/home'><i class="fas fa-arrow-left"></i><span>Specialities</span></Link>
+            <div><i class="fas fa-arrow-left" style={{cursor: 'pointer', paddingRight: '27px'}} onClick={() =>  props.history.push('/patient/home')}></i><span>Specialities</span></div>
           </Row>
           <Row className='search-container'>
             <SearchInputWithIcon

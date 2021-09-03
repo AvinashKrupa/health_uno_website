@@ -18,7 +18,7 @@ const PatientProfile = (props) => {
     return (
         <Col lg="10" sm="10" xs="10" >
             <Row>
-                <Col lg="3">
+                <Col lg="2">
                     <ProfilePictureColumn doctorName={`${userInfo.first_name} ${userInfo.last_name}`} doctorId={'22'} doctorMobile={userInfo.mobile_number} />
                 </Col>
                 <Col lg="9" id="second-page">

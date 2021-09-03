@@ -178,6 +178,12 @@
 
     .back-navigation {
         margin-bottom: 30px !important;
+       button {
+        outline: none;
+        border: none;
+        background: none;
+        text-align: left;
+       }
     }
 
     .slot-appointment-container {
@@ -195,14 +201,14 @@
       .doctor-card-doctor-name {
         .card-image-video-camera {
             position: absolute;
-            left: 140px;
+            left: 125px;
         }
       }
 
       .modal-content {
         top: 30px;
         width: 360px;
-        height: 400px;
+        height: 100%;
     }
 
     .slot-summary-doc-details {
@@ -258,5 +264,16 @@
 @media only screen and (max-width: 375px) {
     .doctor-card-container {
         height: 145px !important;
+    }
+}
+
+@media only screen and (min-width: 320px) {
+    .doctor-card-image {
+        height: 100px;
+        width: 80px;
+        margin-right: 20px;
+        margin-left: 20px;
+        margin-top: 19px;
+        margin-bottom: 1px;
     }
 }

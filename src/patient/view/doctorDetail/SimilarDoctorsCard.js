@@ -31,9 +31,11 @@ const DoctorCard = (props) => {
 
                   </span>
                 </span>
-                {props.from !=='doctor' && <Link to={`/patient/doctorDetails/${props.id}`}>
-                    <span className="doctor-card-details-link">View Details</span>
-                </Link>}
+                { props.from !=='doctor' && 
+                    <Link to={`/patient/doctorDetails/${props.id}`}>
+                        <button className="doctor-card-details-button">View Details</button>
+                    </Link>
+                }
             </CardContent>
           </div>
         </div>

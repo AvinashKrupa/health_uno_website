@@ -43,6 +43,7 @@ import '../../doctor/styles/common.scss';
 import '../../doctor/styles/about-us.scss';
 import '../../common/global.scss';
 import './chat.scss';
+import './PDF_view.scss';
 
 
 //Media query

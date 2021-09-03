@@ -13,6 +13,7 @@
     }
 
     .speciality-card-container {
+        width: 142px;
         margin: 10px 19px !important;
     }
 
@@ -118,13 +119,13 @@
     .modal-content {
         top: 30px;
         width: 400px;
-        height: 400px;
+        height: 100%;
     }
 
     .doctor-card-doctor-name {
         .card-image-video-camera {
             position: absolute;
-            left: 165px;
+            left: 150px;
         }
     }
 

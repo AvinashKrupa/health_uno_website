@@ -52,7 +52,7 @@ const HorizontalCalendar = (props) => {
             style={{backgroundColor: active ? '#28A3DA': 'white'}}
             onClick={(e) =>  handleDaysClick(dateNumber, info)}
             >
-          <span className="days-button-text">{dateNumber} {now} { window.screen.availWidth >  700 && month}</span>
+          <span className="days-button-text" style={{color: active ? 'white': ''}}>{dateNumber} {now} { window.screen.availWidth >  700 && month}</span>
           </Button>
         </>
   );
