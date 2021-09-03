@@ -1,3 +1,10 @@
+body {
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
 .patient-homepage-text-h4 {
     height: 24px;
     width: 110px;
@@ -185,11 +192,28 @@ font-size: 30px;
     }
        
   }
+
+
+
+
+
+
+     
+  @media screen and (device-aspect-ratio: 40/71) {
+    .speciality-card-container {
+      width: 119px !important;
+      margin: 7px 5px !important;
+    }
+
+   
+    
+  }
+
   @media only screen and (max-width: 767px) {
     nav.sidenav---sidenav---_2tBP.sidenav---collapsed---LQDEv .sidenav---sidenav-toggle---1KRjR {
       position: absolute;
-      top: -4px;
-      left: 370px;
+      top: -5px;
+      left: 71px;
     }
     .sidenav---sidenav---_2tBP {
       left: -70px !important;
@@ -201,6 +225,88 @@ font-size: 30px;
       background: transparent;
      
   }
+  .searchRow {
+    margin-top: 25px !important;
+}
+.search-container button.btn.btn-primary{
+  margin-top: 0px !important;
+  top: 10px;
+  right: 10px;
+}
+.search-container .searchRow.row{
+  margin-top: 65px !important;
+  width: 98% !important;
+}
+// .back-navigation {
+//   margin-top: 6px !important;
+//   text-align: center;
+// }
+.top-consultants-container.row {
+  overflow-x: hidden !important;
+}
+.top-consultants-container .screen-768{
+  width: 88%;
+}
+.screen-768{
+  width: 88.333333%;
+  margin-left: -2%;
+}
+.speciality-card-container {
+  width: 42% !important;
+}
+
+.carousel_image{
+  margin: 0px !important;
+}
+
+.carousel_h3{
+  margin-top: -130px !important;
+  font-size: 18px !important;
+  line-height: 20px !important;
+  margin-left: -44px !important;
+}
+
+.back-navigation i.fas.fa-arrow-left {
+  display: none;
+}
+.doctor-card-doctor-details {
+    font-size: 11px;
+    width: 142px;
+    overflow: hidden;
+}
+
+  .back-navigation {
+    margin-top: 0px !important;
+    text-align: center;
+    background: white;
+    width: 100%;
+    position: fixed;
+    padding-top: 10px;
+    left: 0px;
+    height: 50px;
+    z-index: 1;
+}
+.back-navigation span {
+  font-size: 21px !important;
+}
+
+
+
+.search-container button.btn.btn-primary{
+  margin-top: 0px !important;
+  top: 4px;
+  right: 15px;
+  position: fixed;
+  z-index: 2;
+
+}
+.search-container button.btn.btn-primary img{
+height: 23px!important;
+width: 23px!important;
+}
+
+
+
   
 }
 
@@ -210,10 +316,15 @@ and (max-device-width : 736px) {
   nav.sidenav---sidenav---_2tBP.sidenav---collapsed---LQDEv .sidenav---sidenav-toggle---1KRjR {
     position: absolute;
     top: 0px;
-    left: 414px;
 }
+.back-navigation {
+  margin-top: 30px !important;
 }
-    
+
+
+
+}
+ 
 
 
 
@@ -244,3 +355,36 @@ and (max-device-width : 736px) {
   }
     
  
+  @media only screen 
+  and (min-device-width : 300px) 
+  and (max-device-width : 374px) { 
+  
+  .doctor-card-image{width: 82px !important;
+    margin-right: 14px !important;
+  }
+  
+  .react-multi-carousel-list .carousel_container {
+    width: 280px !important;
+}
+
+  
+  .searchRow {
+    margin-top: 38px !important;
+    width: 98% !important;
+  }
+  
+
+  .search-container button.btn.btn-primary{
+    margin-top: 0px !important;
+    top: 4px;
+    right: 10px;
+    position: fixed;
+    z-index: 2;
+  
+  }
+  .search-container button.btn.btn-primary img{
+  height: 23px;
+  width: 23px
+  }
+  
+  }
