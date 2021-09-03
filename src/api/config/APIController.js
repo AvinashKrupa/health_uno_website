@@ -1,4 +1,3 @@
-import axios from 'axios';
 import instance from './Interceptor';
 import qs from 'qs';
 
@@ -18,7 +17,7 @@ export const API = {
   GETQUALIFICATIONS: 'qualifications',
   GETSLOTS: 'slot/getSlots',
   GETDOCTORDETAILS: 'doctor/getDoctorDetails',
-  GETAVAILABLESLOT :'slot/getAvailableSlots',
+  GETAVAILABLESLOT: 'slot/getAvailableSlots',
   BOOKAPPOINTMENT: 'patient/bookAppointment',
   CONFIRMPAYENT: 'transaction/confirmPayment',
   GETAPPOINTMENTS: 'patient/getAppointments',
@@ -37,12 +36,14 @@ export const API = {
   ADD_ADDITIONAL_DOCTOR: 'appointment/addDoctor',
   GET_PROFILE: 'user/profile',
   UPDATE_PROFILE: 'user/updateProfile',
+  GET_MEDICINE: 'medicines?name=',
+  GET_MEDICINE_TYPE: 'medicine/getMedicineOnType?type=',
 };
 
 export function post(endPoint, params, isStringfy = true) {
   return instance.post(
-    endPoint,
-    isStringfy ? JSON.stringify(params) : qs.stringify(params),
+      endPoint,
+      isStringfy ? JSON.stringify(params) : qs.stringify(params),
   );
 }
 

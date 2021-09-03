@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Input from "../../../commonComponent/Input";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import Selector from "../../../commonComponent/Select";
@@ -6,11 +6,100 @@ import TextArea from "../../../commonComponent/TextArea";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import CustomButton from '../../../commonComponent/Button';
 import {back_icon} from "../../../constants/DoctorImages";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import {API, get} from "../../../api/config/APIController";
+import {useToasts} from "react-toast-notifications";
+import SelectorForMedicine from "../../../commonComponent/SelectorForMedicine";
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const AddPrescription = (props) => {
+  const {addToast} = useToasts();
   let [medicineCount, setMedicineCount] = useState(1);
+  let [prescriptionType, setPrescriptionType] = useState('brand');
+  let [tempPrescriptionType, setTempPrescriptionType] = useState('');
+  let [medicineWithType, setMedicineWithType] = useState([]);
+  let [selectedMedicineFromType, setSelectedMedicineFromType] = useState('');
+  const [openDialog, setOpenDialog] = React.useState(false);
 
+  useEffect(() => {
+    getMedicineOnType();
+  }, []);
+
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
+
+  const handleProceed = () => {
+    debugger
+    setOpenDialog(false);
+    setPrescriptionType(tempPrescriptionType)
+    setMedicineWithType([]);
+    setSelectedMedicineFromType('');
+    getMedicineOnType(tempPrescriptionType)
+  };
+
+  function getMedicineOnType(presType= 'brand') {
+    get(`${API.GET_MEDICINE_TYPE}${presType}`)
+        .then(response => {
+          if (response.status === 200) {
+            debugger
+            setMedicineWithType(response.data.data);
+          } else {
+            addToast(response.data.message, {appearance: "error"});
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, {appearance: "error"});
+        });
+  }
+
+  function onPrescriptionOptionChange(event) {
+    debugger
+    setTempPrescriptionType(event.target.value);
+    handleClickOpen();
+  }
+
+  function renderDialogComponent() {
+    return (
+        <div>
+        <Dialog
+            open={openDialog}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">{"Do you want to reset?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              This action will reset the prescription. Do you want to proceed?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              No
+            </Button>
+            <Button onClick={handleProceed} color="primary">
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
+        </div>
+    )
+  }
 
   function renderAddMedicineComponent() {
     return (
@@ -30,12 +119,24 @@ const AddPrescription = (props) => {
                         name="Prescription"
                         type={type}
                         id={`inline-${type}-1`}
+                        onChange={onPrescriptionOptionChange}
+                        value="brand"
+                        checked={
+                          prescriptionType ===
+                          "brand"
+                        }
                     />
                     <Form.Check
                         label="Composition"
                         name="Prescription"
                         type={type}
                         id={`inline-${type}-2`}
+                        onChange={onPrescriptionOptionChange}
+                        value="composition"
+                        checked={
+                          prescriptionType ===
+                          "composition"
+                        }
                     />
                   </div>
               ))}
@@ -48,7 +149,7 @@ const AddPrescription = (props) => {
                   placeholder="Enter Medicine Name"
                   id="medicine"
                   label="Medicine"
-                  onChange={()=>null}
+                  onChange={() => null}
               />
 
               <Row className="g-3">
@@ -58,7 +159,7 @@ const AddPrescription = (props) => {
                       placeholder="Morning"
                       id="Morning"
                       label="Time Slots"
-                      onChange={()=>null}
+                      onChange={() => null}
                   />
                 </Col>
                 <Col className="timeSlots" xs={12} md={4}>
@@ -67,7 +168,7 @@ const AddPrescription = (props) => {
                       placeholder="After noon"
                       id="afternoon"
                       label="Time Slots"
-                      onChange={()=>null}
+                      onChange={() => null}
                   />
                 </Col>
                 <Col className="timeSlots" xs={12} md={4}>
@@ -76,7 +177,7 @@ const AddPrescription = (props) => {
                       placeholder="Night"
                       id="night"
                       label="Time Slots"
-                      onChange={()=>null}
+                      onChange={() => null}
                   />
                 </Col>
               </Row>
@@ -89,7 +190,7 @@ const AddPrescription = (props) => {
                       placeholder="Morning"
                       id="Morning"
                       label="Time Slots"
-                      onChange={()=>null}
+                      onChange={() => null}
                   />
                 </Col>
                 <Col xs={12} md={6}>
@@ -108,25 +209,26 @@ const AddPrescription = (props) => {
 
 
             <Col>
-              <Selector
+              <SelectorForMedicine
                   label="Medicine Type"
                   defaultValue="Select"
                   id="MedicineType"
-                  options={[]}
+                  options={medicineWithType}
+                  handleSelect={setSelectedMedicineFromType}
               />
               <Input
                   type="date"
                   placeholder="Start Date"
                   id="mediStart Date"
                   label="Start Date"
-                  onChange={()=>null}
+                  onChange={() => null}
               />
               <Input
                   type="text"
                   placeholder="Eneter text here"
                   id="mediAdd Comments"
                   label="Add Comments"
-                  onChange={()=>null}
+                  onChange={() => null}
               />
             </Col>
 
@@ -141,7 +243,7 @@ const AddPrescription = (props) => {
                             placeholder="Enter text here"
                             id="dosage"
                             label="Dosage"
-                            onChange={()=>null}
+                            onChange={() => null}
                         />
                       </Col>
                       <Col sm={6} className="dosage-container"><Selector
@@ -182,7 +284,8 @@ const AddPrescription = (props) => {
                       </div>
                   ))}
 
-                  <div className="otherdoage"><Input type="text" placeholder="Enter other details" id="other" onChange={()=>null}/>
+                  <div className="otherdoage"><Input type="text" placeholder="Enter other details" id="other"
+                                                     onChange={() => null}/>
                   </div>
 
                   {['checkbox'].map((type) => (
@@ -209,6 +312,7 @@ const AddPrescription = (props) => {
     )
   }
 
+  console.log('selected Medicine From Type  :', selectedMedicineFromType);
   return (
       <Row>
         <Col lg="1" sm="1" xs='1'/>
@@ -219,6 +323,7 @@ const AddPrescription = (props) => {
               <span>Add Prescription</span>
             </div>
           </Row>
+          {renderDialogComponent()}
           <div className="container">
             <div className="addPrescription">
               <Row className="topsctionName">
