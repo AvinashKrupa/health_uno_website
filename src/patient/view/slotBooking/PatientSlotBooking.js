@@ -178,7 +178,7 @@ import Label from "../../../commonComponent/Label";
                       text={'Next'}
                     ></CustomButton>
                 </div>:
-                <div>
+                <div className='empty-text'>
                   <Label
                      title={'Sorry!, No slots available, please choose another date'}
                   />

@@ -19,7 +19,7 @@ const Registration = () => {
       <Row>
         <Col className="col-md-3">
           <Image
-            style={{ display: "block", margin: "0 auto", position: 'relative' }}
+            style={{ display: "block", margin: "0 auto", position: 'relative', height: '208px', width: '160px' }}
             src={ image ? image : patientIcon }
             alt="Icon"
           ></Image>
