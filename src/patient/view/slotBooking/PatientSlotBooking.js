@@ -10,6 +10,8 @@ import {Link} from 'react-router-dom';
 import patientSlotBookingStore from "../../store/patientSlotBookingStore";
 import { isEmpty } from "../../../utils/Validators";
 import { back_icon } from "../../../constants/DoctorImages";
+import Label from "../../../commonComponent/Label";
+
 
   const PatientSlotBooking = (props) => {
     const { addToast } = useToasts();
@@ -168,14 +170,19 @@ import { back_icon } from "../../../constants/DoctorImages";
               }
               { Object.entries(dataEveningShift).length > 0 && EveningShiftSlot()}
               </div>
-              { ( Object.entries(dataMorningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) &&
+              { ( Object.entries(dataMorningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) ?
                 <div style={{textAlign: 'center'}}>
                     <CustomButton
                       className={'patient-slot-booking-btn'}
                       onClick={handleNextClick}
                       text={'Next'}
                     ></CustomButton>
-                </div>
+                </div>:
+                <div>
+                  <Label
+                     title={'Sorry!, No slots available, please choose another date'}
+                  />
+              </div>
               }
           </Col>
           <Col lg='1'></Col>
