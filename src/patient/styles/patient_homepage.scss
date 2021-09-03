@@ -276,15 +276,16 @@ font-size: 30px;
 }
 
   .back-navigation {
-    margin-top: 0px !important;
-    text-align: center;
-    background: white;
+    margin-top: -5px !important;
+    text-align: center !important;
+    background: white !important;
     width: 100%;
     position: fixed;
     padding-top: 10px;
     left: 0px;
     height: 50px;
     z-index: 1;
+    display: inherit !important;
 }
 .back-navigation span {
   font-size: 21px !important;
