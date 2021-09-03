@@ -6,15 +6,22 @@ import { upload } from "../../../constants/PatientImages"
 import moment from "moment";
 import Dropzone from 'react-dropzone';
 import { pdf } from "../../../constants/PatientImages"
+import { API, post } from "../../../api/config/APIController";
+import { useToasts } from "react-toast-notifications";
+import axios from "axios";
+import Constants from "../../../constants";
+import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import { isEmpty } from "../../../utils/Validators";
 
 const UploadReport = (props) => {
 
   const [reportName, setReportName] = useState("");
-  const [uploadData, setUploadDate] = useState("");
+  const [uploadDate, setUploadDate] = useState("");
   const [reportType, setReportType] = useState("");
   const [files, setFiles] = useState([]);
+  const { addToast } = useToasts();
 
-  let reportOptions = ["Type1", "Type2", "Type3"]
+  let reportOptions = ["MRI", "CT Scan ","Blood Test"]
 
   const thumbsContainer = {
     display: 'flex',
@@ -59,6 +66,64 @@ const UploadReport = (props) => {
     </div>
   ));
 
+  const isValidData = () => {
+    console.log('files', files);
+    if (isEmpty(uploadDate)) {
+      addToast('Please enter date', { appearance: 'error' });
+      return false;
+    } else if (isEmpty(reportType)) {
+      addToast('Please enter report type', { appearance: 'error' });
+      return false;
+    } else if (isEmpty(reportName)) {
+      addToast('Please enter report name', { appearance: 'error' });
+      return false;
+    } else if (files.length === 0) {
+      addToast('Please select the file', { appearance: 'error' });
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  const uploadReport = () => {
+
+    if (isValidData()) {
+      let bodyFormData = new FormData(); 
+      bodyFormData.append('file', files[0]);
+      bodyFormData.append('type', reportType);
+      bodyFormData.append('title', reportName);
+      bodyFormData.append('date', `${uploadDate}:00.000+00:00`);
+      
+      uploadImageWithData(API.UPLOADREPORT, bodyFormData)
+      .then(response => {
+        setReportName('');
+        setReportType('');
+        setUploadDate('');
+        setFiles([]);
+        console.log('File upload response: ', response); 
+      })
+      .catch(error => {
+          console.log('File upload error: ', error); 
+      })
+    }
+  }
+
+  const  uploadImageWithData = (endPoint, formData) => {
+    const token = getData('ACCESS_TOKEN');
+    return new Promise(async (resolve, reject) => { 
+      axios({
+        method: 'post',
+        url: Constants.BASE_URL + endPoint, data: formData,
+        headers: { 'Authorization' :  'Bearer ' + token}
+      })
+      .then(response => { 
+        addToast(response.data.message, { appearance: 'success' });
+        resolve(response.data); 
+      }).catch(err => { 
+        reject(err);
+      }); 
+    });
+  }
 
   return (
     <>
@@ -72,10 +137,9 @@ const UploadReport = (props) => {
                     <Input label="Report Name" type="text" placeholder="Consultation Report" value={reportName} onChange={setReportName} />
                   </Col>
                   <Col lg="6">
-                    <Input label="Upload Date" type="date" placeholder="05-July-2021" value={uploadData} onChange={setUploadDate} />
+                    <Input label="Upload Date" type="datetime-local" placeholder="05-July-2021" value={uploadDate} onChange={setUploadDate} />
                   </Col>
                 </Row>
-                {files.length === 0 &&
                   <div className="report-type">
                     <Select
                       label="Report Type"
@@ -84,7 +148,7 @@ const UploadReport = (props) => {
                       options={reportOptions}
                       handleSelect={setReportType}
                     />
-                  </div>}
+                  </div>
 
                 <div className="upload-file">
                   {files.map(fileName => (
@@ -129,7 +193,7 @@ const UploadReport = (props) => {
                   {thumbs}
                 </aside>
                 <div className="button-div">
-                  <button className="upload-button " type="button">Upload</button>
+                  <button className="upload-button " type="button" onClick={uploadReport}>Upload</button>
                 </div>
               </div>
             </Col>
