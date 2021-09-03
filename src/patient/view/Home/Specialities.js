@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 import useSearchStore from '../../store/searchStore';
 import SpecialityCard from "../../commonComponentPatient/SpecialityCard";
 import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
+import { back_icon } from "../../../constants/DoctorImages";
 
 
 const Specialities = (props) => {
@@ -67,9 +68,13 @@ const Specialities = (props) => {
       <Row className='top-consultants-container'>
         <Col lg="1" sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10' className='screen-768'>
-          <Row className='back-navigation'>
+          {/* <Row className='back-navigation'>
             <div><i class="fas fa-arrow-left" style={{cursor: 'pointer', paddingRight: '27px'}} onClick={() =>  props.history.push('/patient/home')}></i><span>Specialities</span></div>
-          </Row>
+          </Row> */}
+           <button className="back-nav-container back-navigation">
+                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.push('/patient/home')}></img>
+                    <span>Specialities</span>
+          </button>
           <Row className='search-container'>
             <SearchInputWithIcon
               placeholder="Search doctors"

@@ -179,7 +179,7 @@ const FilterConsultants = (props) => {
                 <div
                   className="filter_menu_scrollable_div"
                 >
-                  <CheckboxList onClick={handleLanguageGroup} list={languages.concat('1', '2')} />
+                  <CheckboxList onClick={handleLanguageGroup} list={languages} />
                 </div>
             ) : null}
           </Row>

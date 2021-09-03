@@ -23,8 +23,10 @@ const PatientLogin = ({history}) => {
   const [mobileNumber, setMobileNumber] = useState(authContext.phone ? authContext.phone : '');
 
   const onClick = () => {
+    const numbers = Array.from(mobileNumber);
+    const isNumber = (currentValue) => !isNaN(currentValue);
 
-    if(isNaN(mobileNumber)) {
+    if(!numbers.every(isNumber)) {
       addToast('Please enter the valid number', { appearance: 'error' });
       return;
     }
