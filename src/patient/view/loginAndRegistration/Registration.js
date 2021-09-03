@@ -3,8 +3,14 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import patientIcon from "../../assets/patient-form-icon.png";
 import RegistrationComponent from "./RegistrationComponent";
 import {Link} from 'react-router-dom';
+import UploadImage from "../../../commonComponent/Upload"
+import { useState } from "react";
 
 const Registration = () => {
+  const[ image, setImage ]= useState();
+  const handleImage = (file)=>{
+  setImage(file)
+  }
   return (
     <Container className='registration-container'>
       <Row className='heading'>
@@ -13,11 +19,12 @@ const Registration = () => {
       <Row>
         <Col className="col-md-3">
           <Image
-            style={{ display: "block", margin: "0 auto", position: 'relative' }}
-            src={patientIcon}
+            style={{ display: "block", margin: "0 auto", position: 'relative', height: '208px', width: '160px' }}
+            src={ image ? image : patientIcon }
             alt="Icon"
           ></Image>
-          <i className="fas fa-camera"></i>
+          <UploadImage getImage={handleImage}/>
+         
           <div className="text-center">
             <p>Upload your profile picture.</p>
             <p style={{ fontSize: "10px" }}>Dimensions 120px x 120px</p>

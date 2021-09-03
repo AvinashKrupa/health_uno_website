@@ -9,6 +9,9 @@ import CustomButton from '../../../commonComponent/Button';
 import {Link} from 'react-router-dom';
 import patientSlotBookingStore from "../../store/patientSlotBookingStore";
 import { isEmpty } from "../../../utils/Validators";
+import { back_icon } from "../../../constants/DoctorImages";
+import Label from "../../../commonComponent/Label";
+
 
   const PatientSlotBooking = (props) => {
     const { addToast } = useToasts();
@@ -134,9 +137,13 @@ import { isEmpty } from "../../../utils/Validators";
       <Row>
         <Col lg='1' sm='1' xs='1'></Col>
           <Col lg='10' xs='11'  className='screen-768'>
-              <Row style={{marginTop: '37px', marginBottom: '43px'}} className='back-navigation' >
+              {/* <Row style={{marginTop: '37px', marginBottom: '43px'}} className='back-navigation' >
                   <Link to={`/patient/doctorDetails/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Book Slot</span></Link>
-              </Row>
+              </Row> */}
+                <button className="back-nav-container back-navigation">
+                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
+                    <span>Book Slot</span>
+                </button>
                <HorizontalCalendar
                 date={currentDate}
                 numberOfDays={15}
@@ -163,14 +170,19 @@ import { isEmpty } from "../../../utils/Validators";
               }
               { Object.entries(dataEveningShift).length > 0 && EveningShiftSlot()}
               </div>
-              { ( Object.entries(dataMorningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) &&
+              { ( Object.entries(dataMorningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) ?
                 <div style={{textAlign: 'center'}}>
                     <CustomButton
                       className={'patient-slot-booking-btn'}
                       onClick={handleNextClick}
                       text={'Next'}
                     ></CustomButton>
-                </div>
+                </div>:
+                <div className='empty-text'>
+                  <Label
+                     title={'Sorry!, No slots available, please choose another date'}
+                  />
+              </div>
               }
           </Col>
           <Col lg='1'></Col>
