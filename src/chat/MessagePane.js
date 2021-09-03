@@ -6,6 +6,7 @@ import {API, post} from '../api/config/APIController';
 import {getData} from '../storage/LocalStorage/LocalAsyncStorage';
 import {send} from '../constants/PatientImages';
 import {Image} from 'react-bootstrap';
+import moment from "moment";
 
 class MessagePane extends Component {
     constructor(props) {
@@ -128,7 +129,7 @@ class MessagePane extends Component {
             let finalMessage = {
                 message: this.state.text,
                 sender: {_id: this.state.user_id, name: this.state.user_id, avatar: ""},
-                created_at: new Date().toDateString()
+                created_at: moment().utc().format()
             }
             this.state.socketObj.emit("sendMessage", finalMessage);
             let messages = this.state.messages;
