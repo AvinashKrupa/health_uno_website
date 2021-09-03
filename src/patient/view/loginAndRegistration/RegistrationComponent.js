@@ -16,7 +16,7 @@ import useUserStore from '../../store/userStore'
 import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import Spinner from "../../../commonComponent/Spinner";
 
-const RegistrationComponent = ({history}) => {
+const RegistrationComponent = ({history, image}) => {
 
   // Get state and language from server
   useEffect(() => {
@@ -265,6 +265,9 @@ function validation() {
     return false;
   }  else if (termsCondition === false) {
     addToast('Please accept terms and condition', { appearance: 'error' });
+    return false;
+  } else if (!image) {
+    addToast('Please upload the image', { appearance: 'error' });
     return false;
   } else {
     return true;

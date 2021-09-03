@@ -10,20 +10,16 @@ import Constants from '../constants';
 class UploadImage extends Component {
   beforeUpload(file) {
     const cropper = this.cropper;
-    console.log('>> cropper', this.cropper);
     return cropper.selectImage(file).then(image => {
-      console.log('>> selecTImage', image);
       return image;
     });
   }
 
   onChange = (Blob) => {
-    console.log('Blob: ', Blob);
     this.uploadProfileImage(Blob)
-
   }
+
   uploadProfileImage(file) {
-    console.log('file: ', file);
     let photo = file;
     let bodyFormData = new FormData();
     if (photo !== undefined) {
@@ -39,7 +35,6 @@ class UploadImage extends Component {
       })
   }
   uploadImageWithData(endPoint, formData) {
-    console.log('endPoint: ', endPoint);
     return new Promise(async (resolve, reject) => {
       axios({
         method: 'post',
@@ -47,7 +42,6 @@ class UploadImage extends Component {
         headers: { 'Content-Type': undefined, }
       })
         .then(response => {
-          console.log('uploadImageWithData: ', response);
           this.props.getImage(response.data.data.url)
           resolve(response.data);
         }).catch(err => {
@@ -60,6 +54,7 @@ class UploadImage extends Component {
   render() {
     return (<div>
       <CropViewer
+        resetPreviewAfterSelectImage={true}
         onChange={this.onChange}        
         getSpinContent={() => <span></span>}
         renderModal={() => <Dialog />}

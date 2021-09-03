@@ -1,8 +1,20 @@
 import ReportCard from "./ReportCard";
 import { Row, Col, Image, InputGroup } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
+import { useToasts } from "react-toast-notifications";
+import { API, post } from "../../../api/config/APIController";
+import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 const Report = () => {
+
+  useEffect(() => {
+    getPrescriptionsReports();
+    return () => {};
+  }, []);
+
+  const { addToast } = useToasts();
+  const [prescriptionsReports, setPrescriptionsReports] = useState([]);
+
   const [prescriptionsSelected, setPrescriptionsSelected] = useState(true);
   const [investigationsSelected, setInvestigationsSelected] = useState(false);
 
@@ -15,6 +27,32 @@ const Report = () => {
     setPrescriptionsSelected(true);
     setInvestigationsSelected(false);
   };
+
+
+ 
+
+function getPrescriptionsReports() {
+    const userInfo = JSON.parse(getData('userInfo'));
+
+    let params = {
+      // patient_id: userInfo._id,
+    }
+
+    if(userInfo) {
+      post(API.GETREPORTS, params)
+      .then(response => {
+        if (response.status === 200 && response.data && response.data.data) {
+          console.log('response.data: ', response.data);
+          setPrescriptionsReports(response.data.data)
+        } else {
+          addToast(response.data.message, { appearance: 'error' });
+        }
+      })
+      .catch(error => {
+        addToast(error.response.data.message, { appearance: 'error' });
+      });
+    }
+  }
 
 
   return (
@@ -64,24 +102,21 @@ const Report = () => {
             {prescriptionsSelected ? (
               <Row>
                 <InputGroup>
-                  <ReportCard />
-                  <ReportCard />
-                  <ReportCard />
-                  <ReportCard />
-                  <ReportCard />
-                  <ReportCard />
+                  {prescriptionsReports && prescriptionsReports.map((report) => {
+                      return( <ReportCard report={report}/>);
+                  })}
                 </InputGroup>
               </Row>
             ) : null}
             {investigationsSelected ? (
               <Row>
                 <InputGroup>
+                  {/* <ReportCard title="Investigations" />
                   <ReportCard title="Investigations" />
                   <ReportCard title="Investigations" />
                   <ReportCard title="Investigations" />
                   <ReportCard title="Investigations" />
-                  <ReportCard title="Investigations" />
-                  <ReportCard title="Investigations" />
+                  <ReportCard title="Investigations" /> */}
                 </InputGroup>
               </Row>
             ) : null}
