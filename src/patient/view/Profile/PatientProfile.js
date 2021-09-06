@@ -11,7 +11,6 @@ import AboutUs from "../../../commonComponent/AboutUs";
 
 
 const PatientProfile = (props) => {
-    console.log('props: ', props);
     const type = props.match.params.type
 
     const userInfo = JSON.parse(getData('userInfo'));
@@ -19,7 +18,7 @@ const PatientProfile = (props) => {
         <Col lg="10" sm="10" xs="10" >
             <Row>
                 <Col lg="2">
-                    <ProfilePictureColumn doctorName={`${userInfo.first_name} ${userInfo.last_name}`} doctorId={'22'} doctorMobile={userInfo.mobile_number} />
+                    <ProfilePictureColumn img={userInfo.dp}  doctorName={`${userInfo.first_name} ${userInfo.last_name}`} doctorId={'22'} doctorMobile={userInfo.mobile_number} />
                 </Col>
                 <Col lg="9" id="second-page">
                     {

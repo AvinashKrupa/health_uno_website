@@ -6,6 +6,8 @@ import React, { Component } from 'react';
 import { API } from '../api/config/APIController';
 import axios from 'axios';
 import Constants from '../constants';
+import { Image } from 'react-bootstrap';
+import {uploadCamera} from '../constants/PatientImages';
 
 class UploadImage extends Component {
   beforeUpload(file) {
@@ -62,7 +64,7 @@ class UploadImage extends Component {
         fileType="image/jpeg"
         showSelected={false}
         accept="image/gif,image/jpeg,image/png,image/bmp,image/x-png,image/pjpeg"
-      ><i className="fas fa-camera" /></CropViewer>
+      ><Image className='fa-camera' src={uploadCamera}></Image></CropViewer>
     </div>);
   }
 }

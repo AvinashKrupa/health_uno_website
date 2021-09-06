@@ -68,7 +68,7 @@
     }
 
     .back-navigation {
-        margin-bottom: 43px !important;
+        margin-bottom: 25px !important;
     }
 
     .slot-appointment-container {
@@ -116,7 +116,11 @@
     .patient-booking-detail .textarea-label, .patient-booking-detail .form-label {
         font-size: 15px !important;
     }
-     
+
+    .fa-camera {
+        left: 75px !important;
+        bottom: 140px !important;
+    }
 
 }
 
@@ -145,6 +149,25 @@
 
     .screen-768 {
         padding-left:  unset !important;
+    }
+
+    .fa-camera {
+        left: 100px !important;
+        bottom: 140px !important;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .fa-camera {
+        left: 80px !important;
+        bottom: 140px !important;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .fa-camera {
+        left: 125px !important;
+        bottom: 140px !important;
     }
 }
 

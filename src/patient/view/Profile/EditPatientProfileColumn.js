@@ -12,7 +12,7 @@ const editProfilePictureColumn = (props) => {
                 <h2 className="profile-tile-text">Profile</h2>
             </Row>
             <Row>
-                <Image src={doctor} className="profile-picture-image"/>
+                <Image src={props.img ? props.img : doctor} className="profile-picture-image"/>
             </Row>
             <Row className="profile-container">
                 <Col lg="12">

@@ -7,7 +7,8 @@ const SearchInputWithIcon = (props) => {
             <InputGroup>
                 <i className="fas fa-search"></i>
                 <Form.Control
-                    className={props.className} 
+                    className={props.className}
+                    id={props.id ? props.id : ''}
                     defaultValue={props.defaultValue}
                     type="text"
                     placeholder={props.placeholder}
