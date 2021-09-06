@@ -1,18 +1,26 @@
 import AnchorLink from 'react-anchor-link-smooth-scroll';
+import { useState } from "react";
 import {doctor} from "../../../constants/DoctorImages";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import React from "react";
 import ProfileButton from "../../../commonComponent/ProfileButton";
 import { withRouter } from 'react-router-dom'
+import UploadImage from "../../../commonComponent/Upload"
 
-const editProfilePictureColumn = (props) => {
+
+const EditProfilePictureColumn = (props) => {
+    const[ image, setImage ]= useState(props.img);
+    const handleImage = (file)=>{
+    setImage(file)
+    }
     return (
         <Container className="profile-left-Column">
             <Row>
                 <h2 className="profile-tile-text">Profile</h2>
             </Row>
             <Row>
-                <Image src={props.img ? props.img : doctor} className="profile-picture-image"/>
+                <Image src={image? image: doctor} className="profile-picture-image"/>
+                <UploadImage getImage={handleImage}/>
             </Row>
             <Row className="profile-container">
                 <Col lg="12">
@@ -95,4 +103,4 @@ const editProfilePictureColumn = (props) => {
     );
 };
 
-export default withRouter(editProfilePictureColumn);
+export default withRouter(EditProfilePictureColumn);

@@ -63,6 +63,7 @@ class UploadImage extends Component {
         circle
         fileType="image/jpeg"
         showSelected={false}
+        resetPreviewAfterSelectImage={true}
         accept="image/gif,image/jpeg,image/png,image/bmp,image/x-png,image/pjpeg"
       ><Image className='fa-camera' src={uploadCamera}></Image></CropViewer>
     </div>);

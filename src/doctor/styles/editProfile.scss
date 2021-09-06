@@ -34,6 +34,17 @@
 }
 
 .profile-left-Column {
+
+  .fa-camera {
+    position: relative;
+    background: #28A3DA;
+    font-size: 34px;
+    border-radius: 50%;
+    border: 1px  grey;
+    padding: 10px;
+    bottom: 75px;
+    left: 135px;
+  }
   padding: 0px;
   .profile-container {
     display: flex;
