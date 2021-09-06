@@ -20,7 +20,7 @@ const EditProfilePictureColumn = (props) => {
             </Row>
             <Row>
                 <Image src={image? image: doctor} className="profile-picture-image"/>
-                <UploadImage getImage={handleImage}/>
+                <UploadImage getImage={handleImage}  className='edit-fa-camera'/>
             </Row>
             <Row className="profile-container">
                 <Col lg="12">

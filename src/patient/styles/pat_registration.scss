@@ -64,11 +64,15 @@
   }
 }
 
-.rc-btn{
+.rc-btn-ghost {
   border: none !important;
   position: absolute !important;
 }
 
 .text-center {
   margin-top: 20px;
+}
+
+.radio-gap {
+  max-width: 140px;
 }

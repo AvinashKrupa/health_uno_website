@@ -62,7 +62,6 @@ const RegistrationComponent = ({history, image}) => {
   const [otherMedical, setOtherMedical] = useState('');
   const [referalCode, setReferalCode] = useState('');
   const [termsCondition, setTermsCondition] = useState(false);
-  const [covidDetails, handleCovidDetails] = useState('');
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);
   const [dataLanguage, setDataLanguage] = useState([]);
@@ -70,10 +69,11 @@ const RegistrationComponent = ({history, image}) => {
   let [loader, setLoader] = useState(false);
   const [vaccinated, setVaccinated] = useState([{id: 'yes', value: 'Yes', checked: false},
   {id: 'no', value: 'No', checked: false}]);
-  const [isVaccinated, setIsVaccinated] = useState(false);
-  const [vaccineDate, setVaccineDate] = useState();
+  const [isVaccinated, setIsVaccinated] = useState('');
+  const [vaccineDate, setVaccineDate] = useState('');
   const [dose, setDose] = useState('');
   const [vaccineName, setVaccineName] = useState('');
+  const [covidDetails, handleCovidDetails] = useState('');
 
   const setLanguageValue = (value) => {
     const lanInfo = value.split('|');
@@ -214,6 +214,7 @@ function getCity(id) {
 
 
 function validation() {
+  console.log('isCovid: ', isCovid);
   if (isEmpty(firstName)) {
     addToast('Please enter first name', { appearance: 'error' });
     return false;
@@ -275,10 +276,22 @@ function validation() {
     addToast('Please mention allergies', { appearance: 'error' });
     return false;
   } else if (isEmpty(isCovid)) {
-    addToast('Please select covid', { appearance: 'error' });
+    addToast('Please select: Have you been diagnosed with Covid?', { appearance: 'error' });
     return false;
   } else if (isCovid === true && isEmpty(covidDetails)) {
     addToast('Please add covid details', { appearance: 'error' });
+    return false;
+  } else if (isEmpty(isVaccinated)) {
+    addToast('Please select: Have you been vaccinated against Covid?', { appearance: 'error' });
+    return false;
+  } else if (isVaccinated === true && (isEmpty(vaccineDate)) ) {
+    addToast('Please select vaccinated date', { appearance: 'error' });
+    return false;
+  } else if (isVaccinated === true && (isEmpty(dose) || dose === 'Choose dose type') ) {
+    addToast('Please select vaccinated dose', { appearance: 'error' });
+    return false;
+  } else if (isVaccinated === true && (isEmpty(vaccineName) || vaccineName === 'Choose vaccine name') ) {
+    addToast('Please select vaccine name ', { appearance: 'error' });
     return false;
   }  else if (termsCondition === false) {
     addToast('Please accept terms and condition', { appearance: 'error' });
@@ -337,6 +350,12 @@ function registerUserAPICalling() {
         diag_at: '',
         desc: isAllergie ? allergieValue : '',
       },
+      // {
+      //   name: 'covid_vaccine',
+      //   selected: isVaccinated,
+      //   diag_at: isVaccinated ? vaccineDate : '',
+      //   desc: isVaccinated ? covidDetails : '',
+      // },
     ],
     other_med_cond: otherMedical,
     refer_code: referalCode,
