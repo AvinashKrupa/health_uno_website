@@ -144,7 +144,7 @@ const MultiStepFormRegistration = ({history}) => {
           country: "India",
       },
     };
-    registerLogin(params)
+    registerLogin(params) 
   }
 
   function pageThreeValidation() {
@@ -307,10 +307,11 @@ const MultiStepFormRegistration = ({history}) => {
     }
 
     if(activeStep === 3) {
+      setActiveStep(3)
       isFormValid = pageThreeValidation();
       isFormValid && registerUserAPICalling();
     }
-      if (isFormValid) {
+      if (isFormValid && activeStep !== 3) {
         let tempActiveStep = activeStep;
         tempActiveStep = tempActiveStep + 1;
         setActiveStep(tempActiveStep);

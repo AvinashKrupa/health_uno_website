@@ -6,24 +6,22 @@ import React, { Component } from 'react';
 import { API } from '../api/config/APIController';
 import axios from 'axios';
 import Constants from '../constants';
+import { Image } from 'react-bootstrap';
+import {uploadCamera} from '../constants/PatientImages';
 
 class UploadImage extends Component {
   beforeUpload(file) {
     const cropper = this.cropper;
-    console.log('>> cropper', this.cropper);
     return cropper.selectImage(file).then(image => {
-      console.log('>> selecTImage', image);
       return image;
     });
   }
 
   onChange = (Blob) => {
-    console.log('Blob: ', Blob);
     this.uploadProfileImage(Blob)
-
   }
+
   uploadProfileImage(file) {
-    console.log('file: ', file);
     let photo = file;
     let bodyFormData = new FormData();
     if (photo !== undefined) {
@@ -39,7 +37,6 @@ class UploadImage extends Component {
       })
   }
   uploadImageWithData(endPoint, formData) {
-    console.log('endPoint: ', endPoint);
     return new Promise(async (resolve, reject) => {
       axios({
         method: 'post',
@@ -47,7 +44,6 @@ class UploadImage extends Component {
         headers: { 'Content-Type': undefined, }
       })
         .then(response => {
-          console.log('uploadImageWithData: ', response);
           this.props.getImage(response.data.data.url)
           resolve(response.data);
         }).catch(err => {
@@ -60,14 +56,16 @@ class UploadImage extends Component {
   render() {
     return (<div>
       <CropViewer
+        resetPreviewAfterSelectImage={true}
         onChange={this.onChange}        
         getSpinContent={() => <span></span>}
         renderModal={() => <Dialog />}
         circle
         fileType="image/jpeg"
         showSelected={false}
+        resetPreviewAfterSelectImage={true}
         accept="image/gif,image/jpeg,image/png,image/bmp,image/x-png,image/pjpeg"
-      ><i className="fas fa-camera" /></CropViewer>
+      ><Image className={this.props?.className ? this.props?.className : 'fa-camera '} src={uploadCamera}></Image></CropViewer>
     </div>);
   }
 }

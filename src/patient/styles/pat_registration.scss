@@ -32,13 +32,8 @@
     }
     .fa-camera {
       position: relative;
-      background: #28A3DA;
-      font-size: 34px;
-      border-radius: 50%;
-      border: 1px  grey;
-      padding: 10px;
-      bottom: 62px;
-      left: 182px;
+      left: 125px;
+      bottom: 150px;
     }
 
     img {
@@ -69,6 +64,15 @@
   }
 }
 
-.rc-btn{
+.rc-btn-ghost {
   border: none !important;
+  position: absolute !important;
+}
+
+.text-center {
+  margin-top: 20px;
+}
+
+.radio-gap {
+  max-width: 140px;
 }

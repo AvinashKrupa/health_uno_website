@@ -7,10 +7,11 @@ import UploadImage from "../../../commonComponent/Upload"
 import { useState } from "react";
 
 const Registration = () => {
-  const[ image, setImage ]= useState();
-  const handleImage = (file)=>{
-  setImage(file)
-  }
+    const[ image, setImage ]= useState();
+    const handleImage = (file)=>{
+    setImage(file)
+}
+
   return (
     <Container className='registration-container'>
       <Row className='heading'>
@@ -31,7 +32,7 @@ const Registration = () => {
           </div>
         </Col>
         <Col className="col-md-8">
-          <RegistrationComponent />
+          <RegistrationComponent image={image} />
         </Col>
       </Row>
     </Container>
