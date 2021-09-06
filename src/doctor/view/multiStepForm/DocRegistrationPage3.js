@@ -106,7 +106,7 @@ const handleEveningSlotClick = (id) => {
 };
 
   const dayShiftSlot = () => {
-    return Object.entries(dataMorningShift).map((timeSlot) => {
+    return Object.entries(dataMorningShift).sort().map((timeSlot) => {
         return(
           <SlotGenerator selectedSlots={daySlots} handleSlotClick={handleDaySlotClick} label={`${timeSlot[0]} AM`} slots={timeSlot[1]} />
         )
