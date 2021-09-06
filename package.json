@@ -38,6 +38,7 @@
     "react-otp-input": "^2.4.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-share": "^4.4.0",
     "react-sidebar": "^3.0.2",
     "react-toast-notifications": "^2.5.1",
     "sass": "^1.36.0",
