@@ -37,7 +37,7 @@ export const API = {
   GET_PROFILE: 'user/profile',
   UPDATE_PROFILE: 'user/updateProfile',
   GET_MEDICINE: 'medicines?name=',
-  GET_MEDICINE_TYPE: 'medicine/getMedicineOnType?type=',
+  GET_MEDICINE_TYPE: 'medicine/getMedicineTypes?status=active',
 };
 
 export function post(endPoint, params, isStringfy = true) {
