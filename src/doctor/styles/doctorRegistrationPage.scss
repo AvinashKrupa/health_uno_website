@@ -1,8 +1,19 @@
 .registration-page-1-container{
   .fa-camera {
     position: relative;
-    left: 245px;
-    bottom: 120px;
+    left: 245px !important;
+    bottom: 120px !important;
+
+    @media only screen and (max-width: 414px) {
+      left: 120px !important;
+    }
+    @media only screen and (max-width: 375px) {
+      left: 100px !important;
+    }
+    @media only screen and (max-width: 1024) {
+      left: 105px !important;
+    }
+    
   }
 }
 .registration-page-1-column {
