@@ -35,6 +35,7 @@ const PatientLogin = ({history}) => {
     let params = {
       mobile_number: mobileNumber,
       country_code: '+91',
+      type: 1
     };
 
     authContext.setPhone(mobileNumber);
