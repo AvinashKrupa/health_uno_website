@@ -183,8 +183,14 @@
 @media screen and (max-width: 425px) {
   .doctor-meeting-page-video-container{
     .meeting-video{
-      width: 90% !important;
+      width: 85% !important;
     }
+  }
+  .meeting-video {
+    margin-top: 100px;
+  }
+  .back-nav-container {
+    margin-top: 35px;
   }
 
   .doctor-meeting-page-column-content{
