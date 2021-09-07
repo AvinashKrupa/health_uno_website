@@ -350,12 +350,26 @@ function registerUserAPICalling() {
         diag_at: '',
         desc: isAllergie ? allergieValue : '',
       },
-      // {
-      //   name: 'covid_vaccine',
-      //   selected: isVaccinated,
-      //   diag_at: isVaccinated ? vaccineDate : '',
-      //   desc: isVaccinated ? covidDetails : '',
-      // },
+      {
+        name: 'covid_vaccinated',
+        selected: isVaccinated,
+        diag_at: isVaccinated ? vaccineDate : '',
+        desc: '',
+        meta: isVaccinated ? [
+          {
+            name: 'dose_type',
+            selected: '',
+            diag_at:  '',
+            desc: dose,
+          },
+         {
+            name: 'vaccine_name',
+            selected: '',
+            diag_at:  '',
+            desc: vaccineName,
+         }
+        ] : []
+      },
     ],
     other_med_cond: otherMedical,
     refer_code: referalCode,
@@ -653,7 +667,7 @@ function registerUserAPICalling() {
             </Row>
             <Row>
              { isVaccinated &&
-                <Col md>
+                <Col md  style={{paddingTop: '32px'}}>
                   <br /> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')} onChange={(e) => setVaccineDate(e.target.value)}/>
                   <Selector
                     defaultValue="Choose dose type"

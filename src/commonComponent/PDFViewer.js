@@ -1,96 +1,41 @@
-import React, { useState } from "react";
-// Import the main component
-import { Viewer } from "@react-pdf-viewer/core"; // install this library
-// Plugins
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout"; // install this library
-// Import the styles
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-// Worker
-import { Worker } from "@react-pdf-viewer/core"; // install this library
-import { Col, Row } from "react-bootstrap";
-export const PDFViewer = () => {
-  // Create new plugin instance
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
-
-  // for onchange event
-  const [pdfFile, setPdfFile] = useState(null);
-  const [pdfFileError, setPdfFileError] = useState("");
-
-  // for submit event
-  const [viewPdf, setViewPdf] = useState();
-
-  // onchange event
-  const fileType = ["application/pdf"];
-  const handlePdfFileChange = (e) => {
-    let selectedFile = e.target.files[0];
-    if (selectedFile) {
-      if (selectedFile && fileType.includes(selectedFile.type)) {
-        let reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onloadend = (e) => {
-          setPdfFile(e.target.result);
-          setPdfFileError("");
-        };
-      } else {
-        setPdfFile(null);
-        setPdfFileError("Please select valid pdf file");
-      }
-    } else {
-      console.log("select your file");
-    }
-  };
-
-  // form submit
-  const handlePdfFileSubmit = (e) => {
-    e.preventDefault();
-    if (pdfFile !== null) {
-      setViewPdf(pdfFile);
-    } else {
-      setViewPdf(null);
-    }
-  };
+import React, { useEffect, useState } from "react";
+import { Col, Image, Row } from "react-bootstrap";
+import { back_icon } from "../constants/DoctorImages";
+export const PDFViewer = (props) => {
+  const [viewPdf, setViewPdf] = useState(props.location?.state?.url);
+  console.log('viewPdf: ', viewPdf);
+  const number = viewPdf && viewPdf.toLowerCase().search('pdf');
 
   return (
     <Row>
         <Col lg='1' md='2' sm='1' xs='1'></Col>
-        <Col lg='10' md='9'sm='10' xs='10'>
-            <div className="">
+        <Col lg='10' md='9' sm='10' xs='11'>
+        <button className="back-nav-container back-navigation">
+                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.push('/patient/reports')}></img>
+                    <span>Report Preview</span>
+                 </button>
+            <div style={{marginTop: window.screen.availWidth > 415 ? '20px' : '80px'}} className='pdf-view'>
                 <br></br>
-                <form className="form-group" onSubmit={handlePdfFileSubmit}>
-                    <input
-                    type="file"
-                    className="form-control"
-                    required
-                    onChange={handlePdfFileChange}
-                    />
-                    {pdfFileError && <div className="error-msg">{pdfFileError}</div>}
-                    <br></br>
-                    <button type="submit" className="btn btn-success btn-lg">
-                        preview
-                    </button>
-                </form>
-                <br></br>
-                <h4>View PDF</h4>
                 <div className="pdf-container">
-                    {/* show pdf conditionally (if we have one)  */}
                     {viewPdf && (
-                    <>
-                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-                        <Viewer
-                            fileUrl={viewPdf}
-                            plugins={[defaultLayoutPluginInstance]}
-                        />
-                        </Worker>
-                    </>
+                      number > 0  ? (
+                        <iframe title='pdf'src={`http://docs.google.com/gview?url=${viewPdf}&embedded=true`} frameborder="0"
+                                 style={{height: '100%', width: '500px'}}
+                        ></iframe>     
+                      ) : (
+                        <>
+                          <Image src={viewPdf}></Image>
+                        </>
+                     )         
                     )}
-
-                    {/* if we dont have pdf or viewPdf state is null */}
-                    {!viewPdf && <>No pdf file selected</>}
+                    {!viewPdf && <>No File Available</>}
+                </div>
+                <div style={{textAlign: 'center', marginBottom: '50px'}}>
+                 { viewPdf && 
+                 <button className='report-card-button'><a href={viewPdf} >Download</a></button>  }
                 </div>
             </div>
         </Col>
-        <Col lg='1' md='2' sm='1'xs='1'></Col>
     </Row>
   );
 };

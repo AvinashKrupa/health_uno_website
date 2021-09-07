@@ -28,6 +28,7 @@ import UploadReport from "./patient/view/Profile/UploadReport"
 import Report from "./patient/view/Profile/Report";
 import PatientProfile from "./patient/view/Profile/PatientProfile";
 import PDFViewer from "./commonComponent/PDFViewer";
+import MainView from "./MainView";
 
 function App() {
   return (
@@ -36,8 +37,11 @@ function App() {
           <Route exact path="/" component={PatientLogin} />
           <Route exact path="/doctor" component={DoctorLogin} />
           <PrivateRoute exact path='/doctor/otp' component={DoctorOTP} />
-          <PrivateRoute exact path="/doctor/home" component={DoctorHomePage} />
+          <PrivateRoute exact path='/patient/otp' component={OTP} />
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />
+          <PrivateRoute exact path='/patient/registration' component={Registration} />
+          <MainView>
+          <PrivateRoute exact path="/doctor/home" component={DoctorHomePage} />
           <PrivateRoute exact path='/doctor/appointments' component={UpcomingAppointments} />
           <PrivateRoute exact path='/doctor/search' component={UpcomingAppointments} />
           <PrivateRoute exact path='/doctor/appointmentDetail/:appointment_id' component={AppointmentDetail} />
@@ -46,8 +50,6 @@ function App() {
           <PrivateRoute exact path='/doctor/select/:appointment_id' component={AddDoctor} />
           <PrivateRoute exact path='/doctor/profile/:type' component={DoctorProfile} />
           <PrivateRoute exact path='/doctor/AddPrescription' component={AddPrescription} />
-          <PrivateRoute exact path='/patient/otp' component={OTP} />
-          <PrivateRoute exact path='/patient/registration' component={Registration} />
           <PrivateRoute exact path='/patient/home' component={PatientHomePage} />
           <PrivateRoute exact path='/patient/topConsultants' component={TopConsultants} />
           <PrivateRoute exact path='/patient/specialities' component={Specialities} />
@@ -63,6 +65,7 @@ function App() {
           <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription} />
           <PrivateRoute exact path='/patient/PDF' component={PDFViewer} />
           {/* <PrivateRoute exact path='/patient/profile/upload' component={UploadReport} /> */}
+          </MainView>
         </BrowserRouter>
     </div>
   );

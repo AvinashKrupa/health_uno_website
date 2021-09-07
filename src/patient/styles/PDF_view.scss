@@ -5,12 +5,10 @@
   
   .pdf-container {
     width: 100%;
-    height: 800px;
-    background-color: #e4e4e4;
+    height: 750px;
     overflow-y: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
   }
   
   .error-msg {
@@ -18,4 +16,15 @@
     color: red;
     font-size: 14px;
     font-weight: 600;
+  }
+
+  .pdf-view {
+    .report-card-button {
+      left: unset !important;
+      top: 50px !important;
+      width: 200px !important;
+      box-shadow: 4px 4px 35px 0px rgb(0 0 0 / 10%) !important;
+      border-radius: 8px !important;
+      margin-bottom: 50px !important;
+    }
   }

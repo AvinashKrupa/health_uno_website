@@ -5,7 +5,7 @@ import { Grid } from "@material-ui/core";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
-const Report = () => {
+const Report = (props) => {
 
   useEffect(() => {
     getPrescriptionsReports();
@@ -103,7 +103,7 @@ function getPrescriptionsReports() {
               <Row>
                 <InputGroup>
                   {prescriptionsReports && prescriptionsReports.map((report) => {
-                      return( <ReportCard report={report}/>);
+                      return( <ReportCard report={report} history={props.history}/>);
                   })}
                 </InputGroup>
               </Row>
