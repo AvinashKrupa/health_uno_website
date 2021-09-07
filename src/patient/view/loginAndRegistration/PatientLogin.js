@@ -18,6 +18,7 @@ import {useToasts} from 'react-toast-notifications';
 import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const PatientLogin = ({history}) => {
+  let timer = null;
   const { addToast } = useToasts();
   const authContext = useContext(AuthContext);
   const [mobileNumber, setMobileNumber] = useState(authContext.phone ? authContext.phone : '');
@@ -26,7 +27,7 @@ const PatientLogin = ({history}) => {
     const numbers = Array.from(mobileNumber);
     const isNumber = (currentValue) => !isNaN(currentValue);
 
-    if(!numbers.every(isNumber)) {
+    if(!numbers.every(isNumber) || numbers.length < 10 || numbers.length > 10) {
       addToast('Please enter the valid number', { appearance: 'error' });
       return;
     }
@@ -51,6 +52,13 @@ const PatientLogin = ({history}) => {
       .catch(error => {
         addToast('Please try again!', { appearance: 'error' }); 
       });
+  }
+
+  function debounce(txt) {
+    clearTimeout(timer);
+    timer = setTimeout(function() {
+      onClick();
+    }, 1000);
   }
 
 
@@ -113,7 +121,7 @@ const PatientLogin = ({history}) => {
                   <p> Sign in to continue with your mobile number </p>
                   <form onSubmit={(e) => {
                     e.preventDefault();
-                    onClick();
+                    debounce();
                   }}>
                     <InputGroup size="sm" style={{ maxWidth: "350px" }} onChange={(e) => setMobileNumber(e.target.value)}>
                       <DropdownButton variant="outline-secondary" title="+91">
@@ -128,7 +136,7 @@ const PatientLogin = ({history}) => {
                     <CustomButton
                         className={'login-btn'}
                         disabled={mobileNumber.length !== 10} 
-                        onClick={onClick}
+                        onClick={debounce}
                         text={'Continue'}
                     ></CustomButton>
                   </form>

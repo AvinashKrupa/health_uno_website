@@ -176,6 +176,13 @@
     }
 }
 
+@media only screen and (min-width: 1500px) {
+    .edit-fa-camera {
+        bottom: 130px !important;
+        left: 100px !important;
+    }
+}
+
 @media only screen and (min-width: 1440px) {
     .fa-camera {
         left: 125px !important;

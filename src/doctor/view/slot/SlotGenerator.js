@@ -1,5 +1,6 @@
 import { Row , Col} from "react-bootstrap";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import getColor from "../../../utils/Colors";
 
 const SlotGenerator = (props) => {
   const userType = JSON.parse(getData('USER_TYPE'));
@@ -10,7 +11,7 @@ const SlotGenerator = (props) => {
       {props.selectedSlots && props.slots.map((slot) => {
          return (
          
-            <button style={{backgroundColor:  slot.status === 'unavailable' ? 'grey' : ''}} className={`slot-timings-button ${props.selectedSlots.indexOf(slot.slot_id) > -1 ? 'active' : ''}`}  onClick={(e) => {
+            <button style={{backgroundColor:  getColor(slot)}} className={`slot-timings-button ${props.selectedSlots.indexOf(slot.slot_id) > -1 ? 'active' : ''}`}  onClick={(e) => {
               userType === 2 ? props.handleSlotClick(slot.slot_id, slot.start) :  slot.status === 'available' &&  props.handleSlotClick(slot.slot_id, slot.start)
             }}>
               <span className="slot-timings-button-text" style={{color: props.selectedSlots.indexOf(slot.slot_id) > -1 ? "white" : ""}}>{slot.start}</span>
