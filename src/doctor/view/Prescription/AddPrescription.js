@@ -1,0 +1,361 @@
+import React, {useEffect, useReducer, useState} from "react";
+import Input from "../../../commonComponent/Input";
+import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
+import TextArea from "../../../commonComponent/TextArea";
+import {Button, Col, Form, Row} from "react-bootstrap";
+import CustomButton from '../../../commonComponent/Button';
+import {back_icon} from "../../../constants/DoctorImages";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import {API, get} from "../../../api/config/APIController";
+import {useToasts} from "react-toast-notifications";
+import moment from "moment";
+import PrescriptionComponent from "./component/PrescriptionComponent";
+
+const prescription_JSON = require('../../../JSON/prescription.json');
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+export const ACTIONS = {
+    CHANGE_PRESCRIPTION_TYPE: 'CHANGE_PRESCRIPTION_TYPE',
+    CHANGE_MEDICINE_NAME: 'CHANGE_MEDICINE_NAME',
+    SET_MEDICINE_TYPE: 'SET_MEDICINE_TYPE',
+    CHANGE_DOSAGE_NAME: 'CHANGE_DOSAGE_NAME',
+    SET_DOSAGE_TYPE: 'SET_DOSAGE_TYPE',
+    SET_START_DATE: 'SET_START_DATE',
+    ADD_NEW_MEDICINE: 'ADD_NEW_MEDICINE',
+    SET_DAYS: 'SET_DAYS',
+    SET_PERIODITY: 'SET_PERIODITY',
+    CHANGE_COMMENT: 'CHANGE_COMMENT',
+}
+const AddPrescription = (props) => {
+    const {addToast} = useToasts();
+    let [medicineCount, setMedicineCount] = useState(1);
+    let [prescriptionType, setPrescriptionType] = useState('brand');
+    let [tempPrescriptionType, setTempPrescriptionType] = useState('');
+    let [medicineWithType, setMedicineWithType] = useState([]);
+    let [medicineList, setMedicineList] = useState([]);
+    let [selectedMedicineFromType, setSelectedMedicineFromType] = useState('');
+    const [openDialog, setOpenDialog] = React.useState(false);
+
+    const prescriptionObj = {
+        selectedType: 'brand',
+        prescriptions: [
+            {
+                medicine: '',
+                medicinetype: '',
+                time_slots: '',
+                start_date: moment().format('YYYY-MM-DD'),
+                days: '',
+                periodicity: 'days',
+                add_comments: '',
+                dosage: {
+                    dosage_text: '',
+                    qty: '100mg',
+                    before_food: true,
+                    after_food: false,
+                    with_food: false,
+                    other: false,
+                    other_details: '',
+                    sos: true,
+                    stat: false,
+                },
+            }
+        ],
+    }
+
+    let initialState = [{
+            selectedType: 'brand',
+            prescriptions: [
+                {
+                    medicine: '',
+                    medicinetype: '',
+                    time_slots: 'Morning, Night',
+                    start_date: moment().format('YYYY-MM-DD'),
+                    days: '10',
+                    periodicity: 'days',
+                    add_comments: '',
+                    dosage: {
+                        dosage_text: '',
+                        qty: '100mg',
+                        before_food: true,
+                        after_food: false,
+                        with_food: false,
+                        other: false,
+                        other_details: '',
+                        sos: true,
+                        stat: false,
+                    },
+                }
+            ],
+        }]
+
+    ;
+
+    function reducer(prescription_list, action) {
+        switch (action.type) {
+            case ACTIONS.ADD_NEW_MEDICINE:
+                debugger
+                return [...prescription_list, action.payload];
+            case ACTIONS.CHANGE_PRESCRIPTION_TYPE:
+                prescription_list[action.payload.id].selectedType=action.payload.value
+                return [...prescription_list]
+            case ACTIONS.CHANGE_MEDICINE_NAME:
+                return null;
+            case ACTIONS.SET_MEDICINE_TYPE:
+                debugger
+                prescription_list[action.payload.id].prescriptions[0].medicinetype=action.payload.value._id
+                return [...prescription_list]
+            case ACTIONS.CHANGE_DOSAGE_NAME:
+                prescription_list[action.payload.id].prescriptions[0].dosage.dosage_text=action.payload.value
+                return [...prescription_list]
+            case ACTIONS.SET_DOSAGE_TYPE:
+                return null;
+            case ACTIONS.SET_START_DATE:
+
+                prescription_list[action.payload.id].prescriptions[0].start_date=action.payload.value._id
+                return [...prescription_list]
+            case ACTIONS.ADD_NEW_MEDICINE:
+                return null;
+            case ACTIONS.SET_DAYS:
+                prescription_list[action.payload.id].prescriptions[0].days=action.payload.value
+                return [...prescription_list]
+            case ACTIONS.SET_PERIODITY:
+                prescription_list[action.payload.id].prescriptions[0].periodicity=action.payload.value
+                return [...prescription_list]
+
+            case ACTIONS.CHANGE_COMMENT:
+                prescription_list[action.payload.id].prescriptions[0].add_comments=action.payload.value
+                return [...prescription_list]
+            default:
+                return prescription_list
+        }
+
+    }
+
+    const [prescription_list, dispatch] = useReducer(reducer, initialState)
+
+    // let [prescriptions, setPrescriptions] = useReducer([]);
+
+    useEffect(() => {
+        getMedicineTypes();
+    }, []);
+
+    const handleClickOpen = () => {
+        setOpenDialog(true);
+    };
+
+    const handleClose = () => {
+        setOpenDialog(false);
+    };
+
+    const handleProceed = () => {
+        setOpenDialog(false);
+        setPrescriptionType(tempPrescriptionType)
+        setMedicineWithType([]);
+        setSelectedMedicineFromType('');
+        // getMedicineTypes(tempPrescriptionType)
+    };
+
+    const getSuggestions = async (value) => {
+        const inputValue = value.trim().toLowerCase();
+        // debugger
+        // await getMedicineListWithType(inputValue)
+        setMedicineList(prescription_JSON.data);
+        return prescription_JSON.data;
+    };
+
+    function getMedicineTypes() {
+        get(`${API.GET_MEDICINE_TYPE}`)
+            .then(response => {
+                if (response.status === 200) {
+                    setMedicineWithType(response.data.data);
+                } else {
+                    addToast(response.data.message, {appearance: "error"});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: "error"});
+            });
+    }
+
+    function getMedicineListWithType(name, presType = 'brand') {
+        get(`${API.GET_MEDICINE}am`)
+            .then(response => {
+                if (response.status === 200) {
+                    setMedicineList(prescription_JSON.data);
+                    console.log('medicineList :', medicineList);
+                } else {
+                    addToast(response.data.message, {appearance: "error"});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: "error"});
+            });
+    }
+
+    function onPrescriptionOptionChange(event) {
+        // debugger
+        setTempPrescriptionType(event.target.value);
+        handleClickOpen();
+    }
+
+    function renderDialogComponent() {
+        return (
+            <div>
+                <Dialog
+                    open={openDialog}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">{"Do you want to reset?"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            This action will reset the prescription. Do you want to proceed?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            No
+                        </Button>
+                        <Button onClick={handleProceed} color="primary">
+                            Yes
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        )
+    }
+
+    console.log('selected Medicine From Type  :', selectedMedicineFromType);
+    console.log('prescription_list  :', prescription_list);
+    return (
+        <Row className="doctor-prescription-container">
+            <Col lg="1" sm="1" xs='1'/>
+            <Col lg="10" sm="10" xs='10'>
+                <Row className='back-navigation'>
+                    <div className="back-nav-container">
+                        <img src={back_icon} alt='back_icon-img' onClick={() => props.history.goBack()}></img>
+                        <span>Add Prescription</span>
+                    </div>
+                </Row>
+                {renderDialogComponent()}
+                <div className="container">
+                    <div className="addPrescription">
+                        <Row className="topsctionName">
+                            <Col xs={12} md={4}>
+                                <Input
+                                    type="text"
+                                    placeholder="eg John"
+                                    id="firstName"
+                                    label="Patient Name"
+                                    readonly="true"
+                                />
+                            </Col>
+                            <Col xs={12} md={4}>
+                                <Input
+                                    type="number"
+                                    placeholder="35"
+                                    id="age"
+                                    label="Age"
+                                    readonly="true"
+                                />
+                            </Col>
+
+                            <Col md>
+                                <Row className="g-2">
+                                    <Col xs={12} md={6}>
+                                        <KeyValueSelector
+                                            label="Height"
+                                            defaultValue="Select"
+                                            id="Height"
+                                            options={[]}
+                                        />
+                                    </Col>
+                                    <Col xs={12} md={6}>
+                                        <KeyValueSelector
+                                            value='0'
+                                            label="Weight"
+                                            defaultValue="Select"
+                                            id="Weight"
+                                            options={[]}
+                                        />
+                                    </Col>
+                                </Row>
+                            </Col>
+
+                        </Row>
+
+                        {
+                            prescription_list.map((prescription, index) => {
+                                return <PrescriptionComponent key={index}
+                                                              index={index} prescription={prescription}
+                                                              dispatch={dispatch} addToast={addToast}
+                                                              medicineTypesList={medicineWithType}
+                                />
+                            })
+                        }
+                        <div className="actionSave">
+                            <Button variant="outline-primary">Save as Template</Button>{' '}
+                            <Button variant="secondary" onClick={() => {
+                                dispatch({
+                                    type: ACTIONS.ADD_NEW_MEDICINE, payload: prescriptionObj
+                                })
+                                setMedicineCount(medicineCount + 1);
+                            }}
+                            >Add New Medicine</Button>{' '}
+                        </div>
+
+                        <Row className="g-2">
+                            <Col sm={6}>
+                                <Row className="investigationscheck">
+                                    {['checkbox'].map((type) => (
+                                        <div key={`inline-${type}`} className="">
+                                            <Form.Check
+                                                label="Required Investigations"
+                                                type={type}
+                                                id={`inline-${type}-1`}
+                                            />
+                                        </div>
+                                    ))}
+
+
+                                </Row>
+                                <Row>
+                                    {
+                                        <TextArea
+                                            id={'Investigations'}
+                                            placeholder="Enter text here"
+                                            rows={3}
+                                            cols={35}
+                                        ></TextArea>
+                                    }
+                                </Row>
+                            </Col>
+
+                            <div className="AddAnotherTest">
+                                <p>+ Add Another Test</p>
+                            </div>
+
+                        </Row>
+
+
+                        <Row className="sendPrescriptionAction">
+                            <CustomButton text={'Send Prescription'}
+                                          className="primary SendPrescription"></CustomButton>
+                        </Row>
+                    </div>
+                </div>
+            </Col>
+            <Col lg="1" sm="1" xs='1'/>
+        </Row>
+    );
+};
+export default AddPrescription;

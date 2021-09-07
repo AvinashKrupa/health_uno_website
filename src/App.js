@@ -23,7 +23,7 @@ import Appointments from "./patient/view/appointment/Appointments";
 import VideoMeeting from "./patient/view/Meeting/VideoMeeting";
 import Chat from "./chat/Chat";
 import Invite from "./patient/view/invite/Invite"
-import AddPrescription from "./patient/view/loginAndRegistration/AddPrescription";
+import AddPrescription from "./doctor/view/Prescription/AddPrescription";
 import UploadReport from "./patient/view/Profile/UploadReport"
 import Report from "./patient/view/Profile/Report";
 import PatientProfile from "./patient/view/Profile/PatientProfile";
