@@ -5,6 +5,7 @@
   margin: auto;
   margin-bottom: 24px;
 
+
   @media only screen and (max-width: 768px) {
       width: 150px;
   }
@@ -21,4 +22,17 @@
   font-weight: 400;
   letter-spacing: -0.30000001192092896px;
   text-align: center;
+}
+.fa-camera {
+  position: relative ;
+  left: 155px;
+  bottom: 125px;
+  
+  @media only screen and (max-width: 375px) {
+     left: 100px;
+  }
+  @media only screen and (max-width: 414px) {
+    left: 120px;
+  }
+
 }

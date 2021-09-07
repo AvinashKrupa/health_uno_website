@@ -1,5 +1,5 @@
 import {Col, Row} from "react-bootstrap";
-import React from "react";
+import React,{useState} from "react";
 import ProfilePictureColumn from "./EditProfilePictureColumn";
 import EditProfilePage from "./DoctorEditProfile";
 import Invite from "../../../patient/view/invite/Invite";
@@ -9,17 +9,19 @@ import AboutUs from "../../../commonComponent/AboutUs";
 
 const DoctorProfile = (props) => {
     const type = props.match.params.type
+    const [profilePic,setProfilePic]=useState("");
+
 
     return (
         <Col lg="10" sm="10" xs="10" >
             <Row>
                 <Col lg="3">
-                    <ProfilePictureColumn/>
+                    <ProfilePictureColumn setProfilePic ={setProfilePic}/>
                 </Col>
                 <Col lg='9' id="second-page">
                     {
                         type === 'editProfile' && (
-                            <EditProfilePage></EditProfilePage>
+                            <EditProfilePage profilePic={profilePic}></EditProfilePage>
                         )
                     }
                     {

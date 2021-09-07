@@ -64,6 +64,7 @@ const MultiStepFormRegistration = ({history}) => {
   const [activeStep, setActiveStep] = useState(1);
   const [nextDisabled, setNextDisabled] = useState(false);
   const [prevDisabled, setPrevDisabled] = useState(true);
+  const [image,setImage]= useState("")
 
   function registerLogin(params) {
     post(API.REGISTER_DOCTOR, params, true)
@@ -115,6 +116,7 @@ const MultiStepFormRegistration = ({history}) => {
       gender: gender,
       desc: description,
       language: language, 
+      dp:image,
       avail: {
         day: daysObj,
         slots: slots,
@@ -284,6 +286,9 @@ const MultiStepFormRegistration = ({history}) => {
     } else if (isEmpty(language) ||language === 'Select language') {
       addToast('Please select language', { appearance: 'error' });
       return false;
+    } else if (!image) {
+      addToast('Please upload the image', { appearance: 'error' });
+      return false;
     } else {
       return true;
     }
@@ -343,6 +348,7 @@ const MultiStepFormRegistration = ({history}) => {
     disablePrev(tempActiveStep);
   };
 
+  
   return (
     <div className='form-wizard'>
       <Row>
@@ -381,7 +387,8 @@ const MultiStepFormRegistration = ({history}) => {
               setDescription={setDescription}
               disabled={nextDisabled}
               onClick={handleNext}
-              setLanguageValue={setLanguageValue} />
+              setLanguageValue={setLanguageValue}
+              setImage={setImage}/>
           }
 
           { activeStep === 2 &&

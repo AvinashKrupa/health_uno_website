@@ -98,7 +98,7 @@ function getLanguage() {
     <div className="registration-page-1-container">
       <Row>
         <Col lg="4">
-          <ProfilePictureColumn />
+          <ProfilePictureColumn setImage={props.setImage}/>
         </Col>
         <Col lg='6'>
               <Row>

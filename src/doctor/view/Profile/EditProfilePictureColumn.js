@@ -7,6 +7,7 @@ import {useToasts} from "react-toast-notifications";
 import {withRouter} from 'react-router-dom'
 import ProfileButton from "../../../commonComponent/ProfileButton";
 import {Card} from "@material-ui/core";
+import UploadImage from '../../../commonComponent/Upload';
 
 const EditProfilePictureColumn = (props) => {
     const [firstName, setFirstName] = useState('');
@@ -15,6 +16,13 @@ const EditProfilePictureColumn = (props) => {
     const [doctorMedId, setDoctorMedId] = useState('');
     const [appointmentStats, setAppointmentStats] = useState({});
     const {addToast} = useToasts();
+
+    const[ image, setImage ]= useState();
+
+  const handleImage = (file)=> {
+     setImage(file)
+     props.setProfilePic(file)
+  }
     useEffect(() => {
         getUserProfile()
         return () => {
@@ -31,6 +39,7 @@ const EditProfilePictureColumn = (props) => {
                     setFirstName(user.first_name);
                     setLastName(user.last_name);
                     setMobile(user.mobile_number);
+                    setImage(user.dp)
                     setAppointmentStats(additionalInfo.appointment_stats);
                 } else {
                     addToast(response.data.message, {appearance: 'error'});
@@ -45,9 +54,10 @@ const EditProfilePictureColumn = (props) => {
         <Container className="profile-left-Column">
             <Row>
                 <h2 className="profile-tile-text">Profile</h2>
-            </Row>
+            </Row> 
             <Row>
-                <Image src={doctor} className="profile-picture-image"/>
+                <Image src={image ? image :doctor} className="profile-picture-image"/>
+                <UploadImage getImage={handleImage}/>
             </Row>
             <Row className="profile-container">
                 <Col lg="12">
