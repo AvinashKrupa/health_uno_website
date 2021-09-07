@@ -31,6 +31,8 @@ export const ACTIONS = {
     SET_DAYS: 'SET_DAYS',
     SET_PERIODITY: 'SET_PERIODITY',
     CHANGE_COMMENT: 'CHANGE_COMMENT',
+    CHANGE_SOS: 'CHANGE_SOS',
+    CHANGE_STAT: 'CHANGE_STAT',
 }
 const AddPrescription = (props) => {
     const {addToast} = useToasts();
@@ -50,7 +52,7 @@ const AddPrescription = (props) => {
                 medicinetype: '',
                 time_slots: '',
                 start_date: moment().format('YYYY-MM-DD'),
-                days: '',
+                days: '1',
                 periodicity: 'days',
                 add_comments: '',
                 dosage: {
@@ -61,7 +63,7 @@ const AddPrescription = (props) => {
                     with_food: false,
                     other: false,
                     other_details: '',
-                    sos: true,
+                    sos: false,
                     stat: false,
                 },
             }
@@ -122,14 +124,20 @@ const AddPrescription = (props) => {
             case ACTIONS.ADD_NEW_MEDICINE:
                 return null;
             case ACTIONS.SET_DAYS:
-                prescription_list[action.payload.id].prescriptions[0].days=action.payload.value
+                prescription_list[action.payload.id].prescriptions[0].days=action.payload.value._id
                 return [...prescription_list]
             case ACTIONS.SET_PERIODITY:
-                prescription_list[action.payload.id].prescriptions[0].periodicity=action.payload.value
+                prescription_list[action.payload.id].prescriptions[0].periodicity=action.payload.value._id
                 return [...prescription_list]
 
             case ACTIONS.CHANGE_COMMENT:
                 prescription_list[action.payload.id].prescriptions[0].add_comments=action.payload.value
+                return [...prescription_list]
+            case ACTIONS.CHANGE_SOS:
+                prescription_list[action.payload.id].prescriptions[0].dosage.sos=action.payload.value
+                return [...prescription_list]
+            case ACTIONS.CHANGE_STAT:
+                prescription_list[action.payload.id].prescriptions[0].dosage.stat=action.payload.value
                 return [...prescription_list]
             default:
                 return prescription_list

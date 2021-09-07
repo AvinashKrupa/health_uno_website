@@ -93,6 +93,18 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
             type:ACTIONS.SET_PERIODITY, payload: {id: index, value:value}
         })
     }
+    function setSos(event) {
+        debugger
+        dispatch({
+            type:ACTIONS.CHANGE_SOS, payload: {id: index, value:event.target.checked}
+        })
+    }
+    function setStat(event) {
+        debugger
+        dispatch({
+            type:ACTIONS.CHANGE_STAT, payload: {id: index, value:event.target.checked}
+        })
+    }
     return(
         <>
             <Row classNme="g-2">
@@ -177,7 +189,7 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                             <KeyValueSelector
                                 value={prescription.prescriptions[0].days}
                                 label="time_slots"
-                                defaultValue={"1"}
+                                defaultValue={prescription.prescriptions[0].days}
                                 id="Time Slots"
                                 options={DAYS_LIST}
                                 handleSelect={onDaysSelect}
@@ -187,7 +199,7 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                             <KeyValueSelector
                                 value={prescription.prescriptions[0].periodicity}
                                 label="Periodicity"
-                                defaultValue={'days'}
+                                defaultValue={prescription.prescriptions[0].periodicity}
                                 id="Periodicity"
                                 options={PERIODICITY_LIST}
                                 handleSelect={onPeriodicitySelect}
@@ -291,12 +303,16 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                                         name="grup"
                                         type={'checkbox'}
                                         id={`inline-checkbox-1`}
+                                        checked={prescription.prescriptions[0].dosage.sos}
+                                        onChange={setSos}
                                     />
                                     <Form.Check
                                         label="STAT"
                                         name="grup"
                                         type={'checkbox'}
                                         id={`inline-checkbox-2`}
+                                        checked={prescription.prescriptions[0].dosage.stat}
+                                        onChange={setStat}
                                     />
                                 </div>
                         </Card.Body>
