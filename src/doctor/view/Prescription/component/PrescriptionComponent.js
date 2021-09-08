@@ -9,23 +9,35 @@ import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
 import {DAYS_LIST, PERIODICITY_LIST} from "../constants";
-
 const prescription_JSON = require('../../../../JSON/prescription.json');
+
 export default function PrescriptionComponent({index, prescription, dispatch, addToast, medicineTypesList,handleClickOpen}){
     let [medicineList, setMedicineList] = useState([]);
 
-    const getSuggestions = async (value) => {
+    const prescriptionList = prescription_JSON.data
+    const getSuggestions = (value) => {
         const inputValue = value.trim().toLowerCase();
-        // debugger
-        // await getMedicineListWithType(inputValue)
-        setMedicineList(prescription_JSON.data);
-        return prescription_JSON.data;
+        const inputLength = inputValue.length;
+        let result = inputLength === 0 ? [] : prescriptionList.filter(lang =>
+            lang.name.toLowerCase().slice(0, inputLength) === inputValue
+        );
+        console.log('search result', result);
+        return result
     };
 
+    // const getSuggestions = async (value) => {
+    //     const inputValue = value.trim().toLowerCase();
+    //     // debugger
+    //     // await getMedicineListWithType(inputValue)
+    //     setMedicineList(prescription_JSON.data);
+    //     return prescription_JSON.data;
+    // };
+
     function getMedicineListWithType(name, presType = 'brand') {
-        get(`${API.GET_MEDICINE}am`)
+        get(`${API.GET_MEDICINE}name=${name}&type=${presType}&status=active`)
             .then(response => {
                 if (response.status === 200) {
+                    debugger
                     setMedicineList(prescription_JSON.data);
                     console.log('medicineList :', medicineList);
                 } else {
@@ -147,7 +159,7 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                 <Col xs={12} md={4}>
                     <div className="medicine-autosuggest-container">
                         <div style={{marginBottom: "8px"}}>Medicine</div>
-                        <AutoSuggestInput selectMedicineName={selectMedicineName}/>
+                        <AutoSuggestInput selectMedicineName={selectMedicineName} getSuggestions={getSuggestions}/>
                     </div>
                     {/*<Input*/}
                     {/*    type="text"*/}

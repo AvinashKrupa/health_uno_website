@@ -37,7 +37,7 @@ export const API = {
   ADD_ADDITIONAL_DOCTOR: 'appointment/addDoctor',
   GET_PROFILE: 'user/profile',
   UPDATE_PROFILE: 'user/updateProfile',
-  GET_MEDICINE: 'medicines?name=',
+  GET_MEDICINE: 'medicines?',
   GET_MEDICINE_TYPE: 'medicine/getMedicineTypes?status=active',
 };
 

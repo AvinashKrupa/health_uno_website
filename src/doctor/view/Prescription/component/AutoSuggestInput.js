@@ -1,6 +1,5 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
-const prescription_JSON = require('../../../../JSON/prescription.json');
 class AutoSuggestInput extends React.Component {
     constructor(props) {
         super(props);
@@ -9,18 +8,6 @@ class AutoSuggestInput extends React.Component {
             suggestions: []
         };
     }
-
-    // Collection of data
-    prescriptionList = prescription_JSON.data
-
-    // Filter logic
-    getSuggestions = value => {
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-        return inputLength === 0 ? [] : this.prescriptionList.filter(lang =>
-            lang.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
-    };
 
     getSuggestionValue = suggestion => suggestion.name;
 
@@ -39,8 +26,8 @@ class AutoSuggestInput extends React.Component {
     // Suggestion rerender when user types
     onSuggestionsFetchRequested = ({ value }) => {
         this.setState({
-            suggestions: this.getSuggestions(value)
-        });
+            suggestions: this.props.getSuggestions(value)
+        }, ()=> console.log('suggestions :', this.state.suggestions));
     };
 
     // Triggered on clear
