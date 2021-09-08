@@ -68,7 +68,7 @@ function App() {
           {/* <PrivateRoute exact path='/patient/profile/upload' component={UploadReport} /> */}
          
           </MainView>
-          <Route component={NotFoundPage} />
+          {/* <Route component={NotFoundPage} /> */}
         </BrowserRouter>
     </div>
   );
