@@ -100,7 +100,7 @@ const TopConsultants = (props) => {
   };
   return (
     <div>
-      <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter} />
+      <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter} >
       <Row className='top-consultants-container'>
         <Col lg="1"  sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10' className='screen-768'>
@@ -111,7 +111,7 @@ const TopConsultants = (props) => {
                     <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.push('/patient/home')}></img>
                     <span>Top Consultants</span>
           </button>
-          <div className='search-container' style={{display: "flex", justifyContent:'space-between'}}>
+          <div className='search-container' style={{display: "flex", justifyContent:'space-between,',marginTop:'20px'}}>
             <SearchInputWithIcon
               col='12'
               placeholder="Search doctors"
@@ -161,6 +161,7 @@ const TopConsultants = (props) => {
         </Col>
         <Col lg="1" sm="1" xs='1' />
       </Row>
+      </TopConsultantsFilter>
     </div>
   );
 };
