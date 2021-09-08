@@ -1,11 +1,23 @@
+import { useState } from "react";
 import {doctor} from "../../../constants/DoctorImages";
 import { Image, Container, Row } from "react-bootstrap";
+import UploadImage from "../../../commonComponent/Upload";
 
-const profilePictureColumn = () => {
+
+const ProfilePictureColumn = (props) => {
+  const[ image, setImage ]= useState();
+ 
+  const handleImage = (file)=> {
+     setImage(file)
+     props.setImage(file)
+  }
+
   return (
     <Container>
       <Row>
-        <Image src={doctor} className="profile-picture-image" />
+        <Image src={image? image :doctor} className="profile-picture-image" />
+        <UploadImage getImage={handleImage}/>
+
       </Row>
       <Row>
         <span className="profile-picture-text">
@@ -21,4 +33,4 @@ const profilePictureColumn = () => {
   );
 };
 
-export default profilePictureColumn;
+export default ProfilePictureColumn;

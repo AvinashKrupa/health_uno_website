@@ -70,6 +70,7 @@ const DoctorEditProfile = (props) => {
             last_name: lastName,
             desc: description,
             type: '2',
+            dp: props.profilePic && props.profilePic,
             address: {
                 line1: addressLine1,
                 line2: addressLine2,

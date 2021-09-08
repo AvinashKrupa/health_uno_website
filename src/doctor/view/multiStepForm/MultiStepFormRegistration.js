@@ -28,6 +28,13 @@ const MultiStepFormRegistration = ({history}) => {
   const [addressLine1, setAddressLine1] = useState('');
   const [addressLine2, setAddressLine2] = useState('');
   const [description, setDescription] = useState('');
+  const [language, setLanguage] = useState('');
+
+  const setLanguageValue = (value) => {
+    const lanInfo = value.split('|');
+    setLanguage(lanInfo[0])
+  }
+  
 
   //second form information
   const [department, setDepartment] = useState('');
@@ -57,6 +64,7 @@ const MultiStepFormRegistration = ({history}) => {
   const [activeStep, setActiveStep] = useState(1);
   const [nextDisabled, setNextDisabled] = useState(false);
   const [prevDisabled, setPrevDisabled] = useState(true);
+  const [image,setImage]= useState("")
 
   function registerLogin(params) {
     post(API.REGISTER_DOCTOR, params, true)
@@ -107,6 +115,8 @@ const MultiStepFormRegistration = ({history}) => {
       dob: birthDate,
       gender: gender,
       desc: description,
+      language: language, 
+      dp:image,
       avail: {
         day: daysObj,
         slots: slots,
@@ -273,6 +283,12 @@ const MultiStepFormRegistration = ({history}) => {
     } else if (isEmpty(city) || city === 'Select city') {
       addToast('Please select city', { appearance: 'error' });
       return false;
+    } else if (isEmpty(language) ||language === 'Select language') {
+      addToast('Please select language', { appearance: 'error' });
+      return false;
+    } else if (!image) {
+      addToast('Please upload the image', { appearance: 'error' });
+      return false;
     } else {
       return true;
     }
@@ -332,6 +348,7 @@ const MultiStepFormRegistration = ({history}) => {
     disablePrev(tempActiveStep);
   };
 
+  
   return (
     <div className='form-wizard'>
       <Row>
@@ -369,7 +386,9 @@ const MultiStepFormRegistration = ({history}) => {
               setAddressLine2={setAddressLine2}
               setDescription={setDescription}
               disabled={nextDisabled}
-              onClick={handleNext} />
+              onClick={handleNext}
+              setLanguageValue={setLanguageValue}
+              setImage={setImage}/>
           }
 
           { activeStep === 2 &&

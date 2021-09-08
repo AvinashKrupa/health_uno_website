@@ -8,12 +8,12 @@ import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 const Report = (props) => {
 
   useEffect(() => {
-    getPrescriptionsReports();
+    getInvestigationsReports();
     return () => {};
   }, []);
 
   const { addToast } = useToasts();
-  const [prescriptionsReports, setPrescriptionsReports] = useState([]);
+  const [investigationsReports, setInvestigationsReports] = useState([]);
 
   const [prescriptionsSelected, setPrescriptionsSelected] = useState(true);
   const [investigationsSelected, setInvestigationsSelected] = useState(false);
@@ -31,7 +31,7 @@ const Report = (props) => {
 
  
 
-function getPrescriptionsReports() {
+function getInvestigationsReports() {
     const userInfo = JSON.parse(getData('userInfo'));
 
     let params = {
@@ -43,7 +43,7 @@ function getPrescriptionsReports() {
       .then(response => {
         if (response.status === 200 && response.data && response.data.data) {
           console.log('response.data: ', response.data);
-          setPrescriptionsReports(response.data.data)
+          setInvestigationsReports(response.data.data)
         } else {
           addToast(response.data.message, { appearance: 'error' });
         }
@@ -102,21 +102,16 @@ function getPrescriptionsReports() {
             {prescriptionsSelected ? (
               <Row>
                 <InputGroup>
-                  {prescriptionsReports && prescriptionsReports.map((report) => {
-                      return( <ReportCard report={report} history={props.history}/>);
-                  })}
+                  {/* { code for prescriptions} */}
                 </InputGroup>
               </Row>
             ) : null}
             {investigationsSelected ? (
               <Row>
                 <InputGroup>
-                  {/* <ReportCard title="Investigations" />
-                  <ReportCard title="Investigations" />
-                  <ReportCard title="Investigations" />
-                  <ReportCard title="Investigations" />
-                  <ReportCard title="Investigations" />
-                  <ReportCard title="Investigations" /> */}
+                 {investigationsReports && investigationsReports.map((report) => {
+                      return( <ReportCard report={report} history={props.history}/>);
+                  })}
                 </InputGroup>
               </Row>
             ) : null}
