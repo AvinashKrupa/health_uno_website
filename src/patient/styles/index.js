@@ -34,6 +34,7 @@ import '../../doctor/styles/reports.scss';
 import '../../doctor/styles/videoMeeting.scss';
 import '../../doctor/styles/upcoming_appointments.scss';
 import '../../doctor/styles/editProfile.scss';
+import '../../doctor/styles/autosuggest.scss';
 
 
 // Common

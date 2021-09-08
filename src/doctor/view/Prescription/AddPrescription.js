@@ -33,6 +33,7 @@ export const ACTIONS = {
     CHANGE_COMMENT: 'CHANGE_COMMENT',
     CHANGE_SOS: 'CHANGE_SOS',
     CHANGE_STAT: 'CHANGE_STAT',
+    CHANGE_DOSAGE_SLOT: 'CHANGE_DOSAGE_SLOT',
 }
 const AddPrescription = (props) => {
     const {addToast} = useToasts();
@@ -139,6 +140,36 @@ const AddPrescription = (props) => {
             case ACTIONS.CHANGE_STAT:
                 prescription_list[action.payload.id].prescriptions[0].dosage.stat=action.payload.value
                 return [...prescription_list]
+            case ACTIONS.CHANGE_DOSAGE_SLOT:
+                debugger
+                switch (action.payload.value){
+                    case 'beforeFood':
+                        prescription_list[action.payload.id].prescriptions[0].dosage.before_food=true;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.after_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.with_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.other=false;
+                        return [...prescription_list]
+                    case 'afterFood':
+                        prescription_list[action.payload.id].prescriptions[0].dosage.before_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.after_food=true;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.with_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.other=false;
+                        return [...prescription_list]
+                    case 'withFood':
+                        prescription_list[action.payload.id].prescriptions[0].dosage.before_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.after_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.with_food=true;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.other=false;
+                        return [...prescription_list]
+                    case 'otherFood':
+                        prescription_list[action.payload.id].prescriptions[0].dosage.before_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.after_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.with_food=false;
+                        prescription_list[action.payload.id].prescriptions[0].dosage.other=true;
+                        return [...prescription_list]
+                    default:
+                        return;
+                }
             default:
                 return prescription_list
         }
@@ -169,13 +200,7 @@ const AddPrescription = (props) => {
         // getMedicineTypes(tempPrescriptionType)
     };
 
-    const getSuggestions = async (value) => {
-        const inputValue = value.trim().toLowerCase();
-        // debugger
-        // await getMedicineListWithType(inputValue)
-        setMedicineList(prescription_JSON.data);
-        return prescription_JSON.data;
-    };
+
 
     function getMedicineTypes() {
         get(`${API.GET_MEDICINE_TYPE}`)

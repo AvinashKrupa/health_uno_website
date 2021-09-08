@@ -31,6 +31,14 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
         // getMedicineType(tempPrescriptionType)
     };
 
+    const getSuggestions = async (value) => {
+        const inputValue = value.trim().toLowerCase();
+        // debugger
+        // await getMedicineListWithType(inputValue)
+        setMedicineList(prescription_JSON.data);
+        return prescription_JSON.data;
+    };
+
     function getMedicineListWithType(name, presType = 'brand') {
         get(`${API.GET_MEDICINE}am`)
             .then(response => {
@@ -105,6 +113,13 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
             type:ACTIONS.CHANGE_STAT, payload: {id: index, value:event.target.checked}
         })
     }
+
+    function onDosageSlotChange(event) {
+        dispatch({
+            type:ACTIONS.CHANGE_DOSAGE_SLOT, payload: {id: index, value:event.target.value}
+        })
+    }
+
     return(
         <>
             <Row classNme="g-2">
@@ -143,7 +158,7 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                 <Col xs={12} md={4}>
                     <div className="medicine-autosuggest-container">
                         <div style={{marginBottom: "8px"}}>Medicine</div>
-                        {/*<AutoSuggestInput getSuggestions={getSuggestions}/>*/}
+                        <AutoSuggestInput getSuggestions={getSuggestions}/>
                     </div>
                     {/*<Input*/}
                     {/*    type="text"*/}
@@ -263,39 +278,57 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                             </Row>
 
 
-                            {['radio'].map((type) => (
-                                <div key={`inline-${type}`} className="">
+                                <div key={`inline-radio`} className="">
                                     <Form.Check
                                         label="Before Food"
-                                        name="dosage"
-                                        type={type}
-                                        id={`inline-${type}-1`}
+                                        name="dosage-time-slot"
+                                        type="radio"
+                                        id={`inline-radio-1`}
+                                        value="beforeFood"
+                                        onChange={onDosageSlotChange}
+                                        checked={
+                                            prescription.prescriptions[0].dosage.before_food
+                                        }
                                     />
                                     <Form.Check
                                         label="After Food"
-                                        name="dosage"
-                                        type={type}
-                                        id={`inline-${type}-2`}
+                                        name="dosage-time-slot"
+                                        type="radio"
+                                        value="afterFood"
+                                        id={`inline-radio-2`}
+                                        onChange={onDosageSlotChange}
+                                        checked={
+                                            prescription.prescriptions[0].dosage.after_food
+                                        }
                                     />
                                     <Form.Check
                                         label="With Food"
-                                        name="dosage"
-                                        type={type}
-                                        id={`inline-${type}-3`}
+                                        name="dosage-time-slot"
+                                        type="radio"
+                                        value="withFood"
+                                        id={`inline-radio-3`}
+                                        onChange={onDosageSlotChange}
+                                        checked={
+                                            prescription.prescriptions[0].dosage.with_food
+                                        }
                                     />
                                     <Form.Check
                                         label="Other"
-                                        name="dosage"
-                                        type={type}
-                                        id={`inline-${type}-4`}
+                                        name="dosage-time-slot"
+                                        type="radio"
+                                        value="otherFood"
+                                        id={`inline-radio-4`}
+                                        onChange={onDosageSlotChange}
+                                        checked={
+                                            prescription.prescriptions[0].dosage.other
+                                        }
                                     />
                                 </div>
-                            ))}
 
-                            <div className="otherdoage"><Input type="text" placeholder="Enter other details"
-                                                               id="other"
-                                                               onChange={() => null}/>
-                            </div>
+                            {prescription.prescriptions[0].dosage.other && <div className="otherdoage"><Input type="text" placeholder="Enter other details"
+                                                                id="other"
+                                                                onChange={() => null}/>
+                            </div>}
 
                                 <div key={`inline-checkbox`} className="">
                                     <Form.Check

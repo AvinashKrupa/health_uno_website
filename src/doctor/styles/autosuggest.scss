@@ -1,0 +1,64 @@
+/**
+  Prescription Detail Page
+ */
+
+.doctor-prescription-container {
+.medicine-autosuggest-container{
+  margin-top: 24px;
+}
+
+
+}
+.react-autosuggest__suggestions-list {
+  margin: 0!important;
+  padding: 0!important;
+  list-style-type: none!important;
+  overflow: auto!important;
+  max-height: 400px!important;
+}
+
+.sugg-option {
+  display: flex!important;
+}
+.icon-wrap img {
+  width: 50px!important;
+  margin-right: 10px!important;
+}
+.sugg-option .name {
+}
+.react-autosuggest__input{
+  height: 50px !important;
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  margin: 0;
+  box-sizing: border-box;
+}
+//.react-autosuggest__section-container{
+//  //background-color: '#EBEBEB'
+//  //color: #fff;
+//  //background-color: #27a3da;
+//  //border-color: #27a3da;
+//  background-color: #27a3da;
+//}
+.react-autosuggest__suggestion--highlighted {
+  color: #fff;
+  background-color: #27a3da;
+}
+.react-autosuggest__suggestions-list {
+}
+.react-autosuggest__suggestion {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
