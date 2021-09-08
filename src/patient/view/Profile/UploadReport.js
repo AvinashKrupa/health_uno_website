@@ -18,6 +18,7 @@ const UploadReport = (props) => {
   const [reportName, setReportName] = useState("");
   const [uploadDate, setUploadDate] = useState("");
   const [reportType, setReportType] = useState("");
+  const [error, setError] = useState(false);
   const [files, setFiles] = useState([]);
   const { addToast } = useToasts();
 
@@ -161,13 +162,17 @@ const UploadReport = (props) => {
                       <button className="view-button" onClick={() => setFiles([])}>Delete</button>
                     </div>))}
                   <Dropzone
-                    onDrop={acceptedFiles =>
-
+                    onDrop={(acceptedFiles) => {
+                      setError(false);
                       setFiles(acceptedFiles.map(file => Object.assign(file, {
                         preview: URL.createObjectURL(file)
-                      })))}
+                      })))
+                    }}
                     accept="image/jpeg,.pdf"
-
+                    maxFiles={1}
+                    onDropRejected={(fileRejections , event) => {
+                      setError(true)
+                    }}
                   >
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps()}>
@@ -187,6 +192,11 @@ const UploadReport = (props) => {
                 <div className="note">
                   Please upload report in pdf or jpeg format
                 </div>
+                {error && 
+                  <div className="note" style={{color: 'red', fontSize: '18px'}}>
+                      Please upload single report file
+                  </div>
+                }
                 {files.length > 0 && <h4>Preview</h4>}
                 <aside style={thumbsContainer}>
                   
