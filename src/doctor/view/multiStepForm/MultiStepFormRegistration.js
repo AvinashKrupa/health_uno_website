@@ -28,6 +28,13 @@ const MultiStepFormRegistration = ({history}) => {
   const [addressLine1, setAddressLine1] = useState('');
   const [addressLine2, setAddressLine2] = useState('');
   const [description, setDescription] = useState('');
+  const [language, setLanguage] = useState('');
+
+  const setLanguageValue = (value) => {
+    const lanInfo = value.split('|');
+    setLanguage(lanInfo[1])
+  }
+  
 
   //second form information
   const [department, setDepartment] = useState('');
@@ -107,6 +114,7 @@ const MultiStepFormRegistration = ({history}) => {
       dob: birthDate,
       gender: gender,
       desc: description,
+      language: language, 
       avail: {
         day: daysObj,
         slots: slots,
@@ -273,6 +281,9 @@ const MultiStepFormRegistration = ({history}) => {
     } else if (isEmpty(city) || city === 'Select city') {
       addToast('Please select city', { appearance: 'error' });
       return false;
+    } else if (isEmpty(language) ||language === 'Select language') {
+      addToast('Please select language', { appearance: 'error' });
+      return false;
     } else {
       return true;
     }
@@ -369,7 +380,8 @@ const MultiStepFormRegistration = ({history}) => {
               setAddressLine2={setAddressLine2}
               setDescription={setDescription}
               disabled={nextDisabled}
-              onClick={handleNext} />
+              onClick={handleNext}
+              setLanguageValue={setLanguageValue} />
           }
 
           { activeStep === 2 &&

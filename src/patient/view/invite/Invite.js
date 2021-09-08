@@ -6,20 +6,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
   EmailShareButton,
   FacebookShareButton,
-  InstapaperShareButton,
   LinkedinShareButton,
-  MailruShareButton,
-  RedditShareButton,
-  TelegramShareButton,
   TwitterShareButton,
   WhatsappShareButton,
   EmailIcon,
   FacebookIcon,
-  InstapaperIcon,
   LinkedinIcon,
-  MailruIcon,
-  RedditIcon,
-  TelegramIcon,
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
@@ -83,25 +75,12 @@ const Invite = (props) => {
           <TwitterShareButton url="www.google.com">
             <TwitterIcon  size={50} round={true}/>
           </TwitterShareButton>
-
-          <MailruShareButton url="www.google.com" >
-            <MailruIcon size={50} round={true} />
-          </MailruShareButton>
           <FacebookShareButton url="www.google.com">
             <FacebookIcon size={50} round={true} />
           </FacebookShareButton>
-          <InstapaperShareButton url="www.google.com">
-            <InstapaperIcon size={50} />
-          </InstapaperShareButton>
           <LinkedinShareButton url="www.google.com">
             <LinkedinIcon size={50} round={true} />
           </LinkedinShareButton>
-          <RedditShareButton url="www.google.com">
-            <RedditIcon  size={50} round={true}/>
-          </RedditShareButton>
-          <TelegramShareButton url="www.google.com">
-            <TelegramIcon  size={50} round={true}/>
-          </TelegramShareButton>
         </div>
       </ModalDialog>
     </>

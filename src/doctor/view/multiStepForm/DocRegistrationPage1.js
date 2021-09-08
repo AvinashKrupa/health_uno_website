@@ -4,7 +4,7 @@ import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import Select from "../../../commonComponent/Select";
 import { Row, Col, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import {API, post} from '../../../api/config/APIController';
+import {API, get, post} from '../../../api/config/APIController';
 import { useToasts } from "react-toast-notifications";
 import ProfilePictureColumn from "./profilePictureColumn";
 import moment from "moment";
@@ -13,14 +13,16 @@ const DocRegistrationPage1 = (props) => {
     // Get state and language from server
     useEffect(() => {
       getState();
+      getLanguage()
       return () => {};
     }, []);
 
  const { firstName, lastName, mobile, email, city, state,
          addressLine1, addressLine2, description, setFirstName, setLastName, setMobile,
-         setBirthDate, setEmail, setGender, setCity, setState, setAddressLine1, setAddressLine2, setDescription} = props;
+         setBirthDate, setEmail, setGender, setCity, setState, setAddressLine1, setAddressLine2, setDescription, setLanguageValue} = props;
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);
+  const [dataLanguage, setDataLanguage] = useState([]);
   const { addToast } = useToasts();
   
   let genderOptions = ["Male", "Female", "Other"];
@@ -73,6 +75,24 @@ const DocRegistrationPage1 = (props) => {
         addToast(error.response.data.message, { appearance: 'error' });
       });
   }
+
+  // Get language from server
+function getLanguage() {
+  get(API.GETLANGUAGE)
+    .then(response => {
+      if (response.status === 200) {
+        let data = response.data.data.map(info => {
+          return {value: info.name, id: info._id};
+        });
+        setDataLanguage(data);
+      } else {
+        addToast(response.data.message, { appearance: 'error' });
+      }
+    })
+    .catch(error => {
+      addToast(error.data.message, { appearance: 'error' });
+    });
+}
 
   return (
     <div className="registration-page-1-container">
@@ -185,6 +205,19 @@ const DocRegistrationPage1 = (props) => {
                   </Row>
                 </Col>
             </Row>
+            <Row className="g-2">
+            <Col md>
+                <KeyValueSelector
+                  value='Language'
+                    label="Language"
+                    defaultValue="Select language"
+                    id="Language"
+                    options={dataLanguage}
+                    handleSelect={setLanguageValue}
+                  />
+            </Col>
+          <Col md></Col>
+        </Row>
         </Col>
         <Col lg='2'> </Col>
       </Row>
