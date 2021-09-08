@@ -26,7 +26,7 @@ export const DAYS_LIST = [
     }, {
         "value": "9",
         "id": 9
-    },{
+    }, {
         "value": "10",
         "id": 10
     },
@@ -34,9 +34,22 @@ export const DAYS_LIST = [
 export const PERIODICITY_LIST = [
     {
         "value": "days",
-        "id": "days"
-    }, {
+        "id": "Days"
+    },
+    {
+        "value": "weeks",
+        "id": "Weeks"
+    },
+    {
         "value": "months",
-        "id": "months"
+        "id": "Months"
+    },
+    {
+        "value": "years",
+        "id": "Years"
+    },
+    {
+        "value": "cycle",
+        "id": "Cycle"
     }
 ]
