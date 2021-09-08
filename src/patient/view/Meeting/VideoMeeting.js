@@ -249,8 +249,14 @@ const VideoMeeting = (props) => {
                       <Button
                         className="meeting-page-button-blue"
                         onClick={() => {
+                          if(!props.location?.state?.appointment_id) {
+                            addToast("Please go back on appointment page and again join the meeting ", {
+                              appearance: "error",
+                            });
+                            return;
+                          }
                           window.open(
-                            `https://dev.healthuno.com:6005/${props.match.params.appointment_id}`
+                            `https://dev.healthuno.com:6005/${props.location?.state?.appointment_id}`
                           );
                         }}
                       >

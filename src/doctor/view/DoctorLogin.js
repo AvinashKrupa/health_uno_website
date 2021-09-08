@@ -20,7 +20,7 @@ import { storeData } from "../../storage/LocalStorage/LocalAsyncStorage";
 const DoctorLogin = ({history}) => {
   const { addToast } = useToasts();
   const authContext = useContext(AuthContext);
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [mobileNumber, setMobileNumber] = useState(authContext.phone ? authContext.phone : '');
 
   const onClick = () => {
     let params = {

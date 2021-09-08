@@ -7,7 +7,7 @@ import MainView from '../MainView';
 
 const basicRoutes = ['/', '/doctor',  '/doctor/otp', '/doctor/registration', '/patient/otp', '/patient/registration']
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, exact,  ...rest }) => {
   // console.log('rest: ', rest);
 
   // var token = jwt_decode(getData('ACCESS_TOKEN'));
@@ -29,7 +29,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   //   />
   // );
 
-  <Route {...rest} render={props =>
+  <Route exact {...rest} render={props =>
     basicRoutes.includes(rest.path)  ? <Component {...props} /> : (
       // <MainView>
          <Component {...props} />

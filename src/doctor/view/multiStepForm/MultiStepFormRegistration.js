@@ -17,6 +17,7 @@ const MultiStepFormRegistration = ({history}) => {
   const authContext = useContext(AuthContext);
 
   //First form information
+  const currentDate = new Date();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [mobile, setMobile] = useState(authContext.phone);
@@ -229,6 +230,9 @@ const MultiStepFormRegistration = ({history}) => {
     } else if (isEmpty(dateOfRegistration)) {
       addToast('Please enter date of registration', { appearance: 'error' });
       return false;
+    }  else if (currentDate < new Date(dateOfRegistration)) {
+      addToast('Please select registration date before the current date', { appearance: 'error' });
+      return false;
     } else if (isEmpty(dateOfRenewal)) {
       addToast('Please enter Date of Renewal', { appearance: 'error' });
       return false;
@@ -267,6 +271,9 @@ const MultiStepFormRegistration = ({history}) => {
       return false;
     } else if (isEmpty(birthDate)) {
       addToast('Please select your date of birth', { appearance: 'error' });
+      return false;
+    } else if (currentDate < new Date(birthDate)) {
+      addToast('Please select birth date before the current date', { appearance: 'error' });
       return false;
     } else if (isEmpty(gender) || gender === 'Select Gender') {
       addToast('Please select gender', { appearance: 'error' });

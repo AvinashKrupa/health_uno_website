@@ -95,7 +95,15 @@ const btn = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
                  {props.appointment.status === 'scheduled' ?
                     <CustomButton
                       className="card-button-join"
-                      onClick={() =>  props.history.push(`/patient/videoMeeting/${props?.appointment.doctor_id}`)}
+                      onClick={() => 
+                        {
+                          props.history.push({
+                            pathname: `/patient/videoMeeting/${props?.appointment.doctor_id}`,
+                            state: { appointment_id: props?.appointment._id }
+                          });
+                         }
+                        }
+                        
                       text={'Join meeting'}
                       ></CustomButton>
                     :

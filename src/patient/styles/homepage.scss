@@ -205,3 +205,11 @@
 .size-1x {
   display: none !important;
 }
+
+.filter-list-close {
+  inset: unset !important;
+}
+
+div[role=navigation] {
+  inset: 0px ;
+}
