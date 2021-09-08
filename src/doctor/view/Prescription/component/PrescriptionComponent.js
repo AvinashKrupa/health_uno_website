@@ -9,27 +9,10 @@ import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
 import {DAYS_LIST, PERIODICITY_LIST} from "../constants";
+
 const prescription_JSON = require('../../../../JSON/prescription.json');
-
-export default function PrescriptionComponent({index, prescription, dispatch, addToast, medicineTypesList}){
-    console.log('prescriptionprescription', prescription)
-    const [openDialog, setOpenDialog] = React.useState(false);
+export default function PrescriptionComponent({index, prescription, dispatch, addToast, medicineTypesList,handleClickOpen}){
     let [medicineList, setMedicineList] = useState([]);
-    const handleClickOpen = () => {
-        setOpenDialog(true);
-    };
-
-    const handleClose = () => {
-        setOpenDialog(false);
-    };
-
-    const handleProceed = () => {
-        setOpenDialog(false);
-        // setPrescriptionType(tempPrescriptionType)
-        // setMedicineWithType([]);
-        // setSelectedMedicineFromType('');
-        // getMedicineType(tempPrescriptionType)
-    };
 
     const getSuggestions = async (value) => {
         const inputValue = value.trim().toLowerCase();
@@ -55,72 +38,72 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
     }
 
     function onPrescriptionOptionChange(event) {
-        dispatch({
-            type:ACTIONS.CHANGE_PRESCRIPTION_TYPE, payload: {id: index, value:event.target.value}
-        })
-        handleClickOpen();
+        handleClickOpen(index, event.target.value);
     }
+
     function setStartDate(date) {
         const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
-        debugger
         dispatch({
-            type:ACTIONS.SET_START_DATE, payload: {id: index, value:selectedDate}
+            type: ACTIONS.SET_START_DATE, payload: {id: index, value: selectedDate}
         })
     }
+
     function setSelectedMedicineFromType(value) {
         const typeInfo = value.split('|');
         dispatch({
-            type:ACTIONS.SET_MEDICINE_TYPE, payload: {id: index, value: {
+            type: ACTIONS.SET_MEDICINE_TYPE, payload: {
+                id: index, value: {
                     "name": typeInfo[1],
                     "status": "active",
                     "_id": typeInfo[0]
-                }}
+                }
+            }
         })
     }
+
     function onDosageChange(value) {
         dispatch({
-            type:ACTIONS.CHANGE_DOSAGE_NAME, payload: {id: index, value:value}
+            type: ACTIONS.CHANGE_DOSAGE_NAME, payload: {id: index, value: value}
         })
     }
+
     function onCommentChange(value) {
         dispatch({
-            type:ACTIONS.CHANGE_COMMENT, payload: {id: index, value:value}
+            type: ACTIONS.CHANGE_COMMENT, payload: {id: index, value: value}
         })
     }
 
     function onDaysSelect(value) {
-        debugger
         dispatch({
-            type:ACTIONS.SET_DAYS, payload: {id: index, value:value}
+            type: ACTIONS.SET_DAYS, payload: {id: index, value: value}
         })
     }
 
     function onPeriodicitySelect(value) {
-        debugger
         dispatch({
-            type:ACTIONS.SET_PERIODITY, payload: {id: index, value:value}
+            type: ACTIONS.SET_PERIODITY, payload: {id: index, value: value}
         })
     }
+
     function setSos(event) {
-        debugger
         dispatch({
-            type:ACTIONS.CHANGE_SOS, payload: {id: index, value:event.target.checked}
+            type: ACTIONS.CHANGE_SOS, payload: {id: index, value: event.target.checked}
         })
     }
+
     function setStat(event) {
-        debugger
         dispatch({
-            type:ACTIONS.CHANGE_STAT, payload: {id: index, value:event.target.checked}
+            type: ACTIONS.CHANGE_STAT, payload: {id: index, value: event.target.checked}
         })
     }
 
     function onDosageSlotChange(event) {
         dispatch({
-            type:ACTIONS.CHANGE_DOSAGE_SLOT, payload: {id: index, value:event.target.value}
+            type: ACTIONS.CHANGE_DOSAGE_SLOT, payload: {id: index, value: event.target.value}
         })
     }
 
-    return(
+    return (
         <>
             <Row classNme="g-2">
                 <div className="prescriptionSection">
@@ -128,30 +111,30 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                         <Col md><p>Prescription</p></Col>
                         <Col md className="Choosetemplate"><p>Choose template</p></Col>
                     </Row>
-                        <div key={`inline-radio`} className="">
-                            <Form.Check
-                                label="Brand"
-                                name={`Prescription${index}`}
-                                type={'radio'}
-                                onChange={onPrescriptionOptionChange}
-                                value="brand"
-                                checked={
-                                    prescription.selectedType ===
-                                    "brand"
-                                }
-                            />
-                            <Form.Check
-                                label="Composition"
-                                name={`Prescription${index}`}
-                                type={'radio'}
-                                onChange={onPrescriptionOptionChange}
-                                value="composition"
-                                checked={
-                                    prescription.selectedType ===
-                                    "composition"
-                                }
-                            />
-                        </div>
+                    <div key={`inline-radio`} className="">
+                        <Form.Check
+                            label="Brand"
+                            name={`Prescription${index}`}
+                            type={'radio'}
+                            onChange={onPrescriptionOptionChange}
+                            value="brand"
+                            checked={
+                                prescription.selectedType ===
+                                "brand"
+                            }
+                        />
+                        <Form.Check
+                            label="Composition"
+                            name={`Prescription${index}`}
+                            type={'radio'}
+                            onChange={onPrescriptionOptionChange}
+                            value="composition"
+                            checked={
+                                prescription.selectedType ===
+                                "composition"
+                            }
+                        />
+                    </div>
                 </div>
             </Row>
             <Row className="g-4">
@@ -278,76 +261,77 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                             </Row>
 
 
-                                <div key={`inline-radio`} className="">
-                                    <Form.Check
-                                        label="Before Food"
-                                        name="dosage-time-slot"
-                                        type="radio"
-                                        id={`inline-radio-1`}
-                                        value="beforeFood"
-                                        onChange={onDosageSlotChange}
-                                        checked={
-                                            prescription.prescriptions[0].dosage.before_food
-                                        }
-                                    />
-                                    <Form.Check
-                                        label="After Food"
-                                        name="dosage-time-slot"
-                                        type="radio"
-                                        value="afterFood"
-                                        id={`inline-radio-2`}
-                                        onChange={onDosageSlotChange}
-                                        checked={
-                                            prescription.prescriptions[0].dosage.after_food
-                                        }
-                                    />
-                                    <Form.Check
-                                        label="With Food"
-                                        name="dosage-time-slot"
-                                        type="radio"
-                                        value="withFood"
-                                        id={`inline-radio-3`}
-                                        onChange={onDosageSlotChange}
-                                        checked={
-                                            prescription.prescriptions[0].dosage.with_food
-                                        }
-                                    />
-                                    <Form.Check
-                                        label="Other"
-                                        name="dosage-time-slot"
-                                        type="radio"
-                                        value="otherFood"
-                                        id={`inline-radio-4`}
-                                        onChange={onDosageSlotChange}
-                                        checked={
-                                            prescription.prescriptions[0].dosage.other
-                                        }
-                                    />
-                                </div>
+                            <div key={`inline-radio`} className="">
+                                <Form.Check
+                                    label="Before Food"
+                                    name="dosage-time-slot"
+                                    type="radio"
+                                    id={`inline-radio-1`}
+                                    value="beforeFood"
+                                    onChange={onDosageSlotChange}
+                                    checked={
+                                        prescription.prescriptions[0].dosage.before_food
+                                    }
+                                />
+                                <Form.Check
+                                    label="After Food"
+                                    name="dosage-time-slot"
+                                    type="radio"
+                                    value="afterFood"
+                                    id={`inline-radio-2`}
+                                    onChange={onDosageSlotChange}
+                                    checked={
+                                        prescription.prescriptions[0].dosage.after_food
+                                    }
+                                />
+                                <Form.Check
+                                    label="With Food"
+                                    name="dosage-time-slot"
+                                    type="radio"
+                                    value="withFood"
+                                    id={`inline-radio-3`}
+                                    onChange={onDosageSlotChange}
+                                    checked={
+                                        prescription.prescriptions[0].dosage.with_food
+                                    }
+                                />
+                                <Form.Check
+                                    label="Other"
+                                    name="dosage-time-slot"
+                                    type="radio"
+                                    value="otherFood"
+                                    id={`inline-radio-4`}
+                                    onChange={onDosageSlotChange}
+                                    checked={
+                                        prescription.prescriptions[0].dosage.other
+                                    }
+                                />
+                            </div>
 
-                            {prescription.prescriptions[0].dosage.other && <div className="otherdoage"><Input type="text" placeholder="Enter other details"
-                                                                id="other"
-                                                                onChange={() => null}/>
+                            {prescription.prescriptions[0].dosage.other &&
+                            <div className="otherdoage"><Input type="text" placeholder="Enter other details"
+                                                               id="other"
+                                                               onChange={() => null}/>
                             </div>}
 
-                                <div key={`inline-checkbox`} className="">
-                                    <Form.Check
-                                        label="SOS"
-                                        name="grup"
-                                        type={'checkbox'}
-                                        id={`inline-checkbox-1`}
-                                        checked={prescription.prescriptions[0].dosage.sos}
-                                        onChange={setSos}
-                                    />
-                                    <Form.Check
-                                        label="STAT"
-                                        name="grup"
-                                        type={'checkbox'}
-                                        id={`inline-checkbox-2`}
-                                        checked={prescription.prescriptions[0].dosage.stat}
-                                        onChange={setStat}
-                                    />
-                                </div>
+                            <div key={`inline-checkbox`} className="">
+                                <Form.Check
+                                    label="SOS"
+                                    name="grup"
+                                    type={'checkbox'}
+                                    id={`inline-checkbox-1`}
+                                    checked={prescription.prescriptions[0].dosage.sos}
+                                    onChange={setSos}
+                                />
+                                <Form.Check
+                                    label="STAT"
+                                    name="grup"
+                                    type={'checkbox'}
+                                    id={`inline-checkbox-2`}
+                                    checked={prescription.prescriptions[0].dosage.stat}
+                                    onChange={setStat}
+                                />
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>
