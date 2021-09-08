@@ -32,7 +32,7 @@ const MultiStepFormRegistration = ({history}) => {
 
   const setLanguageValue = (value) => {
     const lanInfo = value.split('|');
-    setLanguage(lanInfo[1])
+    setLanguage(lanInfo[0])
   }
   
 
