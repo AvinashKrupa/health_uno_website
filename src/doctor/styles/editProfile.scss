@@ -34,6 +34,10 @@
 }
 
 .profile-left-Column {
+
+  .edit-fa-camera {
+    position: relative;
+  }
   padding: 0px;
   .profile-container {
     display: flex;
@@ -220,5 +224,11 @@
   .doctor-appointment-count-cards-container {
     margin-left: 0%;
     margin-right: 0%;
+  }
+}
+
+.profile-container {
+  .button-section {
+    z-index: 6;
   }
 }

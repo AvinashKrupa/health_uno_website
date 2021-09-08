@@ -15,8 +15,9 @@ import { withRouter } from "react-router-dom";
 import useUserStore from '../../store/userStore'
 import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import Spinner from "../../../commonComponent/Spinner";
+import moment from "moment";
 
-const RegistrationComponent = ({history}) => {
+const RegistrationComponent = ({history, image}) => {
 
   // Get state and language from server
   useEffect(() => {
@@ -61,12 +62,18 @@ const RegistrationComponent = ({history}) => {
   const [otherMedical, setOtherMedical] = useState('');
   const [referalCode, setReferalCode] = useState('');
   const [termsCondition, setTermsCondition] = useState(false);
-  const [covidDate, handleCovidDate] = useState('');
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);
   const [dataLanguage, setDataLanguage] = useState([]);
   const [language, setLanguage] = useState('');
   let [loader, setLoader] = useState(false);
+  const [vaccinated, setVaccinated] = useState([{id: 'yes', value: 'Yes', checked: false},
+  {id: 'no', value: 'No', checked: false}]);
+  const [isVaccinated, setIsVaccinated] = useState('');
+  const [vaccineDate, setVaccineDate] = useState('');
+  const [dose, setDose] = useState('');
+  const [vaccineName, setVaccineName] = useState('');
+  const [covidDetails, handleCovidDetails] = useState('');
 
   const setLanguageValue = (value) => {
     const lanInfo = value.split('|');
@@ -137,6 +144,16 @@ const RegistrationComponent = ({history}) => {
  setCovids(newCovids);
 }
 
+const handleVaccinated = (id) => {
+  setIsVaccinated(id === 'yes')
+
+ const newHypertensives =  vaccinated.map((item) => {
+      return Object.assign({}, item, {checked: item.id === id});
+ })
+
+ setVaccinated(newHypertensives);
+}
+
 // Get language from server
 function getLanguage() {
   get(API.GETLANGUAGE)
@@ -197,6 +214,7 @@ function getCity(id) {
 
 
 function validation() {
+  console.log('isCovid: ', isCovid);
   if (isEmpty(firstName)) {
     addToast('Please enter first name', { appearance: 'error' });
     return false;
@@ -258,13 +276,28 @@ function validation() {
     addToast('Please mention allergies', { appearance: 'error' });
     return false;
   } else if (isEmpty(isCovid)) {
-    addToast('Please select covid', { appearance: 'error' });
+    addToast('Please select: Have you been diagnosed with Covid?', { appearance: 'error' });
     return false;
-  } else if (isCovid === true && isEmpty(covidDate)) {
-    addToast('Please select covid from', { appearance: 'error' });
+  } else if (isCovid === true && isEmpty(covidDetails)) {
+    addToast('Please add covid details', { appearance: 'error' });
+    return false;
+  } else if (isEmpty(isVaccinated)) {
+    addToast('Please select: Have you been vaccinated against Covid?', { appearance: 'error' });
+    return false;
+  } else if (isVaccinated === true && (isEmpty(vaccineDate)) ) {
+    addToast('Please select vaccinated date', { appearance: 'error' });
+    return false;
+  } else if (isVaccinated === true && (isEmpty(dose) || dose === 'Choose dose type') ) {
+    addToast('Please select vaccinated dose', { appearance: 'error' });
+    return false;
+  } else if (isVaccinated === true && (isEmpty(vaccineName) || vaccineName === 'Choose vaccine name') ) {
+    addToast('Please select vaccine name ', { appearance: 'error' });
     return false;
   }  else if (termsCondition === false) {
     addToast('Please accept terms and condition', { appearance: 'error' });
+    return false;
+  } else if (!image) {
+    addToast('Please upload the image', { appearance: 'error' });
     return false;
   } else {
     return true;
@@ -284,7 +317,8 @@ function registerUserAPICalling() {
     height: 300,
     weight: 300,
     email: email,
-    // language: language,
+    // language: language,  
+    dp: image,
     med_cond: [
       {
         name: 'diabetic',
@@ -301,8 +335,8 @@ function registerUserAPICalling() {
       {
         name: 'diagnosed_with_covid',
         selected: isCovid,
-        diag_at: isCovid ? covidDate : '',
-        desc: '',
+        diag_at: '',
+        desc: isCovid ? covidDetails : '',
       },
       {
         name: 'past_surgeries',
@@ -315,6 +349,26 @@ function registerUserAPICalling() {
         selected: isAllergie,
         diag_at: '',
         desc: isAllergie ? allergieValue : '',
+      },
+      {
+        name: 'covid_vaccinated',
+        selected: isVaccinated,
+        diag_at: isVaccinated ? vaccineDate : '',
+        desc: '',
+        meta: isVaccinated ? [
+          {
+            name: 'dose_type',
+            selected: '',
+            diag_at:  '',
+            desc: dose,
+          },
+         {
+            name: 'vaccine_name',
+            selected: '',
+            diag_at:  '',
+            desc: vaccineName,
+         }
+        ] : []
       },
     ],
     other_med_cond: otherMedical,
@@ -348,7 +402,9 @@ function registerUserAPICalling() {
     });
 }
 
-  let genderOptions = ["Male", "Female", "Other"];
+  const genderOptions = ["Male", "Female", "Other"];
+  const dosages = ["First", "Second"];
+  const vaccineNames = ["Covishield","Covaxin","Sputnik","J&J","Pfizer","Others"];
 
   return (
     <div className="container">
@@ -402,7 +458,7 @@ function registerUserAPICalling() {
             <br />
             <Form.Label>Date of birth</Form.Label>
             <br />
-            <Form.Control type="date"  onChange={(e) => setBirthDate(e.target.value)}/>
+            <Form.Control type="date"  onChange={(e) => setBirthDate(e.target.value)} max={moment(new Date()).format('YYYY-MM-DD')}/>
           </Col>
           <Col md>
             <Selector
@@ -505,7 +561,7 @@ function registerUserAPICalling() {
               {isDiabetic &&
                 <Col>
                   <br />
-                  <br /> <Form.Control type="date"  onChange={(e) => setDiabeticValue(e.target.value)}/>
+                  <br /> <Form.Control type="date"  max={moment(new Date()).format('YYYY-MM-DD')} onChange={(e) => setDiabeticValue(e.target.value)}/>
                </Col>
               }
 
@@ -524,7 +580,7 @@ function registerUserAPICalling() {
              {isHypertensive &&
                 <Col>
                   <br />
-                  <br /> <Form.Control type="date"  onChange={(e) => setHypertensiveValue(e.target.value)}/>
+                  <br /> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')} onChange={(e) => setHypertensiveValue(e.target.value)}/>
                </Col>
               }
             </Row>
@@ -580,7 +636,7 @@ function registerUserAPICalling() {
           <Col md>
             <Row>
               <Radio
-                label="Have you diagnosed with COVID?"
+                label="Have you been diagnosed with Covid?"
                 id="radioHypertensive"
                 options={covids}
                 handleSelect={handleCovids}
@@ -588,14 +644,47 @@ function registerUserAPICalling() {
             </Row>
             <Row>
              { isCovid &&
-                <Col>
-                  <br />
-                  <br /> <Form.Control type="date"  onChange={(e) => handleCovidDate(e.target.value)}/>
-                </Col>
+                <Col md>
+                <Input
+                  type="text"
+                  placeholder="Enter additional details"
+                  label="Provide additional details of Covid illness"
+                  value={covidDetails}
+                  onChange={handleCovidDetails}
+                />
+              </Col>
               }
             </Row>
           </Col>
-          <Col md></Col>
+          <Col md>
+          <Row>
+              <Radio
+                label="Have you been vaccinated against Covid?"
+                id="vaccinated"
+                options={vaccinated}
+                handleSelect={handleVaccinated}
+              />
+            </Row>
+            <Row>
+             { isVaccinated &&
+                <Col md  style={{paddingTop: '32px'}}>
+                  <br /> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')} onChange={(e) => setVaccineDate(e.target.value)}/>
+                  <Selector
+                    defaultValue="Choose dose type"
+                    id="dose"
+                    options={dosages}
+                    handleSelect={setDose}
+                  />
+                  <Selector
+                        defaultValue="Choose vaccine name"
+                        id="v-name"
+                        options={vaccineNames}
+                        handleSelect={setVaccineName}
+                  />
+              </Col>
+              }
+            </Row>
+          </Col>
         </Row>
         <Row className="g-2">
           <Col md>
@@ -613,7 +702,7 @@ function registerUserAPICalling() {
             <Input
               type="text"
               placeholder="Enter code here"
-              label="Refer Code"
+              label="Referral Code"
               value={referalCode}
               onChange={setReferalCode}
             />

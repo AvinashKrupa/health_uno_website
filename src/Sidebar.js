@@ -3,7 +3,7 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import {getData} from "./storage/LocalStorage/LocalAsyncStorage";
 import { withRouter } from 'react-router-dom'
 
-const sidebar = ['home', 'appointments', 'profile']
+const sidebar = ['home', 'appointments', 'profile', 'reports']
 
 const Sidebar = (props) => {
     return (
@@ -13,7 +13,10 @@ const Sidebar = (props) => {
                 let routeName = '/patient/';
 
                 if (userType === 2) {
-                    routeName = '/doctor/'
+                    routeName = '/doctor/';
+                    // if(sidebar.includes('reports')) {
+                    //     return;
+                    // }
                 }
 
                 if( selected === 'profile') {
@@ -50,7 +53,7 @@ const Sidebar = (props) => {
                         </NavText>
                     </NavItem>
 
-                    <NavItem eventKey="prescriptions">
+                    <NavItem eventKey="reports">
                         <NavIcon>
                             <i className="fa fa-fw fa-briefcase" style={{fontSize: '1.75em'}}/>
                         </NavIcon>

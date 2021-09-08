@@ -2,11 +2,12 @@ import Input from "../../../commonComponent/Input";
 import TextArea from "../../../commonComponent/TextArea";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import Select from "../../../commonComponent/Select";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import {API, post} from '../../../api/config/APIController';
 import { useToasts } from "react-toast-notifications";
 import ProfilePictureColumn from "./profilePictureColumn";
+import moment from "moment";
 
 const DocRegistrationPage1 = (props) => {
     // Get state and language from server
@@ -98,7 +99,10 @@ const DocRegistrationPage1 = (props) => {
             </Row>
             <Row>
               <Col>
-                <Input label="Date of Birth" type="date"  onChange={setBirthDate}/>
+                <br />
+                <Form.Label>Date of birth</Form.Label>
+                <br />
+                <Form.Control type="date"  onChange={(e) => setBirthDate(e.target.value)} max={moment(new Date()).format('YYYY-MM-DD')}/>
               </Col>
               <Col>
                 <Select

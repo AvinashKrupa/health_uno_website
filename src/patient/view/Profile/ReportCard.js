@@ -1,32 +1,38 @@
 import { Grid } from "@material-ui/core";
+import moment from "moment";
 import { Row, Col, Button } from "react-bootstrap";
 
 const ReportCard = (props) => {
   return (
     <>
-    <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1}>
+    <Grid container item lg={3}  md={6} sm={6} xs={12} spacing={1}>
       <Col>
         <Row className="report-card-container">
           <Col className="padding-0">
             <Row>
               <span className="report-card-text-location">
-                {props.location || "Medilabs, Chennai"}
+                {props.report.title}
               </span>
             </Row>
             <Row>
               <span className="report-card-text-title">
-                {props.title || "Prescriptions"}
+                {props.report.type}
               </span>
             </Row>
             <Row>
               <span className="report-card-text-date-and-time">
-                {props.dateAndTime || "31 July 21 , 4:10 pm"}
+                {moment(props.report.updated_at).format('lll')}
               </span>
             </Row>
           </Col>
           <Col className="padding-0">
             <Row>
-              <Button className="report-card-button">View</Button>
+              <a href='#' onClick={() => {
+                props.history.push({
+                  pathname: '/patient/PDF',
+                  state: { url: props.report.url }
+                });
+              }} className="report-card-button">View</a>
             </Row>
           </Col>
         </Row>

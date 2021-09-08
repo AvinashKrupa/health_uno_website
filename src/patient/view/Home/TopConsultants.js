@@ -14,6 +14,7 @@ import { filter } from "../../../constants/PatientImages";
 import SimilarDoctorsCard  from '../doctorDetail/SimilarDoctorsCard'
 import { back_icon } from "../../../constants/DoctorImages";
 import InfiniteScroll from"react-infinite-scroll-component";
+import Label from "../../../commonComponent/Label";
 
 const TopConsultants = (props) => {
   let timer = null;
@@ -23,6 +24,8 @@ const TopConsultants = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [page, setPage] = useState(1);
   useEffect(() => {
+    const searchInput = document.getElementById('top-const-search')
+    searchInput.focus();
     getTopConsultants();
   }, [searchText]);
 
@@ -31,10 +34,10 @@ const TopConsultants = (props) => {
     getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages);
   }
 
-  function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '') {
+  function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '', isPagination = false) {
     let params = {
       limit: 15,
-      page: page,
+      page: isPagination ? page : '1',
       filter: {
         text: searchText,
         fee_min: min,
@@ -48,9 +51,13 @@ const TopConsultants = (props) => {
     post(API.GETTOPCONSULTANT, params)
       .then(response => {
         if (response.status === 200) {
-          console.log([...consultants, ...response.data.data.docs], "response.data.data.docs");
-          setConsultant([...consultants, ...response.data.data.docs]);
-          setPage(page + 1)
+          if(isPagination) {
+            setConsultant([...consultants, ...response.data.data.docs]);
+            setPage(page + 1)
+          } else {
+            setConsultant(response.data.data.docs);
+          }
+          
         } else {
           addToast(response.data.message, { appearance: "error" });
         }
@@ -59,6 +66,7 @@ const TopConsultants = (props) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
   }
+  
 
   function debounce(txt) {
     clearTimeout(timer);
@@ -71,7 +79,7 @@ const TopConsultants = (props) => {
     setSidebarOpen(!sidebarOpen);
   }
   const fetchMoreData = () => {
-      getTopConsultants()
+      getTopConsultants('asc','',  '' , '', true)
   };
   return (
     <div>
@@ -93,6 +101,7 @@ const TopConsultants = (props) => {
               defaultValue={searchText}
               className='patient-homepage-search'
               onChange={(e) => debounce(e)}
+              id='top-const-search'
             >
             </SearchInputWithIcon>
             <Button onClick={toggleSidebar} style={{marginTop: '33px'}}>
@@ -123,6 +132,13 @@ const TopConsultants = (props) => {
                 })}
               </Row>
             </InfiniteScroll>
+            {consultants.length === 0 &&
+               <div className='empty-text'>
+                <Label
+                    title={'No results found'}
+                />
+              </div>
+            }
           </div>
 
         </Col>

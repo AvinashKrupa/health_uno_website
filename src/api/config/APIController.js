@@ -24,6 +24,7 @@ export const API = {
   CANCELAPPOINTMENT: 'patient/cancelAppointment',
   GETMESSAGES: 'chat/getMessages',
   UPLOADREPORT: 'patient/uploadReport',
+  GETREPORTS: 'patient/getReports',
   /**
    * Doctor related APIS
    */

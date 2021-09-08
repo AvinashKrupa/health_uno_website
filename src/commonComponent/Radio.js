@@ -7,7 +7,7 @@ const Radio = (props) => {
       <Row>
         <Form.Label>{props.label}</Form.Label>
       </Row>
-      <Row className="g-2">
+      <Row className="g-2 radio-gap">
         {props.options && props.options.length && props.options.map((item) => {
           return (
             <Col md key={item.id}>

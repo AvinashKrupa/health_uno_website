@@ -1,9 +1,10 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import Input from "../../../commonComponent/Input";
 import {API, get} from '../../../api/config/APIController';
 import { useToasts } from "react-toast-notifications";
 import { useEffect, useState } from "react";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
+import moment from "moment";
 
 const DocRegistrationPage2 = (props) => {
 
@@ -119,20 +120,16 @@ const DocRegistrationPage2 = (props) => {
           </Row>
           <Row>
             <Col>
-              <Input
-               label="Date of Registration"
-               type="date"
-               value={dateOfRegistration}
-               onChange={setDateOfRegistration}
-              />
+               <br />
+                <Form.Label>Date of Registration</Form.Label>
+                <br />
+                <Form.Control type="date" value={dateOfRegistration} onChange={(e) => setDateOfRegistration(e.target.value)} max={moment(new Date()).format('YYYY-MM-DD')}/>
             </Col>
             <Col>
-              <Input
-               label="Date of Renewal"
-               type="date"
-               value={dateOfRenewal}
-               onChange={setDateOfRenewal}
-              />
+            <br />
+                <Form.Label>Date of Renewal</Form.Label>
+                <br />
+                <Form.Control type="date" value={dateOfRenewal} onChange={(e) => setDateOfRenewal(e.target.value)} max={moment(new Date()).format('YYYY-MM-DD')}/>
             </Col>
           </Row>
 

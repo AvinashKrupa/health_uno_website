@@ -31,9 +31,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
   <Route {...rest} render={props =>
     basicRoutes.includes(rest.path)  ? <Component {...props} /> : (
-      <MainView>
+      // <MainView>
          <Component {...props} />
-      </MainView>)
+      // </MainView>
+      )
   }
   />
   );
