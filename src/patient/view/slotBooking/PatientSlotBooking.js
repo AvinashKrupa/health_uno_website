@@ -117,7 +117,7 @@ import Label from "../../../commonComponent/Label";
 
 
   const dayShiftSlot = () => {
-    return Object.entries(dataMorningShift).map((timeSlot) => {
+    return Object.entries(dataMorningShift).sort().map((timeSlot) => {
         return(
           <SlotGenerator selectedSlots={[slot]} handleSlotClick={setSlotData} label={`${timeSlot[0]} AM`} slots={timeSlot[1]} />
         )

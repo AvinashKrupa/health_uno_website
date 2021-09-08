@@ -29,6 +29,7 @@ import Report from "./patient/view/Profile/Report";
 import PatientProfile from "./patient/view/Profile/PatientProfile";
 import PDFViewer from "./commonComponent/PDFViewer";
 import MainView from "./MainView";
+import NotFoundPage from "./commonComponent/NotFoundPage";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
           <PrivateRoute exact path='/patient/otp' component={OTP} />
           <PrivateRoute exact path='/doctor/registration' component={MultiStepFormRegistration} />
           <PrivateRoute exact path='/patient/registration' component={Registration} />
-          <MainView>
+          <MainView >
           <PrivateRoute exact path="/doctor/home" component={DoctorHomePage} />
           <PrivateRoute exact path='/doctor/appointments' component={UpcomingAppointments} />
           <PrivateRoute exact path='/doctor/search' component={UpcomingAppointments} />
@@ -65,7 +66,9 @@ function App() {
           <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription} />
           <PrivateRoute exact path='/patient/PDF' component={PDFViewer} />
           {/* <PrivateRoute exact path='/patient/profile/upload' component={UploadReport} /> */}
+         
           </MainView>
+          <Route component={NotFoundPage} />
         </BrowserRouter>
     </div>
   );

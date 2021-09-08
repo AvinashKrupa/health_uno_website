@@ -30,6 +30,13 @@ const TopConsultants = (props) => {
   }, [searchText]);
 
 
+  useEffect(() => {
+    getTopConsultants();
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.add("filter-list-close");
+        });
+  }, []);
+
   function callBackFilter(data) {
     getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages);
   }
@@ -76,6 +83,16 @@ const TopConsultants = (props) => {
   }
 
   const toggleSidebar = () => {
+    if(sidebarOpen) {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.add("filter-list-close");
+        });
+    } else {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.remove("filter-list-close");
+        });
+    }
+    
     setSidebarOpen(!sidebarOpen);
   }
   const fetchMoreData = () => {
