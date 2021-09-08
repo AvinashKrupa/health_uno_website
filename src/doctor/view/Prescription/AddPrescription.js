@@ -102,15 +102,14 @@ const AddPrescription = (props) => {
     function reducer(prescription_list, action) {
         switch (action.type) {
             case ACTIONS.ADD_NEW_MEDICINE:
-                debugger
-                return [...prescription_list, action.payload];
+                prescription_list[action.payload.id].prescriptions[0].medicine = action.payload.value._id
+                return [...prescription_list]
             case ACTIONS.CHANGE_PRESCRIPTION_TYPE:
                 prescription_list[action.payload.id].selectedType = action.payload.value
                 return [...prescription_list]
             case ACTIONS.CHANGE_MEDICINE_NAME:
                 return null;
             case ACTIONS.SET_MEDICINE_TYPE:
-                debugger
                 prescription_list[action.payload.id].prescriptions[0].medicinetype = action.payload.value._id
                 return [...prescription_list]
             case ACTIONS.CHANGE_DOSAGE_NAME:

@@ -41,6 +41,12 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
         handleClickOpen(index, event.target.value);
     }
 
+    function selectMedicineName(selectionObj) {
+        debugger
+        dispatch({
+            type: ACTIONS.ADD_NEW_MEDICINE, payload: {id: index, value: selectionObj}
+        })
+    }
     function setStartDate(date) {
         const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
         dispatch({
@@ -141,7 +147,7 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                 <Col xs={12} md={4}>
                     <div className="medicine-autosuggest-container">
                         <div style={{marginBottom: "8px"}}>Medicine</div>
-                        <AutoSuggestInput getSuggestions={getSuggestions}/>
+                        <AutoSuggestInput selectMedicineName={selectMedicineName}/>
                     </div>
                     {/*<Input*/}
                     {/*    type="text"*/}
