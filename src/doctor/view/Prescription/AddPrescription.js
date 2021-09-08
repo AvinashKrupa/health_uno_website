@@ -102,13 +102,17 @@ const AddPrescription = (props) => {
     function reducer(prescription_list, action) {
         switch (action.type) {
             case ACTIONS.ADD_NEW_MEDICINE:
-                prescription_list[action.payload.id].prescriptions[0].medicine = action.payload.value._id
-                return [...prescription_list]
+                return [...prescription_list, action.payload];
             case ACTIONS.CHANGE_PRESCRIPTION_TYPE:
-                prescription_list[action.payload.id].selectedType = action.payload.value
+                prescription_list[action.payload.id].selectedType = action.payload.value;
+                prescription_list[action.payload.id].prescriptions[0].medicine = '';
+                prescription_list[action.payload.id].prescriptions[0].dosage.dosage_text = '';
+                prescription_list[action.payload.id].prescriptions[0].add_comments = '';
+                prescription_list[action.payload.id].prescriptions[0].medicinetype = '';
                 return [...prescription_list]
             case ACTIONS.CHANGE_MEDICINE_NAME:
-                return null;
+                prescription_list[action.payload.id].prescriptions[0].medicine = action.payload.value._id
+                return [...prescription_list];
             case ACTIONS.SET_MEDICINE_TYPE:
                 prescription_list[action.payload.id].prescriptions[0].medicinetype = action.payload.value._id
                 return [...prescription_list]
@@ -312,9 +316,10 @@ const AddPrescription = (props) => {
                                     </Col>
                                 </Row>
                             </Col>
-
+                            <Row style={{marginTop:46}}>
+                                <Col md><h5>Prescriptions</h5></Col>
+                            </Row>
                         </Row>
-
                         {
                             prescription_list.map((prescription, index) => {
                                 return <PrescriptionComponent key={index}

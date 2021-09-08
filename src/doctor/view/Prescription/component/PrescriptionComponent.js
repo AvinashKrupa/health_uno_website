@@ -29,7 +29,7 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
     function selectMedicineName(selectionObj) {
         debugger
         dispatch({
-            type: ACTIONS.ADD_NEW_MEDICINE, payload: {id: index, value: selectionObj}
+            type: ACTIONS.CHANGE_MEDICINE_NAME, payload: {id: index, value: selectionObj}
         })
     }
     function setStartDate(date) {
@@ -99,7 +99,6 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
             <Row classNme="g-2">
                 <div className="prescriptionSection">
                     <Row className="choosetemp">
-                        <Col md><p>Prescription</p></Col>
                         <Col md className="Choosetemplate"><p>Choose template</p></Col>
                     </Row>
                     <div key={`inline-radio`} className="">
@@ -247,9 +246,9 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                             <div key={`inline-radio`} className="">
                                 <Form.Check
                                     label="Before Food"
-                                    name="dosage-time-slot"
+                                    name={`dosage-time-slot-${index}`}
                                     type="radio"
-                                    id={`inline-radio-1`}
+                                    // id={`inline-radio-${index}`}
                                     value="beforeFood"
                                     onChange={onDosageSlotChange}
                                     checked={
@@ -258,10 +257,10 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                                 />
                                 <Form.Check
                                     label="After Food"
-                                    name="dosage-time-slot"
+                                    name={`dosage-time-slot-${index}`}
                                     type="radio"
                                     value="afterFood"
-                                    id={`inline-radio-2`}
+                                    // id={`inline-radio-2`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.prescriptions[0].dosage.after_food
@@ -269,10 +268,10 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                                 />
                                 <Form.Check
                                     label="With Food"
-                                    name="dosage-time-slot"
+                                    name={`dosage-time-slot-${index}`}
                                     type="radio"
                                     value="withFood"
-                                    id={`inline-radio-3`}
+                                    // id={`inline-radio-3`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.prescriptions[0].dosage.with_food
@@ -280,10 +279,10 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                                 />
                                 <Form.Check
                                     label="Other"
-                                    name="dosage-time-slot"
+                                    name={`dosage-time-slot-${index}`}
                                     type="radio"
                                     value="otherFood"
-                                    id={`inline-radio-4`}
+                                    // id={`inline-radio-4`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.prescriptions[0].dosage.other
