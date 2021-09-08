@@ -12,42 +12,15 @@ import {DAYS_LIST, PERIODICITY_LIST} from "../constants";
 const prescription_JSON = require('../../../../JSON/prescription.json');
 
 export default function PrescriptionComponent({index, prescription, dispatch, addToast, medicineTypesList,handleClickOpen}){
-    let [medicineList, setMedicineList] = useState([]);
-
-    const prescriptionList = prescription_JSON.data
-    const getSuggestions = (value) => {
+    const getSuggestions = async (value) => {
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
-        let result = inputLength === 0 ? [] : prescriptionList.filter(lang =>
-            lang.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
-        console.log('search result', result);
-        return result
+        if(inputLength >= 3 && inputLength <= 12){
+            let response = await get(`${API.GET_MEDICINE}name=${inputValue.toUpperCase()}&type=${prescription.selectedType}&status=active`);
+            return response
+        }
+        return [];
     };
-
-    // const getSuggestions = async (value) => {
-    //     const inputValue = value.trim().toLowerCase();
-    //     // debugger
-    //     // await getMedicineListWithType(inputValue)
-    //     setMedicineList(prescription_JSON.data);
-    //     return prescription_JSON.data;
-    // };
-
-    function getMedicineListWithType(name, presType = 'brand') {
-        get(`${API.GET_MEDICINE}name=${name}&type=${presType}&status=active`)
-            .then(response => {
-                if (response.status === 200) {
-                    debugger
-                    setMedicineList(prescription_JSON.data);
-                    console.log('medicineList :', medicineList);
-                } else {
-                    addToast(response.data.message, {appearance: "error"});
-                }
-            })
-            .catch(error => {
-                addToast(error.response.data.message, {appearance: "error"});
-            });
-    }
 
     function onPrescriptionOptionChange(event) {
         handleClickOpen(index, event.target.value);
@@ -159,16 +132,8 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                 <Col xs={12} md={4}>
                     <div className="medicine-autosuggest-container">
                         <div style={{marginBottom: "8px"}}>Medicine</div>
-                        <AutoSuggestInput selectMedicineName={selectMedicineName} getSuggestions={getSuggestions}/>
+                        <AutoSuggestInput selectMedicineName={selectMedicineName} getSuggestions={getSuggestions} addToast={addToast}/>
                     </div>
-                    {/*<Input*/}
-                    {/*    type="text"*/}
-                    {/*    placeholder="Enter Medicine Name"*/}
-                    {/*    id="medicine"*/}
-                    {/*    label="Medicine"*/}
-                    {/*    onChange={() => null}*/}
-                    {/*/>*/}
-
                     <Row className="g-3">
                         <Col xs={12} md={4}>
                             <Input

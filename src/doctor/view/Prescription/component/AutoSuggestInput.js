@@ -5,7 +5,8 @@ class AutoSuggestInput extends React.Component {
         super(props);
         this.state = {
             value: '',
-            suggestions: []
+            suggestions: [],
+            noSuggestions: false
         };
     }
 
@@ -25,6 +26,24 @@ class AutoSuggestInput extends React.Component {
 
     // Suggestion rerender when user types
     onSuggestionsFetchRequested = ({ value }) => {
+        this.props.getSuggestions(value)
+            .then(response => {
+                const isInputBlank = value.trim() === '';
+                const noSuggestions = !isInputBlank && response?.data?.data?.length === 0;
+                if (response.status === 200) {
+                    this.setState({
+                        suggestions: response.data.data,
+                        noSuggestions
+                    });
+                } else {
+                    this.setState({
+                        suggestions: [],
+                        noSuggestions
+                    });
+                }
+            })
+
+
         this.setState({
             suggestions: this.props.getSuggestions(value)
         }, ()=> console.log('suggestions :', this.state.suggestions));
@@ -43,7 +62,7 @@ class AutoSuggestInput extends React.Component {
     }
 
     render() {
-        const { value, suggestions } = this.state;
+        const { value, suggestions,noSuggestions } = this.state;
 
         const inputProps = {
             placeholder: 'Enter Medicine Name',
@@ -52,16 +71,24 @@ class AutoSuggestInput extends React.Component {
         };
 
         return (
-            <Autosuggest
-                className="form-control"
-                suggestions={suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={this.getSuggestionValue}
-                renderSuggestion={this.renderSuggestion}
-                inputProps={inputProps}
-                onSuggestionSelected={this.onSelectResult}
-            />
+            <>
+                <Autosuggest
+                    className="form-control"
+                    suggestions={suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps}
+                    onSuggestionSelected={this.onSelectResult}
+                />
+                {
+                    noSuggestions &&
+                    <div className="no-suggestions">
+                        No suggestions found
+                    </div>
+                }
+            </>
         );
     }
 }

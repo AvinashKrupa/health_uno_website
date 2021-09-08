@@ -51,13 +51,7 @@
   margin: 0;
   box-sizing: border-box;
 }
-//.react-autosuggest__section-container{
-//  //background-color: '#EBEBEB'
-//  //color: #fff;
-//  //background-color: #27a3da;
-//  //border-color: #27a3da;
-//  background-color: #27a3da;
-//}
+
 .react-autosuggest__suggestion--highlighted {
   color: #fff!important;
   background-color: #27a3da!important;
@@ -83,6 +77,7 @@
 }
 
 .react-autosuggest__suggestions-container--open {
+  width: 100%;
   display: block;
   position: absolute;
   top: 51px;
