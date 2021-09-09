@@ -16,7 +16,6 @@ import {useToasts} from "react-toast-notifications";
 import moment from "moment";
 import PrescriptionComponent from "./component/PrescriptionComponent";
 
-const prescription_JSON = require('../../../JSON/prescription.json');
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -207,21 +206,6 @@ const AddPrescription = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     setMedicineWithType(response.data.data);
-                } else {
-                    addToast(response.data.message, {appearance: "error"});
-                }
-            })
-            .catch(error => {
-                addToast(error.response.data.message, {appearance: "error"});
-            });
-    }
-
-    function getMedicineListWithType(name, presType = 'brand') {
-        get(`${API.GET_MEDICINE}am`)
-            .then(response => {
-                if (response.status === 200) {
-                    setMedicineList(prescription_JSON.data);
-                    console.log('medicineList :', medicineList);
                 } else {
                     addToast(response.data.message, {appearance: "error"});
                 }

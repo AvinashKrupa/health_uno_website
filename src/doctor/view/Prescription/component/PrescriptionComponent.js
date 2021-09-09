@@ -10,8 +10,6 @@ import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
 import {DAYS_LIST, PERIODICITY_LIST} from "../constants";
 
-const prescription_JSON = require('../../../../JSON/prescription.json');
-
 export default function PrescriptionComponent({
                                                   index,
                                                   prescription,
