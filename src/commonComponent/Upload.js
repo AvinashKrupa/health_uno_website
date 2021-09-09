@@ -1,13 +1,13 @@
 import 'rc-cropping/assets/index.css';
 import CropViewer from 'rc-cropping';
-import Dialog from 'rc-dialog';
-import 'rc-dialog/assets/index.css';
 import React, { Component } from 'react';
 import { API } from '../api/config/APIController';
 import axios from 'axios';
 import Constants from '../constants';
 import { Image } from 'react-bootstrap';
 import {uploadCamera} from '../constants/PatientImages';
+import { Modal } from 'antd';
+import 'antd/dist/antd.css';
 
 class UploadImage extends Component {
   beforeUpload(file) {
@@ -59,8 +59,9 @@ class UploadImage extends Component {
         resetPreviewAfterSelectImage={true}
         onChange={this.onChange}        
         getSpinContent={() => <span></span>}
-        renderModal={() => <Dialog />}
+        renderModal={() => <Modal />}
         circle
+        locale="en-US"
         fileType="image/jpeg"
         showSelected={false}
         resetPreviewAfterSelectImage={true}

@@ -34,6 +34,7 @@ const RegistrationComponent = ({history, image}) => {
   const [mobile, setMobile] = useState(authContext.phone);
   const [email, setEmail] = useState('');
   const [birthDate, setBirthDate] = useState('');
+  const currentDate = new Date();
   const [gender, setGender] = useState('');
   const [addressLine1, setAddressLine1] = useState('');
   const [addressLine2, setAddressLine2] = useState('');
@@ -236,6 +237,9 @@ function validation() {
   } else if (isEmpty(birthDate)) {
     addToast('Please select your date of birth', { appearance: 'error' });
     return false;
+  } else if (currentDate < new Date(birthDate)) {
+    addToast('Please select date of birth before the current date', { appearance: 'error' });
+    return false;
   } else if (isEmpty(gender) || gender === 'Select Gender') {
     addToast('Please select gender', { appearance: 'error' });
     return false;
@@ -257,11 +261,17 @@ function validation() {
   } else if (isDiabetic === true && isEmpty(diabeticValue)) {
     addToast('Please select diabetic from', { appearance: 'error' });
     return false;
+  } else if (currentDate < new Date(diabeticValue)) {
+    addToast('Please select diabetic from before the current date', { appearance: 'error' });
+    return false;
   } else if (isEmpty(isHypertensive)) {
     addToast('Please select hypertensive', { appearance: 'error' });
     return false;
   } else if (isHypertensive === true && isEmpty(hypertensiveValue)) {
     addToast('Please select hypertensive from', { appearance: 'error' });
+    return false;
+  } else if (currentDate < new Date(hypertensiveValue)) {
+    addToast('Please select hypertensive from before the current date', { appearance: 'error' });
     return false;
   } else if (isEmpty(isSurgery)) {
     addToast('Please select surgeries', { appearance: 'error' });

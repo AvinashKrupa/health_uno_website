@@ -16,12 +16,13 @@ import './appointments.scss';
 import './doctor_appointments_card.scss';
 import './model.scss';
 import './videoMeeting.scss';
-import './invite.scss'
+import './invite.scss';
 import './AddPrescription.scss';
-import './upload_report.scss'
-import './report.scss'
-import './report_card.scss'
-import './patient_profile.scss'
+import './upload_report.scss';
+import './report.scss';
+import './report_card.scss';
+import './patient_profile.scss';
+import './not_found_page.scss';
 
 // Doctor scss
 import '../../doctor/styles/appointment-detail.scss';
