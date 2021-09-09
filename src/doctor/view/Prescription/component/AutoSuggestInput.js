@@ -93,7 +93,6 @@ class AutoSuggestInput extends React.Component {
                     renderSuggestion={this.renderSuggestion}
                     inputProps={inputProps}
                     onSuggestionSelected={this.onSelectResult}
-                    ref={(input) => { this.autoSuggestInput = input; }}
                 />
                 {
                     noSuggestions &&

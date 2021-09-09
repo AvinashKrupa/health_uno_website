@@ -33,6 +33,8 @@ export const ACTIONS = {
     CHANGE_SOS: 'CHANGE_SOS',
     CHANGE_STAT: 'CHANGE_STAT',
     CHANGE_DOSAGE_SLOT: 'CHANGE_DOSAGE_SLOT',
+    ADD_TIME_SLOT: 'ADD_TIME_SLOT',
+    REMOVE_TIME_SLOT: 'REMOVE_TIME_SLOT',
 }
 const AddPrescription = (props) => {
     const {addToast} = useToasts();
@@ -50,14 +52,14 @@ const AddPrescription = (props) => {
             {
                 medicine: '',
                 medicinetype: '',
-                time_slots: '',
+                time_slots: [],
                 start_date: moment().format('YYYY-MM-DD'),
                 days: '1',
                 periodicity: 'days',
                 add_comments: '',
                 dosage: {
                     dosage_text: '',
-                    qty: '100mg',
+                    qty: '1mg',
                     before_food: true,
                     after_food: false,
                     with_food: false,
@@ -76,20 +78,20 @@ const AddPrescription = (props) => {
                 {
                     medicine: '',
                     medicinetype: '',
-                    time_slots: 'Morning, Night',
+                    time_slots: [],
                     start_date: moment().format('YYYY-MM-DD'),
-                    days: '10',
+                    days: '1',
                     periodicity: 'days',
                     add_comments: '',
                     dosage: {
                         dosage_text: '',
-                        qty: '100mg',
+                        qty: '1mg',
                         before_food: true,
                         after_food: false,
                         with_food: false,
                         other: false,
                         other_details: '',
-                        sos: true,
+                        sos: false,
                         stat: false,
                     },
                 }
@@ -139,6 +141,17 @@ const AddPrescription = (props) => {
                 return [...prescription_list]
             case ACTIONS.CHANGE_STAT:
                 prescription_list[action.payload.id].prescriptions[0].dosage.stat = action.payload.value
+                return [...prescription_list]
+            case ACTIONS.ADD_TIME_SLOT:
+                debugger
+                if(!prescription_list[action.payload.id].prescriptions[0].time_slots.includes(action.payload.value)){
+                    prescription_list[action.payload.id].prescriptions[0].time_slots.push(action.payload.value)
+                }
+                return [...prescription_list]
+            case ACTIONS.REMOVE_TIME_SLOT:
+                debugger
+                const arr = prescription_list[action.payload.id].prescriptions[0].time_slots.filter(e => e !== action.payload.value)
+                prescription_list[action.payload.id].prescriptions[0].time_slots= arr
                 return [...prescription_list]
             case ACTIONS.CHANGE_DOSAGE_SLOT:
                 switch (action.payload.value) {

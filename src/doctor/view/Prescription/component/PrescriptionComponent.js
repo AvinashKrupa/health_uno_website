@@ -1,14 +1,12 @@
-import {Card, Col, Form, Row} from "react-bootstrap";
+import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import AutoSuggestInput from "./AutoSuggestInput";
 import Input from "../../../../commonComponent/Input";
-import KeyValueSelector from "../../../../commonComponent/KeyValueSelector";
 import SelectorForMedicine from "../../../../commonComponent/SelectorForMedicine";
-import Selector from "../../../../commonComponent/Select";
 import React from "react";
 import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
-import {DAYS_LIST, PERIODICITY_LIST} from "../constants";
+import {DAYS_LIST, DOSAGE_LIST, PERIODICITY_LIST} from "../constants";
 
 export default function PrescriptionComponent({
                                                   index,
@@ -151,53 +149,104 @@ export default function PrescriptionComponent({
                             setSelectedSectionIndex={setSelectedSectionIndex}
                         />
                     </div>
+                    <Row>
+                        <div style={{marginTop: 40, marginBottom: 10}}>Time Slots</div>
+                    </Row>
                     <Row className="g-3">
                         <Col xs={12} md={4}>
-                            <Input
-                                type="text"
-                                placeholder="Morning"
-                                id="Morning"
-                                label="Time Slots"
-                                onChange={() => null}
-                            />
+                            <Button className={'time-slots-button'}
+                                    style={{
+                                        backgroundColor: prescription.prescriptions[0].time_slots.includes('Morning') ? '#28A3DA' : '#FFFFFF',
+                                        color: prescription.prescriptions[0].time_slots.includes('Morning') ? '#FFFFFF' : '#28A3DA'
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        if (prescription.prescriptions[0].time_slots.includes('Morning')) {
+                                            dispatch({
+                                                type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Morning'}
+                                            })
+                                        } else {
+                                            dispatch({
+                                                type: ACTIONS.ADD_TIME_SLOT, payload: {id: index, value: 'Morning'}
+                                            })
+                                        }
+
+                                    }}
+                            >
+                                <span
+                                    style={{color: prescription.prescriptions[0].time_slots.includes('Morning') ? '#FFFFFF' : '#000000'}}
+                                >Morning</span>
+                            </Button>
                         </Col>
                         <Col className="timeSlots" xs={12} md={4}>
-                            <Input
-                                type="text"
-                                placeholder="After noon"
-                                id="afternoon"
-                                label="Time Slots"
-                                onChange={() => null}
-                            />
+                            <Button className={'time-slots-button'}
+                                    style={{
+                                        backgroundColor: prescription.prescriptions[0].time_slots.includes('Afternoon') ? '#28A3DA' : '#FFFFFF',
+                                        color: prescription.prescriptions[0].time_slots.includes('Afternoon') ? '#FFFFFF' : '#28A3DA'
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        if (prescription.prescriptions[0].time_slots.includes('Afternoon')) {
+                                            dispatch({
+                                                type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Afternoon'}
+                                            })
+                                        } else {
+                                            dispatch({
+                                                type: ACTIONS.ADD_TIME_SLOT, payload: {id: index, value: 'Afternoon'}
+                                            })
+                                        }
+
+                                    }}
+                            >
+                                <span
+                                    style={{color: prescription.prescriptions[0].time_slots.includes('Afternoon') ? '#FFFFFF' : '#000000'}}
+                                >Afternoon</span>
+                            </Button>
                         </Col>
                         <Col className="timeSlots" xs={12} md={4}>
-                            <Input
-                                type="text"
-                                placeholder="Night"
-                                id="night"
-                                label="Time Slots"
-                                onChange={() => null}
-                            />
+                            <Button className={'time-slots-button'}
+                                    style={{
+                                        backgroundColor: prescription.prescriptions[0].time_slots.includes('Night') ? '#28A3DA' : '#FFFFFF',
+                                        color: prescription.prescriptions[0].time_slots.includes('Night') ? '#FFFFFF' : '#28A3DA'
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        if (prescription.prescriptions[0].time_slots.includes('Night')) {
+                                            dispatch({
+                                                type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Night'}
+                                            })
+                                        } else {
+                                            dispatch({
+                                                type: ACTIONS.ADD_TIME_SLOT, payload: {id: index, value: 'Night'}
+                                            })
+                                        }
+
+                                    }}
+                            >
+                                <span
+                                    style={{color: prescription.prescriptions[0].time_slots.includes('Night') ? '#FFFFFF' : '#000000'}}
+                                >Night</span>
+                            </Button>
                         </Col>
                     </Row>
 
 
                     <Row className="g-3">
                         <Col xs={12} md={6}>
-                            <KeyValueSelector
-                                value={prescription.prescriptions[0].days}
+                            <SelectorForMedicine
                                 label="Days"
-                                defaultValue={prescription.prescriptions[0].days}
+                                defaultValue="Select"
+                                value={prescription.prescriptions[0].days}
                                 id="Time Slots"
                                 options={DAYS_LIST}
                                 handleSelect={onDaysSelect}
                             />
                         </Col>
                         <Col xs={12} md={6}>
-                            <KeyValueSelector
-                                value={prescription.prescriptions[0].periodicity}
+                            <SelectorForMedicine
                                 label="Periodicity"
-                                defaultValue={prescription.prescriptions[0].periodicity}
+                                defaultValue="Select"
+                                value={prescription.prescriptions[0].periodicity}
                                 id="Periodicity"
                                 options={PERIODICITY_LIST}
                                 handleSelect={onPeriodicitySelect}
@@ -212,7 +261,7 @@ export default function PrescriptionComponent({
                 <Col>
                     <SelectorForMedicine
                         label="Medicine Type"
-                        defaultValue="Select"
+                        defaultValue={"Select"}
                         value={prescription.prescriptions[0].medicinetype}
                         id="MedicineType"
                         options={medicineTypesList}
@@ -251,12 +300,16 @@ export default function PrescriptionComponent({
                                             onChange={onDosageChange}
                                         />
                                     </Col>
-                                    <Col sm={6} className="dosage-container"><Selector
-                                        defaultValue="10 Mg"
-                                        value={prescription.prescriptions[0].dosage.qty}
-                                        id="MedicineType"
-                                        options={[]}
-                                    /></Col>
+                                    <Col sm={6} className="dosage-container">
+                                        <SelectorForMedicine
+                                            label="Periodicity"
+                                            defaultValue="Select"
+                                            value={prescription.prescriptions[0].dosage.qty}
+                                            id="MedicineType"
+                                            options={DOSAGE_LIST}
+                                            handleSelect={onPeriodicitySelect}
+                                        />
+                                    </Col>
                                 </div>
                             </Row>
 

@@ -1,55 +1,79 @@
 export const DAYS_LIST = [
     {
-        "value": "1",
-        "id": 1
+        "name": "1",
+        "_id": 1
     }, {
-        "value": "2",
-        "id": 2
+        "name": "2",
+        "_id": 2
     }, {
-        "value": "3",
-        "id": 3
+        "name": "3",
+        "_id": 3
     }, {
-        "value": "4",
-        "id": 4
+        "name": "4",
+        "_id": 4
     }, {
-        "value": "5",
-        "id": 5
+        "name": "5",
+        "_id": 5
     }, {
-        "value": "6",
-        "id": 6
+        "name": "6",
+        "_id": 6
     }, {
-        "value": "7",
-        "id": 7
+        "name": "7",
+        "_id": 7
     }, {
-        "value": "8",
-        "id": 8
+        "name": "8",
+        "_id": 8
     }, {
-        "value": "9",
-        "id": 9
+        "name": "9",
+        "_id": 9
     }, {
-        "value": "10",
-        "id": 10
+        "name": "10",
+        "_id": 10
     },
 ]
+
 export const PERIODICITY_LIST = [
     {
-        "value": "days",
-        "id": "Days"
+        "_id": "days",
+        "name": "Days"
     },
     {
-        "value": "weeks",
-        "id": "Weeks"
+        "_id": "weeks",
+        "name": "Weeks"
     },
     {
-        "value": "months",
-        "id": "Months"
+        "_id": "months",
+        "name": "Months"
     },
     {
-        "value": "years",
-        "id": "Years"
+        "_id": "years",
+        "name": "Years"
     },
     {
-        "value": "cycle",
-        "id": "Cycle"
+        "_id": "cycle",
+        "name": "Cycle"
+    }
+]
+
+export const DOSAGE_LIST = [
+    {
+        "_id": "1mg",
+        "name": "1 Mg"
+    },
+    {
+        "_id": "5mg",
+        "name": "5 Mg"
+    },
+    {
+        "_id": "10mg",
+        "name": "10 Mg"
+    },
+    {
+        "_id": "50mg",
+        "name": "50 Mg"
+    },
+    {
+        "_id": "100mg",
+        "name": "100 Mg"
     }
 ]

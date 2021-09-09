@@ -5,12 +5,12 @@ const SelectorForMedicine = (props) => {
     <Form.Group>
       <br />
       <Form.Label>{props.label}</Form.Label>
-      <select className="form-select" id={props.id} onChange={(e) => {
+      <select className="form-select" name={props.name} value={props.value} onChange={(e) => {
           props.handleSelect(e.target.value)
       }}>
-        <option defaultValue={`|${props.defaultValue}`}>{props.defaultValue}</option>
+        <option defaultValue={props.defaultValue}>{props.defaultValue}</option>
         {props.options.map((item) => (
-          <option value={`${item._id}|${item.name}`}>{item.name}</option>
+          <option value={item._id}>{item.name}</option>
         ))}
       </select>
     </Form.Group>
