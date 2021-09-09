@@ -4,18 +4,30 @@ import Input from "../../../../commonComponent/Input";
 import KeyValueSelector from "../../../../commonComponent/KeyValueSelector";
 import SelectorForMedicine from "../../../../commonComponent/SelectorForMedicine";
 import Selector from "../../../../commonComponent/Select";
-import React, {useState} from "react";
+import React from "react";
 import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
 import {DAYS_LIST, PERIODICITY_LIST} from "../constants";
+
 const prescription_JSON = require('../../../../JSON/prescription.json');
 
-export default function PrescriptionComponent({index, prescription, dispatch, addToast, medicineTypesList,handleClickOpen}){
+export default function PrescriptionComponent({
+                                                  index,
+                                                  prescription,
+                                                  dispatch,
+                                                  addToast,
+                                                  medicineTypesList,
+                                                  handleClickOpen,
+                                                  resetValue,
+                                                  shouldResetValue,
+                                                  setShouldResetValue,
+                                                  setSelectedSectionIndex
+                                              }) {
     const getSuggestions = async (value) => {
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
-        if(inputLength >= 3 && inputLength <= 12){
+        if (inputLength >= 2 && inputLength <= 12) {
             let response = await get(`${API.GET_MEDICINE}name=${inputValue.toUpperCase()}&type=${prescription.selectedType}&status=active`);
             return response
         }
@@ -27,11 +39,11 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
     }
 
     function selectMedicineName(selectionObj) {
-        debugger
         dispatch({
             type: ACTIONS.CHANGE_MEDICINE_NAME, payload: {id: index, value: selectionObj}
         })
     }
+
     function setStartDate(date) {
         const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
         dispatch({
@@ -131,7 +143,15 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                 <Col xs={12} md={4}>
                     <div className="medicine-autosuggest-container">
                         <div style={{marginBottom: "8px"}}>Medicine</div>
-                        <AutoSuggestInput selectMedicineName={selectMedicineName} getSuggestions={getSuggestions} addToast={addToast}/>
+                        <AutoSuggestInput
+                            selectMedicineName={selectMedicineName}
+                            getSuggestions={getSuggestions}
+                            addToast={addToast}
+                            resetValue={resetValue}
+                            shouldResetValue={shouldResetValue}
+                            setShouldResetValue={setShouldResetValue}
+                            setSelectedSectionIndex={setSelectedSectionIndex}
+                        />
                     </div>
                     <Row className="g-3">
                         <Col xs={12} md={4}>
@@ -168,7 +188,7 @@ export default function PrescriptionComponent({index, prescription, dispatch, ad
                         <Col xs={12} md={6}>
                             <KeyValueSelector
                                 value={prescription.prescriptions[0].days}
-                                label="time_slots"
+                                label="Days"
                                 defaultValue={prescription.prescriptions[0].days}
                                 id="Time Slots"
                                 options={DAYS_LIST}

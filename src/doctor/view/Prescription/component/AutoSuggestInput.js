@@ -10,6 +10,19 @@ class AutoSuggestInput extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.resetValue && this.props.shouldResetValue){
+            debugger
+            this.setState({
+                value:'',
+                suggestions: [],
+            },()=> {
+                this.props.setShouldResetValue(false)
+                this.props.setSelectedSectionIndex(null)
+            })
+        }
+    }
+
     getSuggestionValue = suggestion => suggestion.name;
 
     renderSuggestion = suggestion => (
@@ -57,7 +70,6 @@ class AutoSuggestInput extends React.Component {
     };
 
     onSelectResult = (e, { suggestion }) => {
-        debugger
         this.props.selectMedicineName(suggestion)
     }
 

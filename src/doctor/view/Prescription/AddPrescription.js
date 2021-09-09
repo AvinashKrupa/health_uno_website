@@ -38,8 +38,8 @@ export const ACTIONS = {
 const AddPrescription = (props) => {
     const {addToast} = useToasts();
     let [medicineCount, setMedicineCount] = useState(1);
-    let [prescriptionType, setPrescriptionType] = useState('brand');
     let [tempPrescriptionType, setTempPrescriptionType] = useState('');
+    let [shouldResetValue, setShouldResetValue] = useState(false);
     let [medicineWithType, setMedicineWithType] = useState([]);
     let [medicineList, setMedicineList] = useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -109,6 +109,7 @@ const AddPrescription = (props) => {
                 prescription_list[action.payload.id].prescriptions[0].dosage.dosage_text = '';
                 prescription_list[action.payload.id].prescriptions[0].add_comments = '';
                 prescription_list[action.payload.id].prescriptions[0].medicinetype = '';
+                setShouldResetValue(true);
                 return [...prescription_list]
             case ACTIONS.CHANGE_MEDICINE_NAME:
                 prescription_list[action.payload.id].prescriptions[0].medicine = action.payload.value._id
@@ -326,6 +327,10 @@ const AddPrescription = (props) => {
                                                               dispatch={dispatch} addToast={addToast}
                                                               medicineTypesList={medicineWithType}
                                                               handleClickOpen={handleClickOpen}
+                                                              resetValue={selectedSectionIndex === index}
+                                                              shouldResetValue={shouldResetValue}
+                                                              setShouldResetValue={setShouldResetValue}
+                                                              setSelectedSectionIndex={setSelectedSectionIndex}
                                 />
                             })
                         }
