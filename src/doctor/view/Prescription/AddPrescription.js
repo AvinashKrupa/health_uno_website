@@ -120,9 +120,9 @@ const AddPrescription = (props) => {
                 prescription_list[action.payload.id].prescriptions[0].dosage.dosage_text = action.payload.value
                 return [...prescription_list]
             case ACTIONS.SET_DOSAGE_TYPE:
-                return null;
+                prescription_list[action.payload.id].prescriptions[0].dosage.qty = action.payload.value
+                return [...prescription_list]
             case ACTIONS.SET_START_DATE:
-
                 prescription_list[action.payload.id].prescriptions[0].start_date = action.payload.value._id
                 return [...prescription_list]
             case ACTIONS.SET_DAYS:
@@ -131,7 +131,6 @@ const AddPrescription = (props) => {
             case ACTIONS.SET_PERIODITY:
                 prescription_list[action.payload.id].prescriptions[0].periodicity = action.payload.value._id
                 return [...prescription_list]
-
             case ACTIONS.CHANGE_COMMENT:
                 prescription_list[action.payload.id].prescriptions[0].add_comments = action.payload.value
                 return [...prescription_list]
