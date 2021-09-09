@@ -46,6 +46,35 @@ const AddPrescription = (props) => {
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedSectionIndex, setSelectedSectionIndex] = React.useState(null);
 
+
+    const defaultValue = () => {
+        return {
+            selectedType: 'brand',
+            prescriptions: [
+                {
+                    medicine: '',
+                    medicinetype: '',
+                    time_slots: [],
+                    start_date: moment().format('YYYY-MM-DD'),
+                    days: '1',
+                    periodicity: 'days',
+                    add_comments: '',
+                    dosage: {
+                        dosage_text: '',
+                        qty: '1mg',
+                        before_food: true,
+                        after_food: false,
+                        with_food: false,
+                        other: false,
+                        other_details: '',
+                        sos: false,
+                        stat: false,
+                    },
+                }
+            ],
+        }
+    }
+
     const prescriptionObj = {
         selectedType: 'brand',
         prescriptions: [
@@ -105,11 +134,7 @@ const AddPrescription = (props) => {
             case ACTIONS.ADD_NEW_MEDICINE:
                 return [...prescription_list, action.payload];
             case ACTIONS.CHANGE_PRESCRIPTION_TYPE:
-                prescription_list[action.payload.id].selectedType = action.payload.value;
-                prescription_list[action.payload.id].prescriptions[0].medicine = '';
-                prescription_list[action.payload.id].prescriptions[0].dosage.dosage_text = '';
-                prescription_list[action.payload.id].prescriptions[0].add_comments = '';
-                prescription_list[action.payload.id].prescriptions[0].medicinetype = '';
+                prescription_list[action.payload.id] = defaultValue()
                 setShouldResetValue(true);
                 return [...prescription_list]
             case ACTIONS.CHANGE_MEDICINE_NAME:

@@ -159,7 +159,7 @@ const AppointmentDetail = (props) => {
                                     />
                                 </div>
                             }
-                            {appointmentDetail.status ==="completed" &&
+                            {appointmentDetail.status !=="completed" &&
                             <div className="row-add-doctor" onClick={() => props.history.push(`/doctor/AddPrescription`)}>
                                 <div className="row-add-doctor-text">Add Prescription</div>
                                 <div><Image src={plus_icon}/></div>
