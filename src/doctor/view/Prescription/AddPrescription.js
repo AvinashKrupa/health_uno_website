@@ -45,6 +45,8 @@ const AddPrescription = (props) => {
     let [medicineList, setMedicineList] = useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedSectionIndex, setSelectedSectionIndex] = React.useState(null);
+    const patientName = props.location?.state?.patientName || '';
+    const patientAge = props.location?.state?.patientAge || '';
 
 
     const defaultValue = () => {
@@ -169,14 +171,14 @@ const AddPrescription = (props) => {
                 return [...prescription_list]
             case ACTIONS.ADD_TIME_SLOT:
                 debugger
-                if(!prescription_list[action.payload.id].prescriptions[0].time_slots.includes(action.payload.value)){
+                if (!prescription_list[action.payload.id].prescriptions[0].time_slots.includes(action.payload.value)) {
                     prescription_list[action.payload.id].prescriptions[0].time_slots.push(action.payload.value)
                 }
                 return [...prescription_list]
             case ACTIONS.REMOVE_TIME_SLOT:
                 debugger
                 const arr = prescription_list[action.payload.id].prescriptions[0].time_slots.filter(e => e !== action.payload.value)
-                prescription_list[action.payload.id].prescriptions[0].time_slots= arr
+                prescription_list[action.payload.id].prescriptions[0].time_slots = arr
                 return [...prescription_list]
             case ACTIONS.CHANGE_DOSAGE_SLOT:
                 switch (action.payload.value) {
@@ -301,19 +303,19 @@ const AddPrescription = (props) => {
                             <Col xs={12} md={4}>
                                 <Input
                                     type="text"
-                                    placeholder="eg John"
                                     id="firstName"
                                     label="Patient Name"
                                     readonly="true"
+                                    value={patientName}
                                 />
                             </Col>
                             <Col xs={12} md={4}>
                                 <Input
                                     type="number"
-                                    placeholder="35"
                                     id="age"
                                     label="Age"
                                     readonly="true"
+                                    value={patientAge}
                                 />
                             </Col>
 
@@ -338,7 +340,7 @@ const AddPrescription = (props) => {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Row style={{marginTop:46}}>
+                            <Row style={{marginTop: 46}}>
                                 <Col md><h5>Prescriptions</h5></Col>
                             </Row>
                         </Row>
