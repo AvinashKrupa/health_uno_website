@@ -165,7 +165,9 @@ const AppointmentDetail = (props) => {
                                     pathname: `/doctor/addPrescription/${appointmentDetail?._id}`,
                                     state: {
                                         patientName: `${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`,
-                                        patientAge: moment().diff(appointmentDetail?.patient?.user?.dob, 'years', false)
+                                        patientAge: moment().diff(appointmentDetail?.patient?.user?.dob, 'years', false),
+                                        patientWeight: appointmentDetail?.patient?.weight,
+                                        patientHeight: appointmentDetail?.patient?.height,
                                     }
                                 })
                             }>

@@ -15,6 +15,7 @@ import {API, get} from "../../../api/config/APIController";
 import {useToasts} from "react-toast-notifications";
 import moment from "moment";
 import PrescriptionComponent from "./component/PrescriptionComponent";
+import SelectorForMedicine from "../../../commonComponent/SelectorForMedicine";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -47,7 +48,14 @@ const AddPrescription = (props) => {
     const [selectedSectionIndex, setSelectedSectionIndex] = React.useState(null);
     const patientName = props.location?.state?.patientName || '';
     const patientAge = props.location?.state?.patientAge || '';
-
+    const patientWeight = [{
+        "name": `${props.location?.state?.patientWeight}`|| '',
+        "_id": `${props.location?.state?.patientWeight}`|| ''
+    }];
+    const patientHeight = [{
+        "name": `${props.location?.state?.patientHeight}`|| '',
+        "_id": `${props.location?.state?.patientHeight}`|| ''
+    }];
 
     const defaultValue = () => {
         return {
@@ -322,20 +330,23 @@ const AddPrescription = (props) => {
                             <Col md>
                                 <Row className="g-2">
                                     <Col xs={12} md={6}>
-                                        <KeyValueSelector
+                                        <SelectorForMedicine
                                             label="Height"
                                             defaultValue="Select"
+                                            value={props.location?.state?.patientHeight}
                                             id="Height"
-                                            options={[]}
+                                            options={patientHeight}
+                                            handleSelect={()=>null}
                                         />
                                     </Col>
                                     <Col xs={12} md={6}>
-                                        <KeyValueSelector
-                                            value='0'
+                                        <SelectorForMedicine
                                             label="Weight"
                                             defaultValue="Select"
+                                            value={props.location?.state?.patientWeight}
                                             id="Weight"
-                                            options={[]}
+                                            options={patientWeight}
+                                            handleSelect={()=>null}
                                         />
                                     </Col>
                                 </Row>
