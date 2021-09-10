@@ -47,17 +47,19 @@ const AddPrescription = (props) => {
     let [medicineWithType, setMedicineWithType] = useState([]);
     let [medicineList, setMedicineList] = useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
+    const [investigationRequiredCheck, setInvestigationRequiredCheck] = React.useState(false);
+    const [investigations, setInvestigations] = React.useState([""]);
     const [openSaveTemplateDialog, setOpenSaveTemplateDialog] = React.useState(false);
     const [selectedSectionIndex, setSelectedSectionIndex] = React.useState(null);
     const patientName = props.location?.state?.patientName || '';
     const patientAge = props.location?.state?.patientAge || '';
     const patientWeight = [{
-        "name": `${props.location?.state?.patientWeight}`|| '',
-        "_id": `${props.location?.state?.patientWeight}`|| ''
+        "name": `${props.location?.state?.patientWeight}` || '',
+        "_id": `${props.location?.state?.patientWeight}` || ''
     }];
     const patientHeight = [{
-        "name": `${props.location?.state?.patientHeight}`|| '',
-        "_id": `${props.location?.state?.patientHeight}`|| ''
+        "name": `${props.location?.state?.patientHeight}` || '',
+        "_id": `${props.location?.state?.patientHeight}` || ''
     }];
 
     const defaultValue = (selectedType) => {
@@ -256,46 +258,46 @@ const AddPrescription = (props) => {
     }
 
     const savePrescriptionAsTemplate = () => {
-        let params =  {
-            "name" : "testing",
-            "prescription_info" :[{
+        let params = {
+            "name": "testing",
+            "prescription_info": [{
                 "medicine": "613605fcfab367257c6bdae2",
                 "medicinetype": "613604cffab367257c6bdac5",
-                "time_slots" :["Morning", "Afternoon", "Night"],
-                "start_date" : "12/12/2021",
-                "days" : "10",
-                "periodicity" : "days",
-                "add_comments" : "testing",
-                "dosage" :{
-                    "dosage_text" : "first dosage",
-                    "qty" : "100mg",
-                    "before_food" : true,
-                    "after_food" : false,
-                    "with_food" :false,
-                    "other" : false,
-                    "other_details" : "",
-                    "sos" : true,
-                    "stat" : false
+                "time_slots": ["Morning", "Afternoon", "Night"],
+                "start_date": "12/12/2021",
+                "days": "10",
+                "periodicity": "days",
+                "add_comments": "testing",
+                "dosage": {
+                    "dosage_text": "first dosage",
+                    "qty": "100mg",
+                    "before_food": true,
+                    "after_food": false,
+                    "with_food": false,
+                    "other": false,
+                    "other_details": "",
+                    "sos": true,
+                    "stat": false
                 }
             },
                 {
                     "medicine": "613605fcfab367257c6bdae2",
                     "medicinetype": "613604cffab367257c6bdac5",
-                    "time_slots" :["Morning", "Afternoon", "Night"],
-                    "start_date" : "12/12/2021",
-                    "days" : "10",
-                    "periodicity" : "days",
-                    "add_comments" : "testing",
-                    "dosage" :{
-                        "dosage_text" : "first dosage",
-                        "qty" : "100mg",
-                        "before_food" : true,
-                        "after_food" : false,
-                        "with_food" :false,
-                        "other" : false,
-                        "other_details" : "",
-                        "sos" : true,
-                        "stat" : false
+                    "time_slots": ["Morning", "Afternoon", "Night"],
+                    "start_date": "12/12/2021",
+                    "days": "10",
+                    "periodicity": "days",
+                    "add_comments": "testing",
+                    "dosage": {
+                        "dosage_text": "first dosage",
+                        "qty": "100mg",
+                        "before_food": true,
+                        "after_food": false,
+                        "with_food": false,
+                        "other": false,
+                        "other_details": "",
+                        "sos": true,
+                        "stat": false
                     }
                 }]
         };
@@ -357,7 +359,8 @@ const AddPrescription = (props) => {
                 >
                     <DialogContent>
                         <div className="close-button">
-                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34} onClick={() => setOpenSaveTemplateDialog(false)}/>
+                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34}
+                                          onClick={() => setOpenSaveTemplateDialog(false)}/>
                         </div>
                         <div className={'title'}>Save Template</div>
                         <TextArea
@@ -367,13 +370,13 @@ const AddPrescription = (props) => {
                             cols={35}
                         ></TextArea>
                         <Row className="sendPrescriptionAction">
-                        <CustomButton onClick={() => {
-                            savePrescriptionAsTemplate();
-                            handleSaveTemplateDialogClose();
-                        }}
-                                      text={'Save'}
-                        >
-                        </CustomButton>
+                            <CustomButton onClick={() => {
+                                savePrescriptionAsTemplate();
+                                handleSaveTemplateDialogClose();
+                            }}
+                                          text={'Save'}
+                            >
+                            </CustomButton>
                         </Row>
                     </DialogContent>
                 </Dialog>
@@ -425,7 +428,7 @@ const AddPrescription = (props) => {
                                             value={props.location?.state?.patientHeight}
                                             id="Height"
                                             options={patientHeight}
-                                            handleSelect={()=>null}
+                                            handleSelect={() => null}
                                         />
                                     </Col>
                                     <Col xs={12} md={6}>
@@ -435,7 +438,7 @@ const AddPrescription = (props) => {
                                             value={props.location?.state?.patientWeight}
                                             id="Weight"
                                             options={patientWeight}
-                                            handleSelect={()=>null}
+                                            handleSelect={() => null}
                                         />
                                     </Col>
                                 </Row>
@@ -445,7 +448,8 @@ const AddPrescription = (props) => {
                                     <h5>Prescriptions</h5>
                                 </Col>
                                 <Col md className="Choosetemplate">
-                                    <p className="chooseTemplateButton" onClick={() => console.log('Debug : Choose template')}>Choose template</p>
+                                    <p className="chooseTemplateButton"
+                                       onClick={() => console.log('Debug : Choose template')}>Choose template</p>
                                 </Col>
 
                             </Row>
@@ -465,7 +469,8 @@ const AddPrescription = (props) => {
                             })
                         }
                         <div className="actionSave">
-                            <Button variant="outline-primary" onClick={()=> setOpenSaveTemplateDialog(true)}>Save as Template</Button>{' '}
+                            <Button variant="outline-primary" onClick={() => setOpenSaveTemplateDialog(true)}>Save as
+                                Template</Button>{' '}
                             <Button variant="secondary" onClick={() => {
                                 dispatch({
                                     type: ACTIONS.ADD_NEW_MEDICINE, payload: prescriptionObj
@@ -478,33 +483,46 @@ const AddPrescription = (props) => {
                         <Row className="g-2">
                             <Col sm={6}>
                                 <Row className="investigationscheck">
-                                    {['checkbox'].map((type) => (
-                                        <div key={`inline-${type}`} className="">
-                                            <Form.Check
-                                                label="Required Investigations"
-                                                type={type}
-                                                id={`inline-${type}-1`}
-                                            />
-                                        </div>
-                                    ))}
+
+                                    <div key={`inline-checkbox`} className="">
+                                        <Form.Check
+                                            label="Required Investigations"
+                                            name={"Required Investigations"}
+                                            type={'checkbox'}
+                                            id={`inline-checkbox-1`}
+                                            onChange={() => {
+                                                setInvestigationRequiredCheck(!investigationRequiredCheck);
+                                                setInvestigations([""]);
+                                            }}
+                                            checked={investigationRequiredCheck}
+                                        />
+                                    </div>
 
 
                                 </Row>
                                 <Row>
                                     {
-                                        <TextArea
-                                            id={'Investigations'}
-                                            placeholder="Enter text here"
-                                            rows={3}
-                                            cols={35}
-                                        ></TextArea>
+                                        investigationRequiredCheck && investigations.map((text, index) => {
+                                            return <TextArea
+                                                key={index}
+                                                id={`Investigations ${index}`}
+                                                placeholder="Enter text here"
+                                                rows={3}
+                                                cols={35}
+                                                value={text}
+                                                onChange={() => null}
+                                                maxLength="100"
+                                            ></TextArea>
+                                        })
                                     }
                                 </Row>
                             </Col>
 
-                            <div className="AddAnotherTest">
-                                <p>+ Add Another Test</p>
-                            </div>
+                            {investigationRequiredCheck && <div className="AddAnotherTest">
+                                <p onClick={() => {
+                                    setInvestigations([...investigations, ""]);
+                                }}>+ Add Another Test</p>
+                            </div>}
 
                         </Row>
 
@@ -514,7 +532,8 @@ const AddPrescription = (props) => {
                                           className="primary SendPrescription"
                                           disabled={!prescription_list.length}
                             ></CustomButton>
-                            {!prescription_list.length && <span className="error-text">Please add a medicine to proceed</span>}
+                            {!prescription_list.length &&
+                            <span className="error-text">Please add a medicine to proceed</span>}
                         </Row>
                     </div>
                 </div>
