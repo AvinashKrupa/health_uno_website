@@ -36,6 +36,7 @@ export const ACTIONS = {
     CHANGE_DOSAGE_SLOT: 'CHANGE_DOSAGE_SLOT',
     ADD_TIME_SLOT: 'ADD_TIME_SLOT',
     REMOVE_TIME_SLOT: 'REMOVE_TIME_SLOT',
+    DELETE_MEDICINE: 'DELETE_MEDICINE',
 }
 const AddPrescription = (props) => {
     const {addToast} = useToasts();
@@ -57,9 +58,9 @@ const AddPrescription = (props) => {
         "_id": `${props.location?.state?.patientHeight}`|| ''
     }];
 
-    const defaultValue = () => {
+    const defaultValue = (selectedType) => {
         return {
-            selectedType: 'brand',
+            selectedType: selectedType,
             prescriptions: [
                 {
                     medicine: '',
@@ -143,8 +144,13 @@ const AddPrescription = (props) => {
         switch (action.type) {
             case ACTIONS.ADD_NEW_MEDICINE:
                 return [...prescription_list, action.payload];
+            case ACTIONS.DELETE_MEDICINE:
+                if (action.payload.id > -1) {
+                    prescription_list.splice(action.payload.id, 1);
+                }
+                return [...prescription_list];
             case ACTIONS.CHANGE_PRESCRIPTION_TYPE:
-                prescription_list[action.payload.id] = defaultValue()
+                prescription_list[action.payload.id] = defaultValue(action.payload.value)
                 setShouldResetValue(true);
                 return [...prescription_list]
             case ACTIONS.CHANGE_MEDICINE_NAME:
@@ -422,7 +428,10 @@ const AddPrescription = (props) => {
 
                         <Row className="sendPrescriptionAction">
                             <CustomButton text={'Send Prescription'}
-                                          className="primary SendPrescription"></CustomButton>
+                                          className="primary SendPrescription"
+                                          disabled={!prescription_list.length}
+                            ></CustomButton>
+                            {!prescription_list.length && <span className="error-text">Please add a medicine to proceed</span>}
                         </Row>
                     </div>
                 </div>

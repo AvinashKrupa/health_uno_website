@@ -109,7 +109,11 @@ export default function PrescriptionComponent({
                 <div className="prescriptionSection">
                     <Row className="choosetemp">
                         <Col md className="Choosetemplate">
-                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34} onClick={() => null}/>
+                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34} onClick={() =>
+                                dispatch({
+                                    type: ACTIONS.DELETE_MEDICINE, payload: {id: index}
+                                })
+                            }/>
                         </Col>
                     </Row>
                     <div key={`inline-radio`} className="">
