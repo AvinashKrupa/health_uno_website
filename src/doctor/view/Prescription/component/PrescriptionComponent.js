@@ -85,6 +85,12 @@ export default function PrescriptionComponent({
         })
     }
 
+    function onDosageQuantity(value) {
+        dispatch({
+            type: ACTIONS.SET_DOSAGE_TYPE, payload: {id: index, value: value}
+        })
+    }
+
     function setSos(event) {
         dispatch({
             type: ACTIONS.CHANGE_SOS, payload: {id: index, value: event.target.checked}
@@ -320,7 +326,7 @@ export default function PrescriptionComponent({
                                             value={prescription.medicineItem.dosage.qty}
                                             id="MedicineType"
                                             options={DOSAGE_LIST}
-                                            handleSelect={onPeriodicitySelect}
+                                            handleSelect={onDosageQuantity}
                                         />
                                     </Col>
                                 </div>

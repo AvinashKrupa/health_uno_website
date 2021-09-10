@@ -43,6 +43,7 @@ const AddPrescription = (props) => {
     const {addToast} = useToasts();
     let [medicineCount, setMedicineCount] = useState(1);
     let [tempPrescriptionType, setTempPrescriptionType] = useState('');
+    let [templateTitle, setTemplateTitle] = useState('');
     let [shouldResetValue, setShouldResetValue] = useState(false);
     let [medicineWithType, setMedicineWithType] = useState([]);
     let [medicineList, setMedicineList] = useState([]);
@@ -147,13 +148,13 @@ const AddPrescription = (props) => {
                 prescription_list[action.payload.id].medicineItem.dosage.qty = action.payload.value
                 return [...prescription_list]
             case ACTIONS.SET_START_DATE:
-                prescription_list[action.payload.id].medicineItem.start_date = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.start_date = action.payload.value
                 return [...prescription_list]
             case ACTIONS.SET_DAYS:
-                prescription_list[action.payload.id].medicineItem.days = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.days = action.payload.value
                 return [...prescription_list]
             case ACTIONS.SET_PERIODITY:
-                prescription_list[action.payload.id].medicineItem.periodicity = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.periodicity = action.payload.value
                 return [...prescription_list]
             case ACTIONS.CHANGE_COMMENT:
                 prescription_list[action.payload.id].medicineItem.add_comments = action.payload.value
@@ -174,6 +175,9 @@ const AddPrescription = (props) => {
                 debugger
                 const arr = prescription_list[action.payload.id].medicineItem.time_slots.filter(e => e !== action.payload.value)
                 prescription_list[action.payload.id].medicineItem.time_slots = arr
+                return [...prescription_list]
+            case ACTIONS.CHANGE_OTHER_DETAILS:
+                prescription_list[action.payload.id].medicineItem.dosage.other_details = action.payload.value;
                 return [...prescription_list]
             case ACTIONS.CHANGE_DOSAGE_SLOT:
                 switch (action.payload.value) {
@@ -203,9 +207,6 @@ const AddPrescription = (props) => {
                         prescription_list[action.payload.id].medicineItem.dosage.after_food = false;
                         prescription_list[action.payload.id].medicineItem.dosage.with_food = false;
                         prescription_list[action.payload.id].medicineItem.dosage.other = true;
-                        return [...prescription_list]
-                    case ACTIONS.CHANGE_OTHER_DETAILS:
-                        prescription_list[action.payload.id].medicineItem.dosage.other_details = '';
                         return [...prescription_list]
                     default:
                         return;
@@ -262,7 +263,7 @@ const AddPrescription = (props) => {
 
     const savePrescriptionAsTemplate = () => {
         let params = {
-            "name": "testing",
+            "name": templateTitle,
             "prescription_info": [{
                 "medicine": "613605fcfab367257c6bdae2",
                 "medicinetype": "613604cffab367257c6bdac5",
@@ -306,8 +307,7 @@ const AddPrescription = (props) => {
         };
         post(API.SAVE_PRESCRIPTION_AS_TEMPLATE, params)
             .then(response => {
-                if (response.status == 200) {
-                    // setAddDoctor({});
+                if (response.status === 200) {
                     addToast(response.data.message, {appearance: 'success'});
                 } else {
                     addToast(response.data.message, {appearance: "error"});
@@ -371,9 +371,14 @@ const AddPrescription = (props) => {
                             placeholder="Enter name of the template"
                             rows={3}
                             cols={35}
+                            value={templateTitle}
+                            onChange={(value) => setTemplateTitle(value)}
+                            maxLength="100"
                         ></TextArea>
                         <Row className="sendPrescriptionAction">
-                            <CustomButton onClick={() => {
+                            <CustomButton
+                                disabled={!templateTitle}
+                                onClick={() => {
                                 savePrescriptionAsTemplate();
                                 handleSaveTemplateDialogClose();
                             }}
@@ -386,7 +391,7 @@ const AddPrescription = (props) => {
             </div>
         )
     }
-
+console.log("prescription_list", prescription_list)
     return (
         <Row className="doctor-prescription-container">
             <Col lg="1" sm="1" xs='1'/>
