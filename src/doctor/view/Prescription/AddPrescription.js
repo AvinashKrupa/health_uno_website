@@ -114,9 +114,12 @@ const AddPrescription = (props) => {
             }
     }
 
-    let initialState = [prescriptionObj]
+    let initialState = [prescriptionObj];
 
-    ;
+    function updateInvestigationState(index,value) {
+        investigations[index] = value
+            setInvestigations(JSON.parse(JSON.stringify(investigations)));
+    }
 
     function reducer(prescription_list, action) {
         switch (action.type) {
@@ -384,7 +387,6 @@ const AddPrescription = (props) => {
         )
     }
 
-    console.log('prescription_list  :', prescription_list);
     return (
         <Row className="doctor-prescription-container">
             <Col lg="1" sm="1" xs='1'/>
@@ -469,7 +471,9 @@ const AddPrescription = (props) => {
                             })
                         }
                         <div className="actionSave">
-                            <Button variant="outline-primary" onClick={() => setOpenSaveTemplateDialog(true)}>Save as
+                            <Button variant="outline-primary"
+                                    disabled={!prescription_list.length}
+                                    onClick={() => setOpenSaveTemplateDialog(true)}>Save as
                                 Template</Button>{' '}
                             <Button variant="secondary" onClick={() => {
                                 dispatch({
@@ -510,7 +514,7 @@ const AddPrescription = (props) => {
                                                 rows={3}
                                                 cols={35}
                                                 value={text}
-                                                onChange={() => null}
+                                                onChange={(value) => updateInvestigationState(index, value)}
                                                 maxLength="100"
                                             ></TextArea>
                                         })
