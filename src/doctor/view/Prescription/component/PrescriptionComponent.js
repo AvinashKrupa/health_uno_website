@@ -7,6 +7,7 @@ import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
 import {DAYS_LIST, DOSAGE_LIST, PERIODICITY_LIST} from "../constants";
+import {IoCloseSharp} from "react-icons/io5";
 
 export default function PrescriptionComponent({
                                                   index,
@@ -107,7 +108,9 @@ export default function PrescriptionComponent({
             <Row classNme="g-2">
                 <div className="prescriptionSection">
                     <Row className="choosetemp">
-                        <Col md className="Choosetemplate"><p>Choose template</p></Col>
+                        <Col md className="Choosetemplate">
+                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34} onClick={() => null}/>
+                        </Col>
                     </Row>
                     <div key={`inline-radio`} className="">
                         <Form.Check

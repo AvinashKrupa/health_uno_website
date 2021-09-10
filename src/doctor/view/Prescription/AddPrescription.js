@@ -340,8 +340,14 @@ const AddPrescription = (props) => {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Row style={{marginTop: 46}}>
-                                <Col md><h5>Prescriptions</h5></Col>
+                            <Row className={'prescription-header'}>
+                                <Col md>
+                                    <h5>Prescriptions</h5>
+                                </Col>
+                                <Col md className="Choosetemplate">
+                                    <p className="chooseTemplateButton" onClick={() => console.log('Debug : Choose template')}>Choose template</p>
+                                </Col>
+
                             </Row>
                         </Row>
                         {

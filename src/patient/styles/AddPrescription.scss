@@ -72,13 +72,32 @@
     margin: 10px 0px;
 
 }
-
+.prescription-header{
+    margin-top: 46px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
 .addPrescription .Choosetemplate p{
     color: #27a3da;
-
+    margin-right: 10px;
+    cursor: pointer;
 }
 
-.Choosetemplate{text-align: right;}
+.Choosetemplate{
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
+
+.chooseTemplateButton{
+    color: #28A3DA;
+    background-color: #fff!important;
+    margin-right: 10px;
+}
 .choosetemp{
     padding: 15px 0px;
     border-top: 2px solid #E5E5E5;
