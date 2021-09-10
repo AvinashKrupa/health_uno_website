@@ -39,7 +39,7 @@ export const API = {
   UPDATE_PROFILE: 'user/updateProfile',
   GET_MEDICINE: 'medicines?',
   GET_MEDICINE_TYPE: 'medicine/getMedicineTypes?status=active',
-  SAVE_PRESCRIPTION_AS_TEMPLATE: 'prescription/getSavedTemplate',
+  SAVE_PRESCRIPTION_AS_TEMPLATE: 'prescription/saveAsTemplate',
   SUBMIT_PRESCRIPTION: 'prescription/submitPrescription',
   GET_SAVED_TEMPLATE: 'prescription/getSavedTemplate',
 };

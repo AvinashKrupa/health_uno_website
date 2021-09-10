@@ -103,6 +103,13 @@ export default function PrescriptionComponent({
         })
     }
 
+    function onOtherDetails(value) {
+        dispatch({
+            type: ACTIONS.CHANGE_OTHER_DETAILS, payload: {id: index, value: value}
+        })
+    }
+
+    console.log('amit debug :', prescription);
     return (
         <>
             <Row classNme="g-2">
@@ -163,12 +170,12 @@ export default function PrescriptionComponent({
                         <Col xs={12} md={4}>
                             <Button className={'time-slots-button'}
                                     style={{
-                                        backgroundColor: prescription.prescriptions[0].time_slots.includes('Morning') ? '#28A3DA' : '#FFFFFF',
-                                        color: prescription.prescriptions[0].time_slots.includes('Morning') ? '#FFFFFF' : '#28A3DA'
+                                        backgroundColor: prescription.medicineItem.time_slots.includes('Morning') ? '#28A3DA' : '#FFFFFF',
+                                        color: prescription.medicineItem.time_slots.includes('Morning') ? '#FFFFFF' : '#28A3DA'
                                     }}
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        if (prescription.prescriptions[0].time_slots.includes('Morning')) {
+                                        if (prescription.medicineItem.time_slots.includes('Morning')) {
                                             dispatch({
                                                 type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Morning'}
                                             })
@@ -181,19 +188,19 @@ export default function PrescriptionComponent({
                                     }}
                             >
                                 <span
-                                    style={{color: prescription.prescriptions[0].time_slots.includes('Morning') ? '#FFFFFF' : '#000000'}}
+                                    style={{color: prescription.medicineItem.time_slots.includes('Morning') ? '#FFFFFF' : '#000000'}}
                                 >Morning</span>
                             </Button>
                         </Col>
                         <Col className="timeSlots" xs={12} md={4}>
                             <Button className={'time-slots-button'}
                                     style={{
-                                        backgroundColor: prescription.prescriptions[0].time_slots.includes('Afternoon') ? '#28A3DA' : '#FFFFFF',
-                                        color: prescription.prescriptions[0].time_slots.includes('Afternoon') ? '#FFFFFF' : '#28A3DA'
+                                        backgroundColor: prescription.medicineItem.time_slots.includes('Afternoon') ? '#28A3DA' : '#FFFFFF',
+                                        color: prescription.medicineItem.time_slots.includes('Afternoon') ? '#FFFFFF' : '#28A3DA'
                                     }}
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        if (prescription.prescriptions[0].time_slots.includes('Afternoon')) {
+                                        if (prescription.medicineItem.time_slots.includes('Afternoon')) {
                                             dispatch({
                                                 type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Afternoon'}
                                             })
@@ -206,19 +213,19 @@ export default function PrescriptionComponent({
                                     }}
                             >
                                 <span
-                                    style={{color: prescription.prescriptions[0].time_slots.includes('Afternoon') ? '#FFFFFF' : '#000000'}}
+                                    style={{color: prescription.medicineItem.time_slots.includes('Afternoon') ? '#FFFFFF' : '#000000'}}
                                 >Afternoon</span>
                             </Button>
                         </Col>
                         <Col className="timeSlots" xs={12} md={4}>
                             <Button className={'time-slots-button'}
                                     style={{
-                                        backgroundColor: prescription.prescriptions[0].time_slots.includes('Night') ? '#28A3DA' : '#FFFFFF',
-                                        color: prescription.prescriptions[0].time_slots.includes('Night') ? '#FFFFFF' : '#28A3DA'
+                                        backgroundColor: prescription.medicineItem.time_slots.includes('Night') ? '#28A3DA' : '#FFFFFF',
+                                        color: prescription.medicineItem.time_slots.includes('Night') ? '#FFFFFF' : '#28A3DA'
                                     }}
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        if (prescription.prescriptions[0].time_slots.includes('Night')) {
+                                        if (prescription.medicineItem.time_slots.includes('Night')) {
                                             dispatch({
                                                 type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Night'}
                                             })
@@ -231,7 +238,7 @@ export default function PrescriptionComponent({
                                     }}
                             >
                                 <span
-                                    style={{color: prescription.prescriptions[0].time_slots.includes('Night') ? '#FFFFFF' : '#000000'}}
+                                    style={{color: prescription.medicineItem.time_slots.includes('Night') ? '#FFFFFF' : '#000000'}}
                                 >Night</span>
                             </Button>
                         </Col>
@@ -243,7 +250,7 @@ export default function PrescriptionComponent({
                             <SelectorForMedicine
                                 label="Days"
                                 defaultValue="Select"
-                                value={prescription.prescriptions[0].days}
+                                value={prescription.medicineItem.days}
                                 id="Time Slots"
                                 options={DAYS_LIST}
                                 handleSelect={onDaysSelect}
@@ -253,7 +260,7 @@ export default function PrescriptionComponent({
                             <SelectorForMedicine
                                 label="Periodicity"
                                 defaultValue="Select"
-                                value={prescription.prescriptions[0].periodicity}
+                                value={prescription.medicineItem.periodicity}
                                 id="Periodicity"
                                 options={PERIODICITY_LIST}
                                 handleSelect={onPeriodicitySelect}
@@ -269,7 +276,7 @@ export default function PrescriptionComponent({
                     <SelectorForMedicine
                         label="Medicine Type"
                         defaultValue={"Select"}
-                        value={prescription.prescriptions[0].medicinetype}
+                        value={prescription.medicineItem.medicinetype}
                         id="MedicineType"
                         options={medicineTypesList}
                         handleSelect={setSelectedMedicineFromType}
@@ -280,14 +287,14 @@ export default function PrescriptionComponent({
                         id="mediStart Date"
                         label="Start Date"
                         onChange={setStartDate}
-                        value={prescription.prescriptions[0].start_date}
+                        value={prescription.medicineItem.start_date}
                     />
                     <Input
                         type="text"
                         placeholder="Enter text here"
                         id="mediAdd Comments"
                         label="Add Comments"
-                        value={prescription.prescriptions[0].add_comments}
+                        value={prescription.medicineItem.add_comments}
                         onChange={onCommentChange}
                     />
                 </Col>
@@ -303,14 +310,14 @@ export default function PrescriptionComponent({
                                             placeholder="Enter text here"
                                             id="dosage"
                                             label="Dosage"
-                                            value={prescription.prescriptions[0].dosage.dosage_text}
+                                            value={prescription.medicineItem.dosage.dosage_text}
                                             onChange={onDosageChange}
                                         />
                                     </Col>
                                     <Col sm={6} className="dosage-container">
                                         <SelectorForMedicine
                                             defaultValue="Select"
-                                            value={prescription.prescriptions[0].dosage.qty}
+                                            value={prescription.medicineItem.dosage.qty}
                                             id="MedicineType"
                                             options={DOSAGE_LIST}
                                             handleSelect={onPeriodicitySelect}
@@ -329,7 +336,7 @@ export default function PrescriptionComponent({
                                     value="beforeFood"
                                     onChange={onDosageSlotChange}
                                     checked={
-                                        prescription.prescriptions[0].dosage.before_food
+                                        prescription.medicineItem.dosage.before_food
                                     }
                                 />
                                 <Form.Check
@@ -340,7 +347,7 @@ export default function PrescriptionComponent({
                                     // id={`inline-radio-2`}
                                     onChange={onDosageSlotChange}
                                     checked={
-                                        prescription.prescriptions[0].dosage.after_food
+                                        prescription.medicineItem.dosage.after_food
                                     }
                                 />
                                 <Form.Check
@@ -351,7 +358,7 @@ export default function PrescriptionComponent({
                                     // id={`inline-radio-3`}
                                     onChange={onDosageSlotChange}
                                     checked={
-                                        prescription.prescriptions[0].dosage.with_food
+                                        prescription.medicineItem.dosage.with_food
                                     }
                                 />
                                 <Form.Check
@@ -362,15 +369,15 @@ export default function PrescriptionComponent({
                                     // id={`inline-radio-4`}
                                     onChange={onDosageSlotChange}
                                     checked={
-                                        prescription.prescriptions[0].dosage.other
+                                        prescription.medicineItem.dosage.other
                                     }
                                 />
                             </div>
 
-                            {prescription.prescriptions[0].dosage.other &&
+                            {prescription.medicineItem.dosage.other &&
                             <div className="otherdoage"><Input type="text" placeholder="Enter other details"
                                                                id="other"
-                                                               onChange={() => null}/>
+                                                               onChange={onOtherDetails}/>
                             </div>}
 
                             <div key={`inline-checkbox`} className="">
@@ -379,7 +386,7 @@ export default function PrescriptionComponent({
                                     name="grup"
                                     type={'checkbox'}
                                     id={`inline-checkbox-1`}
-                                    checked={prescription.prescriptions[0].dosage.sos}
+                                    checked={prescription.medicineItem.dosage.sos}
                                     onChange={setSos}
                                 />
                                 <Form.Check
@@ -387,7 +394,7 @@ export default function PrescriptionComponent({
                                     name="grup"
                                     type={'checkbox'}
                                     id={`inline-checkbox-2`}
-                                    checked={prescription.prescriptions[0].dosage.stat}
+                                    checked={prescription.medicineItem.dosage.stat}
                                     onChange={setStat}
                                 />
                             </div>

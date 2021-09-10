@@ -34,6 +34,7 @@ export const ACTIONS = {
     CHANGE_SOS: 'CHANGE_SOS',
     CHANGE_STAT: 'CHANGE_STAT',
     CHANGE_DOSAGE_SLOT: 'CHANGE_DOSAGE_SLOT',
+    CHANGE_OTHER_DETAILS: 'CHANGE_OTHER_DETAILS',
     ADD_TIME_SLOT: 'ADD_TIME_SLOT',
     REMOVE_TIME_SLOT: 'REMOVE_TIME_SLOT',
     DELETE_MEDICINE: 'DELETE_MEDICINE',
@@ -62,7 +63,7 @@ const AddPrescription = (props) => {
     const defaultValue = (selectedType) => {
         return {
             selectedType: selectedType,
-            prescriptions: [
+            medicineItem:
                 {
                     medicine: '',
                     medicinetype: '',
@@ -83,13 +84,12 @@ const AddPrescription = (props) => {
                         stat: false,
                     },
                 }
-            ],
         }
     }
 
     const prescriptionObj = {
         selectedType: 'brand',
-        prescriptions: [
+        medicineItem:
             {
                 medicine: '',
                 medicinetype: '',
@@ -110,34 +110,9 @@ const AddPrescription = (props) => {
                     stat: false,
                 },
             }
-        ],
     }
 
-    let initialState = [{
-            selectedType: 'brand',
-            prescriptions: [
-                {
-                    medicine: '',
-                    medicinetype: '',
-                    time_slots: [],
-                    start_date: moment().format('YYYY-MM-DD'),
-                    days: '1',
-                    periodicity: 'days',
-                    add_comments: '',
-                    dosage: {
-                        dosage_text: '',
-                        qty: '1mg',
-                        before_food: true,
-                        after_food: false,
-                        with_food: false,
-                        other: false,
-                        other_details: '',
-                        sos: false,
-                        stat: false,
-                    },
-                }
-            ],
-        }]
+    let initialState = [prescriptionObj]
 
     ;
 
@@ -155,71 +130,77 @@ const AddPrescription = (props) => {
                 setShouldResetValue(true);
                 return [...prescription_list]
             case ACTIONS.CHANGE_MEDICINE_NAME:
-                prescription_list[action.payload.id].prescriptions[0].medicine = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.medicine = action.payload.value._id
                 return [...prescription_list];
             case ACTIONS.SET_MEDICINE_TYPE:
-                prescription_list[action.payload.id].prescriptions[0].medicinetype = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.medicinetype = action.payload.value._id
                 return [...prescription_list]
             case ACTIONS.CHANGE_DOSAGE_NAME:
-                prescription_list[action.payload.id].prescriptions[0].dosage.dosage_text = action.payload.value
+                prescription_list[action.payload.id].medicineItem.dosage.dosage_text = action.payload.value
                 return [...prescription_list]
             case ACTIONS.SET_DOSAGE_TYPE:
-                prescription_list[action.payload.id].prescriptions[0].dosage.qty = action.payload.value
+                prescription_list[action.payload.id].medicineItem.dosage.qty = action.payload.value
                 return [...prescription_list]
             case ACTIONS.SET_START_DATE:
-                prescription_list[action.payload.id].prescriptions[0].start_date = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.start_date = action.payload.value._id
                 return [...prescription_list]
             case ACTIONS.SET_DAYS:
-                prescription_list[action.payload.id].prescriptions[0].days = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.days = action.payload.value._id
                 return [...prescription_list]
             case ACTIONS.SET_PERIODITY:
-                prescription_list[action.payload.id].prescriptions[0].periodicity = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.periodicity = action.payload.value._id
                 return [...prescription_list]
             case ACTIONS.CHANGE_COMMENT:
-                prescription_list[action.payload.id].prescriptions[0].add_comments = action.payload.value
+                prescription_list[action.payload.id].medicineItem.add_comments = action.payload.value
                 return [...prescription_list]
             case ACTIONS.CHANGE_SOS:
-                prescription_list[action.payload.id].prescriptions[0].dosage.sos = action.payload.value
+                prescription_list[action.payload.id].medicineItem.dosage.sos = action.payload.value
                 return [...prescription_list]
             case ACTIONS.CHANGE_STAT:
-                prescription_list[action.payload.id].prescriptions[0].dosage.stat = action.payload.value
+                prescription_list[action.payload.id].medicineItem.dosage.stat = action.payload.value
                 return [...prescription_list]
             case ACTIONS.ADD_TIME_SLOT:
                 debugger
-                if (!prescription_list[action.payload.id].prescriptions[0].time_slots.includes(action.payload.value)) {
-                    prescription_list[action.payload.id].prescriptions[0].time_slots.push(action.payload.value)
+                if (!prescription_list[action.payload.id].medicineItem.time_slots.includes(action.payload.value)) {
+                    prescription_list[action.payload.id].medicineItem.time_slots.push(action.payload.value)
                 }
                 return [...prescription_list]
             case ACTIONS.REMOVE_TIME_SLOT:
                 debugger
-                const arr = prescription_list[action.payload.id].prescriptions[0].time_slots.filter(e => e !== action.payload.value)
-                prescription_list[action.payload.id].prescriptions[0].time_slots = arr
+                const arr = prescription_list[action.payload.id].medicineItem.time_slots.filter(e => e !== action.payload.value)
+                prescription_list[action.payload.id].medicineItem.time_slots = arr
                 return [...prescription_list]
             case ACTIONS.CHANGE_DOSAGE_SLOT:
                 switch (action.payload.value) {
                     case 'beforeFood':
-                        prescription_list[action.payload.id].prescriptions[0].dosage.before_food = true;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.after_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.with_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.other = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.before_food = true;
+                        prescription_list[action.payload.id].medicineItem.dosage.after_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.with_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.other = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.other_details = '';
                         return [...prescription_list]
                     case 'afterFood':
-                        prescription_list[action.payload.id].prescriptions[0].dosage.before_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.after_food = true;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.with_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.other = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.before_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.after_food = true;
+                        prescription_list[action.payload.id].medicineItem.dosage.with_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.other = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.other_details = '';
                         return [...prescription_list]
                     case 'withFood':
-                        prescription_list[action.payload.id].prescriptions[0].dosage.before_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.after_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.with_food = true;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.other = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.before_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.after_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.with_food = true;
+                        prescription_list[action.payload.id].medicineItem.dosage.other = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.other_details = '';
                         return [...prescription_list]
                     case 'otherFood':
-                        prescription_list[action.payload.id].prescriptions[0].dosage.before_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.after_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.with_food = false;
-                        prescription_list[action.payload.id].prescriptions[0].dosage.other = true;
+                        prescription_list[action.payload.id].medicineItem.dosage.before_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.after_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.with_food = false;
+                        prescription_list[action.payload.id].medicineItem.dosage.other = true;
+                        return [...prescription_list]
+                    case ACTIONS.CHANGE_OTHER_DETAILS:
+                        prescription_list[action.payload.id].medicineItem.dosage.other_details = '';
                         return [...prescription_list]
                     default:
                         return;
