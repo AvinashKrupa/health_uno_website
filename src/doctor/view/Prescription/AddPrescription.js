@@ -1,6 +1,5 @@
 import React, {useEffect, useReducer, useState} from "react";
 import Input from "../../../commonComponent/Input";
-import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import TextArea from "../../../commonComponent/TextArea";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import CustomButton from '../../../commonComponent/Button';
@@ -11,11 +10,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import {API, get} from "../../../api/config/APIController";
+import {API, get, post} from "../../../api/config/APIController";
 import {useToasts} from "react-toast-notifications";
 import moment from "moment";
 import PrescriptionComponent from "./component/PrescriptionComponent";
 import SelectorForMedicine from "../../../commonComponent/SelectorForMedicine";
+import {IoCloseSharp} from "react-icons/io5";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -46,6 +46,7 @@ const AddPrescription = (props) => {
     let [medicineWithType, setMedicineWithType] = useState([]);
     let [medicineList, setMedicineList] = useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
+    const [openSaveTemplateDialog, setOpenSaveTemplateDialog] = React.useState(false);
     const [selectedSectionIndex, setSelectedSectionIndex] = React.useState(null);
     const patientName = props.location?.state?.patientName || '';
     const patientAge = props.location?.state?.patientAge || '';
@@ -247,6 +248,10 @@ const AddPrescription = (props) => {
         setTempPrescriptionType('');
     };
 
+    const handleSaveTemplateDialogClose = () => {
+        setOpenSaveTemplateDialog(false);
+    };
+
     const handleProceed = () => {
         dispatch({
             type: ACTIONS.CHANGE_PRESCRIPTION_TYPE, payload: {id: selectedSectionIndex, value: tempPrescriptionType}
@@ -260,6 +265,64 @@ const AddPrescription = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     setMedicineWithType(response.data.data);
+                } else {
+                    addToast(response.data.message, {appearance: "error"});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: "error"});
+            });
+    }
+
+    const savePrescriptionAsTemplate = () => {
+        let params =  {
+            "name" : "testing",
+            "prescription_info" :[{
+                "medicine": "613605fcfab367257c6bdae2",
+                "medicinetype": "613604cffab367257c6bdac5",
+                "time_slots" :["Morning", "Afternoon", "Night"],
+                "start_date" : "12/12/2021",
+                "days" : "10",
+                "periodicity" : "days",
+                "add_comments" : "testing",
+                "dosage" :{
+                    "dosage_text" : "first dosage",
+                    "qty" : "100mg",
+                    "before_food" : true,
+                    "after_food" : false,
+                    "with_food" :false,
+                    "other" : false,
+                    "other_details" : "",
+                    "sos" : true,
+                    "stat" : false
+                }
+            },
+                {
+                    "medicine": "613605fcfab367257c6bdae2",
+                    "medicinetype": "613604cffab367257c6bdac5",
+                    "time_slots" :["Morning", "Afternoon", "Night"],
+                    "start_date" : "12/12/2021",
+                    "days" : "10",
+                    "periodicity" : "days",
+                    "add_comments" : "testing",
+                    "dosage" :{
+                        "dosage_text" : "first dosage",
+                        "qty" : "100mg",
+                        "before_food" : true,
+                        "after_food" : false,
+                        "with_food" :false,
+                        "other" : false,
+                        "other_details" : "",
+                        "sos" : true,
+                        "stat" : false
+                    }
+                }]
+        };
+        post(API.SAVE_PRESCRIPTION_AS_TEMPLATE, params)
+            .then(response => {
+                if (response.status == 200) {
+                    // setAddDoctor({});
+                    addToast(response.data.message, {appearance: 'success'});
                 } else {
                     addToast(response.data.message, {appearance: "error"});
                 }
@@ -299,6 +362,44 @@ const AddPrescription = (props) => {
         )
     }
 
+    function renderSaveAsTemplateDialogComponent() {
+        return (
+            <div>
+                <Dialog
+                    className="modal-save-template"
+                    open={openSaveTemplateDialog}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleSaveTemplateDialogClose}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogContent>
+                        <div className="close-button">
+                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34} onClick={() => setOpenSaveTemplateDialog(false)}/>
+                        </div>
+                        <div className={'title'}>Save Template</div>
+                        <TextArea
+                            id={'save-template-text'}
+                            placeholder="Enter name of the template"
+                            rows={3}
+                            cols={35}
+                        ></TextArea>
+                        <Row className="sendPrescriptionAction">
+                        <CustomButton onClick={() => {
+                            savePrescriptionAsTemplate();
+                            handleSaveTemplateDialogClose();
+                        }}
+                                      text={'Save'}
+                        >
+                        </CustomButton>
+                        </Row>
+                    </DialogContent>
+                </Dialog>
+            </div>
+        )
+    }
+
     console.log('prescription_list  :', prescription_list);
     return (
         <Row className="doctor-prescription-container">
@@ -311,6 +412,7 @@ const AddPrescription = (props) => {
                     </div>
                 </Row>
                 {renderDialogComponent()}
+                {renderSaveAsTemplateDialogComponent()}
                 <div className="container">
                     <div className="addPrescription">
                         <Row className="topsctionName">
@@ -382,7 +484,7 @@ const AddPrescription = (props) => {
                             })
                         }
                         <div className="actionSave">
-                            <Button variant="outline-primary">Save as Template</Button>{' '}
+                            <Button variant="outline-primary" onClick={()=> setOpenSaveTemplateDialog(true)}>Save as Template</Button>{' '}
                             <Button variant="secondary" onClick={() => {
                                 dispatch({
                                     type: ACTIONS.ADD_NEW_MEDICINE, payload: prescriptionObj

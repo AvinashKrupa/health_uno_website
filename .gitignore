@@ -4,3 +4,4 @@ node_modules
 /.idea/vcs.xml
 localhost.pem
 localhost-key.pem
+/build/*
