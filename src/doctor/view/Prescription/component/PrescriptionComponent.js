@@ -153,9 +153,9 @@ export default function PrescriptionComponent({
                         />
                     </div>
                     <Row>
-                        <div style={{marginTop: 40, marginBottom: 10}}>Time Slots</div>
+                        <div style={{marginTop: 20, marginBottom: 10}}>Time Slots</div>
                     </Row>
-                    <Row className="g-3">
+                    <Row className="g-3 time-slots-container">
                         <Col xs={12} md={4}>
                             <Button className={'time-slots-button'}
                                     style={{
@@ -289,7 +289,7 @@ export default function PrescriptionComponent({
                 </Col>
 
                 <Col sm={5}>
-                    <Card>
+                    <Card style={{height:'100%'}}>
                         <Card.Body>
                             <Row>
                                 <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
@@ -305,7 +305,6 @@ export default function PrescriptionComponent({
                                     </Col>
                                     <Col sm={6} className="dosage-container">
                                         <SelectorForMedicine
-                                            label="Periodicity"
                                             defaultValue="Select"
                                             value={prescription.prescriptions[0].dosage.qty}
                                             id="MedicineType"
