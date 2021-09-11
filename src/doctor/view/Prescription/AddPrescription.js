@@ -166,13 +166,11 @@ const AddPrescription = (props) => {
                 prescription_list[action.payload.id].medicineItem.dosage.stat = action.payload.value
                 return [...prescription_list]
             case ACTIONS.ADD_TIME_SLOT:
-                debugger
                 if (!prescription_list[action.payload.id].medicineItem.time_slots.includes(action.payload.value)) {
                     prescription_list[action.payload.id].medicineItem.time_slots.push(action.payload.value)
                 }
                 return [...prescription_list]
             case ACTIONS.REMOVE_TIME_SLOT:
-                debugger
                 const arr = prescription_list[action.payload.id].medicineItem.time_slots.filter(e => e !== action.payload.value)
                 prescription_list[action.payload.id].medicineItem.time_slots = arr
                 return [...prescription_list]
@@ -378,7 +376,7 @@ const AddPrescription = (props) => {
             </div>
         )
     }
-console.log("prescription_list", prescription_list)
+console.log("amit prescription list", prescription_list)
     return (
         <Row className="doctor-prescription-container">
             <Col lg="1" sm="1" xs='1'/>
@@ -443,7 +441,7 @@ console.log("prescription_list", prescription_list)
                                 </Col>
                                 <Col md className="Choosetemplate">
                                     <p className="chooseTemplateButton"
-                                       onClick={() => console.log('Debug : Choose template')}>Choose template</p>
+                                       onClick={() => console.log('clicked on Choose template')}>Choose template</p>
                                 </Col>
 
                             </Row>

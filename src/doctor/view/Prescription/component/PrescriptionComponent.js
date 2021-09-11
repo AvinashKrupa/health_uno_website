@@ -115,7 +115,6 @@ export default function PrescriptionComponent({
         })
     }
 
-    console.log('amit debug :', prescription);
     return (
         <>
             <Row classNme="g-2">

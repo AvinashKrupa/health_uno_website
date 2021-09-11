@@ -12,7 +12,6 @@ class AutoSuggestInput extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.resetValue && this.props.shouldResetValue){
-            debugger
             this.setState({
                 value:'',
                 suggestions: [],
@@ -59,7 +58,7 @@ class AutoSuggestInput extends React.Component {
 
         this.setState({
             suggestions: this.props.getSuggestions(value)
-        }, ()=> console.log('suggestions :', this.state.suggestions));
+        }, ()=> console.log('amit auto suggestions :', this.state.suggestions));
     };
 
     // Triggered on clear
