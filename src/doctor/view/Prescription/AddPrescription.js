@@ -148,6 +148,7 @@ const AddPrescription = (props) => {
             case ACTIONS.CHANGE_PRESCRIPTION_TYPE:
                 prescription_list[action.payload.id] = defaultValue(action.payload.value)
                 setShouldResetValue(true);
+                setUserShouldProceed(false);
                 return [...prescription_list]
             case ACTIONS.CHANGE_MEDICINE_NAME:
                 prescription_list[action.payload.id].medicineItem.medicine = action.payload.value._id
@@ -265,14 +266,9 @@ const AddPrescription = (props) => {
                 }
                 return [...prescription_list]
             case ACTIONS.VALIDATE_ALL_MEDICINE_INFO:
-
-                // for (let i = 0; i < prescription_list.length-1; i++) {
-                //
-                // }
                 prescription_list.forEach((eachMedicine, index) =>{
                     if (index === prescription_list.length - 1){
-                        setUserShouldProceed(false)
-                        return;
+                        setUserShouldProceed(false);
                     } else {
                         if (eachMedicine.medicineItem.medicine === '') {
                             eachMedicine.validationInfo.medicine_error = 'Please choose medicine';
