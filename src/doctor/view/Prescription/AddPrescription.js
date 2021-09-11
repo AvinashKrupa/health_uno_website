@@ -282,6 +282,29 @@ const AddPrescription = (props) => {
             });
     }
 
+    const submitPrescription = () => {
+        let allMedicines = [];
+        prescription_list.forEach(prescription => allMedicines.push(prescription.medicineItem))
+
+        let params = {
+            appointment_id: props.match.params.appointment_id,
+            prescriptions: allMedicines,
+            investigations: investigations,
+        };
+        post(API.SUBMIT_PRESCRIPTION, params)
+            .then(response => {
+                if (response.status === 200) {
+                    addToast(response.data.message, {appearance: 'success'});
+                    props.history.push('/doctor/home');
+                } else {
+                    addToast(response.data.message, {appearance: "error"});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: "error"});
+            });
+    }
+
     function renderDialogComponent() {
         return (
             <div>
@@ -507,6 +530,7 @@ console.log("prescription_list", prescription_list)
                             <CustomButton text={'Send Prescription'}
                                           className="primary SendPrescription"
                                           disabled={!prescription_list.length}
+                                          onClick={()=> submitPrescription()}
                             ></CustomButton>
                             {!prescription_list.length &&
                             <span className="error-text">Please add a medicine to proceed</span>}
