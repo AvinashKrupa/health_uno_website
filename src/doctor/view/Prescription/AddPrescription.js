@@ -38,6 +38,8 @@ export const ACTIONS = {
     ADD_TIME_SLOT: 'ADD_TIME_SLOT',
     REMOVE_TIME_SLOT: 'REMOVE_TIME_SLOT',
     DELETE_MEDICINE: 'DELETE_MEDICINE',
+    VALIDATE_MEDICINE_INFO: 'VALIDATE_MEDICINE_INFO',
+    VALIDATE_ALL_MEDICINE_INFO: 'VALIDATE_ALL_MEDICINE_INFO',
 }
 const AddPrescription = (props) => {
     const {addToast} = useToasts();
@@ -46,11 +48,11 @@ const AddPrescription = (props) => {
     let [templateTitle, setTemplateTitle] = useState('');
     let [shouldResetValue, setShouldResetValue] = useState(false);
     let [medicineWithType, setMedicineWithType] = useState([]);
-    let [medicineList, setMedicineList] = useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [investigationRequiredCheck, setInvestigationRequiredCheck] = React.useState(false);
     const [investigations, setInvestigations] = React.useState([""]);
     const [openSaveTemplateDialog, setOpenSaveTemplateDialog] = React.useState(false);
+    const [userShouldProceed, setUserShouldProceed] = React.useState(false);
     const [selectedSectionIndex, setSelectedSectionIndex] = React.useState(null);
     const patientName = props.location?.state?.patientName || '';
     const patientAge = props.location?.state?.patientAge || '';
@@ -86,6 +88,12 @@ const AddPrescription = (props) => {
                         sos: false,
                         stat: false,
                     },
+                },
+                validationInfo:{
+                    medicine_error:'',
+                    medicine_type_error:'',
+                    dosage_error:'',
+                    time_slot_error:'',
                 }
         }
     }
@@ -112,7 +120,13 @@ const AddPrescription = (props) => {
                     sos: false,
                     stat: false,
                 },
-            }
+            },
+        validationInfo:{
+            medicine_error:'',
+            medicine_type_error:'',
+            dosage_error:'',
+            time_slot_error:'',
+        }
     }
 
     let initialState = [prescriptionObj];
@@ -209,6 +223,103 @@ const AddPrescription = (props) => {
                     default:
                         return;
                 }
+            case ACTIONS.VALIDATE_MEDICINE_INFO:
+                if (prescription_list[action.payload.id].medicineItem.medicine === '') {
+                    prescription_list[action.payload.id].validationInfo.medicine_error = 'Please choose medicine';
+                    // setUserShouldProceed(false);
+                }else {
+                    prescription_list[action.payload.id].validationInfo.medicine_error = '';
+                    // setUserShouldProceed(true);
+                }
+                if (prescription_list[action.payload.id].medicineItem.medicinetype === '' || prescription_list[action.payload.id].medicineItem.medicinetype === "Select") {
+                    prescription_list[action.payload.id].validationInfo.medicine_type_error = 'Please add dosage information';
+                    // setUserShouldProceed(false);
+                }else {
+                    prescription_list[action.payload.id].validationInfo.medicine_type_error = '';
+                    // setUserShouldProceed(true);
+                }
+                if (prescription_list[action.payload.id].medicineItem.dosage.dosage_text === '') {
+                    prescription_list[action.payload.id].validationInfo.dosage_error = 'Please add dosage information';
+                    // setUserShouldProceed(false);
+                } else {
+                prescription_list[action.payload.id].validationInfo.dosage_error = '';
+                // setUserShouldProceed(true);
+                }
+                if (!prescription_list[action.payload.id].medicineItem.time_slots.length) {
+                    prescription_list[action.payload.id].validationInfo.time_slot_error = 'Please select timings';
+                    // setUserShouldProceed(false);
+                }else {
+                    prescription_list[action.payload.id].validationInfo.time_slot_error = '';
+                    // setUserShouldProceed(true);
+                }
+
+                if (
+                    !(prescription_list[action.payload.id].medicineItem.medicine === '') &&
+                    !(prescription_list[action.payload.id].medicineItem.medicinetype === '' || prescription_list[action.payload.id].medicineItem.medicinetype === "Select") &&
+                    !(prescription_list[action.payload.id].medicineItem.dosage.dosage_text === '') &&
+                    prescription_list[action.payload.id].medicineItem.time_slots.length
+                ) {
+                    setUserShouldProceed(true);
+                }else {
+                    setUserShouldProceed(false);
+                }
+                return [...prescription_list]
+            case ACTIONS.VALIDATE_ALL_MEDICINE_INFO:
+
+                // for (let i = 0; i < prescription_list.length-1; i++) {
+                //
+                // }
+                prescription_list.forEach((eachMedicine, index) =>{
+                    if (index === prescription_list.length - 1){
+                        setUserShouldProceed(false)
+                        return;
+                    } else {
+                        if (eachMedicine.medicineItem.medicine === '') {
+                            eachMedicine.validationInfo.medicine_error = 'Please choose medicine';
+                            // setUserShouldProceed(false);
+                        }else {
+                            eachMedicine.validationInfo.medicine_error = '';
+                            // setUserShouldProceed(true);
+                        }
+                        if (eachMedicine.medicineItem.medicinetype === '' || eachMedicine.medicineItem.medicinetype === "Select") {
+                            eachMedicine.validationInfo.medicine_type_error = 'Please add dosage information';
+                            // setUserShouldProceed(false);
+                        }else {
+                            eachMedicine.validationInfo.medicine_type_error = '';
+                            // setUserShouldProceed(true);
+                        }
+                        if (eachMedicine.medicineItem.dosage.dosage_text === '') {
+                            eachMedicine.validationInfo.dosage_error = 'Please add dosage information';
+                            // setUserShouldProceed(false);
+                        } else {
+                            eachMedicine.validationInfo.dosage_error = '';
+                            // setUserShouldProceed(true);
+                        }
+                        if (!eachMedicine.medicineItem.time_slots.length) {
+                            eachMedicine.validationInfo.time_slot_error = 'Please select timings';
+                            // setUserShouldProceed(false);
+                        }else {
+                            eachMedicine.validationInfo.time_slot_error = '';
+                            // setUserShouldProceed(true);
+                        }
+
+                        if (
+                            !(eachMedicine.medicineItem.medicine === '') &&
+                            !(eachMedicine.medicineItem.medicinetype === '' || eachMedicine.medicineItem.medicinetype === "Select") &&
+                            !(eachMedicine.medicineItem.dosage.dosage_text === '') &&
+                            eachMedicine.medicineItem.time_slots.length
+                        ) {
+                            setUserShouldProceed(true);
+                        }else {
+                            setUserShouldProceed(false);
+                        }
+                    }
+
+
+
+                })
+
+                return [...prescription_list]
             default:
                 return prescription_list
         }
@@ -242,7 +353,6 @@ const AddPrescription = (props) => {
             type: ACTIONS.CHANGE_PRESCRIPTION_TYPE, payload: {id: selectedSectionIndex, value: tempPrescriptionType}
         })
         setOpenDialog(false);
-        setMedicineList([]);
     };
 
     function getMedicineTypes() {
@@ -462,7 +572,7 @@ console.log("amit prescription list", prescription_list)
                         }
                         <div className="actionSave">
                             <Button variant="outline-primary"
-                                    disabled={!prescription_list.length}
+                                    disabled={!prescription_list.length || !userShouldProceed}
                                     onClick={() => {
                                         setOpenSaveTemplateDialog(true);
                                         setTemplateTitle('');
@@ -472,6 +582,10 @@ console.log("amit prescription list", prescription_list)
                                 dispatch({
                                     type: ACTIONS.ADD_NEW_MEDICINE, payload: prescriptionObj
                                 })
+                                dispatch({
+                                    type: ACTIONS.VALIDATE_ALL_MEDICINE_INFO
+                                })
+                                setUserShouldProceed(false)
                                 setMedicineCount(medicineCount + 1);
                             }}
                             >Add New Medicine</Button>{' '}
@@ -527,11 +641,14 @@ console.log("amit prescription list", prescription_list)
                         <Row className="sendPrescriptionAction">
                             <CustomButton text={'Send Prescription'}
                                           className="primary SendPrescription"
-                                          disabled={!prescription_list.length}
+                                          disabled={!prescription_list.length || !userShouldProceed}
+
                                           onClick={()=> submitPrescription()}
                             ></CustomButton>
                             {!prescription_list.length &&
                             <span className="error-text">Please add a medicine to proceed</span>}
+                            {!userShouldProceed && prescription_list.length >1 &&
+                            <span className="error-text">Please fill/correct required fields </span>}
                         </Row>
                     </div>
                 </div>

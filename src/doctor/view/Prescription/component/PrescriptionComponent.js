@@ -2,7 +2,7 @@ import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import AutoSuggestInput from "./AutoSuggestInput";
 import Input from "../../../../commonComponent/Input";
 import SelectorForMedicine from "../../../../commonComponent/SelectorForMedicine";
-import React from "react";
+import React, {useEffect} from "react";
 import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
@@ -30,6 +30,17 @@ export default function PrescriptionComponent({
         }
         return [];
     };
+    // useEffect(() => {
+    //     dispatch({
+    //         type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
+    //     })
+    // }, []);
+
+    // useEffect(() => {
+    //     dispatch({
+    //         type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
+    //     })
+    // }, []);
 
     function onPrescriptionOptionChange(event) {
         handleClickOpen(index, event.target.value);
@@ -39,6 +50,9 @@ export default function PrescriptionComponent({
         dispatch({
             type: ACTIONS.CHANGE_MEDICINE_NAME, payload: {id: index, value: selectionObj}
         })
+            dispatch({
+                type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
+            })
     }
 
     function setStartDate(date) {
@@ -58,6 +72,9 @@ export default function PrescriptionComponent({
                     "_id": typeInfo[0]
                 }
             }
+        })
+        dispatch({
+            type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
         })
     }
 
@@ -115,6 +132,24 @@ export default function PrescriptionComponent({
         })
     }
 
+    function onBlur(value) {
+        //check do we need this
+        // if(value !==''){
+            dispatch({
+                type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
+            })
+        // }
+    }
+
+    // function onBlur() {
+    //     // if (!this.props.keepOnBlur) {
+    //     //     this.onClear();
+    //     //     this.setState({ active: false });
+    //     // }
+    //     debugger
+    //
+    // }
+
     return (
         <>
             <Row classNme="g-2">
@@ -167,6 +202,9 @@ export default function PrescriptionComponent({
                             setShouldResetValue={setShouldResetValue}
                             setSelectedSectionIndex={setSelectedSectionIndex}
                         />
+                        {!!prescription.validationInfo.medicine_error &&
+                        <span className="error-text">{prescription.validationInfo.medicine_error}</span>
+                        }
                     </div>
                     <Row>
                         <div style={{marginTop: 20, marginBottom: 10}}>Time Slots</div>
@@ -184,9 +222,15 @@ export default function PrescriptionComponent({
                                             dispatch({
                                                 type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Morning'}
                                             })
+                                            dispatch({
+                                                type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
+                                            })
                                         } else {
                                             dispatch({
                                                 type: ACTIONS.ADD_TIME_SLOT, payload: {id: index, value: 'Morning'}
+                                            })
+                                            dispatch({
+                                                type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
                                             })
                                         }
 
@@ -209,9 +253,15 @@ export default function PrescriptionComponent({
                                             dispatch({
                                                 type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Afternoon'}
                                             })
+                                            dispatch({
+                                                type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
+                                            })
                                         } else {
                                             dispatch({
                                                 type: ACTIONS.ADD_TIME_SLOT, payload: {id: index, value: 'Afternoon'}
+                                            })
+                                            dispatch({
+                                                type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
                                             })
                                         }
 
@@ -234,9 +284,15 @@ export default function PrescriptionComponent({
                                             dispatch({
                                                 type: ACTIONS.REMOVE_TIME_SLOT, payload: {id: index, value: 'Night'}
                                             })
+                                            dispatch({
+                                                type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
+                                            })
                                         } else {
                                             dispatch({
                                                 type: ACTIONS.ADD_TIME_SLOT, payload: {id: index, value: 'Night'}
+                                            })
+                                            dispatch({
+                                                type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
                                             })
                                         }
 
@@ -247,6 +303,11 @@ export default function PrescriptionComponent({
                                 >Night</span>
                             </Button>
                         </Col>
+                        {!prescription.medicineItem.time_slots.length && !!prescription.validationInfo.time_slot_error &&
+                        // {!prescription.medicineItem.time_slots.length &&
+                        // <span className="error-text">Please select timings</span>
+                        <span className="error-text">{prescription.validationInfo.time_slot_error}</span>
+                        }
                     </Row>
 
 
@@ -286,6 +347,9 @@ export default function PrescriptionComponent({
                         options={medicineTypesList}
                         handleSelect={setSelectedMedicineFromType}
                     />
+                    {!!prescription.validationInfo.medicine_type_error &&
+                    <span className="error-text">{prescription.validationInfo.medicine_type_error}</span>
+                    }
                     <Input
                         type="date"
                         placeholder="Start Date"
@@ -305,7 +369,7 @@ export default function PrescriptionComponent({
                 </Col>
 
                 <Col sm={5}>
-                    <Card style={{height:'100%'}}>
+                    <Card style={{height: '100%'}}>
                         <Card.Body>
                             <Row>
                                 <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
@@ -317,6 +381,7 @@ export default function PrescriptionComponent({
                                             label="Dosage"
                                             value={prescription.medicineItem.dosage.dosage_text}
                                             onChange={onDosageChange}
+                                            onBlur={onBlur}
                                         />
                                     </Col>
                                     <Col sm={6} className="dosage-container">
@@ -329,6 +394,11 @@ export default function PrescriptionComponent({
                                         />
                                     </Col>
                                 </div>
+                                <Row>
+                                    {!!prescription.validationInfo.dosage_error &&
+                                    <span className="error-text">{prescription.validationInfo.dosage_error}</span>
+                                    }
+                                </Row>
                             </Row>
 
 
