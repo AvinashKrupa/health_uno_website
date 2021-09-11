@@ -262,48 +262,12 @@ const AddPrescription = (props) => {
     }
 
     const savePrescriptionAsTemplate = () => {
+        let allMedicines = [];
+        prescription_list.forEach(prescription => allMedicines.push(prescription.medicineItem))
+
         let params = {
-            "name": templateTitle,
-            "prescription_info": [{
-                "medicine": "613605fcfab367257c6bdae2",
-                "medicinetype": "613604cffab367257c6bdac5",
-                "time_slots": ["Morning", "Afternoon", "Night"],
-                "start_date": "12/12/2021",
-                "days": "10",
-                "periodicity": "days",
-                "add_comments": "testing",
-                "dosage": {
-                    "dosage_text": "first dosage",
-                    "qty": "100mg",
-                    "before_food": true,
-                    "after_food": false,
-                    "with_food": false,
-                    "other": false,
-                    "other_details": "",
-                    "sos": true,
-                    "stat": false
-                }
-            },
-                {
-                    "medicine": "613605fcfab367257c6bdae2",
-                    "medicinetype": "613604cffab367257c6bdac5",
-                    "time_slots": ["Morning", "Afternoon", "Night"],
-                    "start_date": "12/12/2021",
-                    "days": "10",
-                    "periodicity": "days",
-                    "add_comments": "testing",
-                    "dosage": {
-                        "dosage_text": "first dosage",
-                        "qty": "100mg",
-                        "before_food": true,
-                        "after_food": false,
-                        "with_food": false,
-                        "other": false,
-                        "other_details": "",
-                        "sos": true,
-                        "stat": false
-                    }
-                }]
+            name: templateTitle,
+            prescription_info: allMedicines
         };
         post(API.SAVE_PRESCRIPTION_AS_TEMPLATE, params)
             .then(response => {
@@ -478,7 +442,10 @@ console.log("prescription_list", prescription_list)
                         <div className="actionSave">
                             <Button variant="outline-primary"
                                     disabled={!prescription_list.length}
-                                    onClick={() => setOpenSaveTemplateDialog(true)}>Save as
+                                    onClick={() => {
+                                        setOpenSaveTemplateDialog(true);
+                                        setTemplateTitle('');
+                                    }}>Save as
                                 Template</Button>{' '}
                             <Button variant="secondary" onClick={() => {
                                 dispatch({
