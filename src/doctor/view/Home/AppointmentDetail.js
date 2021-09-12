@@ -68,7 +68,7 @@ const AppointmentDetail = (props) => {
                 <Col lg="1" sm="1" xs='1'/>
                 <Col lg="10" sm="10" xs='10'>
                     <Row className='back-navigation'>
-                        <div className="back-nav-container">
+                        <div className="back-nav-container-dr">
                             <img src={back_icon} alt='back_icon-img' onClick={() => props.history.goBack()}></img>
                             <span>Appointments Details</span>
                         </div>

@@ -24,4 +24,33 @@ body {
       margin-left:10px
     }
   }
+  .back-nav-container-dr{
+    display: flex;
+    align-items: center;
+    >img{
+      height: 20px;
+      width: 31px;
+      cursor: pointer;
+    }
+    >span{
+      margin-left:10px
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .back-nav-container-dr {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -12px;
+    left: 120px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .back-nav-container-dr {
+    top: 16px;
+    left: 80px;
+  }
 }

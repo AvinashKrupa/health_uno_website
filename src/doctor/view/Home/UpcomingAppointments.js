@@ -125,7 +125,7 @@ const UpcomingAppointments = (props) => {
             <Col lg="10" sm="10" xs='10'>
               <Row className='back-navigation'>
                 <div style={{backgroundColor: '', display:"flex", flexDirection: "row", justifyContent:"space-between"}}>
-                  <div className="back-nav-container">
+                  <div className="back-nav-container-dr">
                     <img src={back_icon} alt='back_icon-img' onClick={()=>props.history.goBack()}></img>
                     <span>{props.location?.state?.title || 'All Appointments'}</span>
                   </div>
@@ -153,6 +153,7 @@ const UpcomingAppointments = (props) => {
 
               <Row>
             <span
+                style={{marginLeft: "12px"}}
                 className={
                   upcoming
                       ? "appointment-page-text-selected"
