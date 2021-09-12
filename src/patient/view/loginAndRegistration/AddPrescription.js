@@ -128,13 +128,7 @@ const AddPrescription = (props) => {
                           <p><div>No. of Pills </div><span>3 </span></p>
                           <p><div>Dosage </div><span>560 Mg </span></p>
                       </div>
-                    <hr/>
-                      <div className="MedList">
-                      <p><div>Medicine Name</div> <span>Domo 650 </span></p>
-                          <p><div>Time Slot</div><span>Morning </span></p>
-                          <p><div>No. of Pills </div><span>3 </span></p>
-                          <p><div>Dosage </div><span>560 Mg </span></p> 
-                      </div>
+                  
                     </Typography>
                   </AccordionDetails>
                 </Accordion>
@@ -593,7 +587,7 @@ const AddPrescription = (props) => {
   return (
       <Row>
         <Col lg="1" sm="1" xs='1'/>
-        <Col lg="10" sm="10" xs='10'>
+        <Col lg="10" sm="10" xs='12'>
           <Row className='back-navigation'>
             <div className="back-nav-container">
               <img src={back_icon} alt='back_icon-img' onClick={() => props.history.goBack()}></img>
