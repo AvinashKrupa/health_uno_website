@@ -130,6 +130,68 @@
 
 
 
+// CHOOSE TEAMPLATE
+
+
+
+.MuiAccordion-rounded{
+    box-shadow: 4px 4px 35px 0px rgb(117 118 119 / 13%) !important;
+    border-radius: 12px !important;
+    background: white;
+    margin-bottom: 20px;
+}
+.MuiDialogContent-root {
+    padding: 8px 20px !important;
+}
+
+.chooseTempBtn{
+    background-color: #27a3da !important;
+    border-color: #27a3da !important;
+    text-transform: capitalize;
+}
+.MuiDialogActions-spacing{margin: auto;    padding: 4px !important;}
+button.chooseDeleteBtn.btn.btn-primary {
+    margin-bottom: 10px;
+    background: transparent !important;
+    color: red;
+    border: 0px;
+    text-transform: capitalize;
+}
+
+.MuiTypography-colorTextSecondary{width: 100%;}
+.MedList p span {
+    color: #5c5a5a;
+    font-weight: 200;
+}
+
+.MedList p {
+    font-size: 15px;
+    color: #343333;
+    margin-bottom: 8px;
+}
+
+.MedList p div{
+    width: 150px;
+    display: inline-flex;
+}
+
+.MuiCheckbox-colorSecondary.Mui-checked {
+    color: #27a3da !important;
+}
+.MuiDialog-paperWidthSm {
+    max-width: 800px !important;
+}
+
+.chooseTemplateSection .choosetempCol{
+    width: 48%;
+    margin-left: 10px;
+}
+
+
+
+
+
+
 
 @media only screen and (max-width: 768px) {
 .topsctionName .form-group{

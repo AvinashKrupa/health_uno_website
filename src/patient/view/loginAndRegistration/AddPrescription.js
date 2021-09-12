@@ -7,14 +7,27 @@ import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import CustomButton from '../../../commonComponent/Button';
 import {back_icon} from "../../../constants/DoctorImages";
 import Dialog from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+import CloseIcon from '@material-ui/icons/Close';
+
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import {API, get} from "../../../api/config/APIController";
 import {useToasts} from "react-toast-notifications";
 import SelectorForMedicine from "../../../commonComponent/SelectorForMedicine";
+
+
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -74,7 +87,9 @@ const AddPrescription = (props) => {
   function renderDialogComponent() {
     return (
         <div>
+
         <Dialog
+        
             open={openDialog}
             TransitionComponent={Transition}
             keepMounted
@@ -82,20 +97,281 @@ const AddPrescription = (props) => {
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle id="alert-dialog-slide-title">{"Do you want to reset?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-slide-title">{"Choose Template"}</DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              This action will reset the prescription. Do you want to proceed?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              No
-            </Button>
-            <Button onClick={handleProceed} color="primary">
-              Yes
+          <Typography gutterBottom>
+            
+    <div className="chooseTemplateSection">
+        <Row className="g-2">
+                <Col className="choosetempCol" xs={12} md={6}>
+                 
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-label="Expand"
+                    aria-controls="additional-actions1-content"
+                    id="additional-actions1-header"
+                  >
+                    <FormControlLabel
+                      aria-label="Acknowledge"
+                      onClick={(event) => event.stopPropagation()}
+                      onFocus={(event) => event.stopPropagation()}
+                      control={<Checkbox />}
+                      label="Fever"
+                    />
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography color="textSecondary">
+                      <div className="MedList">
+                          <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p>
+                      </div>
+                    <hr/>
+                      <div className="MedList">
+                      <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p> 
+                      </div>
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                </Col>
+                <Col className="choosetempCol" xs={12} md={6}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-label="Expand"
+                    aria-controls="additional-actions1-content"
+                    id="additional-actions1-header"
+                  >
+                    <FormControlLabel
+                      aria-label="Acknowledge"
+                      onClick={(event) => event.stopPropagation()}
+                      onFocus={(event) => event.stopPropagation()}
+                      control={<Checkbox />}
+                      label="Abdominal Pain
+                      "
+                    />
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography color="textSecondary">
+                      <div className="MedList">
+                          <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p>
+                      </div>
+                    <hr/>
+                      <div className="MedList">
+                      <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p> 
+                      </div>
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                </Col>
+                <Col className="choosetempCol" xs={12} md={6}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-label="Expand"
+                    aria-controls="additional-actions1-content"
+                    id="additional-actions1-header"
+                  >
+                    <FormControlLabel
+                      aria-label="Acknowledge"
+                      onClick={(event) => event.stopPropagation()}
+                      onFocus={(event) => event.stopPropagation()}
+                      control={<Checkbox />}
+                      label="Covid 19"
+                    />
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography color="textSecondary">
+                      <div className="MedList">
+                          <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p>
+                      </div>
+                    <hr/>
+                      <div className="MedList">
+                      <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p> 
+                      </div>
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                </Col>
+                <Col className="choosetempCol" xs={12} md={6}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-label="Expand"
+                    aria-controls="additional-actions1-content"
+                    id="additional-actions1-header"
+                  >
+                    <FormControlLabel
+                      aria-label="Acknowledge"
+                      onClick={(event) => event.stopPropagation()}
+                      onFocus={(event) => event.stopPropagation()}
+                      control={<Checkbox />}
+                      label="Headache"
+                    />
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography color="textSecondary">
+                      <div className="MedList">
+                          <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p>
+                      </div>
+                    <hr/>
+                      <div className="MedList">
+                      <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p> 
+                      </div>
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                </Col>
+
+                <Col className="choosetempCol" xs={12} md={6}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-label="Expand"
+                    aria-controls="additional-actions1-content"
+                    id="additional-actions1-header"
+                  >
+                    <FormControlLabel
+                      aria-label="Acknowledge"
+                      onClick={(event) => event.stopPropagation()}
+                      onFocus={(event) => event.stopPropagation()}
+                      control={<Checkbox />}
+                      label="Hepatitis B  "
+                    />
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography color="textSecondary">
+                      <div className="MedList">
+                          <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p>
+                      </div>
+                    <hr/>
+                      <div className="MedList">
+                      <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p> 
+                      </div>
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                </Col>
+
+                <Col className="choosetempCol" xs={12} md={6}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-label="Expand"
+                    aria-controls="additional-actions1-content"
+                    id="additional-actions1-header"
+                  >
+                    <FormControlLabel
+                      aria-label="Acknowledge"
+                      onClick={(event) => event.stopPropagation()}
+                      onFocus={(event) => event.stopPropagation()}
+                      control={<Checkbox />}
+                      label="Hepatitis C"
+                    />
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography color="textSecondary">
+                      <div className="MedList">
+                          <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p>
+                      </div>
+                    <hr/>
+                      <div className="MedList">
+                      <p><div>Medicine Name</div> <span>Domo 650 </span></p>
+                          <p><div>Time Slot</div><span>Morning </span></p>
+                          <p><div>No. of Pills </div><span>3 </span></p>
+                          <p><div>Dosage </div><span>560 Mg </span></p> 
+                      </div>
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                </Col>
+
+              </Row>
+
+
+
+
+      {/* <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-label="Expand"
+          aria-controls="additional-actions1-content"
+          id="additional-actions1-header"
+        >
+          <FormControlLabel
+            aria-label="Acknowledge"
+            onClick={(event) => event.stopPropagation()}
+            onFocus={(event) => event.stopPropagation()}
+            control={<Checkbox />}
+            label="Headache"
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography color="textSecondary">
+            The click event of the nested action will propagate up and expand the accordion unless
+            you explicitly stop it.
+          </Typography>
+        </AccordionDetails>
+      </Accordion> */}
+
+
+
+
+
+           </div>
+          </Typography>
+          <Typography gutterBottom>
+          </Typography>
+          <Typography gutterBottom>
+           
+          </Typography>
+        </DialogContent>
+
+          <DialogActions dividers>
+            <Button className="chooseTempBtn" onClick={handleProceed} color="info">
+            Choose template
             </Button>
           </DialogActions>
+
+          <DialogActions>
+            <Button className="chooseDeleteBtn" onClick={handleClose} color="secondary">
+            delete template
+            </Button>
+          </DialogActions>
+
+
         </Dialog>
         </div>
     )
@@ -108,7 +384,8 @@ const AddPrescription = (props) => {
             <div className="prescriptionSection">
               <Row className="choosetemp">
                 <Col md><p>Prescription</p></Col>
-                <Col md className="Choosetemplate"><p>Choose template</p></Col>
+                <Col md className="Choosetemplate" onClick={handleClickOpen}><p>Choose template</p></Col>
+
               </Row>
 
 
