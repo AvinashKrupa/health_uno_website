@@ -13,6 +13,7 @@ const Input = (props) => {
         readOnly={props.readonly || false}
         disabled={props.disabled || false}
         onChange={(e) => props.onChange(e.target.value)}
+        onBlur={(e) => props.onBlur? props.onBlur(e.target.value) : null}
       ></Form.Control>
     </Form.Group>
   );

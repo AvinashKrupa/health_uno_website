@@ -64,7 +64,7 @@ const TopConsultants = (props) => {
           } else {
             setConsultant(response.data.data.docs);
           }
-          
+
         } else {
           addToast(response.data.message, { appearance: "error" });
         }
@@ -73,7 +73,7 @@ const TopConsultants = (props) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
   }
-  
+
 
   function debounce(txt) {
     clearTimeout(timer);
@@ -92,7 +92,7 @@ const TopConsultants = (props) => {
         el.classList.remove("filter-list-close");
         });
     }
-    
+
     setSidebarOpen(!sidebarOpen);
   }
   const fetchMoreData = () => {
@@ -100,7 +100,7 @@ const TopConsultants = (props) => {
   };
   return (
     <div>
-      <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter} >
+      <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter}/>
       <Row className='top-consultants-container'>
         <Col lg="1"  sm="1" xs='1' />
         <Col lg="10" sm="10" xs='10' className='screen-768'>
@@ -161,7 +161,6 @@ const TopConsultants = (props) => {
         </Col>
         <Col lg="1" sm="1" xs='1' />
       </Row>
-      </TopConsultantsFilter>
     </div>
   );
 };

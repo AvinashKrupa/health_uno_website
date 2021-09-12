@@ -21,7 +21,7 @@ const AppointmentDetail = (props) => {
             .then(response => {
                 if (response.status == 200) {
                     setAddDoctor({});
-                    addToast(response.data.message, { appearance: 'success' });
+                    addToast(response.data.message, {appearance: 'success'});
                 } else {
                     addToast(response.data.message, {appearance: "error"});
                 }
@@ -44,7 +44,6 @@ const AppointmentDetail = (props) => {
     }, [addDoctor]);
 
 
-
     function getAppointmentDetail() {
         let params = {
             appointment_id: props.match.params.appointment_id,
@@ -62,14 +61,14 @@ const AppointmentDetail = (props) => {
             });
     }
 
-    const {additional_doc} =appointmentDetail || []
+    const {additional_doc} = appointmentDetail || []
     return (
         <div>
             <Row>
                 <Col lg="1" sm="1" xs='1'/>
                 <Col lg="10" sm="10" xs='10'>
                     <Row className='back-navigation'>
-                        <div className="back-nav-container">
+                        <div className="back-nav-container-dr">
                             <img src={back_icon} alt='back_icon-img' onClick={() => props.history.goBack()}></img>
                             <span>Appointments Details</span>
                         </div>
@@ -139,8 +138,9 @@ const AppointmentDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
-                                <h2 className="sub-title">Additional Doctor</h2>
-                            {!additional_doc?.length && <div className="row-add-doctor" onClick={() => props.history.push(`/doctor/select/${appointmentDetail?._id}`)}>
+                            <h2 className="sub-title">Additional Doctor</h2>
+                            {!additional_doc?.length && <div className="row-add-doctor"
+                                                             onClick={() => props.history.push(`/doctor/select/${appointmentDetail?._id}`)}>
                                 <div className="row-add-doctor-text">Add Doctor</div>
                                 <div><Image src={plus_icon}/></div>
                             </div>}
@@ -159,13 +159,23 @@ const AppointmentDetail = (props) => {
                                     />
                                 </div>
                             }
-                            {appointmentDetail.status ==="completed" &&
-                            <div className="row-add-doctor" onClick={() => props.history.push(`/doctor/AddPrescription`)}>
+                            {appointmentDetail.status !== "completed" &&
+                            <div className="row-add-doctor" onClick={() =>
+                                props.history.push({
+                                    pathname: `/doctor/addPrescription/${appointmentDetail?._id}`,
+                                    state: {
+                                        patientName: `${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`,
+                                        patientAge: moment().diff(appointmentDetail?.patient?.user?.dob, 'years', false),
+                                        patientWeight: appointmentDetail?.patient?.weight,
+                                        patientHeight: appointmentDetail?.patient?.height,
+                                    }
+                                })
+                            }>
                                 <div className="row-add-doctor-text">Add Prescription</div>
                                 <div><Image src={plus_icon}/></div>
                             </div>}
 
-                            {appointmentDetail.status !=="completed" && <div className="bottom-container">
+                            {appointmentDetail.status !== "completed" && <div className="bottom-container">
                                 <Button className="initiate-call-button-container"
                                         onClick={() => {
                                             props.history.push(`/doctor/videoMeeting/${appointmentDetail?._id}`)

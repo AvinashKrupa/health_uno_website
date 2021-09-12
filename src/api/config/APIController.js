@@ -37,8 +37,11 @@ export const API = {
   ADD_ADDITIONAL_DOCTOR: 'appointment/addDoctor',
   GET_PROFILE: 'user/profile',
   UPDATE_PROFILE: 'user/updateProfile',
-  GET_MEDICINE: 'medicines?name=',
-  GET_MEDICINE_TYPE: 'medicine/getMedicineOnType?type=',
+  GET_MEDICINE: 'medicines?',
+  GET_MEDICINE_TYPE: 'medicine/getMedicineTypes?status=active',
+  SAVE_PRESCRIPTION_AS_TEMPLATE: 'prescription/saveAsTemplate',
+  SUBMIT_PRESCRIPTION: 'prescription/submitPrescription',
+  GET_SAVED_TEMPLATE: 'prescription/getSavedTemplate',
 };
 
 export function post(endPoint, params, isStringfy = true) {
