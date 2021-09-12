@@ -30,17 +30,6 @@ export default function PrescriptionComponent({
         }
         return [];
     };
-    // useEffect(() => {
-    //     dispatch({
-    //         type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
-    //     })
-    // }, []);
-
-    // useEffect(() => {
-    //     dispatch({
-    //         type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
-    //     })
-    // }, []);
 
     function onPrescriptionOptionChange(event) {
         handleClickOpen(index, event.target.value);
