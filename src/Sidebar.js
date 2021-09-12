@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 const sidebar = ['home', 'appointments', 'profile', 'reports']
 
 const Sidebar = (props) => {
+    const userType = JSON.parse(getData('USER_TYPE'));
     return (
         <div className="sidebarMenu">
             <SideNav onSelect={(selected) => {
@@ -53,14 +54,14 @@ const Sidebar = (props) => {
                         </NavText>
                     </NavItem>
 
-                    <NavItem eventKey="reports">
+                    {userType === 1 && <NavItem eventKey="reports">
                         <NavIcon>
                             <i className="fa fa-fw fa-briefcase" style={{fontSize: '1.75em'}}/>
                         </NavIcon>
                         <NavText>
                             Prescriptions
                         </NavText>
-                    </NavItem>
+                    </NavItem>}
 
                     <NavItem eventKey="profile">
                         <NavIcon>
