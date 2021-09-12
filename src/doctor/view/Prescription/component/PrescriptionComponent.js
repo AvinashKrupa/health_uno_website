@@ -2,7 +2,7 @@ import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import AutoSuggestInput from "./AutoSuggestInput";
 import Input from "../../../../commonComponent/Input";
 import SelectorForMedicine from "../../../../commonComponent/SelectorForMedicine";
-import React, {useEffect} from "react";
+import React from "react";
 import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
@@ -122,22 +122,10 @@ export default function PrescriptionComponent({
     }
 
     function onBlur(value) {
-        //check do we need this
-        // if(value !==''){
             dispatch({
                 type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
             })
-        // }
     }
-
-    // function onBlur() {
-    //     // if (!this.props.keepOnBlur) {
-    //     //     this.onClear();
-    //     //     this.setState({ active: false });
-    //     // }
-    //     debugger
-    //
-    // }
 
     return (
         <>
