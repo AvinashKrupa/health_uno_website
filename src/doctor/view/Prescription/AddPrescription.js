@@ -405,7 +405,7 @@ const AddPrescription = (props) => {
                 }
             })
             .catch(error => {
-                addToast(error.response.data.message, {appearance: "error"});
+                addToast(error.response?.data?.message?.investigations?.message || error.response?.data?.message, {appearance: "error"});
             });
     }
 
