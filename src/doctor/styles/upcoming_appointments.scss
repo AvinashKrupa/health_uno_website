@@ -15,6 +15,15 @@
       border: none;
     }
   }
+  .react-datepicker__navigation--previous{
+    position: absolute!important;
+    top: 2px!important;
+  }
+  .react-datepicker__navigation--next{
+       position: absolute!important;
+    right: 2px!important;
+    top: 2px!important;
+  }
 }
 
 .calender-date-upcoming {
