@@ -20,7 +20,7 @@ import ModalDialog from "../../../commonComponent/ModalDialog";
 const Invite = (props) => {
   const [showShare, setShowShare] = useState(false);
 
-  const [copyContent, setCopyContent] = useState("http//:healthunoapp/invite");
+  const [copyContent, setCopyContent] = useState("https://healthunoapp/invite");
 
   const handleCopy = (e) => {
     e.preventDefault();
@@ -43,9 +43,9 @@ const Invite = (props) => {
               </div>
               <div className="invite-link">
                 <form>
-                  <input type="text" value="http//:healthunoapp/invite" readOnly onChange={(e) => handleCopy(e)} />
+                  <input type="text" value="https://healthunoapp/invite" readOnly onChange={(e) => handleCopy(e)} />
 
-                  <CopyToClipboard text={'http//:healthunoapp/invite'}
+                  <CopyToClipboard text={'https//:healthunoapp/invite'}
                   >
                     <button className="copy-button" >
                       Copy Code
@@ -66,19 +66,19 @@ const Invite = (props) => {
       </Row>
       <ModalDialog onSubmit={()=>setShowShare(!showShare)} title="Send Invitation" show={showShare} closeDialog={() => setShowShare(!showShare)}>
         <div className="share-buttons">
-          <WhatsappShareButton url="www.google.com">
+          <WhatsappShareButton url="https://healthunoapp/invite">
             <WhatsappIcon  size={50} round={true} />
           </WhatsappShareButton>
-          <EmailShareButton url="www.google.com" >
+          <EmailShareButton url="https://healthunoapp/invite" >
             <EmailIcon size={50} round={true} />
           </EmailShareButton>
-          <TwitterShareButton url="www.google.com">
+          <TwitterShareButton url="https://healthunoapp/invite">
             <TwitterIcon  size={50} round={true}/>
           </TwitterShareButton>
-          <FacebookShareButton url="www.google.com">
+          <FacebookShareButton url="https://healthunoapp/invite">
             <FacebookIcon size={50} round={true} />
           </FacebookShareButton>
-          <LinkedinShareButton url="www.google.com">
+          <LinkedinShareButton url="https://healthunoapp/invite">
             <LinkedinIcon size={50} round={true} />
           </LinkedinShareButton>
         </div>
