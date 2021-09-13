@@ -5,7 +5,7 @@ import { Row, Col, Button } from "react-bootstrap";
 const ReportCard = (props) => {
   return (
     <>
-    <Grid container item lg={3}  md={6} sm={6} xs={12} spacing={1}>
+    <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1}>
       <Col>
         <Row className="report-card-container">
           <Col className="padding-0">
