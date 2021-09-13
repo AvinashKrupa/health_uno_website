@@ -31,7 +31,8 @@ function App() {
   return (
       <div className="App">
         <BrowserRouter>
-          <Route exact path="/" component={PatientLogin}/>
+          <Route exact path="/" component={DoctorLogin}/>
+          <Route exact path="/patient" component={PatientLogin}/>
           <Route exact path="/doctor" component={DoctorLogin}/>
           <PrivateRoute exact path='/doctor/otp' component={DoctorOTP}/>
           <PrivateRoute exact path='/patient/otp' component={OTP}/>
