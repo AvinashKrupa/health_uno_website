@@ -50,7 +50,7 @@ const AddPrescription = (props) => {
     let [medicineWithType, setMedicineWithType] = useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [investigationRequiredCheck, setInvestigationRequiredCheck] = React.useState(false);
-    const [investigations, setInvestigations] = React.useState([""]);
+    const [investigations, setInvestigations] = React.useState([]);
     const [openSaveTemplateDialog, setOpenSaveTemplateDialog] = React.useState(false);
     const [userShouldProceed, setUserShouldProceed] = React.useState(false);
     const [selectedSectionIndex, setSelectedSectionIndex] = React.useState(null);
@@ -64,6 +64,14 @@ const AddPrescription = (props) => {
         "name": `${props.location?.state?.patientHeight}` || '',
         "_id": `${props.location?.state?.patientHeight}` || ''
     }];
+
+    useEffect(() => {
+        if(investigationRequiredCheck){
+            setInvestigations([""])
+        } else {
+            setInvestigations([])
+        }
+    }, [investigationRequiredCheck]);
 
     const defaultValue = (selectedType) => {
         return {
@@ -482,7 +490,8 @@ const AddPrescription = (props) => {
             </div>
         )
     }
-console.log("amit prescription list", prescription_list)
+console.info("INFO: prescription list", prescription_list)
+console.info("INFO: Added investigations for prescription", investigations)
     return (
         <Row className="doctor-prescription-container">
             <Col lg="1" sm="1" xs='1'/>
