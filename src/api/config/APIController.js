@@ -42,6 +42,7 @@ export const API = {
   SAVE_PRESCRIPTION_AS_TEMPLATE: 'prescription/saveAsTemplate',
   SUBMIT_PRESCRIPTION: 'prescription/submitPrescription',
   GET_SAVED_TEMPLATE: 'prescription/getSavedTemplate',
+  GET_REPORTS_FOR_DOCTOR: 'patient/getReports',
 };
 
 export function post(endPoint, params, isStringfy = true) {

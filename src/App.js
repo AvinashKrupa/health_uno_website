@@ -43,7 +43,9 @@ function App() {
             <PrivateRoute exact path='/doctor/search' component={UpcomingAppointments}/>
             <PrivateRoute exact path='/doctor/appointmentDetail/:appointment_id' component={AppointmentDetail}/>
             <PrivateRoute exact path='/doctor/addPrescription/:appointment_id' component={AddPrescription}/>
+            <PrivateRoute exact path='/doctor/reports/:patient_id' component={Reports}/>
             <PrivateRoute exact path='/doctor/reports' component={Reports}/>
+            <PrivateRoute exact path='/doctor/view_report' component={PDFViewer}/>
             <PrivateRoute exact path='/doctor/videoMeeting/:appointment_id' component={VideoMeetingDoctorSide}/>
             <PrivateRoute exact path='/doctor/select/:appointment_id' component={AddDoctor}/>
             <PrivateRoute exact path='/doctor/profile/:type' component={DoctorProfile}/>

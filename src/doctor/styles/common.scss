@@ -17,6 +17,16 @@
     color: #686868;
   }
 }
+.empty-list-container_center {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h4{
+    color: #686868;
+  }
+}
 
 .appointment-calendar-container {
   display: flex;
