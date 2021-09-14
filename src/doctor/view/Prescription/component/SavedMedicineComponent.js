@@ -12,8 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 export default function SavedMedicineComponent(props) {
 const {name,_id, prescription_info} = props.template;
     return (
-        <Col className="choosetempCol" xs={12} md={6}>
-
+        <Col key={`accord-${_id}`} className="choosetempCol" xs={12} md={6}>
             <Accordion>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
@@ -25,7 +24,7 @@ const {name,_id, prescription_info} = props.template;
                         aria-label="Acknowledge"
                         onClick={(event) => event.stopPropagation()}
                         onFocus={(event) => event.stopPropagation()}
-                        control={<Checkbox/>}
+                        control={<Checkbox onChange={()=>props.handleChooseTemplate(props.index)}/>}
                         label={name}
                     />
                 </AccordionSummary>

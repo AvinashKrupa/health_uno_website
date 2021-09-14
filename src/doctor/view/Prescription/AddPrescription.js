@@ -17,12 +17,6 @@ import PrescriptionComponent from "./component/PrescriptionComponent";
 import SelectorForMedicine from "../../../commonComponent/SelectorForMedicine";
 import {IoCloseSharp} from "react-icons/io5";
 import Typography from '@material-ui/core/Typography';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SavedMedicineComponent from "./component/SavedMedicineComponent";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -57,6 +51,7 @@ const AddPrescription = (props) => {
     let [shouldResetValue, setShouldResetValue] = useState(false);
     let [medicineWithType, setMedicineWithType] = useState([]);
     let [savedPrescription, setSavedPrescription] = useState([]);
+    let [chosenTemplate, setChosenTemplate] = useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [openChooseTempDialog, setOpenChooseTempDialog] = React.useState(false);
     const [investigationRequiredCheck, setInvestigationRequiredCheck] = React.useState(false);
@@ -160,6 +155,28 @@ const AddPrescription = (props) => {
             tempInvestigations.splice(index, 1);
         }
         setInvestigations(tempInvestigations)
+    }
+
+    function handleChooseTemplate(itemIndex) {
+        const chosenTemplateTemp = JSON.parse(JSON.stringify(chosenTemplate));
+        if (!chosenTemplateTemp.includes(itemIndex)) {
+            chosenTemplateTemp.push(itemIndex)
+            setChosenTemplate(chosenTemplateTemp)
+        } else {
+            const foundIndex = chosenTemplateTemp.indexOf(itemIndex);
+            if (foundIndex > -1) {
+                chosenTemplateTemp.splice(foundIndex, 1)
+            }
+            setChosenTemplate(chosenTemplateTemp)
+        }
+    }
+
+    function appendChosenTemplateMedicines() {
+        let templateMedicineArr = [];
+        for (let i = 0; i < chosenTemplate.length; i++) {
+            templateMedicineArr = [...templateMedicineArr, ...savedPrescription[chosenTemplate[i]].prescription_info]
+        }
+        console.log("amit final output", templateMedicineArr)
     }
 
     function reducer(prescription_list, action) {
@@ -367,6 +384,7 @@ const AddPrescription = (props) => {
     };
     const handleChooseTempProceed = () => {
         setOpenChooseTempDialog(false);
+        appendChosenTemplateMedicines()
     };
 
     const handleClickOpen = (index, value) => {
@@ -508,17 +526,14 @@ const AddPrescription = (props) => {
                 <DialogTitle id="alert-dialog-slide-title">{"Choose Template"}</DialogTitle>
                 <DialogContent>
                     <Typography gutterBottom>
-
                         <div className="chooseTemplateSection">
                             <Row className="g-2">
-                                {savedPrescription.map( item => <SavedMedicineComponent key={item._id} template={item}/>)}
+                                {savedPrescription.map((item, index) => <SavedMedicineComponent key={item._id}
+                                                                                                template={item}
+                                                                                                index={index}
+                                                                                                handleChooseTemplate={handleChooseTemplate}/>)}
                             </Row>
                         </div>
-                    </Typography>
-                    <Typography gutterBottom>
-                    </Typography>
-                    <Typography gutterBottom>
-
                     </Typography>
                 </DialogContent>
                 <DialogActions dividers>
