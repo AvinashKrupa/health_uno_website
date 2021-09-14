@@ -20,6 +20,14 @@ class AutoSuggestInput extends React.Component {
                 this.props.setSelectedSectionIndex(null)
             })
         }
+        if(this.props.shouldClearInput){
+            this.setState({
+                value:'',
+                suggestions: [],
+            },()=> {
+                this.props.setShouldClearInput(false)
+            })
+        }
     }
 
     getSuggestionValue = suggestion => suggestion.name;
