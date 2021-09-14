@@ -129,7 +129,7 @@ export default function PrescriptionComponent({
 
     return (
         <>
-            <Row classNme="g-2">
+            <Row className="g-2">
                 <div className="prescriptionSection">
                     <Row className="choosetemp">
                         <Col md className="Choosetemplate">
@@ -291,6 +291,7 @@ export default function PrescriptionComponent({
                     <Row className="g-3">
                         <Col xs={12} md={6}>
                             <SelectorForMedicine
+                                key={`select-days-${index}`}
                                 label="Days"
                                 defaultValue="Select"
                                 value={prescription.medicineItem.days}
@@ -300,6 +301,7 @@ export default function PrescriptionComponent({
                         </Col>
                         <Col xs={12} md={6}>
                             <SelectorForMedicine
+                                key={`select-periodicity-${index}`}
                                 label="Periodicity"
                                 defaultValue="Select"
                                 value={prescription.medicineItem.periodicity}
@@ -315,6 +317,7 @@ export default function PrescriptionComponent({
 
                 <Col>
                     <SelectorForMedicine
+                        key={`select-medicine-type-${index}`}
                         label="Medicine Type"
                         defaultValue={"Select"}
                         value={prescription.medicineItem.medicinetype}
@@ -357,6 +360,7 @@ export default function PrescriptionComponent({
                                     </Col>
                                     <Col sm={6} className="dosage-container">
                                         <SelectorForMedicine
+                                            key={`select-dosage-list-${index}`}
                                             defaultValue="Select"
                                             value={prescription.medicineItem.dosage.qty}
                                             options={DOSAGE_LIST}

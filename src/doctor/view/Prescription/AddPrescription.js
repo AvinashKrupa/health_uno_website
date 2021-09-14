@@ -512,7 +512,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                 <Input
                                     type="text"
                                     label="Patient Name"
-                                    readonly="true"
+                                    readonly={true}
                                     value={patientName}
                                 />
                             </Col>
@@ -520,7 +520,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                 <Input
                                     type="number"
                                     label="Age"
-                                    readonly="true"
+                                    readonly={true}
                                     value={patientAge}
                                 />
                             </Col>
@@ -529,6 +529,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                 <Row className="g-2">
                                     <Col xs={12} md={6}>
                                         <SelectorForMedicine
+                                            key={`select-height`}
                                             label="Height"
                                             defaultValue="Select"
                                             value={props.location?.state?.patientHeight}
@@ -538,6 +539,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                     </Col>
                                     <Col xs={12} md={6}>
                                         <SelectorForMedicine
+                                            key={`select-weight`}
                                             label="Weight"
                                             defaultValue="Select"
                                             value={props.location?.state?.patientWeight}
@@ -594,7 +596,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                         </div>
 
                         <Row className="g-2">
-                            <Col sm={6}>
+                            <Col sm={12}>
                                 <Row className="investigationscheck">
 
                                     <div key={`investigation-checkbox`} className="">
@@ -616,7 +618,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                 <Row>
                                     {
                                         investigationRequiredCheck && investigations.map((text, index) => {
-                                            return <Col xs={12} md={6}>
+                                            return <Col lg="6" md sm="12" xs='12'>
                                                 <div style={{display:"flex", flexDirection:"row"}}>
                                                     <TextArea
                                                         key={`investigation-item-${index}`}
@@ -629,7 +631,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                                         maxLength="200"
                                                     ></TextArea>
                                                     <div style={{alignSelf:'center'}}>
-                                                        <img className="delete-button" src={delete_icon} onClick={()=>null}/>
+                                                        <img className="delete-button" src={delete_icon} onClick={()=>console.log('amit debug :delete_icon')}/>
                                                     </div>
                                                 </div>
                                             </Col>
