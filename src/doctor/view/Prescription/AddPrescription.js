@@ -3,7 +3,7 @@ import Input from "../../../commonComponent/Input";
 import TextArea from "../../../commonComponent/TextArea";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import CustomButton from '../../../commonComponent/Button';
-import {back_icon} from "../../../constants/DoctorImages";
+import {back_icon, delete_icon} from "../../../constants/DoctorImages";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -144,15 +144,24 @@ const AddPrescription = (props) => {
             setInvestigations(JSON.parse(JSON.stringify(investigations)));
     }
 
+    function deleteInvestigationItem(index) {
+        const tempInvestigations = JSON.parse(JSON.stringify(investigations));
+        if (index > -1) {
+            tempInvestigations.splice(index, 1);
+        }
+        setInvestigations(tempInvestigations)
+    }
+
     function reducer(prescription_list, action) {
         switch (action.type) {
             case ACTIONS.ADD_NEW_MEDICINE:
                 return [...prescription_list, action.payload];
             case ACTIONS.DELETE_MEDICINE:
+                const tempPrescriptionObj = JSON.parse(JSON.stringify(prescription_list));
                 if (action.payload.id > -1) {
-                    prescription_list.splice(action.payload.id, 1);
+                    tempPrescriptionObj.splice(action.payload.id, 1);
                 }
-                return [...prescription_list];
+                return tempPrescriptionObj;
             case ACTIONS.CHANGE_PRESCRIPTION_TYPE:
                 prescription_list[action.payload.id] = defaultValue(action.payload.value)
                 setShouldResetValue(true);
@@ -510,18 +519,16 @@ console.info("INFO: Added investigations for prescription", investigations)
                             <Col xs={12} md={4}>
                                 <Input
                                     type="text"
-                                    id="firstName"
                                     label="Patient Name"
-                                    readonly="true"
+                                    readonly={true}
                                     value={patientName}
                                 />
                             </Col>
                             <Col xs={12} md={4}>
                                 <Input
                                     type="number"
-                                    id="age"
                                     label="Age"
-                                    readonly="true"
+                                    readonly={true}
                                     value={patientAge}
                                 />
                             </Col>
@@ -530,20 +537,20 @@ console.info("INFO: Added investigations for prescription", investigations)
                                 <Row className="g-2">
                                     <Col xs={12} md={6}>
                                         <SelectorForMedicine
+                                            key={`select-height`}
                                             label="Height"
                                             defaultValue="Select"
                                             value={props.location?.state?.patientHeight}
-                                            id="Height"
                                             options={patientHeight}
                                             handleSelect={() => null}
                                         />
                                     </Col>
                                     <Col xs={12} md={6}>
                                         <SelectorForMedicine
+                                            key={`select-weight`}
                                             label="Weight"
                                             defaultValue="Select"
                                             value={props.location?.state?.patientWeight}
-                                            id="Weight"
                                             options={patientWeight}
                                             handleSelect={() => null}
                                         />
@@ -563,7 +570,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                         </Row>
                         {
                             prescription_list.map((prescription, index) => {
-                                return <PrescriptionComponent key={index}
+                                return <PrescriptionComponent key={`prescription-item-${index}`}
                                                               index={index} prescription={prescription}
                                                               dispatch={dispatch} addToast={addToast}
                                                               medicineTypesList={medicineWithType}
@@ -597,15 +604,15 @@ console.info("INFO: Added investigations for prescription", investigations)
                         </div>
 
                         <Row className="g-2">
-                            <Col sm={6}>
+                            <Col sm={12}>
                                 <Row className="investigationscheck">
 
-                                    <div key={`inline-checkbox`} className="">
+                                    <div key={`investigation-checkbox`} className="">
                                         <Form.Check
                                             label="Required Investigations"
-                                            name={"Required Investigations"}
+                                            name="required-investigation-1"
+                                            id="required-investigation-1"
                                             type={'checkbox'}
-                                            id={`inline-checkbox-1`}
                                             onChange={() => {
                                                 setInvestigationRequiredCheck(!investigationRequiredCheck);
                                                 setInvestigations([""]);
@@ -619,16 +626,23 @@ console.info("INFO: Added investigations for prescription", investigations)
                                 <Row>
                                     {
                                         investigationRequiredCheck && investigations.map((text, index) => {
-                                            return <TextArea
-                                                key={index}
-                                                id={`Investigations ${index}`}
-                                                placeholder="Enter text here"
-                                                rows={3}
-                                                cols={35}
-                                                value={text}
-                                                onChange={(value) => updateInvestigationState(index, value)}
-                                                maxLength="100"
-                                            ></TextArea>
+                                            return <Col lg="6" md sm="12" xs='12'>
+                                                <div style={{display:"flex", flexDirection:"row"}}>
+                                                    <TextArea
+                                                        key={`investigation-item-${index}`}
+                                                        id={`investigation-item-${index}`}
+                                                        placeholder="Enter text here"
+                                                        rows={3}
+                                                        cols={35}
+                                                        value={text}
+                                                        onChange={(value) => updateInvestigationState(index, value)}
+                                                        maxLength="200"
+                                                    ></TextArea>
+                                                    <div style={{alignSelf:'center'}}>
+                                                        <img className="delete-button" src={delete_icon} onClick={()=> deleteInvestigationItem(index)}/>
+                                                    </div>
+                                                </div>
+                                            </Col>
                                         })
                                     }
                                 </Row>

@@ -327,7 +327,7 @@ function registerUserAPICalling() {
     height: 300,
     weight: 300,
     email: email,
-    // language: language,  
+    // language: language,
     dp: image,
     med_cond: [
       {
@@ -718,7 +718,7 @@ function registerUserAPICalling() {
             />
           </Col>
         </Row>
-        <Row classNme="g-2">
+        <Row className="g-2">
           <Col md>
             <Checkbox id="term" checked={termsCondition} label="I accept Terms and Conditions" handleSelect={setTermsCondition} />
           </Col>

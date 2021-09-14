@@ -10,7 +10,7 @@ const SelectorForMedicine = (props) => {
       }}>
         <option defaultValue={props.defaultValue}>{props.defaultValue}</option>
         {props.options.map((item) => (
-          <option value={item._id}>{item.name}</option>
+          <option key={item._id}value={item._id}>{item.name}</option>
         ))}
       </select>
     </Form.Group>

@@ -129,7 +129,7 @@ export default function PrescriptionComponent({
 
     return (
         <>
-            <Row classNme="g-2">
+            <Row className="g-2">
                 <div className="prescriptionSection">
                     <Row className="choosetemp">
                         <Col md className="Choosetemplate">
@@ -140,7 +140,7 @@ export default function PrescriptionComponent({
                             }/>
                         </Col>
                     </Row>
-                    <div key={`inline-radio`} className="">
+                    <div key={`medicine-type-radio${index}`} className="">
                         <Form.Check
                             label="Brand"
                             name={`Prescription${index}`}
@@ -291,20 +291,20 @@ export default function PrescriptionComponent({
                     <Row className="g-3">
                         <Col xs={12} md={6}>
                             <SelectorForMedicine
+                                key={`select-days-${index}`}
                                 label="Days"
                                 defaultValue="Select"
                                 value={prescription.medicineItem.days}
-                                id="Time Slots"
                                 options={DAYS_LIST}
                                 handleSelect={onDaysSelect}
                             />
                         </Col>
                         <Col xs={12} md={6}>
                             <SelectorForMedicine
+                                key={`select-periodicity-${index}`}
                                 label="Periodicity"
                                 defaultValue="Select"
                                 value={prescription.medicineItem.periodicity}
-                                id="Periodicity"
                                 options={PERIODICITY_LIST}
                                 handleSelect={onPeriodicitySelect}
                             />
@@ -317,10 +317,10 @@ export default function PrescriptionComponent({
 
                 <Col>
                     <SelectorForMedicine
+                        key={`select-medicine-type-${index}`}
                         label="Medicine Type"
                         defaultValue={"Select"}
                         value={prescription.medicineItem.medicinetype}
-                        id="MedicineType"
                         options={medicineTypesList}
                         handleSelect={setSelectedMedicineFromType}
                     />
@@ -330,7 +330,6 @@ export default function PrescriptionComponent({
                     <Input
                         type="date"
                         placeholder="Start Date"
-                        id="mediStart Date"
                         label="Start Date"
                         onChange={setStartDate}
                         value={prescription.medicineItem.start_date}
@@ -338,7 +337,6 @@ export default function PrescriptionComponent({
                     <Input
                         type="text"
                         placeholder="Enter text here"
-                        id="mediAdd Comments"
                         label="Add Comments"
                         value={prescription.medicineItem.add_comments}
                         onChange={onCommentChange}
@@ -354,7 +352,6 @@ export default function PrescriptionComponent({
                                         <Input
                                             type="text"
                                             placeholder="Enter text here"
-                                            id="dosage"
                                             label="Dosage"
                                             value={prescription.medicineItem.dosage.dosage_text}
                                             onChange={onDosageChange}
@@ -363,9 +360,9 @@ export default function PrescriptionComponent({
                                     </Col>
                                     <Col sm={6} className="dosage-container">
                                         <SelectorForMedicine
+                                            key={`select-dosage-list-${index}`}
                                             defaultValue="Select"
                                             value={prescription.medicineItem.dosage.qty}
-                                            id="MedicineType"
                                             options={DOSAGE_LIST}
                                             handleSelect={onDosageQuantity}
                                         />
@@ -379,12 +376,12 @@ export default function PrescriptionComponent({
                             </Row>
 
 
-                            <div key={`inline-radio`} className="">
+                            <div key={`inline-dosage-radio${index}`} className="">
                                 <Form.Check
                                     label="Before Food"
-                                    name={`dosage-time-slot-${index}`}
+                                    name={`before-food-${index}`}
+                                    id={`before-food-${index}`}
                                     type="radio"
-                                    // id={`inline-radio-${index}`}
                                     value="beforeFood"
                                     onChange={onDosageSlotChange}
                                     checked={
@@ -393,10 +390,10 @@ export default function PrescriptionComponent({
                                 />
                                 <Form.Check
                                     label="After Food"
-                                    name={`dosage-time-slot-${index}`}
+                                    name={`after-food-${index}`}
+                                    id={`after-food-${index}`}
                                     type="radio"
                                     value="afterFood"
-                                    // id={`inline-radio-2`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.medicineItem.dosage.after_food
@@ -404,10 +401,10 @@ export default function PrescriptionComponent({
                                 />
                                 <Form.Check
                                     label="With Food"
-                                    name={`dosage-time-slot-${index}`}
+                                    name={`with-food-${index}`}
+                                    id={`with-food-${index}`}
                                     type="radio"
                                     value="withFood"
-                                    // id={`inline-radio-3`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.medicineItem.dosage.with_food
@@ -415,10 +412,10 @@ export default function PrescriptionComponent({
                                 />
                                 <Form.Check
                                     label="Other"
-                                    name={`dosage-time-slot-${index}`}
+                                    name={`other-food-${index}`}
+                                    id={`other-food-${index}`}
                                     type="radio"
                                     value="otherFood"
-                                    // id={`inline-radio-4`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.medicineItem.dosage.other
@@ -428,11 +425,10 @@ export default function PrescriptionComponent({
 
                             {prescription.medicineItem.dosage.other &&
                             <div className="otherdoage"><Input type="text" placeholder="Enter other details"
-                                                               id="other"
                                                                onChange={onOtherDetails}/>
                             </div>}
 
-                            <div key={`inline-checkbox`} className="">
+                            <div key={`inline-stat-checkbox${index}`} className="">
                                 <Form.Check
                                     label="SOS"
                                     name="grup"
