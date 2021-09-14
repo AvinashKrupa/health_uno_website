@@ -2,7 +2,7 @@ import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import AutoSuggestInput from "./AutoSuggestInput";
 import Input from "../../../../commonComponent/Input";
 import SelectorForMedicine from "../../../../commonComponent/SelectorForMedicine";
-import React from "react";
+import React, {useState} from "react";
 import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
@@ -21,6 +21,7 @@ export default function PrescriptionComponent({
                                                   setShouldResetValue,
                                                   setSelectedSectionIndex
                                               }) {
+    let [shouldClearInput, setShouldClearInput] = useState(false);
     const getSuggestions = async (value) => {
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
@@ -133,10 +134,12 @@ export default function PrescriptionComponent({
                 <div className="prescriptionSection">
                     <Row className="choosetemp">
                         <Col md className="Choosetemplate">
-                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34} onClick={() =>
+                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34} onClick={() => {
                                 dispatch({
                                     type: ACTIONS.DELETE_MEDICINE, payload: {id: index}
                                 })
+                                setShouldClearInput(true);
+                            }
                             }/>
                         </Col>
                     </Row>
@@ -178,6 +181,8 @@ export default function PrescriptionComponent({
                             shouldResetValue={shouldResetValue}
                             setShouldResetValue={setShouldResetValue}
                             setSelectedSectionIndex={setSelectedSectionIndex}
+                            shouldClearInput={shouldClearInput}
+                            setShouldClearInput={setShouldClearInput}
                         />
                         {!!prescription.validationInfo.medicine_error &&
                         <span className="error-text">{prescription.validationInfo.medicine_error}</span>
