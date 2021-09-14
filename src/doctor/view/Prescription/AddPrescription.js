@@ -510,7 +510,6 @@ console.info("INFO: Added investigations for prescription", investigations)
                             <Col xs={12} md={4}>
                                 <Input
                                     type="text"
-                                    id="firstName"
                                     label="Patient Name"
                                     readonly="true"
                                     value={patientName}
@@ -519,7 +518,6 @@ console.info("INFO: Added investigations for prescription", investigations)
                             <Col xs={12} md={4}>
                                 <Input
                                     type="number"
-                                    id="age"
                                     label="Age"
                                     readonly="true"
                                     value={patientAge}
@@ -533,7 +531,6 @@ console.info("INFO: Added investigations for prescription", investigations)
                                             label="Height"
                                             defaultValue="Select"
                                             value={props.location?.state?.patientHeight}
-                                            id="Height"
                                             options={patientHeight}
                                             handleSelect={() => null}
                                         />
@@ -543,7 +540,6 @@ console.info("INFO: Added investigations for prescription", investigations)
                                             label="Weight"
                                             defaultValue="Select"
                                             value={props.location?.state?.patientWeight}
-                                            id="Weight"
                                             options={patientWeight}
                                             handleSelect={() => null}
                                         />

@@ -294,7 +294,6 @@ export default function PrescriptionComponent({
                                 label="Days"
                                 defaultValue="Select"
                                 value={prescription.medicineItem.days}
-                                id="Time Slots"
                                 options={DAYS_LIST}
                                 handleSelect={onDaysSelect}
                             />
@@ -304,7 +303,6 @@ export default function PrescriptionComponent({
                                 label="Periodicity"
                                 defaultValue="Select"
                                 value={prescription.medicineItem.periodicity}
-                                id="Periodicity"
                                 options={PERIODICITY_LIST}
                                 handleSelect={onPeriodicitySelect}
                             />
@@ -320,7 +318,6 @@ export default function PrescriptionComponent({
                         label="Medicine Type"
                         defaultValue={"Select"}
                         value={prescription.medicineItem.medicinetype}
-                        id="MedicineType"
                         options={medicineTypesList}
                         handleSelect={setSelectedMedicineFromType}
                     />
@@ -330,7 +327,6 @@ export default function PrescriptionComponent({
                     <Input
                         type="date"
                         placeholder="Start Date"
-                        id="mediStart Date"
                         label="Start Date"
                         onChange={setStartDate}
                         value={prescription.medicineItem.start_date}
@@ -338,7 +334,6 @@ export default function PrescriptionComponent({
                     <Input
                         type="text"
                         placeholder="Enter text here"
-                        id="mediAdd Comments"
                         label="Add Comments"
                         value={prescription.medicineItem.add_comments}
                         onChange={onCommentChange}
@@ -354,7 +349,6 @@ export default function PrescriptionComponent({
                                         <Input
                                             type="text"
                                             placeholder="Enter text here"
-                                            id="dosage"
                                             label="Dosage"
                                             value={prescription.medicineItem.dosage.dosage_text}
                                             onChange={onDosageChange}
@@ -365,7 +359,6 @@ export default function PrescriptionComponent({
                                         <SelectorForMedicine
                                             defaultValue="Select"
                                             value={prescription.medicineItem.dosage.qty}
-                                            id="MedicineType"
                                             options={DOSAGE_LIST}
                                             handleSelect={onDosageQuantity}
                                         />
@@ -428,7 +421,6 @@ export default function PrescriptionComponent({
 
                             {prescription.medicineItem.dosage.other &&
                             <div className="otherdoage"><Input type="text" placeholder="Enter other details"
-                                                               id="other"
                                                                onChange={onOtherDetails}/>
                             </div>}
 
