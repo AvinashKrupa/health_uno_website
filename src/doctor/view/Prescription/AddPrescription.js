@@ -149,10 +149,11 @@ const AddPrescription = (props) => {
             case ACTIONS.ADD_NEW_MEDICINE:
                 return [...prescription_list, action.payload];
             case ACTIONS.DELETE_MEDICINE:
+                const tempPrescriptionObj = JSON.parse(JSON.stringify(prescription_list));
                 if (action.payload.id > -1) {
-                    prescription_list.splice(action.payload.id, 1);
+                    tempPrescriptionObj.splice(action.payload.id, 1);
                 }
-                return [...prescription_list];
+                return tempPrescriptionObj;
             case ACTIONS.CHANGE_PRESCRIPTION_TYPE:
                 prescription_list[action.payload.id] = defaultValue(action.payload.value)
                 setShouldResetValue(true);
