@@ -144,6 +144,14 @@ const AddPrescription = (props) => {
             setInvestigations(JSON.parse(JSON.stringify(investigations)));
     }
 
+    function deleteInvestigationItem(index) {
+        const tempInvestigations = JSON.parse(JSON.stringify(investigations));
+        if (index > -1) {
+            tempInvestigations.splice(index, 1);
+        }
+        setInvestigations(tempInvestigations)
+    }
+
     function reducer(prescription_list, action) {
         switch (action.type) {
             case ACTIONS.ADD_NEW_MEDICINE:
@@ -631,7 +639,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                                         maxLength="200"
                                                     ></TextArea>
                                                     <div style={{alignSelf:'center'}}>
-                                                        <img className="delete-button" src={delete_icon} onClick={()=>console.log('amit debug :delete_icon')}/>
+                                                        <img className="delete-button" src={delete_icon} onClick={()=> deleteInvestigationItem(index)}/>
                                                     </div>
                                                 </div>
                                             </Col>
