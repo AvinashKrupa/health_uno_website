@@ -16,6 +16,8 @@ import moment from "moment";
 import PrescriptionComponent from "./component/PrescriptionComponent";
 import SelectorForMedicine from "../../../commonComponent/SelectorForMedicine";
 import {IoCloseSharp} from "react-icons/io5";
+import Typography from '@material-ui/core/Typography';
+import SavedMedicineComponent from "./component/SavedMedicineComponent";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -48,7 +50,10 @@ const AddPrescription = (props) => {
     let [templateTitle, setTemplateTitle] = useState('');
     let [shouldResetValue, setShouldResetValue] = useState(false);
     let [medicineWithType, setMedicineWithType] = useState([]);
+    let [savedPrescription, setSavedPrescription] = useState([]);
+    let [chosenTemplate, setChosenTemplate] = useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
+    const [openChooseTempDialog, setOpenChooseTempDialog] = React.useState(false);
     const [investigationRequiredCheck, setInvestigationRequiredCheck] = React.useState(false);
     const [investigations, setInvestigations] = React.useState([]);
     const [openSaveTemplateDialog, setOpenSaveTemplateDialog] = React.useState(false);
@@ -66,7 +71,7 @@ const AddPrescription = (props) => {
     }];
 
     useEffect(() => {
-        if(investigationRequiredCheck){
+        if (investigationRequiredCheck) {
             setInvestigations([""])
         } else {
             setInvestigations([])
@@ -97,12 +102,12 @@ const AddPrescription = (props) => {
                         stat: false,
                     },
                 },
-                validationInfo:{
-                    medicine_error:'',
-                    medicine_type_error:'',
-                    dosage_error:'',
-                    time_slot_error:'',
-                }
+            validationInfo: {
+                medicine_error: '',
+                medicine_type_error: '',
+                dosage_error: '',
+                time_slot_error: '',
+            }
         }
     }
 
@@ -129,19 +134,19 @@ const AddPrescription = (props) => {
                     stat: false,
                 },
             },
-        validationInfo:{
-            medicine_error:'',
-            medicine_type_error:'',
-            dosage_error:'',
-            time_slot_error:'',
+        validationInfo: {
+            medicine_error: '',
+            medicine_type_error: '',
+            dosage_error: '',
+            time_slot_error: '',
         }
     }
 
     let initialState = [prescriptionObj];
 
-    function updateInvestigationState(index,value) {
+    function updateInvestigationState(index, value) {
         investigations[index] = value
-            setInvestigations(JSON.parse(JSON.stringify(investigations)));
+        setInvestigations(JSON.parse(JSON.stringify(investigations)));
     }
 
     function deleteInvestigationItem(index) {
@@ -150,6 +155,28 @@ const AddPrescription = (props) => {
             tempInvestigations.splice(index, 1);
         }
         setInvestigations(tempInvestigations)
+    }
+
+    function handleChooseTemplate(itemIndex) {
+        const chosenTemplateTemp = JSON.parse(JSON.stringify(chosenTemplate));
+        if (!chosenTemplateTemp.includes(itemIndex)) {
+            chosenTemplateTemp.push(itemIndex)
+            setChosenTemplate(chosenTemplateTemp)
+        } else {
+            const foundIndex = chosenTemplateTemp.indexOf(itemIndex);
+            if (foundIndex > -1) {
+                chosenTemplateTemp.splice(foundIndex, 1)
+            }
+            setChosenTemplate(chosenTemplateTemp)
+        }
+    }
+
+    function appendChosenTemplateMedicines() {
+        let templateMedicineArr = [];
+        for (let i = 0; i < chosenTemplate.length; i++) {
+            templateMedicineArr = [...templateMedicineArr, ...savedPrescription[chosenTemplate[i]].prescription_info]
+        }
+        console.log("amit final output", templateMedicineArr)
     }
 
     function reducer(prescription_list, action) {
@@ -245,14 +272,14 @@ const AddPrescription = (props) => {
                 if (prescription_list[action.payload.id].medicineItem.medicine === '') {
                     prescription_list[action.payload.id].validationInfo.medicine_error = 'Please choose medicine';
                     // setUserShouldProceed(false);
-                }else {
+                } else {
                     prescription_list[action.payload.id].validationInfo.medicine_error = '';
                     // setUserShouldProceed(true);
                 }
                 if (prescription_list[action.payload.id].medicineItem.medicinetype === '' || prescription_list[action.payload.id].medicineItem.medicinetype === "Select") {
                     prescription_list[action.payload.id].validationInfo.medicine_type_error = 'Please add dosage information';
                     // setUserShouldProceed(false);
-                }else {
+                } else {
                     prescription_list[action.payload.id].validationInfo.medicine_type_error = '';
                     // setUserShouldProceed(true);
                 }
@@ -260,13 +287,13 @@ const AddPrescription = (props) => {
                     prescription_list[action.payload.id].validationInfo.dosage_error = 'Please add dosage information';
                     // setUserShouldProceed(false);
                 } else {
-                prescription_list[action.payload.id].validationInfo.dosage_error = '';
-                // setUserShouldProceed(true);
+                    prescription_list[action.payload.id].validationInfo.dosage_error = '';
+                    // setUserShouldProceed(true);
                 }
                 if (!prescription_list[action.payload.id].medicineItem.time_slots.length) {
                     prescription_list[action.payload.id].validationInfo.time_slot_error = 'Please select timings';
                     // setUserShouldProceed(false);
-                }else {
+                } else {
                     prescription_list[action.payload.id].validationInfo.time_slot_error = '';
                     // setUserShouldProceed(true);
                 }
@@ -278,26 +305,26 @@ const AddPrescription = (props) => {
                     prescription_list[action.payload.id].medicineItem.time_slots.length
                 ) {
                     setUserShouldProceed(true);
-                }else {
+                } else {
                     setUserShouldProceed(false);
                 }
                 return [...prescription_list]
             case ACTIONS.VALIDATE_ALL_MEDICINE_INFO:
-                prescription_list.forEach((eachMedicine, index) =>{
-                    if (index === prescription_list.length - 1){
+                prescription_list.forEach((eachMedicine, index) => {
+                    if (index === prescription_list.length - 1) {
                         setUserShouldProceed(false);
                     } else {
                         if (eachMedicine.medicineItem.medicine === '') {
                             eachMedicine.validationInfo.medicine_error = 'Please choose medicine';
                             // setUserShouldProceed(false);
-                        }else {
+                        } else {
                             eachMedicine.validationInfo.medicine_error = '';
                             // setUserShouldProceed(true);
                         }
                         if (eachMedicine.medicineItem.medicinetype === '' || eachMedicine.medicineItem.medicinetype === "Select") {
                             eachMedicine.validationInfo.medicine_type_error = 'Please add dosage information';
                             // setUserShouldProceed(false);
-                        }else {
+                        } else {
                             eachMedicine.validationInfo.medicine_type_error = '';
                             // setUserShouldProceed(true);
                         }
@@ -311,7 +338,7 @@ const AddPrescription = (props) => {
                         if (!eachMedicine.medicineItem.time_slots.length) {
                             eachMedicine.validationInfo.time_slot_error = 'Please select timings';
                             // setUserShouldProceed(false);
-                        }else {
+                        } else {
                             eachMedicine.validationInfo.time_slot_error = '';
                             // setUserShouldProceed(true);
                         }
@@ -323,11 +350,10 @@ const AddPrescription = (props) => {
                             eachMedicine.medicineItem.time_slots.length
                         ) {
                             setUserShouldProceed(true);
-                        }else {
+                        } else {
                             setUserShouldProceed(false);
                         }
                     }
-
 
 
                 })
@@ -343,7 +369,23 @@ const AddPrescription = (props) => {
 
     useEffect(() => {
         getMedicineTypes();
+        getSavedPrescriptions()
     }, []);
+
+    const handleChooseTempClickOpen = () => {
+        setOpenChooseTempDialog(true);
+    };
+
+    const handleChooseTempClickClose = () => {
+        setOpenChooseTempDialog(false);
+    };
+    const handleChooseTempDeleteClickClose = () => {
+        setOpenChooseTempDialog(false);
+    };
+    const handleChooseTempProceed = () => {
+        setOpenChooseTempDialog(false);
+        appendChosenTemplateMedicines()
+    };
 
     const handleClickOpen = (index, value) => {
         setOpenDialog(true);
@@ -373,6 +415,20 @@ const AddPrescription = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     setMedicineWithType(response.data.data);
+                } else {
+                    addToast(response.data.message, {appearance: "error"});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: "error"});
+            });
+    }
+
+    function getSavedPrescriptions() {
+        get(`${API.GET_SAVED_TEMPLATE}`)
+            .then(response => {
+                if (response.status === 200) {
+                    setSavedPrescription(response?.data?.data);
                 } else {
                     addToast(response.data.message, {appearance: "error"});
                 }
@@ -456,6 +512,45 @@ const AddPrescription = (props) => {
         )
     }
 
+    function renderChooseTemplateComponent() {
+        return (
+            <Dialog
+                className="modal-save-template1"
+                open={openChooseTempDialog}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleChooseTempClickClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle id="alert-dialog-slide-title">{"Choose Template"}</DialogTitle>
+                <DialogContent>
+                    <Typography gutterBottom>
+                        <div className="chooseTemplateSection">
+                            <Row className="g-2">
+                                {savedPrescription.map((item, index) => <SavedMedicineComponent key={item._id}
+                                                                                                template={item}
+                                                                                                index={index}
+                                                                                                handleChooseTemplate={handleChooseTemplate}/>)}
+                            </Row>
+                        </div>
+                    </Typography>
+                </DialogContent>
+                <DialogActions dividers>
+                    <Button className="chooseTempBtn" onClick={() => handleChooseTempProceed()} color="info">
+                        Choose template
+                    </Button>
+                </DialogActions>
+                <DialogActions>
+                    <Button className="chooseDeleteBtn" onClick={() => handleChooseTempDeleteClickClose()}
+                            color="secondary">
+                        delete template
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        )
+    }
+
     function renderSaveAsTemplateDialogComponent() {
         return (
             <div>
@@ -487,10 +582,10 @@ const AddPrescription = (props) => {
                             <CustomButton
                                 disabled={!templateTitle}
                                 onClick={() => {
-                                savePrescriptionAsTemplate();
-                                handleSaveTemplateDialogClose();
-                            }}
-                                          text={'Save'}
+                                    savePrescriptionAsTemplate();
+                                    handleSaveTemplateDialogClose();
+                                }}
+                                text={'Save'}
                             >
                             </CustomButton>
                         </Row>
@@ -499,8 +594,9 @@ const AddPrescription = (props) => {
             </div>
         )
     }
-console.info("INFO: prescription list", prescription_list)
-console.info("INFO: Added investigations for prescription", investigations)
+
+    console.info("INFO: prescription list", prescription_list)
+    console.info("INFO: Added investigations for prescription", investigations)
     return (
         <Row className="doctor-prescription-container">
             <Col lg="1" sm="1" xs='1'/>
@@ -513,6 +609,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                 </Row>
                 {renderDialogComponent()}
                 {renderSaveAsTemplateDialogComponent()}
+                {renderChooseTemplateComponent()}
                 <div className="container">
                     <div className="addPrescription">
                         <Row className="topsctionName">
@@ -563,7 +660,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                 </Col>
                                 <Col md className="Choosetemplate">
                                     <p className="chooseTemplateButton"
-                                       onClick={() => console.log('clicked on Choose template')}>Choose template</p>
+                                       onClick={() => handleChooseTempClickOpen()}>Choose template</p>
                                 </Col>
 
                             </Row>
@@ -627,7 +724,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                                     {
                                         investigationRequiredCheck && investigations.map((text, index) => {
                                             return <Col lg="6" md sm="12" xs='12'>
-                                                <div style={{display:"flex", flexDirection:"row"}}>
+                                                <div style={{display: "flex", flexDirection: "row"}}>
                                                     <TextArea
                                                         key={`investigation-item-${index}`}
                                                         id={`investigation-item-${index}`}
@@ -638,8 +735,9 @@ console.info("INFO: Added investigations for prescription", investigations)
                                                         onChange={(value) => updateInvestigationState(index, value)}
                                                         maxLength="200"
                                                     ></TextArea>
-                                                    <div style={{alignSelf:'center'}}>
-                                                        <img className="delete-button" src={delete_icon} onClick={()=> deleteInvestigationItem(index)}/>
+                                                    <div style={{alignSelf: 'center'}}>
+                                                        <img className="delete-button" src={delete_icon}
+                                                             onClick={() => deleteInvestigationItem(index)}/>
                                                     </div>
                                                 </div>
                                             </Col>
@@ -662,11 +760,11 @@ console.info("INFO: Added investigations for prescription", investigations)
                                           className="primary SendPrescription"
                                           disabled={!prescription_list.length || !userShouldProceed}
 
-                                          onClick={()=> submitPrescription()}
+                                          onClick={() => submitPrescription()}
                             ></CustomButton>
                             {!prescription_list.length &&
                             <span className="error-text">Please add a medicine to proceed</span>}
-                            {!userShouldProceed && prescription_list.length >1 &&
+                            {!userShouldProceed && prescription_list.length > 1 &&
                             <span className="error-text">Please fill/correct required fields </span>}
                         </Row>
                     </div>
