@@ -3,7 +3,7 @@ import Input from "../../../commonComponent/Input";
 import TextArea from "../../../commonComponent/TextArea";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import CustomButton from '../../../commonComponent/Button';
-import {back_icon} from "../../../constants/DoctorImages";
+import {back_icon, delete_icon} from "../../../constants/DoctorImages";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -560,7 +560,7 @@ console.info("INFO: Added investigations for prescription", investigations)
                         </Row>
                         {
                             prescription_list.map((prescription, index) => {
-                                return <PrescriptionComponent key={index}
+                                return <PrescriptionComponent key={`prescription-item-${index}`}
                                                               index={index} prescription={prescription}
                                                               dispatch={dispatch} addToast={addToast}
                                                               medicineTypesList={medicineWithType}
@@ -597,12 +597,12 @@ console.info("INFO: Added investigations for prescription", investigations)
                             <Col sm={6}>
                                 <Row className="investigationscheck">
 
-                                    <div key={`inline-checkbox`} className="">
+                                    <div key={`investigation-checkbox`} className="">
                                         <Form.Check
                                             label="Required Investigations"
-                                            name={"Required Investigations"}
+                                            name="required-investigation-1"
+                                            id="required-investigation-1"
                                             type={'checkbox'}
-                                            id={`inline-checkbox-1`}
                                             onChange={() => {
                                                 setInvestigationRequiredCheck(!investigationRequiredCheck);
                                                 setInvestigations([""]);
@@ -616,16 +616,23 @@ console.info("INFO: Added investigations for prescription", investigations)
                                 <Row>
                                     {
                                         investigationRequiredCheck && investigations.map((text, index) => {
-                                            return <TextArea
-                                                key={index}
-                                                id={`Investigations ${index}`}
-                                                placeholder="Enter text here"
-                                                rows={3}
-                                                cols={35}
-                                                value={text}
-                                                onChange={(value) => updateInvestigationState(index, value)}
-                                                maxLength="100"
-                                            ></TextArea>
+                                            return <Col xs={12} md={6}>
+                                                <div style={{display:"flex", flexDirection:"row"}}>
+                                                    <TextArea
+                                                        key={`investigation-item-${index}`}
+                                                        id={`investigation-item-${index}`}
+                                                        placeholder="Enter text here"
+                                                        rows={3}
+                                                        cols={35}
+                                                        value={text}
+                                                        onChange={(value) => updateInvestigationState(index, value)}
+                                                        maxLength="200"
+                                                    ></TextArea>
+                                                    <div style={{alignSelf:'center'}}>
+                                                        <img className="delete-button" src={delete_icon} onClick={()=>null}/>
+                                                    </div>
+                                                </div>
+                                            </Col>
                                         })
                                     }
                                 </Row>

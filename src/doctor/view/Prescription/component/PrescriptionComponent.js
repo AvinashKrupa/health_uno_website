@@ -140,7 +140,7 @@ export default function PrescriptionComponent({
                             }/>
                         </Col>
                     </Row>
-                    <div key={`inline-radio`} className="">
+                    <div key={`medicine-type-radio${index}`} className="">
                         <Form.Check
                             label="Brand"
                             name={`Prescription${index}`}
@@ -372,12 +372,12 @@ export default function PrescriptionComponent({
                             </Row>
 
 
-                            <div key={`inline-radio`} className="">
+                            <div key={`inline-dosage-radio${index}`} className="">
                                 <Form.Check
                                     label="Before Food"
-                                    name={`dosage-time-slot-${index}`}
+                                    name={`before-food-${index}`}
+                                    id={`before-food-${index}`}
                                     type="radio"
-                                    // id={`inline-radio-${index}`}
                                     value="beforeFood"
                                     onChange={onDosageSlotChange}
                                     checked={
@@ -386,10 +386,10 @@ export default function PrescriptionComponent({
                                 />
                                 <Form.Check
                                     label="After Food"
-                                    name={`dosage-time-slot-${index}`}
+                                    name={`after-food-${index}`}
+                                    id={`after-food-${index}`}
                                     type="radio"
                                     value="afterFood"
-                                    // id={`inline-radio-2`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.medicineItem.dosage.after_food
@@ -397,10 +397,10 @@ export default function PrescriptionComponent({
                                 />
                                 <Form.Check
                                     label="With Food"
-                                    name={`dosage-time-slot-${index}`}
+                                    name={`with-food-${index}`}
+                                    id={`with-food-${index}`}
                                     type="radio"
                                     value="withFood"
-                                    // id={`inline-radio-3`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.medicineItem.dosage.with_food
@@ -408,10 +408,10 @@ export default function PrescriptionComponent({
                                 />
                                 <Form.Check
                                     label="Other"
-                                    name={`dosage-time-slot-${index}`}
+                                    name={`other-food-${index}`}
+                                    id={`other-food-${index}`}
                                     type="radio"
                                     value="otherFood"
-                                    // id={`inline-radio-4`}
                                     onChange={onDosageSlotChange}
                                     checked={
                                         prescription.medicineItem.dosage.other
@@ -424,7 +424,7 @@ export default function PrescriptionComponent({
                                                                onChange={onOtherDetails}/>
                             </div>}
 
-                            <div key={`inline-checkbox`} className="">
+                            <div key={`inline-stat-checkbox${index}`} className="">
                                 <Form.Check
                                     label="SOS"
                                     name="grup"

@@ -45,7 +45,7 @@ const Invite = (props) => {
                 <form>
                   <input type="text" value="https://healthunoapp/invite" readOnly onChange={(e) => handleCopy(e)} />
 
-                  <CopyToClipboard text={'https//:healthunoapp/invite'}
+                  <CopyToClipboard text={'https://healthunoapp/invite'}
                   >
                     <button className="copy-button" >
                       Copy Code
