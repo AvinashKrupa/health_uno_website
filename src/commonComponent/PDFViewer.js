@@ -21,7 +21,7 @@ export const PDFViewer = (props) => {
                 <div className="pdf-container">
                     {viewPdf && (
                       number > 0  ? (
-                        <iframe title='pdf'src={`http://docs.google.com/gview?url=${viewPdf}&embedded=true`} frameborder="0"
+                        <iframe title='pdf'src={`https://docs.google.com/gview?url=${viewPdf}&embedded=true`} frameborder="0"
                                  style={{height: '100%', width: '500px'}}
                         ></iframe>
                       ) : (
