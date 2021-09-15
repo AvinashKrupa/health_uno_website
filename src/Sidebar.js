@@ -59,7 +59,7 @@ const Sidebar = (props) => {
                             <i className="fa fa-fw fa-briefcase" style={{fontSize: '1.75em'}}/>
                         </NavIcon>
                         <NavText>
-                            Prescriptions
+                            Reports
                         </NavText>
                     </NavItem>}
 

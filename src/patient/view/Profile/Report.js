@@ -29,7 +29,7 @@ const Report = (props) => {
   };
 
 
- 
+
 
 function getInvestigationsReports() {
     const userInfo = JSON.parse(getData('userInfo'));
@@ -62,7 +62,7 @@ function getInvestigationsReports() {
         <Col className="report-page-content-container">
           <Row style={{ marginTop: "32px" }}>
             <span className="report-page-text-heading">
-              Report
+              Reports
             </span>
           </Row>
           <Row
