@@ -429,7 +429,9 @@ export default function PrescriptionComponent({
                             </div>
 
                             {prescription.medicineItem.dosage.other &&
-                            <div className="otherdoage"><Input type="text" placeholder="Enter other details"
+                            <div className="otherdoage"><Input
+                                type="text" placeholder="Enter other details"
+                                                               value={prescription.medicineItem.dosage.other_details}
                                                                onChange={onOtherDetails}/>
                             </div>}
 

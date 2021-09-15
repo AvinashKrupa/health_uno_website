@@ -264,6 +264,7 @@ const AddPrescription = (props) => {
                         prescription_list[action.payload.id].medicineItem.dosage.after_food = false;
                         prescription_list[action.payload.id].medicineItem.dosage.with_food = false;
                         prescription_list[action.payload.id].medicineItem.dosage.other = true;
+                        prescription_list[action.payload.id].medicineItem.dosage.other_details = '';
                         return [...prescription_list]
                     default:
                         return;
@@ -749,7 +750,7 @@ const AddPrescription = (props) => {
                             {investigationRequiredCheck && <div className="AddAnotherTest">
                                 <p onClick={() => {
                                     setInvestigations([...investigations, ""]);
-                                }}>+ Add Another Test</p>
+                                }} style={{cursor: 'pointer'}}>+ Add Another Test</p>
                             </div>}
 
                         </Row>

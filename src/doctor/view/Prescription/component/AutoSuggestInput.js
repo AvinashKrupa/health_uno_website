@@ -66,7 +66,7 @@ class AutoSuggestInput extends React.Component {
 
         this.setState({
             suggestions: this.props.getSuggestions(value)
-        }, ()=> console.log('amit auto suggestions :', this.state.suggestions));
+        });
     };
 
     // Triggered on clear
