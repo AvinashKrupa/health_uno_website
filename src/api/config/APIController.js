@@ -45,6 +45,7 @@ export const API = {
   GET_SAVED_TEMPLATE: 'prescription/getSavedTemplate',
   GET_REPORTS_FOR_DOCTOR: 'patient/getReports',
   GET_PRESCRIPTIONS_FOR_DOCTOR: 'patient/getPrescriptions',
+  DELETE_SAVED_TEMPLATES: 'prescription/deleteSavedTemplate',
 };
 
 export function post(endPoint, params, isStringfy = true) {

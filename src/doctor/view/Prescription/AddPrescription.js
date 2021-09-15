@@ -174,6 +174,31 @@ const AddPrescription = (props) => {
         }
     }
 
+    function deleteTemplates() {
+        let templateIdArr = [];
+        for (let i = 0; i < chosenTemplate.length; i++) {
+            templateIdArr.push(savedPrescription[chosenTemplate[i]]._id)
+        }
+        let params = {
+            ids:templateIdArr
+        }
+        post(API.DELETE_SAVED_TEMPLATES, params)
+            .then(response => {
+                if (response.status === 200) {
+                    setChosenTemplate([])
+                    addToast(response.data.message, { appearance: 'success' });
+
+                } else {
+                    addToast(response.data.message, { appearance: 'error' });
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, { appearance: 'error' });
+            });
+            getSavedPrescriptions()
+            setOpenChooseTempDialog(false);
+    }
+
     function appendChosenTemplateMedicines() {
         let templateMedicineArr = [];
         let finalMedicineArr = [];
@@ -432,7 +457,7 @@ const AddPrescription = (props) => {
         setOpenChooseTempDialog(false);
     };
     const handleChooseTempDeleteClickClose = () => {
-        setOpenChooseTempDialog(false);
+        deleteTemplates()
     };
     const handleChooseTempProceed = () => {
         setOpenChooseTempDialog(false);
@@ -509,6 +534,7 @@ const AddPrescription = (props) => {
             .catch(error => {
                 addToast(error.response.data.message, {appearance: "error"});
             });
+            getSavedPrescriptions()
     }
 
     const submitPrescription = () => {
