@@ -25,6 +25,7 @@ export const API = {
   GETMESSAGES: 'chat/getMessages',
   UPLOADREPORT: 'patient/uploadReport',
   GETREPORTS: 'patient/getReports',
+  GET_PRESCRIPTIONS: 'patient/getPrescriptions',
   /**
    * Doctor related APIS
    */
@@ -43,6 +44,7 @@ export const API = {
   SUBMIT_PRESCRIPTION: 'prescription/submitPrescription',
   GET_SAVED_TEMPLATE: 'prescription/getSavedTemplate',
   GET_REPORTS_FOR_DOCTOR: 'patient/getReports',
+  GET_PRESCRIPTIONS_FOR_DOCTOR: 'patient/getPrescriptions',
 };
 
 export function post(endPoint, params, isStringfy = true) {

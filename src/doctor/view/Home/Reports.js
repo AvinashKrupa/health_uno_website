@@ -8,6 +8,7 @@ import {useToasts} from "react-toast-notifications";
 const Reports = (props) => {
     useEffect(() => {
         getInvestigationsReports(props.match.params.patient_id);
+        getPrescriptionsReports(props.match.params.patient_id);
         return () => {
         };
     }, []);
@@ -15,6 +16,7 @@ const Reports = (props) => {
 
     const {addToast} = useToasts();
     const [investigationsReports, setInvestigationsReports] = useState([]);
+    const [prescriptionReports, setPrescriptionReports] = useState([]);
 
     function getInvestigationsReports(patient_id) {
         let params = {
@@ -25,6 +27,23 @@ const Reports = (props) => {
                 if (response.status === 200 && response.data && response.data.data) {
                     console.log('response.data: ', response.data);
                     setInvestigationsReports(response.data.data)
+                } else {
+                    addToast(response.data.message, {appearance: 'error'});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: 'error'});
+            });
+    }
+
+    function getPrescriptionsReports(patient_id) {
+        let params = {
+            patient_id: patient_id
+        }
+        post(API.GET_PRESCRIPTIONS_FOR_DOCTOR, params)
+            .then(response => {
+                if (response.status === 200 && response.data && response.data.data) {
+                    setPrescriptionReports(response.data.data)
                 } else {
                     addToast(response.data.message, {appearance: 'error'});
                 }
@@ -50,7 +69,10 @@ const Reports = (props) => {
                             {investigationsReports && investigationsReports.map((report) => {
                                 return( <ReportCard report={report} history={props.history}/>);
                             })}
-                            {!investigationsReports.length &&
+                            {prescriptionReports && prescriptionReports.map((report) => {
+                                return( <ReportCard report={report} history={props.history}/>);
+                            })}
+                            {!investigationsReports.length && !prescriptionReports.length &&
                             <div className="empty-list-container_center">
                                 <h4>No reports found</h4>
                             </div>

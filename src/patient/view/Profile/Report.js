@@ -9,11 +9,13 @@ const Report = (props) => {
 
   useEffect(() => {
     getInvestigationsReports();
+    getPrescriptionsReports();
     return () => {};
   }, []);
 
   const { addToast } = useToasts();
   const [investigationsReports, setInvestigationsReports] = useState([]);
+  const [prescriptionReports, setPrescriptionReports] = useState([]);
 
   const [prescriptionsSelected, setPrescriptionsSelected] = useState(true);
   const [investigationsSelected, setInvestigationsSelected] = useState(false);
@@ -52,6 +54,21 @@ function getInvestigationsReports() {
         addToast(error.response.data.message, { appearance: 'error' });
       });
     }
+  }
+
+  function getPrescriptionsReports() {
+    let params = {}
+      post(API.GET_PRESCRIPTIONS, params)
+      .then(response => {
+        if (response.status === 200 && response.data && response.data.data) {
+          setPrescriptionReports(response.data.data)
+        } else {
+          addToast(response.data.message, { appearance: 'error' });
+        }
+      })
+      .catch(error => {
+        addToast(error.response.data.message, { appearance: 'error' });
+      });
   }
 
 
@@ -102,7 +119,14 @@ function getInvestigationsReports() {
             {prescriptionsSelected ? (
               <Row>
                 <InputGroup>
-                  {/* { code for prescriptions} */}
+                  {prescriptionReports && prescriptionReports.map((report) => {
+                    return( <ReportCard report={report} history={props.history}/>);
+                  })}
+                  {!prescriptionReports.length &&
+                  <div className="empty-list-container_center">
+                    <h4>No prescriptions found</h4>
+                  </div>
+                  }
                 </InputGroup>
               </Row>
             ) : null}
@@ -112,6 +136,11 @@ function getInvestigationsReports() {
                  {investigationsReports && investigationsReports.map((report) => {
                       return( <ReportCard report={report} history={props.history}/>);
                   })}
+                  {!investigationsReports.length &&
+                  <div className="empty-list-container_center">
+                    <h4>No reports found</h4>
+                  </div>
+                  }
                 </InputGroup>
               </Row>
             ) : null}

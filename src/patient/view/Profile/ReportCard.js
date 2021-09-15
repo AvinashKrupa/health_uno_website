@@ -11,7 +11,7 @@ const ReportCard = (props) => {
           <Col className="padding-0">
             <Row>
               <span className="report-card-text-location">
-                {props.report.title}
+                {props.report.title|| props.report.name}
               </span>
             </Row>
             <Row>
@@ -21,7 +21,7 @@ const ReportCard = (props) => {
             </Row>
             <Row>
               <span className="report-card-text-date-and-time">
-                {moment(props.report.updated_at).format('lll')}
+                {moment(props.report.updated_at || props.report?.created_at).format('lll')}
               </span>
             </Row>
           </Col>
