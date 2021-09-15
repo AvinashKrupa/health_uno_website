@@ -527,8 +527,12 @@ const AddPrescription = (props) => {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"Choose Template"}</DialogTitle>
                 <DialogContent>
+                    <div className="close-button">
+                        <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34}
+                                      onClick={() => handleChooseTempClickClose()}/>
+                    </div>
+                    <div className={'title'}>Choose Template</div>
                     <Typography gutterBottom>
                         <div className="chooseTemplateSection">
                             <Row className="g-2">
