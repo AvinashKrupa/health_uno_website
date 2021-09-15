@@ -24,7 +24,7 @@ const {name,_id, prescription_info} = props.template;
                         aria-label="Acknowledge"
                         onClick={(event) => event.stopPropagation()}
                         onFocus={(event) => event.stopPropagation()}
-                        control={<Checkbox onChange={()=>props.handleChooseTemplate(props.index)}/>}
+                        control={<Checkbox onChange={()=>props.handleChooseTemplate(props.index)} checked={props.chosenTemplate.includes(props.index)}/>}
                         label={name}
                     />
                 </AccordionSummary>
