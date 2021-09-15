@@ -22,7 +22,7 @@ class AutoSuggestInput extends React.Component {
         }
         if(this.props.shouldClearInput){
             this.setState({
-                value:'',
+                value: this.props.medicineName || '',
                 suggestions: [],
             },()=> {
                 this.props.setShouldClearInput(false)

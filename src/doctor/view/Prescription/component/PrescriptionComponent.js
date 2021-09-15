@@ -174,6 +174,9 @@ export default function PrescriptionComponent({
                     <div className="medicine-autosuggest-container">
                         <div style={{marginBottom: "8px"}}>Medicine</div>
                         <AutoSuggestInput
+                            key={`auto-${index}`}
+                            index={index}
+                            medicineName={prescription.medicineItem.medicineName}
                             selectMedicineName={selectMedicineName}
                             getSuggestions={getSuggestions}
                             addToast={addToast}

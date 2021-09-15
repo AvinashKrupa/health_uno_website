@@ -84,6 +84,7 @@ const AddPrescription = (props) => {
             medicineItem:
                 {
                     medicine: '',
+                    medicineName: '',
                     medicinetype: '',
                     time_slots: [],
                     start_date: moment().format('YYYY-MM-DD'),
@@ -116,6 +117,7 @@ const AddPrescription = (props) => {
         medicineItem:
             {
                 medicine: '',
+                medicineName: '',
                 medicinetype: '',
                 time_slots: [],
                 start_date: moment().format('YYYY-MM-DD'),
@@ -196,6 +198,7 @@ const AddPrescription = (props) => {
                 return [...prescription_list]
             case ACTIONS.CHANGE_MEDICINE_NAME:
                 prescription_list[action.payload.id].medicineItem.medicine = action.payload.value._id
+                prescription_list[action.payload.id].medicineItem.medicineName = action.payload.value.name
                 return [...prescription_list];
             case ACTIONS.SET_MEDICINE_TYPE:
                 prescription_list[action.payload.id].medicineItem.medicinetype = action.payload.value._id
