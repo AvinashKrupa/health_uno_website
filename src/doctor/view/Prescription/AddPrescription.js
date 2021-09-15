@@ -42,6 +42,7 @@ export const ACTIONS = {
     DELETE_MEDICINE: 'DELETE_MEDICINE',
     VALIDATE_MEDICINE_INFO: 'VALIDATE_MEDICINE_INFO',
     VALIDATE_ALL_MEDICINE_INFO: 'VALIDATE_ALL_MEDICINE_INFO',
+    APPEND_CHOSEN_TEMPLATE: 'APPEND_CHOSEN_TEMPLATE',
 }
 const AddPrescription = (props) => {
     const {addToast} = useToasts();
@@ -175,16 +176,63 @@ const AddPrescription = (props) => {
 
     function appendChosenTemplateMedicines() {
         let templateMedicineArr = [];
+        let finalMedicineArr = [];
         for (let i = 0; i < chosenTemplate.length; i++) {
             templateMedicineArr = [...templateMedicineArr, ...savedPrescription[chosenTemplate[i]].prescription_info]
         }
         console.log("amit final output", templateMedicineArr)
+
+        for (let i = 0; i < templateMedicineArr.length; i++) {
+            let prescriptionObj = {
+                selectedType: templateMedicineArr[i].medicine.type || 'brand',
+                medicineItem:
+                    {
+                        medicine:templateMedicineArr[i].medicine._id,
+                        medicineName:templateMedicineArr[i].medicine.name,
+                        medicinetype: templateMedicineArr[i].medicinetype._id,
+                        time_slots:templateMedicineArr[i].time_slots,
+                        start_date:templateMedicineArr[i].start_date,
+                        days:templateMedicineArr[i].days,
+                        periodicity:templateMedicineArr[i].periodicity,
+                        add_comments:templateMedicineArr[i].add_comments,
+                        dosage: {
+                            dosage_text:templateMedicineArr[i].dosage.dosage_text,
+                            qty:templateMedicineArr[i].dosage.qty,
+                            before_food:templateMedicineArr[i].dosage.before_food,
+                            after_food:templateMedicineArr[i].dosage.after_food,
+                            with_food:templateMedicineArr[i].dosage.with_food,
+                            other:templateMedicineArr[i].dosage.other,
+                            other_details:templateMedicineArr[i].dosage.other_details,
+                            sos:templateMedicineArr[i].dosage.sos,
+                            stat:templateMedicineArr[i].dosage.stat,
+                        },
+                    },
+                validationInfo: {
+                    medicine_error: '',
+                    medicine_type_error: '',
+                    dosage_error: '',
+                    time_slot_error: '',
+                }
+            }
+            finalMedicineArr.push(prescriptionObj)
+        }
+            console.log('amit finalMedicineArr :', finalMedicineArr);
+            setChosenTemplate([])
+        dispatch({
+            type: ACTIONS.APPEND_CHOSEN_TEMPLATE, payload: finalMedicineArr
+        })
     }
 
     function reducer(prescription_list, action) {
         switch (action.type) {
             case ACTIONS.ADD_NEW_MEDICINE:
                 return [...prescription_list, action.payload];
+            case ACTIONS.APPEND_CHOSEN_TEMPLATE:
+                let finalPrescriptionObj = JSON.parse(JSON.stringify(prescription_list));
+                for (let i = 0; i < action.payload.length; i++) {
+                    finalPrescriptionObj = [...finalPrescriptionObj,action.payload[i]]
+                }
+                return finalPrescriptionObj;
             case ACTIONS.DELETE_MEDICINE:
                 const tempPrescriptionObj = JSON.parse(JSON.stringify(prescription_list));
                 if (action.payload.id > -1) {
@@ -539,6 +587,7 @@ const AddPrescription = (props) => {
                                 {savedPrescription.map((item, index) => <SavedMedicineComponent key={item._id}
                                                                                                 template={item}
                                                                                                 index={index}
+                                                                                                chosenTemplate={chosenTemplate}
                                                                                                 handleChooseTemplate={handleChooseTemplate}/>)}
                             </Row>
                         </div>

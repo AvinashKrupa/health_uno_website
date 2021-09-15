@@ -10,6 +10,15 @@ class AutoSuggestInput extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if(this.props.medicineName){
+            this.setState({
+                value: this.props.medicineName || '',
+                suggestions: [],
+            })
+        }
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.resetValue && this.props.shouldResetValue){
             this.setState({
