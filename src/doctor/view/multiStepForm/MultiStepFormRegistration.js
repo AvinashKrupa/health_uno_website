@@ -35,7 +35,7 @@ const MultiStepFormRegistration = ({history}) => {
     const lanInfo = value.split('|');
     setLanguage(lanInfo[0])
   }
-  
+
 
   //second form information
   const [department, setDepartment] = useState('');
@@ -72,10 +72,14 @@ const MultiStepFormRegistration = ({history}) => {
       .then(response => {
         if (response.status === 200) {
           const user = response.data.data['user'];
+          const additional_info = response.data.data['additional_info'];
 
           if(user) {
             storeData('userInfo', JSON.stringify(user));
             setUserInfo(user)
+          }
+          if(additional_info) {
+            storeData('additional_info', JSON.stringify(additional_info));
           }
           history.push('/doctor/home');
           addToast(response.data.message, { appearance: 'success' });
@@ -116,7 +120,7 @@ const MultiStepFormRegistration = ({history}) => {
       dob: birthDate,
       gender: gender,
       desc: description,
-      language: language, 
+      language: language,
       dp:image,
       avail: {
         day: daysObj,
@@ -155,7 +159,7 @@ const MultiStepFormRegistration = ({history}) => {
           country: "India",
       },
     };
-    registerLogin(params) 
+    registerLogin(params)
   }
 
   function pageThreeValidation() {
@@ -355,7 +359,7 @@ const MultiStepFormRegistration = ({history}) => {
     disablePrev(tempActiveStep);
   };
 
-  
+
   return (
     <div className='form-wizard'>
       <Row>

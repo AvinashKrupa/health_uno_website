@@ -49,10 +49,14 @@ const DoctorOTP = ({history}) => {
             storeData('TEMP_TOKEN', temp);
           }
             const user = response.data.data['user'];
+            const additional_info = response.data.data['additional_info'];
 
             if(user) {
                 storeData('userInfo', JSON.stringify(user));
                 setUserInfo(user)
+            }
+            if(additional_info) {
+                storeData('additional_info', JSON.stringify(additional_info));
             }
 
           const session = response.data.data['session'];

@@ -45,16 +45,20 @@ const OTP = ({history}) => {
           let temp = response.data.data['tempAccessToken'];
           if (response.data.data['tempAccessToken'] != null) {
             storeData('TEMP_TOKEN', temp);
-          } 
+          }
 
           const user = response.data.data['user'];
+          const additional_info = response.data.data['additional_info'];
 
           if(user) {
             storeData('userInfo', JSON.stringify(user));
             setUserInfo(user)
           }
+          if(additional_info) {
+            storeData('additional_info', JSON.stringify(additional_info));
+          }
 
-          const session = response.data.data['session'];     
+          const session = response.data.data['session'];
           if (session != null) {
             storeData('ACCESS_TOKEN', session.access_token);
             storeData('REFRESH_TOKEN', session.refresh_token);
@@ -94,7 +98,7 @@ const OTP = ({history}) => {
         addToast(error.response.data.message, { appearance: 'error' });
       });
   }
-  
+
   useEffect(() => {
     setMobileNumber(authContext.phone);
     return () => {};
@@ -165,10 +169,10 @@ const OTP = ({history}) => {
                   </p>
                 </div>
               </div>
-            </Col>  
+            </Col>
             <Col lg='1' md='8' sm='0'></Col>
           </Row>
-          <Row className='doctor-image' > 
+          <Row className='doctor-image' >
             <Col  lg='1'></Col>
             <Col  lg='8'> <Image src={group}></Image></Col>
             <Col  lg='2'></Col>
@@ -195,7 +199,7 @@ const OTP = ({history}) => {
                       <span>Verify OTP</span>
                         <div className='edit-number'>
                           <p> We have sent OTP on your mobile number {maskedMobileNo[0]}{maskedMobileNo[1]}******{maskedMobileNo[8]}{maskedMobileNo[9]}</p> { <Link to='/'><i class="fas fa-pen"></i></Link>}
-                        </div > 
+                        </div >
                   </Row>
                   <div className='otp-container'>
                     <br />
@@ -211,7 +215,7 @@ const OTP = ({history}) => {
                   <br />
                   <div className="div-center">
                     <CustomButton
-                      disabled={otp.length !== 4} 
+                      disabled={otp.length !== 4}
                       onClick={verifyOTP}
                       text={'Verify OTP'}
                       ></CustomButton>
@@ -234,4 +238,4 @@ const OTP = ({history}) => {
   );
 };
 
-export default OTP;  
+export default OTP;

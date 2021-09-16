@@ -396,10 +396,14 @@ function registerUserAPICalling() {
     .then(response => {
       if (response.status === 200) {
          const user = response.data.data['user'];
+         const additional_info = response.data.data['additional_info'];
 
           if(user) {
             storeData('userInfo', JSON.stringify(user));
             setUserInfo(user);
+          }
+          if(additional_info) {
+            storeData('additional_info', JSON.stringify(additional_info));
           }
         addToast(response.data.message, { appearance: 'success' });
         history.push('/patient/home')
