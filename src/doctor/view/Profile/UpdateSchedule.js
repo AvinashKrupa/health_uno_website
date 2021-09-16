@@ -6,9 +6,7 @@ import UpdateScheduleHorizontalCalendar from "./component/UpdateScheduleHorizont
 import updateScheduleStore from "../../store/updateScheduleStore";
 import {isEmpty} from "../../../utils/Validators";
 import {API, post} from "../../../api/config/APIController";
-import SlotGenerator from "../slot/SlotGenerator";
-import CustomButton from "../../../commonComponent/Button";
-import Label from "../../../commonComponent/Label";
+import UpdateSlotGenerator from "./component/UpdateSlotGenerator";
 import {getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const UpdateSchedule = (props) => {
@@ -26,23 +24,6 @@ const UpdateSchedule = (props) => {
     getSlots();
     return () => {};
   }, [currentDate]);
-
-  function handleNextClick() {
-    const isValid = validation();
-    // isValid && props.history.push(`/patient/bookingSummary/${props.match.params.doctor_id}`)
-  }
-
-  function validation() {
-    if (isEmpty(currentDate)) {
-      addToast('Please select the day', { appearance: 'error' });
-      return false;
-    } else if (isEmpty(slot)) {
-      addToast('Please select the slot', { appearance: 'error' });
-      return false;
-    } else {
-      return true;
-    }
-  }
 
   function setDateValue(date) {
     const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;
@@ -75,13 +56,50 @@ const UpdateSchedule = (props) => {
     }, {});
   }
 
+  function updateSchedule(timeSlot) {
+    let params = null
+    if (timeSlot.status === 'unavailable') {
+      params = {
+        unavailable_slots: [],
+        available_slots: [timeSlot.slot_id],
+        date: moment(currentDate).format('YYYY-MM-DD'),
+      };
+    } else if (timeSlot.status === 'available') {
+      params = {
+        unavailable_slots: [timeSlot.slot_id],
+        available_slots: [],
+        date: moment(currentDate).format('YYYY-MM-DD'),
+      };
+    } else {
+      addToast('This slot already have an appointment', { appearance: 'error' });
+    }
+
+    post(API.UPDATE_SCHEDULE_BY_DATE, params)
+        .then(response => {
+          if (response.status === 200) {
+            if (response.data) {
+              getSlots();
+              addToast(response.data.message, { appearance: 'success' });
+            } else {
+              addToast(response.data.message, { appearance: 'success' });
+              getSlots();
+            }
+          } else {
+            addToast('error occurred', { appearance: 'error' });
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, { appearance: 'error' });
+        });
+  }
+
   function getSlots() {
     let params = {
       doctor_id: JSON.parse(getData('additional_info'))._id,
       date: currentDate,
     };
 
-    post(API.GETAVAILABLESLOT, params)
+    post(API.GET_AVAILABLE_SLOT, params)
         .then(response => {
           if (response.status === 200) {
             if (response.data.data.shift1) {
@@ -117,7 +135,7 @@ const UpdateSchedule = (props) => {
   const dayShiftSlot = () => {
     return Object.entries(dataMorningShift).sort().map((timeSlot) => {
       return(
-          <SlotGenerator selectedSlots={[slot]} handleSlotClick={setSlotData} label={`${timeSlot[0]} AM`} slots={timeSlot[1]} />
+          <UpdateSlotGenerator selectedSlots={[slot]} handleSlotClick={updateSchedule} label={`${timeSlot[0]} AM`} slots={timeSlot[1]} />
       )
     })
   };
@@ -125,7 +143,7 @@ const UpdateSchedule = (props) => {
   const EveningShiftSlot = () => {
     return Object.entries(dataEveningShift).map((timeSlot) => {
       return(
-          <SlotGenerator selectedSlots={[slot]} handleSlotClick={setSlotData} label={`${timeSlot[0]} PM`} slots={timeSlot[1]} />
+          <UpdateSlotGenerator selectedSlots={[slot]} handleSlotClick={updateSchedule} label={`${timeSlot[0]} PM`} slots={timeSlot[1]} />
       )
     })
   }
@@ -164,18 +182,9 @@ const UpdateSchedule = (props) => {
                 }
                 { Object.entries(dataEveningShift).length > 0 && EveningShiftSlot()}
               </div>
-              { ( Object.entries(dataMorningShift ).length > 0 || Object.entries(dataEveningShift).length > 0) ?
-                  <div style={{textAlign: 'center'}}>
-                    <CustomButton
-                        className={'patient-slot-booking-btn'}
-                        onClick={handleNextClick}
-                        text={'Next'}
-                    ></CustomButton>
-                  </div>:
-                  <div className='empty-text'>
-                    <Label
-                        title={'Sorry!, No slots available, please choose another date'}
-                    />
+              { ( !Object.entries(dataMorningShift ).length  || !Object.entries(dataEveningShift).length ) &&
+                  <div className="empty-list-container_center">
+                    <h4>No slots found, please choose another date</h4>
                   </div>
               }
             </Row>

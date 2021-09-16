@@ -46,6 +46,9 @@ export const API = {
   GET_REPORTS_FOR_DOCTOR: 'patient/getReports',
   GET_PRESCRIPTIONS_FOR_DOCTOR: 'patient/getPrescriptions',
   DELETE_SAVED_TEMPLATES: 'prescription/deleteSavedTemplate',
+  GET_AVAILABLE_SLOT: 'slot/getAvailableSlots',
+  UPDATE_SCHEDULE_BY_DAY: 'user/updateProfile',
+  UPDATE_SCHEDULE_BY_DATE: 'doctor/updateSchedule',
 };
 
 export function post(endPoint, params, isStringfy = true) {

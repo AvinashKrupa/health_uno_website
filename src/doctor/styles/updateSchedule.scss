@@ -34,11 +34,13 @@
       align-items: center;
       flex: 3;
       .fa-chevron-left {
+        cursor: pointer;
         font-size: 20px;
         padding-right: 51px !important;
         //padding-top: 20px;
       }
       .fa-chevron-right {
+        cursor: pointer;
         font-size: 20px;
         //padding-top: 20px;
         padding-left: 45px !important;
