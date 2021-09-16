@@ -1,0 +1,138 @@
+.update-schedule-container {
+
+}
+
+
+.slot-schedule-calender-container {
+  display: flex;
+  flex-direction: row;
+
+  width: max-content;
+  .slot-booking-calendar {
+    display: flex;
+    flex-direction: row;
+    flex: 3;
+    .choose-date-slots-container{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex: 3;
+      .fa-chevron-left {
+        font-size: 20px;
+        padding-right: 51px !important;
+        //padding-top: 20px;
+      }
+      .fa-chevron-right {
+        font-size: 20px;
+        //padding-top: 20px;
+        padding-left: 45px !important;
+      }
+      //.slot-timings-button,
+      .days-button {
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        //width: auto!important;
+        //width: 90px !important;
+        //margin-bottom: 10px !important;
+        //margin-right: 5px;
+      }
+      .calendar-days-button {
+        //min-height: 55px;
+        //width: 160px;
+        border-radius: 12px;
+        border: 2px solid rgba(27, 27, 27, 0.2);
+        background: white;
+        margin-right: 10px!important;
+      }
+    }
+
+    .choose-date-calendar {
+      display: flex;
+      flex-direction: row;
+      //padding-top: 10px;
+      flex: 1;
+      align-items: center;
+      .react-datepicker-wrapper {
+        padding-left: 10px !important;
+
+        input {
+          width: 100px;
+        }
+
+
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 1024px) {
+  .slot-schedule-calender-container {
+    .slot-booking-calendar {
+      flex-direction: row;
+
+      .choose-date-calendar {
+      }
+
+      .react-datepicker__input-container {
+        padding-left: unset;
+
+        .date-text-icon{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .slot-schedule-calender-container {
+    .slot-booking-calendar {
+      .react-datepicker__input-container {
+        padding-left: 130px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .slot-schedule-calender-container {
+    .slot-booking-calendar {
+      flex-direction: column-reverse !important;
+
+      .choose-date-calendar {
+        padding-top: unset !important;
+        margin-bottom: 10px;
+      }
+
+      .react-datepicker__input-container {
+        padding-left: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .slot-schedule-calender-container {
+    .slot-booking-calendar {
+      flex-direction: column-reverse !important;
+
+      .fa-calendar-alt-slot {
+        width: 30px;
+        height: 26px;
+      }
+
+      .choose-date-calendar {
+        padding-top: unset !important;
+        margin-bottom: 10px;
+      }
+
+      .react-datepicker__input-container {
+        padding-left: 20px;
+      }
+    }
+  }
+}

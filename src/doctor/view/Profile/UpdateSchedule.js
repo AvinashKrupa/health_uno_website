@@ -2,7 +2,7 @@ import {useState} from "react";
 import moment from 'moment';
 import {Col, Row} from "react-bootstrap";
 import {useToasts} from "react-toast-notifications";
-import HorizontalCalendar from './../../../patient/view/slotBooking/HorizontalCalendar';
+import UpdateScheduleHorizontalCalendar from "./component/UpdateScheduleHorizontalCalendar";
 import updateScheduleStore from "../../store/updateScheduleStore";
 
 const UpdateSchedule = (props) => {
@@ -33,12 +33,12 @@ const UpdateSchedule = (props) => {
   return (
       <>
         <Row>
-          <Col lg='10' xs='11'>
+          <Col lg='12' md='12' sm='6'  xs='6'>
             <Row className='back-navigation'>
               <span>Update Schedule</span>
             </Row>
             <div style={{width: "70%"}}>
-              <HorizontalCalendar
+              <UpdateScheduleHorizontalCalendar
                   date={currentDate}
                   numberOfDays={15}
                   selectedDay={selectedDay}
