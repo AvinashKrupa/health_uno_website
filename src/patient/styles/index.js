@@ -17,7 +17,6 @@ import './doctor_appointments_card.scss';
 import './model.scss';
 import './videoMeeting.scss';
 import './invite.scss';
-import './AddPrescription.scss';
 import './upload_report.scss';
 import './report.scss';
 import './report_card.scss';
@@ -36,7 +35,8 @@ import '../../doctor/styles/videoMeeting.scss';
 import '../../doctor/styles/upcoming_appointments.scss';
 import '../../doctor/styles/editProfile.scss';
 import '../../doctor/styles/autosuggest.scss';
-
+import '../../doctor/styles/AddPrescription.scss';
+import '../../doctor/styles/updateSchedule.scss';
 
 // Common
 import './text_area.scss';
