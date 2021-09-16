@@ -1,7 +1,23 @@
 .update-schedule-container {
-
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
+.margin-top-bottom{
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.days-button-auto {
+  width: auto !important;
+  margin-bottom: 10px !important;
+  margin-right: 10px !important;
+  height: 55px;
+  border-radius: 12px;
+  border: 2px solid rgba(27, 27, 27, 0.2);
+  margin-right: 10px;
+  background: white;
+}
 
 .slot-schedule-calender-container {
   display: flex;
