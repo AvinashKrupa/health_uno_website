@@ -54,10 +54,10 @@ const EditProfilePictureColumn = (props) => {
         <Container className="profile-left-Column">
             <Row>
                 <h2 className="profile-tile-text">Profile</h2>
-            </Row> 
+            </Row>
             <Row>
                 <Image src={image ? image :doctor} className="profile-picture-image"/>
-                <UploadImage getImage={handleImage}/>
+                <UploadImage getImage={handleImage}  className='edit-fa-camera'/>
             </Row>
             <Row className="profile-container">
                 <Col lg="12">

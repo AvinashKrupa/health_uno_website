@@ -1,6 +1,6 @@
 import SideNav, {NavIcon, NavItem, NavText} from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import {getData} from "./storage/LocalStorage/LocalAsyncStorage";
+import {clearSession, getData} from "./storage/LocalStorage/LocalAsyncStorage";
 import { withRouter } from 'react-router-dom'
 
 const sidebar = ['home', 'appointments', 'profile', 'reports']
@@ -23,6 +23,11 @@ const Sidebar = (props) => {
                 if( selected === 'profile') {
                     selected = 'profile/editProfile';
                     props.history.push(`${routeName}${selected}`);
+                }
+
+                if( selected === 'signOut') {
+                    clearSession();
+                    props.history.push(`${routeName}`);
                 }
 
                 sidebar.includes(selected) && props.history.push(`${routeName}${selected}`);
@@ -69,6 +74,14 @@ const Sidebar = (props) => {
                         </NavIcon>
                         <NavText>
                             Profile
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="signOut">
+                        <NavIcon>
+                            <i className="fa fa-fw fas fa-sign-out-alt" style={{fontSize: '1.75em'}}/>
+                        </NavIcon>
+                        <NavText>
+                            Sign Out
                         </NavText>
                     </NavItem>
                 </SideNav.Nav>

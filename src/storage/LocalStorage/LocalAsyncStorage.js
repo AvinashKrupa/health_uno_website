@@ -26,4 +26,13 @@ const removeData =  (key) => {
   console.log('removed data in asyncStorage');
 };
 
-export {storeData, getData, removeData};
+const clearSession =  () => {
+  try {
+    localStorage.clear();
+  } catch (e) {
+    console.log('Error in removing value from asyncStorage', e.message);
+  }
+  console.log('removed data in asyncStorage');
+};
+
+export {storeData, getData, removeData, clearSession};
