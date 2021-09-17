@@ -121,6 +121,7 @@ const MultiStepFormRegistration = ({history}) => {
       gender: gender,
       desc: description,
       language: language,
+      email:email,
       dp:image,
       avail: {
         day: daysObj,
