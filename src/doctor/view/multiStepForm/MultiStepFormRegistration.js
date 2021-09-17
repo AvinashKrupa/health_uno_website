@@ -113,7 +113,7 @@ const MultiStepFormRegistration = ({history}) => {
     let params = {
       mobile_number: mobile,
       country_code: "+91",
-      device_type: "Window",
+      device_type: "web",
       first_name: firstName,
       last_name: lastName,
       type: "2",

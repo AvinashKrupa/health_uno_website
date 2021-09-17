@@ -320,7 +320,7 @@ function registerUserAPICalling() {
     last_name: lastName,
     mobile_number: authContext.phone,
     country_code: '+91',
-    device_type: 'Window',
+    device_type: 'web',
     type: '1',
     dob: birthDate,
     gender: gender,

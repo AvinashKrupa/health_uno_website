@@ -33,7 +33,7 @@ const OTP = ({history}) => {
       mobile_number: mobileNumber,
       country_code: '+91',
       otp: otp,
-      device_type: 'Window',
+      device_type: 'web',
       device_toten: '',
       type: 1,
     };
