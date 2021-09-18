@@ -6,11 +6,18 @@ import moment from "moment";
 import {back_icon, calendar, clock, plus_icon} from "../../../constants/DoctorImages";
 import addDoctorStore from "../../store/addDoctorStore";
 import SelectedDoctorCard from "../../components/SelectedDoctorCard";
+import {getTimer} from "../../../utils/utilities";
+import Timer from "../../../commonComponent/Timer";
 
 const AppointmentDetail = (props) => {
     const {addToast} = useToasts();
     let [appointmentDetail, setAppointmentDetail] = useState([]);
     let [addDoctor, setAddDoctor] = useState(addDoctorStore(state => state.selectedDoctor));
+    const [enableMeetingButton, setEnableMeetingButton] = useState(false);
+
+    function handleEnableButton() {
+        setEnableMeetingButton(true)
+    }
 
     const removeSelectedDoctor = () => {
         let params = {
@@ -43,7 +50,6 @@ const AppointmentDetail = (props) => {
         };
     }, [addDoctor]);
 
-
     function getAppointmentDetail() {
         let params = {
             appointment_id: props.match.params.appointment_id,
@@ -60,7 +66,7 @@ const AppointmentDetail = (props) => {
                 addToast(error.response.data.message, {appearance: "error"});
             });
     }
-
+    const timerEnable = appointmentDetail && getTimer(`${appointmentDetail?.time?.date} ${appointmentDetail?.time?.slot}`);
     const {additional_doc} = appointmentDetail || []
     return (
         <div>
@@ -179,8 +185,12 @@ const AppointmentDetail = (props) => {
                                 <div className="row-add-doctor-text">Prescription already Added</div>
                             </div>}
 
+                            {appointmentDetail.status !== "completed" && (
+                                <div className="meeting-timer-container">{ timerEnable && <Timer time={appointmentDetail?.time?.utc_time} handleEnableButton={handleEnableButton}></Timer> }</div>)
+                                }
                             {appointmentDetail.status !== "completed" && <div className="bottom-container">
                                 <Button className="initiate-call-button-container"
+                                        disabled={!enableMeetingButton}
                                         onClick={() => {
                                             props.history.push(`/doctor/videoMeeting/${appointmentDetail?._id}`)
                                         }}

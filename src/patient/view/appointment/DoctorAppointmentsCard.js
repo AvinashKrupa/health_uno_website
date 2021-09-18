@@ -8,6 +8,7 @@ import TextArea from '../../../commonComponent/TextArea';
 import { useToasts } from 'react-toast-notifications';
 import {camera} from "../../../constants/PatientImages";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+import {getTimer} from "../../../utils/utilities";
 
 const DoctorAppointmentsCard = (props) => {
 
@@ -16,19 +17,6 @@ const DoctorAppointmentsCard = (props) => {
   const [reason, setReason] = useState('');
   const { addToast } = useToasts();
   const [id, setId] = useState(props?.appointment._id);
-
-function getTimer(timeString) {
-  const dateOneObj = new Date(timeString);
-  const dateTwoObj = new Date();
-  const milliseconds = dateTwoObj - dateOneObj;
-  const hours = parseFloat(milliseconds / 36e5).toFixed(3);
-
-  if(Math.sign(hours) < 0) {
-      return hours >= -1
-  }  else if(Math.sign(hours) < 0) {
-      return false;
-  }
-}
 
 function convert24hto12h(timeString, ampmRequired = true) {
     const H = +timeString.substr(0, 2);
@@ -51,6 +39,7 @@ function onSubmit() {
 function handleEnableButton() {
     setEnableMeetingButton(true)
 }
+
 
 const timerEnable = getTimer(`${props?.appointment.time.date} ${props?.appointment.time.slot}`);
 const buttonTitle = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
