@@ -42,6 +42,7 @@ export const ACTIONS = {
     DELETE_MEDICINE: 'DELETE_MEDICINE',
     VALIDATE_MEDICINE_INFO: 'VALIDATE_MEDICINE_INFO',
     VALIDATE_ALL_MEDICINE_INFO: 'VALIDATE_ALL_MEDICINE_INFO',
+    VALIDATE_PRESCRIPTION: 'VALIDATE_PRESCRIPTION',
     APPEND_CHOSEN_TEMPLATE: 'APPEND_CHOSEN_TEMPLATE',
 }
 const AddPrescription = (props) => {
@@ -246,6 +247,9 @@ const AddPrescription = (props) => {
         dispatch({
             type: ACTIONS.APPEND_CHOSEN_TEMPLATE, payload: finalMedicineArr
         })
+        dispatch({
+            type: ACTIONS.VALIDATE_PRESCRIPTION
+        })
     }
 
     function reducer(prescription_list, action) {
@@ -378,11 +382,23 @@ const AddPrescription = (props) => {
                     setUserShouldProceed(false);
                 }
                 return [...prescription_list]
+            case ACTIONS.VALIDATE_PRESCRIPTION:
+                prescription_list.forEach(eachMedicine => {
+                    if (
+                        !(eachMedicine.medicineItem.medicine === '') &&
+                        !(eachMedicine.medicineItem.medicinetype === '' || eachMedicine.medicineItem.medicinetype === "Select") &&
+                        !(eachMedicine.medicineItem.dosage.dosage_text === '') &&
+                        eachMedicine.medicineItem.time_slots.length
+                    ) {
+                        setUserShouldProceed(true);
+                    }
+                })
+                return [...prescription_list]
             case ACTIONS.VALIDATE_ALL_MEDICINE_INFO:
-                prescription_list.forEach((eachMedicine, index) => {
-                    if (index === prescription_list.length - 1) {
-                        setUserShouldProceed(false);
-                    } else {
+                if (prescription_list.length === 1) {
+                    setUserShouldProceed(false);
+                } else {
+                    prescription_list.forEach(eachMedicine => {
                         if (eachMedicine.medicineItem.medicine === '') {
                             eachMedicine.validationInfo.medicine_error = 'Please choose medicine';
                         } else {
@@ -403,22 +419,8 @@ const AddPrescription = (props) => {
                         } else {
                             eachMedicine.validationInfo.time_slot_error = '';
                         }
-
-                        if (
-                            !(eachMedicine.medicineItem.medicine === '') &&
-                            !(eachMedicine.medicineItem.medicinetype === '' || eachMedicine.medicineItem.medicinetype === "Select") &&
-                            !(eachMedicine.medicineItem.dosage.dosage_text === '') &&
-                            eachMedicine.medicineItem.time_slots.length
-                        ) {
-                            setUserShouldProceed(true);
-                        } else {
-                            setUserShouldProceed(false);
-                        }
-                    }
-
-
-                })
-
+                    })
+                }
                 return [...prescription_list]
             default:
                 return prescription_list
@@ -434,6 +436,7 @@ const AddPrescription = (props) => {
     }, []);
 
     const handleChooseTempClickOpen = () => {
+        setChosenTemplate([])
         setOpenChooseTempDialog(true);
     };
 
