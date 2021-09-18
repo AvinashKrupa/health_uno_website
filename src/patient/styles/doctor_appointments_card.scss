@@ -37,7 +37,21 @@
     box-sizing: border-box;
     border-radius: 6px;
   }
+  .card-text-button-disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc!important;
+    color: #666666;
+    width: 121px;
+    height: 32px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.42px;
+    box-sizing: border-box;
+    border-radius: 6px;
   }
+}
 
 
   .card-text-date-and-time {

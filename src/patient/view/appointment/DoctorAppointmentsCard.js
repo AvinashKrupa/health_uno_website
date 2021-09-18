@@ -10,7 +10,7 @@ import {camera} from "../../../constants/PatientImages";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 const DoctorAppointmentsCard = (props) => {
-  
+
   const [toggleModal, setToggleModal] = useState(false);
   const [reason, setReason] = useState('');
   const { addToast } = useToasts();
@@ -27,7 +27,7 @@ function getTimer(timeString) {
   }  else if(Math.sign(hours) < 0) {
       return false;
   }
-}    
+}
 
 function convert24hto12h(timeString, ampmRequired = true) {
     const H = +timeString.substr(0, 2);
@@ -44,11 +44,12 @@ function onSubmit() {
     props.cancelAppointment(id, reason);
     setReason('');
   }
-  
+
 }
 
-const timerEnable = getTimer(`${props?.appointment.time.date} ${props?.appointment.time.slot}`);  
-const btn = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
+const timerEnable = getTimer(`${props?.appointment.time.date} ${props?.appointment.time.slot}`);
+const buttonTitle = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
+const isPrescriptionPresent = props.appointment?.prescription && props.appointment?.prescription[0]?.url;
 
   return (
     <>
@@ -95,7 +96,7 @@ const btn = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
                  {props.appointment.status === 'scheduled' ?
                     <CustomButton
                       className="card-button-join"
-                      onClick={() => 
+                      onClick={() =>
                         {
                           props.history.push({
                             pathname: `/patient/videoMeeting/${props?.appointment.doctor_id}`,
@@ -103,7 +104,7 @@ const btn = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
                           });
                          }
                         }
-                        
+
                       text={'Join meeting'}
                       ></CustomButton>
                     :
@@ -115,16 +116,19 @@ const btn = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
                   }
                   </Col>
                   <Col>
-                  { props.appointment.status === 'scheduled' ? 
-                     <span onClick={setToggleModal} className={`card-text-${btn}`}>{btn}</span>:
-                     <button className={`card-text-${btn}`} > {btn}</button>  }
+                  { props.appointment.status === 'scheduled' && <span onClick={setToggleModal} className={`card-text-${buttonTitle}`}>{buttonTitle}</span>}
+                  { props.appointment.status !== 'scheduled' && <button disabled={!isPrescriptionPresent} className={ !isPrescriptionPresent ? 'card-text-button-disabled':`card-text-${buttonTitle}`} onClick={() => props.history.push({
+                          pathname: '/patient/PDF',
+                          state: { url: isPrescriptionPresent }
+                      })
+                  }> {buttonTitle}</button>  }
                   </Col>
               </Row>
             </CardContent>
           </div>
         </div>
       </Card>
-      <ModalDialog btnText={'Confirm'} onSubmit={onSubmit} show={toggleModal} title={'Cancel Appointment'} closeDialog={() =>{ 
+      <ModalDialog btnText={'Confirm'} onSubmit={onSubmit} show={toggleModal} title={'Cancel Appointment'} closeDialog={() =>{
         setReason('');
         setToggleModal(!toggleModal)}
       }>
