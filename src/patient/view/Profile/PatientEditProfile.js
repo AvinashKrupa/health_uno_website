@@ -8,7 +8,7 @@ import CustomButton from "../../../commonComponent/Button";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import { isEmpty } from "../../../utils/Validators";
 import Spinner from "../../../commonComponent/Spinner";
- 
+
 const PatientEditProfile = (props) => {
     // Get state and language from server
     const [firstName, setFirstName] = useState('');
@@ -50,7 +50,7 @@ const PatientEditProfile = (props) => {
                     setMobile(user.mobile_number);
                     setBirthDate(user.dob);
                     setAddressLine1(additionalInfo.address.line1);
-                    setAddressLine2(additionalInfo.address.line1);
+                    setAddressLine2(additionalInfo.address.line2);
                     setState(additionalInfo.address.state);
                     setCity(additionalInfo.address.city);
                     setCountry(additionalInfo.address.country);
@@ -288,7 +288,7 @@ const PatientEditProfile = (props) => {
                     text={'Update'}
                 ></CustomButton>
             </Col>
-                   
+
         </div>
     );
 };

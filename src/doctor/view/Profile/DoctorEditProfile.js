@@ -50,7 +50,7 @@ const DoctorEditProfile = (props) => {
                     setMobile(user.mobile_number);
                     setBirthDate(user.dob);
                     setAddressLine1(additionalInfo.address.line1);
-                    setAddressLine2(additionalInfo.address.line1);
+                    setAddressLine2(additionalInfo.address.line2);
                     setState(additionalInfo.address.state);
                     setCity(additionalInfo.address.city);
                     setCountry(additionalInfo.address.country);
