@@ -8,7 +8,7 @@ import TextArea from '../../../commonComponent/TextArea';
 import { useToasts } from 'react-toast-notifications';
 import {camera} from "../../../constants/PatientImages";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
-import {getTimer} from "../../../utils/utilities";
+import {convert24hto12h, getTimer} from "../../../utils/utilities";
 
 const DoctorAppointmentsCard = (props) => {
 
@@ -17,13 +17,6 @@ const DoctorAppointmentsCard = (props) => {
   const [reason, setReason] = useState('');
   const { addToast } = useToasts();
   const [id, setId] = useState(props?.appointment._id);
-
-function convert24hto12h(timeString, ampmRequired = true) {
-    const H = +timeString.substr(0, 2);
-    const h = (H % 12) || 12;
-    const ampm = H < 12 ? "AM" : "PM";
-    return( h + timeString.substr(2, 3) + (ampmRequired ? ampm : ''));
-}
 
 function onSubmit() {
   if(reason === '') {

@@ -7,6 +7,7 @@ import {API, post} from '../../../api/config/APIController';
 import { useToasts } from 'react-toast-notifications';
 import CustomButton from '../../../commonComponent/Button';
 import { back_icon } from "../../../constants/DoctorImages";
+import {convert24hto12h} from "../../../utils/utilities";
 
 const DoctorDetails = (props) => {
 
@@ -32,12 +33,6 @@ const DoctorDetails = (props) => {
         });
     }
 
-    function convert24hto12h(timeString) {
-        const H = +timeString.substr(0, 2);
-        const h = (H % 12) || 12;
-        const ampm = H < 12 ? "AM" : "PM";
-        return( h + timeString.substr(2, 3) + ampm);
-    }
     return (
         <>
         <Row>
