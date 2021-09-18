@@ -11,6 +11,7 @@ import patientSlotBookingStore from "../../store/patientSlotBookingStore";
 import { isEmpty } from "../../../utils/Validators";
 import { back_icon } from "../../../constants/DoctorImages";
 import Label from "../../../commonComponent/Label";
+import {convert24hto12h} from "../../../utils/utilities";
 
 
   const PatientSlotBooking = (props) => {
@@ -119,7 +120,7 @@ import Label from "../../../commonComponent/Label";
   const dayShiftSlot = () => {
     return Object.entries(dataMorningShift).sort().map((timeSlot) => {
         return(
-          <SlotGenerator selectedSlots={[slot]} handleSlotClick={setSlotData} label={`${timeSlot[0]} AM`} slots={timeSlot[1]} />
+          <SlotGenerator selectedSlots={[slot]} handleSlotClick={setSlotData} label={`${convert24hto12h(timeSlot[0])}`} slots={timeSlot[1]} />
         )
     })
   };
@@ -127,7 +128,7 @@ import Label from "../../../commonComponent/Label";
   const EveningShiftSlot = () => {
     return Object.entries(dataEveningShift).map((timeSlot) => {
         return(
-          <SlotGenerator selectedSlots={[slot]} handleSlotClick={setSlotData} label={`${timeSlot[0]} PM`} slots={timeSlot[1]} />
+          <SlotGenerator selectedSlots={[slot]} handleSlotClick={setSlotData} label={`${convert24hto12h(timeSlot[0])}`} slots={timeSlot[1]} />
         )
     })
   }
