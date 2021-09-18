@@ -124,3 +124,15 @@
     min-width: 375px;
   }
 }
+@media screen and (max-width: 1024px) {
+  .upcoming-appointment-card-container {
+    min-width: 390px;
+    width: 390px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .upcoming-appointment-card-container {
+    min-width: 390px;
+    width: 390px;
+  }
+}

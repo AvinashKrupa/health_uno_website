@@ -19,7 +19,7 @@ const Appointments = (props) => {
   const [previous, setPrevious] = useState(false);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [previousAppointments, setPreviousAppointments] = useState([]);
-  
+
 
   const handleSelection = () => {
     setUpcoming(!upcoming);
@@ -133,10 +133,10 @@ const Appointments = (props) => {
           </Row>
           <Row className="appointment-page-cards-row">
             {upcoming ? (
-              <>  
+              <>
                 { upcomingAppointments.map((appointment) => {
                   return(
-                    <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1} className="appointment-page-cards-upcoming">
+                    <Grid container item lg={4}  md={6} sm={8} xs={12} spacing={0.5} className="appointment-page-cards-upcoming">
                       <DoctorAppointmentsCard appointment={appointment} cancelAppointment={cancelAppointment} />
                     </Grid>
                   )
