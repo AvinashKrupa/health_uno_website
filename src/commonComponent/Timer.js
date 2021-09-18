@@ -1,23 +1,26 @@
 import React from 'react';
 import Countdown from 'react-countdown';
 
-const Timer = ({time}) => {
+const Timer = ({time, handleEnableButton}) => {
     const renderer = ({ hours, minutes, seconds, completed }) => {
+      if (minutes <= 4) {
+          handleEnableButton()
+      }
       if (completed) {
         return null;
       } else {
         return <span>{minutes}:{seconds}</span>;
       }
     };
-  
+
     return (
       <>
         <Countdown
            date={time}
-           renderer={renderer}  
+           renderer={renderer}
         />
       </>
     );
   };
-  
+
 export default Timer;

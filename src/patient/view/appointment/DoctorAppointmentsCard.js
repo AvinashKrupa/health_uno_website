@@ -12,6 +12,7 @@ import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 const DoctorAppointmentsCard = (props) => {
 
   const [toggleModal, setToggleModal] = useState(false);
+  const [enableMeetingButton, setEnableMeetingButton] = useState(false);
   const [reason, setReason] = useState('');
   const { addToast } = useToasts();
   const [id, setId] = useState(props?.appointment._id);
@@ -45,6 +46,10 @@ function onSubmit() {
     setReason('');
   }
 
+}
+
+function handleEnableButton() {
+    setEnableMeetingButton(true)
 }
 
 const timerEnable = getTimer(`${props?.appointment.time.date} ${props?.appointment.time.slot}`);
@@ -88,7 +93,7 @@ const isPrescriptionPresent = props.appointment?.prescription && props.appointme
                 <div style={{position: 'relative'}}>
                     <spam className="card-text-date-and-time">
                         {`${props?.appointment.time.date}, ${convert24hto12h(props?.appointment.time.slot)}`}
-                        <span className="card-text-time">{ timerEnable && <Timer time={props?.appointment.time.utc_time}></Timer> }</span>
+                        <span className="card-text-time">{ timerEnable && <Timer time={props?.appointment.time.utc_time} handleEnableButton={handleEnableButton}></Timer> }</span>
                     </spam>
                 </div>
                 <Row className="card-buttons-row">
@@ -96,6 +101,7 @@ const isPrescriptionPresent = props.appointment?.prescription && props.appointme
                  {props.appointment.status === 'scheduled' ?
                     <CustomButton
                       className="card-button-join"
+                      disabled={!enableMeetingButton}
                       onClick={() =>
                         {
                           props.history.push({
