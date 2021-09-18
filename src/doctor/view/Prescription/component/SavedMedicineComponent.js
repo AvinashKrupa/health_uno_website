@@ -31,29 +31,33 @@ const {name,_id, prescription_info} = props.template;
                 <AccordionDetails>
                     <Typography color="textSecondary">
                         {
-                            prescription_info.map((item, index)=>{
-                                return(
-                                    <>
-                                        <div className="MedList">
-                                            <p>
-                                                <div>Medicine Name</div>
-                                                <span>{item.medicine.name} </span></p>
-                                            <p>
-                                                <div>Time Slot</div>
-                                                {
-                                                    item.time_slots.map((item, index,arr)=> <span>{`${item}${index !== (arr.length-1)?',':''}`} </span>)
-                                                }
-                                            </p>
-                                            <p>
-                                                <div>No. of Pills</div>
-                                                <span>{item.dosage.dosage_text} </span></p>
-                                            <p>
-                                                <div>Dosage</div>
-                                                <span>{item.dosage.qty} </span></p>
-                                        </div>
-                                        {index % 2 ===0 && <hr/>}
-                                    </>
-                                )
+                            prescription_info.map((item, index, arr)=>{
+                                let renderLine
+                                if(index !== arr.length -1){
+                                    renderLine = <hr/>
+                                }
+                                    return(
+                                        <>
+                                            <div className="MedList">
+                                                <p>
+                                                    <div>Medicine Name</div>
+                                                    <span>{item.medicine.name} </span></p>
+                                                <p>
+                                                    <div>Time Slot</div>
+                                                    {
+                                                        item.time_slots.map((item, index,arr)=> <span>{`${item}${index !== (arr.length-1)?',':''}`} </span>)
+                                                    }
+                                                </p>
+                                                <p>
+                                                    <div>No. of Pills</div>
+                                                    <span>{item.dosage.dosage_text} </span></p>
+                                                <p>
+                                                    <div>Dosage</div>
+                                                    <span>{item.dosage.qty} </span></p>
+                                            </div>
+                                            {renderLine}
+                                        </>
+                                    )
                             })
                         }
                     </Typography>
