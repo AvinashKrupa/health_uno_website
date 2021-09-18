@@ -4,10 +4,10 @@ import {Col, Row} from "react-bootstrap";
 import {useToasts} from "react-toast-notifications";
 import UpdateScheduleHorizontalCalendar from "./component/UpdateScheduleHorizontalCalendar";
 import updateScheduleStore from "../../store/updateScheduleStore";
-import {isEmpty} from "../../../utils/Validators";
 import {API, post} from "../../../api/config/APIController";
 import UpdateSlotGenerator from "./component/UpdateSlotGenerator";
 import {getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
+import {convert24hto12h} from "../../../utils/utilities";
 
 const UpdateSchedule = (props) => {
   const {addToast} = useToasts();
@@ -135,7 +135,7 @@ const UpdateSchedule = (props) => {
   const dayShiftSlot = () => {
     return Object.entries(dataMorningShift).sort().map((timeSlot) => {
       return(
-          <UpdateSlotGenerator selectedSlots={[slot]} handleSlotClick={updateSchedule} label={`${timeSlot[0]} AM`} slots={timeSlot[1]} />
+          <UpdateSlotGenerator selectedSlots={[slot]} handleSlotClick={updateSchedule} label={`${convert24hto12h(timeSlot[0])}`} slots={timeSlot[1]} />
       )
     })
   };
@@ -143,7 +143,7 @@ const UpdateSchedule = (props) => {
   const EveningShiftSlot = () => {
     return Object.entries(dataEveningShift).map((timeSlot) => {
       return(
-          <UpdateSlotGenerator selectedSlots={[slot]} handleSlotClick={updateSchedule} label={`${timeSlot[0]} PM`} slots={timeSlot[1]} />
+          <UpdateSlotGenerator selectedSlots={[slot]} handleSlotClick={updateSchedule} label={`${convert24hto12h(timeSlot[0])}`} slots={timeSlot[1]} />
       )
     })
   }
@@ -182,7 +182,7 @@ const UpdateSchedule = (props) => {
                 }
                 { Object.entries(dataEveningShift).length > 0 && EveningShiftSlot()}
               </div>
-              { ( !Object.entries(dataMorningShift ).length  || !Object.entries(dataEveningShift).length ) &&
+              { ( !Object.entries(dataMorningShift ).length  && !Object.entries(dataEveningShift).length ) &&
                   <div className="empty-list-container_center">
                     <h4>No slots found, please choose another date</h4>
                   </div>
