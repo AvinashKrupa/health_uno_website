@@ -180,23 +180,23 @@ const AddPrescription = (props) => {
             templateIdArr.push(savedPrescription[chosenTemplate[i]]._id)
         }
         let params = {
-            ids:templateIdArr
+            ids: templateIdArr
         }
         post(API.DELETE_SAVED_TEMPLATES, params)
             .then(response => {
                 if (response.status === 200) {
                     setChosenTemplate([])
-                    addToast(response.data.message, { appearance: 'success' });
+                    addToast(response.data.message, {appearance: 'success'});
 
                 } else {
-                    addToast(response.data.message, { appearance: 'error' });
+                    addToast(response.data.message, {appearance: 'error'});
                 }
             })
             .catch(error => {
-                addToast(error.response.data.message, { appearance: 'error' });
+                addToast(error.response.data.message, {appearance: 'error'});
             });
-            getSavedPrescriptions()
-            setOpenChooseTempDialog(false);
+        getSavedPrescriptions()
+        setOpenChooseTempDialog(false);
     }
 
     function appendChosenTemplateMedicines() {
@@ -212,24 +212,24 @@ const AddPrescription = (props) => {
                 selectedType: templateMedicineArr[i].medicine.type || 'brand',
                 medicineItem:
                     {
-                        medicine:templateMedicineArr[i].medicine._id,
-                        medicineName:templateMedicineArr[i].medicine.name,
+                        medicine: templateMedicineArr[i].medicine._id,
+                        medicineName: templateMedicineArr[i].medicine.name,
                         medicinetype: templateMedicineArr[i].medicinetype._id,
-                        time_slots:templateMedicineArr[i].time_slots,
-                        start_date:templateMedicineArr[i].start_date,
-                        days:templateMedicineArr[i].days,
-                        periodicity:templateMedicineArr[i].periodicity,
-                        add_comments:templateMedicineArr[i].add_comments,
+                        time_slots: templateMedicineArr[i].time_slots,
+                        start_date: templateMedicineArr[i].start_date,
+                        days: templateMedicineArr[i].days,
+                        periodicity: templateMedicineArr[i].periodicity,
+                        add_comments: templateMedicineArr[i].add_comments,
                         dosage: {
-                            dosage_text:templateMedicineArr[i].dosage.dosage_text,
-                            qty:templateMedicineArr[i].dosage.qty,
-                            before_food:templateMedicineArr[i].dosage.before_food,
-                            after_food:templateMedicineArr[i].dosage.after_food,
-                            with_food:templateMedicineArr[i].dosage.with_food,
-                            other:templateMedicineArr[i].dosage.other,
-                            other_details:templateMedicineArr[i].dosage.other_details,
-                            sos:templateMedicineArr[i].dosage.sos,
-                            stat:templateMedicineArr[i].dosage.stat,
+                            dosage_text: templateMedicineArr[i].dosage.dosage_text,
+                            qty: templateMedicineArr[i].dosage.qty,
+                            before_food: templateMedicineArr[i].dosage.before_food,
+                            after_food: templateMedicineArr[i].dosage.after_food,
+                            with_food: templateMedicineArr[i].dosage.with_food,
+                            other: templateMedicineArr[i].dosage.other,
+                            other_details: templateMedicineArr[i].dosage.other_details,
+                            sos: templateMedicineArr[i].dosage.sos,
+                            stat: templateMedicineArr[i].dosage.stat,
                         },
                     },
                 validationInfo: {
@@ -241,8 +241,8 @@ const AddPrescription = (props) => {
             }
             finalMedicineArr.push(prescriptionObj)
         }
-            console.log('amit finalMedicineArr :', finalMedicineArr);
-            setChosenTemplate([])
+        console.log('amit finalMedicineArr :', finalMedicineArr);
+        setChosenTemplate([])
         dispatch({
             type: ACTIONS.APPEND_CHOSEN_TEMPLATE, payload: finalMedicineArr
         })
@@ -255,7 +255,7 @@ const AddPrescription = (props) => {
             case ACTIONS.APPEND_CHOSEN_TEMPLATE:
                 let finalPrescriptionObj = JSON.parse(JSON.stringify(prescription_list));
                 for (let i = 0; i < action.payload.length; i++) {
-                    finalPrescriptionObj = [...finalPrescriptionObj,action.payload[i]]
+                    finalPrescriptionObj = [...finalPrescriptionObj, action.payload[i]]
                 }
                 return finalPrescriptionObj;
             case ACTIONS.DELETE_MEDICINE:
@@ -348,31 +348,23 @@ const AddPrescription = (props) => {
             case ACTIONS.VALIDATE_MEDICINE_INFO:
                 if (prescription_list[action.payload.id].medicineItem.medicine === '') {
                     prescription_list[action.payload.id].validationInfo.medicine_error = 'Please choose medicine';
-                    // setUserShouldProceed(false);
                 } else {
                     prescription_list[action.payload.id].validationInfo.medicine_error = '';
-                    // setUserShouldProceed(true);
                 }
                 if (prescription_list[action.payload.id].medicineItem.medicinetype === '' || prescription_list[action.payload.id].medicineItem.medicinetype === "Select") {
                     prescription_list[action.payload.id].validationInfo.medicine_type_error = 'Please add dosage information';
-                    // setUserShouldProceed(false);
                 } else {
                     prescription_list[action.payload.id].validationInfo.medicine_type_error = '';
-                    // setUserShouldProceed(true);
                 }
                 if (prescription_list[action.payload.id].medicineItem.dosage.dosage_text === '') {
                     prescription_list[action.payload.id].validationInfo.dosage_error = 'Please add dosage information';
-                    // setUserShouldProceed(false);
                 } else {
                     prescription_list[action.payload.id].validationInfo.dosage_error = '';
-                    // setUserShouldProceed(true);
                 }
                 if (!prescription_list[action.payload.id].medicineItem.time_slots.length) {
                     prescription_list[action.payload.id].validationInfo.time_slot_error = 'Please select timings';
-                    // setUserShouldProceed(false);
                 } else {
                     prescription_list[action.payload.id].validationInfo.time_slot_error = '';
-                    // setUserShouldProceed(true);
                 }
 
                 if (
@@ -393,31 +385,23 @@ const AddPrescription = (props) => {
                     } else {
                         if (eachMedicine.medicineItem.medicine === '') {
                             eachMedicine.validationInfo.medicine_error = 'Please choose medicine';
-                            // setUserShouldProceed(false);
                         } else {
                             eachMedicine.validationInfo.medicine_error = '';
-                            // setUserShouldProceed(true);
                         }
                         if (eachMedicine.medicineItem.medicinetype === '' || eachMedicine.medicineItem.medicinetype === "Select") {
                             eachMedicine.validationInfo.medicine_type_error = 'Please add dosage information';
-                            // setUserShouldProceed(false);
                         } else {
                             eachMedicine.validationInfo.medicine_type_error = '';
-                            // setUserShouldProceed(true);
                         }
                         if (eachMedicine.medicineItem.dosage.dosage_text === '') {
                             eachMedicine.validationInfo.dosage_error = 'Please add dosage information';
-                            // setUserShouldProceed(false);
                         } else {
                             eachMedicine.validationInfo.dosage_error = '';
-                            // setUserShouldProceed(true);
                         }
                         if (!eachMedicine.medicineItem.time_slots.length) {
                             eachMedicine.validationInfo.time_slot_error = 'Please select timings';
-                            // setUserShouldProceed(false);
                         } else {
                             eachMedicine.validationInfo.time_slot_error = '';
-                            // setUserShouldProceed(true);
                         }
 
                         if (
@@ -534,7 +518,7 @@ const AddPrescription = (props) => {
             .catch(error => {
                 addToast(error.response.data.message, {appearance: "error"});
             });
-            getSavedPrescriptions()
+        getSavedPrescriptions()
     }
 
     const submitPrescription = () => {
