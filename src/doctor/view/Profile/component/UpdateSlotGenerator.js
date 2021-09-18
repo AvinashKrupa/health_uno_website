@@ -17,7 +17,7 @@ const UpdateSlotGenerator = (props) => {
                                     userType === 2 ? props.handleSlotClick(slot) : slot.status === 'available' && props.handleSlotClick(slot.slot_id, slot.start)
                                 }}>
                             <span className="slot-timings-button-text"
-                                  style={{color: props.selectedSlots.indexOf(slot.slot_id) > -1 ? "white" : ""}}>{slot.start}</span>
+                                  style={{color: slot.status === 'available' ? "white" : "black"}}>{slot.start}</span>
                         </button>
                     )
                 })}
