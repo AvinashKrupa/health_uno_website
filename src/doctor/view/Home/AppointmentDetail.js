@@ -165,7 +165,7 @@ const AppointmentDetail = (props) => {
                                     />
                                 </div>
                             }
-                            {appointmentDetail.status !== "completed" && !appointmentDetail.prescription?.length &&
+                            {["scheduled","ongoing"].includes(appointmentDetail.status) && !appointmentDetail.prescription?.length &&
                             <div className="row-add-doctor" onClick={() =>
                                 props.history.push({
                                     pathname: `/doctor/addPrescription/${appointmentDetail?._id}`,
@@ -180,7 +180,7 @@ const AppointmentDetail = (props) => {
                                 <div className="row-add-doctor-text">Add Prescription</div>
                                 <div><Image src={plus_icon}/></div>
                             </div>}
-                            {appointmentDetail.status !== "completed" && !!appointmentDetail.prescription?.length &&
+                            {["completed","ongoing"].includes(appointmentDetail.status) && !!appointmentDetail.prescription?.length &&
                             <div className="edit-prescription-button" onClick={() => null}>
                                 <div className="row-add-doctor-text">Prescription already Added</div>
                             </div>}
@@ -188,7 +188,7 @@ const AppointmentDetail = (props) => {
                             {appointmentDetail.status !== "completed" && (
                                 <div className="meeting-timer-container">{ timerEnable && <Timer time={appointmentDetail?.time?.utc_time} handleEnableButton={handleEnableButton}></Timer> }</div>)
                                 }
-                            {appointmentDetail.status !== "completed" && <div className="bottom-container">
+                            {["scheduled","ongoing"].includes(appointmentDetail.status) && <div className="bottom-container">
                                 <Button className="initiate-call-button-container"
                                         disabled={!enableMeetingButton}
                                         onClick={() => {

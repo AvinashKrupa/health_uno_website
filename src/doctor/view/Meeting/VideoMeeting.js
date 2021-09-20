@@ -26,6 +26,12 @@ const VideoMeeting = (props) => {
     let [videoStatus, setVideoStatus] = useState(false);
     const [streams, setStreams] = useState([]);
     const [tracks, setTracks] = useState([]);
+    let [meetingUrl, setMeetingUrl] = useState('');
+    let [meetingError, setMeetingError] = useState('');
+
+    useEffect(() => {
+        getJoinAppointmentDetails()
+    }, []);
 
     useEffect(() => {
             stopVideo()
@@ -42,6 +48,21 @@ const VideoMeeting = (props) => {
     }, [props.match.params.appointment_id]);
 
     const {addToast} = useToasts();
+
+    function getJoinAppointmentDetails() {
+        post(API.JOIN_APPOINTMENT, {appointment_id:props.match.params.appointment_id}, true)
+            .then((response) => {
+                if (response.status === 200) {
+                    setMeetingUrl(response.data.data.meeting_url);
+                } else {
+                    setMeetingError(response.data.message);
+                    addToast(response.data.message, { appearance: "error" });
+                }
+            })
+            .catch((error) => {
+                addToast(error.response.data.message, { appearance: "error" });
+            });
+    }
 
     function stopMic(){
         if(tracks.length){
@@ -154,10 +175,11 @@ const VideoMeeting = (props) => {
                                 {!renderTestButtons && <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
                                     Test Video and Audio
                                 </Button>}
-                                <Button className="doctor-meeting-join-meeting-button" onClick={() => {window.open(`https://dev.healthuno.com:6005/${props.match.params.appointment_id}`)}}>
+                                <Button disabled={!meetingUrl || !!meetingError} className="doctor-meeting-join-meeting-button" onClick={() => {window.open(meetingUrl)}}>
                                     Join Meeting
                                 </Button>
                             </div>
+                            {!!meetingError && <div style={{textAlign: "center"}} className="error-text">{meetingError}</div>}
                             {renderTestButtons && (<div className="doctor-meeting-cancel-container">
                                 <Button className="doctor-meeting-cancel-button"
                                         onClick={() => {

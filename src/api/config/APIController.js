@@ -49,6 +49,11 @@ export const API = {
   GET_AVAILABLE_SLOT: 'slot/getAvailableSlots',
   UPDATE_SCHEDULE_BY_DAY: 'user/updateProfile',
   UPDATE_SCHEDULE_BY_DATE: 'doctor/updateSchedule',
+
+  /**
+   * COMMON APIS
+   */
+  JOIN_APPOINTMENT: 'appointment/joinAppointment',
 };
 
 export function post(endPoint, params, isStringfy = true) {

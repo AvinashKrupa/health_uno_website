@@ -38,9 +38,30 @@ const VideoMeeting = (props) => {
   let [videoStatus, setVideoStatus] = useState(false);
   const [streams, setStreams] = useState([]);
   const [tracks, setTracks] = useState([]);
+  let [meetingUrl, setMeetingUrl] = useState('');
+  let [meetingError, setMeetingError] = useState('');
+
+  useEffect(() => {
+    getJoinAppointmentDetails()
+  }, []);
 
   const { addToast } = useToasts();
   const [doctorDetails, setDoctorDetails] = useState();
+
+  function getJoinAppointmentDetails() {
+    post(API.JOIN_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
+        .then((response) => {
+          if (response.status === 200) {
+            setMeetingUrl(response.data.data.meeting_url);
+          } else {
+            setMeetingError(response.data.message);
+            addToast(response.data.message, { appearance: "error" });
+          }
+        })
+        .catch((error) => {
+          addToast(error.response.data.message, { appearance: "error" });
+        });
+  }
 
   useEffect(() => {
     stopVideo();
@@ -246,8 +267,7 @@ const VideoMeeting = (props) => {
                       )}
                     </Col>{" "}
                     <Col>
-                      <Button
-                        className="meeting-page-button-blue"
+                      <Button disabled={!meetingUrl || !!meetingError} className="meeting-page-button-blue"
                         onClick={() => {
                           if(!props.location?.state?.appointment_id) {
                             addToast("Please go back on appointment page and again join the meeting ", {
@@ -255,14 +275,15 @@ const VideoMeeting = (props) => {
                             });
                             return;
                           }
-                          window.open(
-                            `https://dev.healthuno.com:6005/${props.location?.state?.appointment_id}`
-                          );
+                          window.open(meetingUrl);
                         }}
                       >
                         Join Meeting
                       </Button>
                     </Col>
+                  </Row>
+                  <Row>
+                    {!!meetingError && <div style={{textAlign: "center"}} className="error-text">{meetingError}</div>}
                   </Row>
                 </Row>
               </Col>
