@@ -137,10 +137,7 @@ const AppointmentDetail = (props) => {
 
                                     <div className="field-container">
                                         <div className="field-title">Comments:</div>
-                                        <div className="field-description" style={{width: '80%'}}>Lorem ipsum dolor sit
-                                            amet, consectetur adipiscing elit. Massa cursus mauris magna eget vel,
-                                            iaculis libero. Viverra eleifend ultrices et feugiat.
-                                        </div>
+                                        <div className="field-description" style={{width: '80%'}}>{appointmentDetail?.complaints}</div>
                                     </div>
                                 </div>
                             </div>
