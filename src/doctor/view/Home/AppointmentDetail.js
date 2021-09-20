@@ -168,7 +168,7 @@ const AppointmentDetail = (props) => {
                                     />
                                 </div>
                             }
-                            {["scheduled","ongoing"].includes(appointmentDetail.status) && !appointmentDetail.prescription?.length &&
+                            {["completed","ongoing"].includes(appointmentDetail.status) && !appointmentDetail.prescription?.length &&
                             <div className="row-add-doctor" onClick={() =>
                                 props.history.push({
                                     pathname: `/doctor/addPrescription/${appointmentDetail?._id}`,
