@@ -145,10 +145,13 @@ const AppointmentDetail = (props) => {
                                 </div>
                             </div>
                             <h2 className="sub-title">Additional Doctor</h2>
-                            {!additional_doc?.length && <div className="row-add-doctor"
+                            {["scheduled","ongoing"].includes(appointmentDetail.status) && !additional_doc?.length && <div className="row-add-doctor"
                                                              onClick={() => props.history.push(`/doctor/select/${appointmentDetail?._id}`)}>
                                 <div className="row-add-doctor-text">Add Doctor</div>
                                 <div><Image src={plus_icon}/></div>
+                            </div>}
+                            {["completed"].includes(appointmentDetail.status) && !additional_doc?.length && <div className="no-doctor-found">
+                                <div className="row-add-doctor-text">No additional doctor was present</div>
                             </div>}
                             {
                                 !!additional_doc?.length &&

@@ -45,8 +45,31 @@ const VideoMeeting = (props) => {
     getJoinAppointmentDetails()
   }, []);
 
+  useEffect(() => {
+        getAppointmentDetail();
+        return () => {
+        };
+    }, [props.location?.state?.appointment_id]);
+
   const { addToast } = useToasts();
   const [doctorDetails, setDoctorDetails] = useState();
+
+  function getAppointmentDetail() {
+    let params = {
+      appointment_id: props.location?.state?.appointment_id,
+    };
+    post(API.APPOINTMENT_DETAIL_API, params)
+        .then(response => {
+          if (response.status === 200) {
+            setAppointmentDetail(response.data.data);
+          } else {
+            addToast(response.data.message, {appearance: "error"});
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, {appearance: "error"});
+        });
+  }
 
   function getJoinAppointmentDetails() {
     post(API.JOIN_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
@@ -61,6 +84,34 @@ const VideoMeeting = (props) => {
         .catch((error) => {
           addToast(error.response.data.message, { appearance: "error" });
         });
+  }
+
+  function endAppointment() {
+    post(API.END_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
+        .then((response) => {
+          if (response.status === 200) {
+            addToast(response.data.message, { appearance: "success" });
+          } else {
+            setMeetingError(response.data.message);
+            addToast(response.data.message, { appearance: "error" });
+          }
+        })
+        .catch((error) => {
+          addToast(error.response.data.message, { appearance: "error" });
+        });
+    props.history.goBack()
+
+  }
+
+  function openMeeting(){
+      if(!props.location?.state?.appointment_id) {
+        addToast("Please go back on appointment page and again join the meeting ", {
+          appearance: "error",
+        });
+        return;
+      }
+      window.open(meetingUrl);
+      setTimeout(()=>getAppointmentDetail(), 5000)
   }
 
   useEffect(() => {
@@ -267,19 +318,16 @@ const VideoMeeting = (props) => {
                       )}
                     </Col>{" "}
                     <Col>
-                      <Button disabled={!meetingUrl || !!meetingError} className="meeting-page-button-blue"
-                        onClick={() => {
-                          if(!props.location?.state?.appointment_id) {
-                            addToast("Please go back on appointment page and again join the meeting ", {
-                              appearance: "error",
-                            });
-                            return;
-                          }
-                          window.open(meetingUrl);
-                        }}
+                      {appointmentDetail.status !=="ongoing" &&  <Button disabled={!meetingUrl || !!meetingError} className="meeting-page-button meeting-page-button-blue"
+                        onClick={() => openMeeting()}
                       >
                         Join Meeting
-                      </Button>
+                      </Button>}
+                      {appointmentDetail.status ==="ongoing" && <Button disabled={!meetingUrl || !!meetingError}
+                                                                        className="meeting-page-button-red meeting-page-button"
+                                                                        onClick={() => endAppointment()}>
+                        End Meeting
+                      </Button>}
                     </Col>
                   </Row>
                   <Row>

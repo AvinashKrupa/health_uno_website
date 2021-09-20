@@ -64,10 +64,31 @@ const VideoMeeting = (props) => {
             });
     }
 
+    function endAppointment() {
+        post(API.END_APPOINTMENT, {appointment_id:props.match.params.appointment_id}, true)
+            .then((response) => {
+                if (response.status === 200) {
+                    addToast(response.data.message, { appearance: "success" });
+                } else {
+                    setMeetingError(response.data.message);
+                    addToast(response.data.message, { appearance: "error" });
+                }
+            })
+            .catch((error) => {
+                addToast(error.response.data.message, { appearance: "error" });
+            });
+            props.history.goBack()
+
+    }
+
     function stopMic(){
         if(tracks.length){
             tracks[0].enabled = !micStatus
         }
+    }
+    function openMeeting(){
+        window.open(meetingUrl);
+        setTimeout(()=>getAppointmentDetail(), 5000)
     }
     function stopVideo(){
         if(tracks.length) {
@@ -175,9 +196,15 @@ const VideoMeeting = (props) => {
                                 {!renderTestButtons && <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
                                     Test Video and Audio
                                 </Button>}
-                                <Button disabled={!meetingUrl || !!meetingError} className="doctor-meeting-join-meeting-button" onClick={() => {window.open(meetingUrl)}}>
+                                {appointmentDetail.status !=="ongoing" &&  <Button disabled={!meetingUrl || !!meetingError} className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
                                     Join Meeting
-                                </Button>
+                                </Button>}
+                                {appointmentDetail.status ==="ongoing" && <Button disabled={!meetingUrl || !!meetingError}
+                                                                                  className="doctor-meeting-join-meeting-button"
+                                                                                  style={{backgroundColor:'#F15D4A'}}
+                                                                                  onClick={() => endAppointment()}>
+                                    End Meeting
+                                </Button>}
                             </div>
                             {!!meetingError && <div style={{textAlign: "center"}} className="error-text">{meetingError}</div>}
                             {renderTestButtons && (<div className="doctor-meeting-cancel-container">

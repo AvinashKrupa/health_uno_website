@@ -54,6 +54,7 @@ export const API = {
    * COMMON APIS
    */
   JOIN_APPOINTMENT: 'appointment/joinAppointment',
+  END_APPOINTMENT: 'appointment/endAppointment',
 };
 
 export function post(endPoint, params, isStringfy = true) {
