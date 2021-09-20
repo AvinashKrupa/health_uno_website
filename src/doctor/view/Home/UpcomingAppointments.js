@@ -47,12 +47,8 @@ const UpcomingAppointments = (props) => {
       search_text: searchText,
       date: currentDate,
       status: [
-        // "pending",
         "scheduled",
-        // "cancelled",
-        // "rejected",
         "ongoing",
-        "completed"
       ]
     };
     setAppointmentLoaderStatus(true)
@@ -82,10 +78,8 @@ const UpcomingAppointments = (props) => {
       date: currentDate,
       status: [
         "pending",
-        "scheduled",
         "cancelled",
         "rejected",
-        "ongoing",
         "completed"
       ]
     }
