@@ -138,6 +138,9 @@ export default function PrescriptionComponent({
                                 dispatch({
                                     type: ACTIONS.DELETE_MEDICINE, payload: {id: index}
                                 })
+                                dispatch({
+                                    type: ACTIONS.VALIDATE_PRESCRIPTION
+                                })
                                 setShouldClearInput(true);
                             }
                             }/>

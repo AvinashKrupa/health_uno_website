@@ -1,4 +1,5 @@
 import React, {useEffect, useReducer, useState} from "react";
+import _ from "lodash";
 import Input from "../../../commonComponent/Input";
 import TextArea from "../../../commonComponent/TextArea";
 import {Button, Col, Form, Row} from "react-bootstrap";
@@ -383,6 +384,7 @@ const AddPrescription = (props) => {
                 }
                 return [...prescription_list]
             case ACTIONS.VALIDATE_PRESCRIPTION:
+                let validationResults = []
                 prescription_list.forEach(eachMedicine => {
                     if (
                         !(eachMedicine.medicineItem.medicine === '') &&
@@ -390,9 +392,13 @@ const AddPrescription = (props) => {
                         !(eachMedicine.medicineItem.dosage.dosage_text === '') &&
                         eachMedicine.medicineItem.time_slots.length
                     ) {
-                        setUserShouldProceed(true);
+                        validationResults.push(true)
+                    }else {
+                        validationResults.push(false)
                     }
                 })
+                let checker = _.every(validationResults)
+                setUserShouldProceed(checker);
                 return [...prescription_list]
             case ACTIONS.VALIDATE_ALL_MEDICINE_INFO:
                 if (prescription_list.length === 1) {
