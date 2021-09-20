@@ -3,7 +3,7 @@ import Countdown from 'react-countdown';
 
 const Timer = ({time, handleEnableButton}) => {
     const renderer = ({ hours, minutes, seconds, completed }) => {
-      if (minutes <= 4) {
+      if (minutes <= 0) {
           handleEnableButton()
       }
       if (completed) {
