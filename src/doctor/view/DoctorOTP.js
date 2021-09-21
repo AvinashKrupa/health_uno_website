@@ -83,6 +83,7 @@ const DoctorOTP = ({history}) => {
     let params = {
       mobile_number: authContext.phone,
       country_code: '+91',
+      type: 2,
     };
     post(API.SENDOTP, params, true)
       .then(response => {
