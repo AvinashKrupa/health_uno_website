@@ -9,7 +9,7 @@ const Timer = ({time, handleEnableButton}) => {
       if (completed) {
         return null;
       } else {
-        return <span>{minutes}:{seconds}</span>;
+        return <span>{hours}:{minutes}:{seconds}</span>;
       }
     };
 
