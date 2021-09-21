@@ -26,12 +26,13 @@ import Report from "./patient/view/Profile/Report";
 import PatientProfile from "./patient/view/Profile/PatientProfile";
 import PDFViewer from "./commonComponent/PDFViewer";
 import MainView from "./MainView";
+import PrePage from "./patient/view/PrePage";
 
 function App() {
   return (
       <div className="App">
         <BrowserRouter>
-          <Route exact path="/" component={PatientLogin}/>
+          <Route exact path="/" component={PrePage}/>
           <Route exact path="/patient" component={PatientLogin}/>
           <Route exact path="/doctor" component={DoctorLogin}/>
           <PrivateRoute exact path='/doctor/otp' component={DoctorOTP}/>
