@@ -55,6 +55,7 @@ export const API = {
    */
   JOIN_APPOINTMENT: 'appointment/joinAppointment',
   END_APPOINTMENT: 'appointment/endAppointment',
+  CAN_JOIN_APPOINTMENT: 'appointment/canJoinAppointment',
 };
 
 export function post(endPoint, params, isStringfy = true) {

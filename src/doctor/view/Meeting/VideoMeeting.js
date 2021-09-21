@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useToasts} from "react-toast-notifications";
 import {API, post} from "../../../api/config/APIController";
 import {back_icon, camera_off_icon, camera_on_icon, mic_off_icon, mic_on_icon} from "../../../constants/DoctorImages";
+import MeetingTimer from "../../../commonComponent/MeetingTimer";
 
 const Video = ({stream}) => {
     const localVideo = React.createRef();
@@ -26,11 +27,12 @@ const VideoMeeting = (props) => {
     let [videoStatus, setVideoStatus] = useState(false);
     const [streams, setStreams] = useState([]);
     const [tracks, setTracks] = useState([]);
-    let [meetingUrl, setMeetingUrl] = useState('');
+    let [timerSeconds, setTimerSeconds] = useState(0);
     let [meetingError, setMeetingError] = useState('');
+    const [enableMeetingButton, setEnableMeetingButton] = useState(false);
 
     useEffect(() => {
-        getJoinAppointmentDetails()
+        canJoinAppointmentDetails()
     }, []);
 
     useEffect(() => {
@@ -49,11 +51,27 @@ const VideoMeeting = (props) => {
 
     const {addToast} = useToasts();
 
-    function getJoinAppointmentDetails() {
+    function joinAppointment() {
         post(API.JOIN_APPOINTMENT, {appointment_id:props.match.params.appointment_id}, true)
             .then((response) => {
                 if (response.status === 200) {
-                    setMeetingUrl(response.data.data.meeting_url);
+                    window.open(response.data.data.meeting_url);
+                    setTimeout(()=> getAppointmentDetail(), 5000)
+                } else {
+                    addToast(response.data.message, { appearance: "error" });
+                }
+            })
+            .catch((error) => {
+                addToast(error.response.data.message, { appearance: "error" });
+            });
+    }
+
+    function canJoinAppointmentDetails() {
+        post(API.CAN_JOIN_APPOINTMENT, {appointment_id:props.match.params.appointment_id}, true)
+            .then((response) => {
+                if (response.status === 200) {
+                    setTimerSeconds(response.data.data.seconds * 1000);
+                    addToast(response.data.message, { appearance: "info" });
                 } else {
                     setMeetingError(response.data.message);
                     addToast(response.data.message, { appearance: "error" });
@@ -87,8 +105,9 @@ const VideoMeeting = (props) => {
         }
     }
     function openMeeting(){
-        window.open(meetingUrl);
-        setTimeout(()=>getAppointmentDetail(), 5000)
+        setTimeout(()=>joinAppointment(), 5000)
+
+
     }
     function stopVideo(){
         if(tracks.length) {
@@ -127,6 +146,10 @@ const VideoMeeting = (props) => {
             .catch(error => {
                 addToast(error.response.data.message, {appearance: "error"});
             });
+    }
+
+    function handleEnableButton() {
+        setEnableMeetingButton(true)
     }
 
     return (
@@ -196,15 +219,19 @@ const VideoMeeting = (props) => {
                                 {!renderTestButtons && <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
                                     Test Video and Audio
                                 </Button>}
-                                {appointmentDetail.status !=="ongoing" &&  <Button disabled={!meetingUrl || !!meetingError} className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
+                                {appointmentDetail.status !=="ongoing" &&  <Button disabled={!enableMeetingButton} className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
                                     Join Meeting
                                 </Button>}
-                                {appointmentDetail.status ==="ongoing" && <Button disabled={!meetingUrl || !!meetingError}
-                                                                                  className="doctor-meeting-join-meeting-button"
+                                {appointmentDetail.status ==="ongoing" && <Button className="doctor-meeting-join-meeting-button"
                                                                                   style={{backgroundColor:'#F15D4A'}}
                                                                                   onClick={() => endAppointment()}>
                                     End Meeting
                                 </Button>}
+                            </div>
+                            <div>
+                                {appointmentDetail.status !== "completed" && (
+                                    <div className="meeting-timer-container">{timerSeconds &&  <MeetingTimer date={Date.now() + timerSeconds} handleEnableButton={handleEnableButton}></MeetingTimer> }</div>)
+                                }
                             </div>
                             {!!meetingError && <div style={{textAlign: "center"}} className="error-text">{meetingError}</div>}
                             {renderTestButtons && (<div className="doctor-meeting-cancel-container">
