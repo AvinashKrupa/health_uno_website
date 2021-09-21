@@ -3,7 +3,6 @@ import { Row, Col, Button, Image } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
-import { Link } from "react-router-dom";
 import {
   back_icon,
   camera_off_icon,
@@ -12,6 +11,7 @@ import {
   mic_on_icon,
 } from "../../../constants/DoctorImages";
 import React from "react";
+import MeetingTimer from "../../../commonComponent/MeetingTimer";
 
 const Video = ({ stream }) => {
   const localVideo = React.createRef();
@@ -38,12 +38,13 @@ const VideoMeeting = (props) => {
   let [videoStatus, setVideoStatus] = useState(false);
   const [streams, setStreams] = useState([]);
   const [tracks, setTracks] = useState([]);
-  let [meetingUrl, setMeetingUrl] = useState('');
   let [meetingError, setMeetingError] = useState('');
+  let [timerSeconds, setTimerSeconds] = useState(0);
+  const [enableMeetingButton, setEnableMeetingButton] = useState(false);
 
-  useEffect(() => {
-    getJoinAppointmentDetails()
-  }, []);
+    useEffect(() => {
+        canJoinAppointmentDetails()
+    }, []);
 
   useEffect(() => {
         getAppointmentDetail();
@@ -71,11 +72,12 @@ const VideoMeeting = (props) => {
         });
   }
 
-  function getJoinAppointmentDetails() {
+  function joinAppointment() {
     post(API.JOIN_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
         .then((response) => {
           if (response.status === 200) {
-            setMeetingUrl(response.data.data.meeting_url);
+              window.open(response.data.data.meeting_url);
+              setTimeout(()=> getAppointmentDetail(), 5000)
           } else {
             setMeetingError(response.data.message);
             addToast(response.data.message, { appearance: "error" });
@@ -85,6 +87,21 @@ const VideoMeeting = (props) => {
           addToast(error.response.data.message, { appearance: "error" });
         });
   }
+    function canJoinAppointmentDetails() {
+        post(API.CAN_JOIN_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
+            .then((response) => {
+                if (response.status === 200) {
+                    setTimerSeconds(response.data.data.seconds * 1000);
+                    addToast(response.data.message, { appearance: "info" });
+                } else {
+                    setMeetingError(response.data.message);
+                    addToast(response.data.message, { appearance: "error" });
+                }
+            })
+            .catch((error) => {
+                addToast(error.response.data.message, { appearance: "error" });
+            });
+    }
 
   function endAppointment() {
     post(API.END_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
@@ -110,9 +127,12 @@ const VideoMeeting = (props) => {
         });
         return;
       }
-      window.open(meetingUrl);
-      setTimeout(()=>getAppointmentDetail(), 5000)
+      joinAppointment();
   }
+
+    function handleEnableButton() {
+        setEnableMeetingButton(true)
+    }
 
   useEffect(() => {
     stopVideo();
@@ -318,16 +338,22 @@ const VideoMeeting = (props) => {
                       )}
                     </Col>{" "}
                     <Col>
-                      {appointmentDetail.status !=="ongoing" &&  <Button disabled={!meetingUrl || !!meetingError} className="meeting-page-button meeting-page-button-blue"
+                      {appointmentDetail.status !=="ongoing" &&  <Button disabled={!enableMeetingButton}  className="meeting-page-button meeting-page-button-blue"
                         onClick={() => openMeeting()}
                       >
                         Join Meeting
                       </Button>}
-                      {appointmentDetail.status ==="ongoing" && <Button disabled={!meetingUrl || !!meetingError}
-                                                                        className="meeting-page-button-red meeting-page-button"
+                      {appointmentDetail.status ==="ongoing" && <Button className="meeting-page-button-red meeting-page-button"
                                                                         onClick={() => endAppointment()}>
                         End Meeting
                       </Button>}
+                        <Row>
+                            <div>
+                                {appointmentDetail.status !== "completed" && (
+                                    <div className="meeting-timer-container">{ timerSeconds && <MeetingTimer date={Date.now() + timerSeconds} handleEnableButton={handleEnableButton}></MeetingTimer> }</div>)
+                                }
+                            </div>
+                        </Row>
                     </Col>
                   </Row>
                   <Row>

@@ -58,6 +58,7 @@ const VideoMeeting = (props) => {
                     window.open(response.data.data.meeting_url);
                     setTimeout(()=> getAppointmentDetail(), 5000)
                 } else {
+                    setMeetingError(response.data.message);
                     addToast(response.data.message, { appearance: "error" });
                 }
             })
@@ -105,10 +106,9 @@ const VideoMeeting = (props) => {
         }
     }
     function openMeeting(){
-        setTimeout(()=>joinAppointment(), 5000)
-
-
+        joinAppointment();
     }
+
     function stopVideo(){
         if(tracks.length) {
             tracks[1].enabled = !videoStatus
