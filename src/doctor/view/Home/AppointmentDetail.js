@@ -190,7 +190,7 @@ const AppointmentDetail = (props) => {
                                 }
                             {["scheduled","ongoing"].includes(appointmentDetail.status) && <div className="bottom-container">
                                 <Button className="initiate-call-button-container"
-                                        disabled={!enableMeetingButton}
+                                        disabled={!(enableMeetingButton || appointmentDetail.status ==="ongoing")}
                                         onClick={() => {
                                             props.history.push(`/doctor/videoMeeting/${appointmentDetail?._id}`)
                                         }}

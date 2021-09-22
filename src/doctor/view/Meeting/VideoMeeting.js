@@ -212,6 +212,11 @@ const VideoMeeting = (props) => {
                                         Purpose: <span
                                         className="patient-description-detail">{appointmentDetail?.reason}</span>
                                     </div>
+                                    <div className='video-meeting-timer-container'>
+                                        {appointmentDetail.status !== "completed" && (
+                                            <div className="meeting-timer-container">{timerSeconds &&  <MeetingTimer date={Date.now() + timerSeconds} handleEnableButton={handleEnableButton}></MeetingTimer> }</div>)
+                                        }
+                                    </div>
                                 </>
                                 }
                             </div>
@@ -219,19 +224,19 @@ const VideoMeeting = (props) => {
                                 {!renderTestButtons && <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
                                     Test Video and Audio
                                 </Button>}
-                                {appointmentDetail.status !=="ongoing" &&  <Button disabled={!enableMeetingButton} className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
+                                {appointmentDetail.status !=="ongoing" &&  <Button disabled={!(enableMeetingButton || appointmentDetail.status ==="ongoing")} className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
                                     Join Meeting
+                                </Button>}
+                                {appointmentDetail.status ==="ongoing" &&  <Button className="doctor-meeting-join-meeting-button"
+                                                                                   onClick={() => openMeeting()}
+                                >
+                                    Rejoin Meeting
                                 </Button>}
                                 {appointmentDetail.status ==="ongoing" && <Button className="doctor-meeting-join-meeting-button"
                                                                                   style={{backgroundColor:'#F15D4A'}}
                                                                                   onClick={() => endAppointment()}>
                                     End Meeting
                                 </Button>}
-                            </div>
-                            <div>
-                                {appointmentDetail.status !== "completed" && (
-                                    <div className="meeting-timer-container">{timerSeconds &&  <MeetingTimer date={Date.now() + timerSeconds} handleEnableButton={handleEnableButton}></MeetingTimer> }</div>)
-                                }
                             </div>
                             {!!meetingError && <div style={{textAlign: "center"}} className="error-text">{meetingError}</div>}
                             {renderTestButtons && (<div className="doctor-meeting-cancel-container">

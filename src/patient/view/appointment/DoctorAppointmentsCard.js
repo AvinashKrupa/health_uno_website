@@ -80,10 +80,10 @@ const isPrescriptionPresent = props.appointment?.prescription && props.appointme
                 </div>
                 <Row className="card-buttons-row">
                   <Col>
-                 {props.appointment.status === 'scheduled' ?
+                 {["scheduled","ongoing"].includes(props.appointment.status) ?
                     <CustomButton
                       className="card-button-join"
-                      disabled={!enableMeetingButton}
+                      disabled={!(enableMeetingButton || props.appointment.is_joining || props.appointment.status ==='ongoing')}
                       onClick={() =>
                         {
                           props.history.push({
