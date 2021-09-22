@@ -36,7 +36,7 @@ const VideoMeeting = (props) => {
     }, []);
 
     useEffect(() => {
-            stopVideo()
+        stopVideo()
     }, [videoStatus]);
 
     useEffect(() => {
@@ -52,65 +52,66 @@ const VideoMeeting = (props) => {
     const {addToast} = useToasts();
 
     function joinAppointment() {
-        post(API.JOIN_APPOINTMENT, {appointment_id:props.match.params.appointment_id}, true)
+        post(API.JOIN_APPOINTMENT, {appointment_id: props.match.params.appointment_id}, true)
             .then((response) => {
                 if (response.status === 200) {
                     window.open(response.data.data.meeting_url);
-                    setTimeout(()=> getAppointmentDetail(), 5000)
+                    setTimeout(() => getAppointmentDetail(), 5000)
                 } else {
                     setMeetingError(response.data.message);
-                    addToast(response.data.message, { appearance: "error" });
+                    addToast(response.data.message, {appearance: "error"});
                 }
             })
             .catch((error) => {
-                addToast(error.response.data.message, { appearance: "error" });
+                addToast(error.response.data.message, {appearance: "error"});
             });
     }
 
     function canJoinAppointmentDetails() {
-        post(API.CAN_JOIN_APPOINTMENT, {appointment_id:props.match.params.appointment_id}, true)
+        post(API.CAN_JOIN_APPOINTMENT, {appointment_id: props.match.params.appointment_id}, true)
             .then((response) => {
                 if (response.status === 200) {
                     setTimerSeconds(response.data.data.seconds * 1000);
-                    addToast(response.data.message, { appearance: "info" });
+                    addToast(response.data.message, {appearance: "info"});
                 } else {
                     setMeetingError(response.data.message);
-                    addToast(response.data.message, { appearance: "error" });
+                    addToast(response.data.message, {appearance: "error"});
                 }
             })
             .catch((error) => {
-                addToast(error.response.data.message, { appearance: "error" });
+                addToast(error.response.data.message, {appearance: "error"});
             });
     }
 
     function endAppointment() {
-        post(API.END_APPOINTMENT, {appointment_id:props.match.params.appointment_id}, true)
+        post(API.END_APPOINTMENT, {appointment_id: props.match.params.appointment_id}, true)
             .then((response) => {
                 if (response.status === 200) {
-                    addToast(response.data.message, { appearance: "success" });
+                    addToast(response.data.message, {appearance: "success"});
                 } else {
                     setMeetingError(response.data.message);
-                    addToast(response.data.message, { appearance: "error" });
+                    addToast(response.data.message, {appearance: "error"});
                 }
             })
             .catch((error) => {
-                addToast(error.response.data.message, { appearance: "error" });
+                addToast(error.response.data.message, {appearance: "error"});
             });
-            props.history.goBack()
+        props.history.goBack()
 
     }
 
-    function stopMic(){
-        if(tracks.length){
+    function stopMic() {
+        if (tracks.length) {
             tracks[0].enabled = !micStatus
         }
     }
-    function openMeeting(){
+
+    function openMeeting() {
         joinAppointment();
     }
 
-    function stopVideo(){
-        if(tracks.length) {
+    function stopVideo() {
+        if (tracks.length) {
             tracks[1].enabled = !videoStatus
         }
     }
@@ -126,8 +127,8 @@ const VideoMeeting = (props) => {
             setTracks(tracks)
         })
             .catch((err) => {
-                    setHavePermissions(false)
-                    addToast('Please enable permissions and refresh the page', {appearance: "error"});
+                setHavePermissions(false)
+                addToast('Please enable permissions and refresh the page', {appearance: "error"});
             });
     }
 
@@ -193,13 +194,13 @@ const VideoMeeting = (props) => {
                                 {renderTestButtons && <div className="meeting-testing-button-container">
                                     <Button className="testing-button" onClick={() => setMicStatus(!micStatus)}>
                                         {!micStatus && <><img className="testing-icon"
-                                                             src={mic_on_icon}/><span>Mic is On</span></>}
+                                                              src={mic_on_icon}/><span>Mic is On</span></>}
                                         {micStatus && <><img className="testing-icon" src={mic_off_icon}/><span>Mic is Off</span></>}
                                     </Button>
                                     <Button className="testing-button" onClick={() => setVideoStatus(!videoStatus)}
                                             style={{marginTop: '16px'}}>
                                         {videoStatus && <><img className="testing-icon"
-                                                                src={camera_off_icon}/><span>Camera is Off</span></>}
+                                                               src={camera_off_icon}/><span>Camera is Off</span></>}
                                         {!videoStatus && <><img className="testing-icon" src={camera_on_icon}/><span>Camera is On</span></>}
                                     </Button>
                                 </div>}
@@ -214,40 +215,49 @@ const VideoMeeting = (props) => {
                                     </div>
                                     <div className='video-meeting-timer-container'>
                                         {appointmentDetail.status !== "completed" && (
-                                            <div className="meeting-timer-container">{timerSeconds &&  <MeetingTimer date={Date.now() + timerSeconds} handleEnableButton={handleEnableButton}></MeetingTimer> }</div>)
+                                            <div className="meeting-timer-container">{timerSeconds &&
+                                            <MeetingTimer date={Date.now() + timerSeconds}
+                                                          handleEnableButton={handleEnableButton}></MeetingTimer>}</div>)
                                         }
                                     </div>
                                 </>
                                 }
                             </div>
                             <div className='doctor-meeting-button-container'>
-                                {!renderTestButtons && <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
+                                {appointmentDetail.status === 'scheduled' && !renderTestButtons &&
+                                <Button className="doctor-meeting-test-button" onClick={() => checkPermissions()}>
                                     Test Video and Audio
                                 </Button>}
-                                {appointmentDetail.status !=="ongoing" &&  <Button disabled={!(enableMeetingButton || appointmentDetail.status ==="ongoing")} className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
+                                {appointmentDetail.status !== "ongoing" &&
+                                <Button disabled={!(enableMeetingButton || appointmentDetail.status === "ongoing")}
+                                        className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
                                     Join Meeting
                                 </Button>}
-                                {appointmentDetail.status ==="ongoing" &&  <Button className="doctor-meeting-join-meeting-button"
-                                                                                   onClick={() => openMeeting()}
+                                {appointmentDetail.status === "ongoing" &&
+                                <Button className="doctor-meeting-join-meeting-button"
+                                        onClick={() => openMeeting()}
                                 >
                                     Rejoin Meeting
                                 </Button>}
-                                {appointmentDetail.status ==="ongoing" && <Button className="doctor-meeting-join-meeting-button"
-                                                                                  style={{backgroundColor:'#F15D4A'}}
-                                                                                  onClick={() => endAppointment()}>
+                                {appointmentDetail.status === "ongoing" &&
+                                <Button className="doctor-meeting-join-meeting-button"
+                                        style={{backgroundColor: '#F15D4A'}}
+                                        onClick={() => endAppointment()}>
                                     End Meeting
                                 </Button>}
                             </div>
-                            {!!meetingError && <div style={{textAlign: "center"}} className="error-text">{meetingError}</div>}
-                            {renderTestButtons && (<div className="doctor-meeting-cancel-container">
-                                <Button className="doctor-meeting-cancel-button"
-                                        onClick={() => {
-                                            setStreams([]);
-                                            setRenderTestButtons(false)
-                                        }}>
-                                    Cancel
-                                </Button>
-                            </div>)}
+                            {!!meetingError &&
+                            <div style={{textAlign: "center"}} className="error-text">{meetingError}</div>}
+                            {appointmentDetail.status === 'scheduled' && renderTestButtons && (
+                                <div className="doctor-meeting-cancel-container">
+                                    <Button className="doctor-meeting-cancel-button"
+                                            onClick={() => {
+                                                setStreams([]);
+                                                setRenderTestButtons(false)
+                                            }}>
+                                        Cancel
+                                    </Button>
+                                </div>)}
                         </div>
                     </div>
                 </Col>
@@ -255,6 +265,7 @@ const VideoMeeting = (props) => {
             }
         </>
     );
-};
+}
+;
 
 export default VideoMeeting;

@@ -323,7 +323,7 @@ const VideoMeeting = (props) => {
                     </div>
                   )}
                   <Row className="meeting-button" xs="2">
-                      {!renderTestButtons && (
+                      {appointmentDetail.status === 'scheduled' && !renderTestButtons && (
                         <Button
                           className="meeting-page-button-white"
                           onClick={() => checkPermissions()}
@@ -331,7 +331,7 @@ const VideoMeeting = (props) => {
                           Test Video and Audio
                         </Button>
                       )}
-                      {renderTestButtons && (
+                      {appointmentDetail.status === 'scheduled' && renderTestButtons && (
                         <Button
                           className="meeting-page-button-white"
                           onClick={() => {
