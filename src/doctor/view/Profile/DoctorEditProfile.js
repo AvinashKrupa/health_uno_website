@@ -6,6 +6,7 @@ import {API, get, post} from '../../../api/config/APIController';
 import {useToasts} from "react-toast-notifications";
 import CustomButton from "../../../commonComponent/Button";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
+import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const DoctorEditProfile = (props) => {
     // Get state and language from server
@@ -41,6 +42,10 @@ const DoctorEditProfile = (props) => {
             .then(response => {
                 if (response.status == 200) {
                     let user = response.data.data.user;
+                    const additional_info = response.data.data['additional_info'];
+                    if(additional_info) {
+                        storeData('additional_info', JSON.stringify(additional_info));
+                    }
                     let additionalInfo = response.data.data.additional_info;
                     setFirstName(user.first_name);
                     setLastName(user.last_name);
