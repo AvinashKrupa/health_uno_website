@@ -9,7 +9,7 @@ const PrePage = ({history}) => {
         <div className="landingPrePage">
             <Container>
                 <Row className="PrePageDesign">
-                    <Col>
+                    <Col className="no-padding">
                         <div className="boxLeft" onClick={() => history.push(`/doctor/`)}>
                             <div>
                                 <img alt='logo' src={process.env.PUBLIC_URL + '/assets/doctor.png'}></img>
@@ -24,7 +24,7 @@ const PrePage = ({history}) => {
                         </div>
 
                     </Col>
-                    <Col>
+                    <Col className="no-padding">
                         <div className="boxRight" onClick={() => history.push(`/patient/`)}>
                             <div>
                                 <img alt='logo' src={process.env.PUBLIC_URL + '/assets/patient.png'}></img>
