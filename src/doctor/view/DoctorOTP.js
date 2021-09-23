@@ -34,7 +34,7 @@ const DoctorOTP = ({history}) => {
       country_code: '+91',
       otp: otp,
       device_type: 'web',
-      device_toten: '',
+      device_token: '',
       type: 2,
     };
 

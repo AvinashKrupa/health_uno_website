@@ -321,6 +321,7 @@ function registerUserAPICalling() {
     mobile_number: authContext.phone,
     country_code: '+91',
     device_type: 'web',
+    device_token: '',
     type: '1',
     dob: birthDate,
     gender: gender,

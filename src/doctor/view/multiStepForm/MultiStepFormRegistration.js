@@ -114,6 +114,7 @@ const MultiStepFormRegistration = ({history}) => {
       mobile_number: mobile,
       country_code: "+91",
       device_type: "web",
+      device_token: "",
       first_name: firstName,
       last_name: lastName,
       type: "2",
