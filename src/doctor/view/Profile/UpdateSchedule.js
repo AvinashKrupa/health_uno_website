@@ -285,7 +285,7 @@ const UpdateSchedule = (props) => {
             {renderUpdateByDate()}
 
             <Row>
-              <span style={{marginTop: '32px'}} className="section-sub-title">By Day</span>
+              <span style={{marginTop: '32px'}} className="section-sub-title">General Availability</span>
             </Row>
             <Row className={'days-selection-container'}>
               {selectedDays.map((item, index) => {
