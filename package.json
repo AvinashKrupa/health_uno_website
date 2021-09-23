@@ -13,6 +13,7 @@
     "antd": "^4.16.13",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
+    "firebase": "^9.0.2",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
