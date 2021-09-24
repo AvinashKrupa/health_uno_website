@@ -1,3 +1,6 @@
+import 'firebase/messaging';
+import { getMessaging, getToken } from "firebase/messaging";
+import firebase, {FIREBASE_VAPID_KEY} from "./notification/firebase";
 import {BrowserRouter, Route} from "react-router-dom";
 import OTP from "./patient/view/loginAndRegistration/PatientOTP";
 import PrivateRoute from './hoc/PrivateRoute';
@@ -27,8 +30,22 @@ import PatientProfile from "./patient/view/Profile/PatientProfile";
 import PDFViewer from "./commonComponent/PDFViewer";
 import MainView from "./MainView";
 import PrePage from "./patient/view/PrePage";
+import {storeData} from "./storage/LocalStorage/LocalAsyncStorage";
+import { useToasts } from "react-toast-notifications";
+const { addToast } = useToasts();
 
 function App() {
+  const messaging = getMessaging(firebase);
+  getToken(messaging, { vapidKey: FIREBASE_VAPID_KEY }).then((currentToken) => {
+    if (currentToken) {
+      storeData('PUSH_TOKEN', currentToken);
+    } else {
+      addToast('No registration token available. Request permission to generate one.', {appearance: "error"});
+    }
+  }).catch((err) => {
+    console.log('An error occurred while retrieving token. ', err);
+  });
+
   return (
       <div className="App">
         <BrowserRouter>
