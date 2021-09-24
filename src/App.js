@@ -1,5 +1,5 @@
 import 'firebase/messaging';
-import { getMessaging, getToken } from "firebase/messaging";
+import {getMessaging, getToken, onMessage} from "firebase/messaging";
 import firebase, {FIREBASE_VAPID_KEY} from "./notification/firebase";
 import {BrowserRouter, Route} from "react-router-dom";
 import OTP from "./patient/view/loginAndRegistration/PatientOTP";
@@ -31,12 +31,13 @@ import PDFViewer from "./commonComponent/PDFViewer";
 import MainView from "./MainView";
 import PrePage from "./patient/view/PrePage";
 import {storeData} from "./storage/LocalStorage/LocalAsyncStorage";
-import { useToasts } from "react-toast-notifications";
-const { addToast } = useToasts();
+import {useToasts} from "react-toast-notifications";
+
 
 function App() {
+  const {addToast} = useToasts();
   const messaging = getMessaging(firebase);
-  getToken(messaging, { vapidKey: FIREBASE_VAPID_KEY }).then((currentToken) => {
+  getToken(messaging, {vapidKey: FIREBASE_VAPID_KEY}).then((currentToken) => {
     if (currentToken) {
       storeData('PUSH_TOKEN', currentToken);
     } else {
@@ -46,6 +47,9 @@ function App() {
     console.log('An error occurred while retrieving token. ', err);
   });
 
+  onMessage(messaging, (payload) => {
+    addToast(`${payload.notification.title}\n\n${payload.notification.body}`, {appearance: "error"});
+  });
   return (
       <div className="App">
         <BrowserRouter>
