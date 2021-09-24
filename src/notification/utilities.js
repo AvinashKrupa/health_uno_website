@@ -5,7 +5,6 @@ import {getMessaging, getToken} from "firebase/messaging";
 const messaging = getMessaging(firebase);
 export const getPushToken = async () => {
     const pushToken = getData('PUSH_TOKEN');
-    debugger
     if (pushToken) {
         return pushToken
     } else {
