@@ -31,7 +31,7 @@ const PatientLogin = ({history}) => {
       addToast('Please enter the valid number', { appearance: 'error' });
       return;
     }
-    
+
     let params = {
       mobile_number: mobileNumber,
       country_code: '+91',
@@ -39,7 +39,7 @@ const PatientLogin = ({history}) => {
     };
 
     authContext.setPhone(mobileNumber);
-  
+
     post(API.SENDOTP, params, true)
       .then(response => {
         if (response.status === 200) {
@@ -47,11 +47,11 @@ const PatientLogin = ({history}) => {
           addToast(response.data.message, { appearance: 'success' });
           history.push('/patient/otp');
         }  else {
-          addToast(response.data.message, { appearance: 'error' }); 
+          addToast(response.data.message, { appearance: 'error' });
         }
       })
       .catch(error => {
-        addToast('Please try again!', { appearance: 'error' }); 
+        addToast('Please try again!', { appearance: 'error' });
       });
   }
 
@@ -101,7 +101,7 @@ const PatientLogin = ({history}) => {
                   </Col>
                 </div>
 
-              </Col>  
+              </Col>
               <Col lg='1' md='8' sm='0'></Col>
             </Row>
             <Row className='doctor-image' >
@@ -128,7 +128,7 @@ const PatientLogin = ({history}) => {
                       <DropdownButton variant="outline-secondary" title="+91">
                         <Dropdown.Item>+91</Dropdown.Item>
                       </DropdownButton>
-                      <FormControl  value={mobileNumber} type="text" />
+                      <FormControl type="text" value={mobileNumber} maxLength="10"/>
                       <p className="description-small">
                         A 4 digit OTP will be sent through SMS to verify your mobile
                         number
@@ -136,13 +136,13 @@ const PatientLogin = ({history}) => {
                     </InputGroup>
                     <CustomButton
                         className={'login-btn'}
-                        disabled={mobileNumber.length !== 10} 
+                        disabled={mobileNumber.length !== 10}
                         onClick={debounce}
                         text={'Continue'}
                     ></CustomButton>
                   </form>
                 </div>
-                
+
             </div>
           </Col>
         </Row>
