@@ -136,3 +136,29 @@
     width: 390px;
   }
 }
+
+
+@media only screen and (max-width: 767px) {
+  
+  .upcoming-appointment-card-container {
+    min-width: 106%;
+  }
+  .card-button-join{
+    margin-left: -110px;
+  }
+  .doctor-card-doctor-name .card-image-video-camera{
+    left: 148px !important;
+  }
+    .appointment-page-text-heading {
+      width: 100%;
+      text-align: center;
+      position: fixed;
+      background: #fff;
+      top: 0px;
+      height: 50px;
+      left: 0px;
+      z-index: 1;
+      padding-top: 8px;
+  }
+
+}
