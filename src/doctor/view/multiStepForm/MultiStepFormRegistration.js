@@ -1,17 +1,18 @@
-import React, { useContext, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import React, {useContext, useState} from "react";
+import {Col, Row} from "react-bootstrap";
 import CustomButton from '../../../commonComponent/Button'
 import DocRegistrationPage1 from "./DocRegistrationPage1";
 import DocRegistrationPage2 from './DocRegistrationPage2';
 import DocRegistrationPage3 from './DocRegistrationPage3';
-import { AuthContext } from "../../../context/AuthContextProvider";
-import { isEmailValid, isEmpty, isNumberOnly } from '../../../utils/Validators';
-import { useToasts } from "react-toast-notifications";
+import {AuthContext} from "../../../context/AuthContextProvider";
+import {isEmailValid, isEmpty, isNumberOnly} from '../../../utils/Validators';
+import {useToasts} from "react-toast-notifications";
 import CustomStepper from "./CustomStepper";
-import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+import {withRouter} from "react-router-dom/cjs/react-router-dom.min";
 import {API, post} from '../../../api/config/APIController';
 import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import useUserStore from "../../store/userStore";
+import {getPushToken} from "../../../notification/utilities";
 
 const MultiStepFormRegistration = ({history}) => {
   const authContext = useContext(AuthContext);
@@ -60,61 +61,61 @@ const MultiStepFormRegistration = ({history}) => {
   const [dataEveningShift, setDataEveningShift] = useState([]);
 
 
-  const { addToast } = useToasts();
-  const setUserInfo =  useUserStore((state) => state.setUserInfo)
+  const {addToast} = useToasts();
+  const setUserInfo = useUserStore((state) => state.setUserInfo)
   const [activeStep, setActiveStep] = useState(1);
   const [nextDisabled, setNextDisabled] = useState(false);
   const [prevDisabled, setPrevDisabled] = useState(true);
-  const [image,setImage]= useState("")
+  const [image, setImage] = useState("")
 
   function registerLogin(params) {
     post(API.REGISTER_DOCTOR, params, true)
-      .then(response => {
-        if (response.status === 200) {
-          const user = response.data.data['user'];
-          const additional_info = response.data.data['additional_info'];
+        .then(response => {
+          if (response.status === 200) {
+            const user = response.data.data['user'];
+            const additional_info = response.data.data['additional_info'];
 
-          if(user) {
-            storeData('userInfo', JSON.stringify(user));
-            setUserInfo(user)
+            if (user) {
+              storeData('userInfo', JSON.stringify(user));
+              setUserInfo(user)
+            }
+            if (additional_info) {
+              storeData('additional_info', JSON.stringify(additional_info));
+            }
+            history.push('/doctor/home');
+            addToast(response.data.message, {appearance: 'success'});
+          } else {
+            addToast(response.data.message, {appearance: 'error'});
           }
-          if(additional_info) {
-            storeData('additional_info', JSON.stringify(additional_info));
-          }
-          history.push('/doctor/home');
-          addToast(response.data.message, { appearance: 'success' });
-        } else {
-          addToast(response.data.message, { appearance: 'error' });
-        }
-      })
-      .catch(error => {
-        addToast('Please try again', { appearance: 'error' });
-      });
+        })
+        .catch(error => {
+          addToast('Please try again', {appearance: 'error'});
+        });
   }
 
-  function registerUserAPICalling() {
-    let daysObj = { };
-    let slots =  [];
+  async function registerUserAPICalling() {
+    let daysObj = {};
+    let slots = [];
 
-    if(isDayShift) {
+    if (isDayShift) {
 
       slots = [...slots, ...daySlots];
     }
 
-    if(isEveningShift) {
+    if (isEveningShift) {
 
       slots = [...slots, ...eveningSlots]
     }
     selectedDays.map((day) => {
-      const dayName = day.slice(0,3).toLowerCase();
+      const dayName = day.slice(0, 3).toLowerCase();
       daysObj[`${dayName}`] = true
     })
-
+    const foundPushToken = await getPushToken();
     let params = {
       mobile_number: mobile,
       country_code: "+91",
       device_type: "web",
-      device_token: "",
+      device_token: foundPushToken,
       first_name: firstName,
       last_name: lastName,
       type: "2",
@@ -122,43 +123,42 @@ const MultiStepFormRegistration = ({history}) => {
       gender: gender,
       desc: description,
       language: language,
-      email:email,
-      dp:image,
+      email: email,
+      dp: image,
       avail: {
         day: daysObj,
         slots: slots,
         shift: {
-            shift1: {
-                start: dayShiftFrom,
-                end: dayShiftTo
-            },
-            shift2: {
-                start: eveningShiftFrom,
-                end: eveningShiftTo
-            }
+          shift1: {
+            start: dayShiftFrom,
+            end: dayShiftTo
+          },
+          shift2: {
+            start: eveningShiftFrom,
+            end: eveningShiftTo
+          }
         }
-    },
+      },
       qualif: {
-          dept_id: department,
-          specl: [
-            specialization
-          ],
-          med_reg_num: councilRegistrationNo,
-          reg_date: dateOfRegistration,
-          renewal_date: dateOfRenewal,
-          fee: fee,
-          exp:10,
-          quals: [
-          ],
-          highest_qual: qualification
+        dept_id: department,
+        specl: [
+          specialization
+        ],
+        med_reg_num: councilRegistrationNo,
+        reg_date: dateOfRegistration,
+        renewal_date: dateOfRenewal,
+        fee: fee,
+        exp: 10,
+        quals: [],
+        highest_qual: qualification
       },
       refer_code: "",
       address: {
-          line1: addressLine1,
-          line2: addressLine2,
-          state: state,
-          city: city,
-          country: "India",
+        line1: addressLine1,
+        line2: addressLine2,
+        state: state,
+        city: city,
+        country: "India",
       },
     };
     registerLogin(params)
@@ -180,76 +180,76 @@ const MultiStepFormRegistration = ({history}) => {
     const eveningShiftToMin = parseInt(eveningShiftToInfo[1]);
 
     if (!selectedDays.length) {
-      addToast('Please select the days', { appearance: 'error' });
+      addToast('Please select the days', {appearance: 'error'});
       return false;
-    } else if (selectedDays.length && !isDayShift && !isEveningShift ) {
-      addToast('Please select the day or evening shifts', { appearance: 'error' });
+    } else if (selectedDays.length && !isDayShift && !isEveningShift) {
+      addToast('Please select the day or evening shifts', {appearance: 'error'});
       return false;
     } else if (isDayShift && isEmpty(dayShiftFrom)) {
-      addToast('Please select the day shift From', { appearance: 'error' });
+      addToast('Please select the day shift From', {appearance: 'error'});
       return false;
     } else if (isDayShift && isEmpty(dayShiftTo)) {
-      addToast('Please select the day shift To', { appearance: 'error' });
+      addToast('Please select the day shift To', {appearance: 'error'});
       return false;
     } else if (isEveningShift && isEmpty(eveningShiftFrom)) {
-      addToast('Please select the evening shift From', { appearance: 'error' });
+      addToast('Please select the evening shift From', {appearance: 'error'});
       return false;
     } else if (isEveningShift && isEmpty(eveningShiftTo)) {
-      addToast('Please select the evening shift To', { appearance: 'error' });
+      addToast('Please select the evening shift To', {appearance: 'error'});
       return false;
-    }  else if (isDayShift && dayShiftFromHours === dayShiftToHours && dayShiftFromMin > dayShiftToMin) {
-      addToast('Please select the day shift To minutes grater then day shift From minutes', { appearance: 'error' });
+    } else if (isDayShift && dayShiftFromHours === dayShiftToHours && dayShiftFromMin > dayShiftToMin) {
+      addToast('Please select the day shift To minutes grater then day shift From minutes', {appearance: 'error'});
       return false;
     } else if (isDayShift && dayShiftFromHours > dayShiftToHours) {
-      addToast('Please select the day shift To grater then day shift From', { appearance: 'error' });
+      addToast('Please select the day shift To grater then day shift From', {appearance: 'error'});
       return false;
     } else if (isDayShift && dayShiftFromHours === dayShiftToHours && dayShiftFromMin === dayShiftToMin) {
-      addToast('Please select the day shift To  grater then day shift From', { appearance: 'error' });
+      addToast('Please select the day shift To  grater then day shift From', {appearance: 'error'});
       return false;
     } else if (isDayShift && !daySlots.length) {
-      addToast('Please select the day slots', { appearance: 'error' });
+      addToast('Please select the day slots', {appearance: 'error'});
       return false;
     } else if (isEveningShift && eveningShiftFromHours === eveningShiftToHours && eveningShiftFromMin > eveningShiftToMin) {
-      addToast('Please select the evening shift To minutes grater then evening shift From minutes', { appearance: 'error' });
+      addToast('Please select the evening shift To minutes grater then evening shift From minutes', {appearance: 'error'});
       return false;
-      } else if (isEveningShift && eveningShiftFromHours > eveningShiftToHours) {
-        addToast('Please select the evening shift To grater then evening shift From', { appearance: 'error' });
-        return false;
-      }  else if (isEveningShift && isDayShift && dayShiftFromHours >= eveningShiftFromHours) {
-        addToast('Please select the evening shift grater then day shift', { appearance: 'error' });
-        return false;
-      }  else if (isEveningShift && !eveningSlots.length) {
-        addToast('Please select the evening slots', { appearance: 'error' });
-        return false;
-      } else {
+    } else if (isEveningShift && eveningShiftFromHours > eveningShiftToHours) {
+      addToast('Please select the evening shift To grater then evening shift From', {appearance: 'error'});
+      return false;
+    } else if (isEveningShift && isDayShift && dayShiftFromHours >= eveningShiftFromHours) {
+      addToast('Please select the evening shift grater then day shift', {appearance: 'error'});
+      return false;
+    } else if (isEveningShift && !eveningSlots.length) {
+      addToast('Please select the evening slots', {appearance: 'error'});
+      return false;
+    } else {
       return true;
     }
   }
 
   function pageTwoValidation() {
-    if (isEmpty(department)  || department === 'Select department') {
-      addToast('Please enter department', { appearance: 'error' });
+    if (isEmpty(department) || department === 'Select department') {
+      addToast('Please enter department', {appearance: 'error'});
       return false;
     } else if (isEmpty(councilRegistrationNo)) {
-      addToast('Medical Council Registration Number', { appearance: 'error' });
+      addToast('Medical Council Registration Number', {appearance: 'error'});
       return false;
     } else if (isEmpty(dateOfRegistration)) {
-      addToast('Please enter date of registration', { appearance: 'error' });
+      addToast('Please enter date of registration', {appearance: 'error'});
       return false;
-    }  else if (currentDate < new Date(dateOfRegistration)) {
-      addToast('Please select registration date before the current date', { appearance: 'error' });
+    } else if (currentDate < new Date(dateOfRegistration)) {
+      addToast('Please select registration date before the current date', {appearance: 'error'});
       return false;
     } else if (isEmpty(dateOfRenewal)) {
-      addToast('Please enter Date of Renewal', { appearance: 'error' });
+      addToast('Please enter Date of Renewal', {appearance: 'error'});
       return false;
-    }  else if (isEmpty(specialization)  || specialization === 'Select specialization') {
-      addToast('Please enter specialization', { appearance: 'error' });
+    } else if (isEmpty(specialization) || specialization === 'Select specialization') {
+      addToast('Please enter specialization', {appearance: 'error'});
       return false;
     } else if (isEmpty(qualification) || qualification === 'Select qualification') {
-      addToast('Please enter highest qualification', { appearance: 'error' });
+      addToast('Please enter highest qualification', {appearance: 'error'});
       return false;
     } else if (isEmpty(fee)) {
-      addToast('Please enter consulting fee', { appearance: 'error' });
+      addToast('Please enter consulting fee', {appearance: 'error'});
       return false;
     } else {
       return true;
@@ -258,49 +258,49 @@ const MultiStepFormRegistration = ({history}) => {
 
   function pageOneValidation() {
     if (isEmpty(firstName)) {
-      addToast('Please enter first name', { appearance: 'error' });
+      addToast('Please enter first name', {appearance: 'error'});
       return false;
     } else if (isEmpty(lastName)) {
-      addToast('Please enter last name', { appearance: 'error' });
+      addToast('Please enter last name', {appearance: 'error'});
       return false;
     } else if (isEmpty(authContext.phone)) {
-      addToast('Please enter mobile number', { appearance: 'error' });
+      addToast('Please enter mobile number', {appearance: 'error'});
       return false;
     } else if (isNumberOnly(authContext.phone)) {
-      addToast('Please enter mobile number', { appearance: 'error' });
+      addToast('Please enter mobile number', {appearance: 'error'});
       return false;
     } else if (isEmpty(email)) {
-      addToast('Please enter email id', { appearance: 'error' });
+      addToast('Please enter email id', {appearance: 'error'});
       return false;
     } else if (!isEmailValid(email)) {
-      addToast('Please enter valid email id', { appearance: 'error' });
+      addToast('Please enter valid email id', {appearance: 'error'});
       return false;
     } else if (isEmpty(birthDate)) {
-      addToast('Please select your date of birth', { appearance: 'error' });
+      addToast('Please select your date of birth', {appearance: 'error'});
       return false;
     } else if (currentDate < new Date(birthDate)) {
-      addToast('Please select birth date before the current date', { appearance: 'error' });
+      addToast('Please select birth date before the current date', {appearance: 'error'});
       return false;
     } else if (isEmpty(gender) || gender === 'Select Gender') {
-      addToast('Please select gender', { appearance: 'error' });
+      addToast('Please select gender', {appearance: 'error'});
       return false;
     } else if (isEmpty(description)) {
-      addToast('Please add profile description', { appearance: 'error' });
+      addToast('Please add profile description', {appearance: 'error'});
       return false;
     } else if (isEmpty(addressLine1)) {
-      addToast('Please enter address line 1', { appearance: 'error' });
+      addToast('Please enter address line 1', {appearance: 'error'});
       return false;
     } else if (isEmpty(state) || state === 'Select state') {
-      addToast('Please select state', { appearance: 'error' });
+      addToast('Please select state', {appearance: 'error'});
       return false;
     } else if (isEmpty(city) || city === 'Select city') {
-      addToast('Please select city', { appearance: 'error' });
+      addToast('Please select city', {appearance: 'error'});
       return false;
-    } else if (isEmpty(language) ||language === 'Select language') {
-      addToast('Please select language', { appearance: 'error' });
+    } else if (isEmpty(language) || language === 'Select language') {
+      addToast('Please select language', {appearance: 'error'});
       return false;
     } else if (!image) {
-      addToast('Please upload the image', { appearance: 'error' });
+      addToast('Please upload the image', {appearance: 'error'});
       return false;
     } else {
       return true;
@@ -325,33 +325,33 @@ const MultiStepFormRegistration = ({history}) => {
 
   const handleNext = () => {
     let isFormValid = false;
-    if(activeStep === 1) {
+    if (activeStep === 1) {
 
       isFormValid = pageOneValidation();
 
     }
 
-    if(activeStep === 2) {
+    if (activeStep === 2) {
       isFormValid = pageTwoValidation();
     }
 
-    if(activeStep === 3) {
+    if (activeStep === 3) {
       setActiveStep(3)
       isFormValid = pageThreeValidation();
       isFormValid && registerUserAPICalling();
     }
-      if (isFormValid && activeStep !== 3) {
-        let tempActiveStep = activeStep;
-        tempActiveStep = tempActiveStep + 1;
-        setActiveStep(tempActiveStep);
-        disableNext(tempActiveStep);
-        disablePrev(tempActiveStep);
-      }
+    if (isFormValid && activeStep !== 3) {
+      let tempActiveStep = activeStep;
+      tempActiveStep = tempActiveStep + 1;
+      setActiveStep(tempActiveStep);
+      disableNext(tempActiveStep);
+      disablePrev(tempActiveStep);
+    }
 
   };
 
   const handlePrev = () => {
-    if(activeStep === 1) {
+    if (activeStep === 1) {
       history.push('/doctor/otp');
     }
     let tempActiveStep = activeStep;
@@ -363,49 +363,49 @@ const MultiStepFormRegistration = ({history}) => {
 
 
   return (
-    <div className='form-wizard'>
-      <Row>
-        {" "}
-        <span className="multistepform-h3">
+      <div className='form-wizard'>
+        <Row>
           {" "}
-          <Row className='heading'>
+          <span className="multistepform-h3">
+          {" "}
+            <Row className='heading'>
             <div onClick={handlePrev} style={{cursor: 'pointer'}}><i class="fas fa-arrow-left"></i><span>Complete Profile</span></div>
           </Row>
         </span>{" "}
-      </Row>
-           <CustomStepper activeStep={activeStep} ></CustomStepper>
-      <Row>
-        <Col>
-          { activeStep === 1 &&
+        </Row>
+        <CustomStepper activeStep={activeStep}></CustomStepper>
+        <Row>
+          <Col>
+            {activeStep === 1 &&
             <DocRegistrationPage1
-              firstName={firstName}
-              lastName={lastName}
-              mobile={mobile}
-              email={email}
-              city={city}
-              state={state}
-              addressLine1={addressLine1}
-              addressLine2={addressLine2}
-              description={description}
-              setFirstName={setFirstName}
-              setLastName={setLastName}
-              setMobile={setMobile}
-              setBirthDate={setBirthDate}
-              setEmail={setEmail}
-              setGender={setGender}
-              setCity={setCity}
-              setState={setState}
-              setAddressLine1={setAddressLine1}
-              setAddressLine2={setAddressLine2}
-              setDescription={setDescription}
-              disabled={nextDisabled}
-              onClick={handleNext}
-              setLanguageValue={setLanguageValue}
-              setImage={setImage}/>
-          }
+                firstName={firstName}
+                lastName={lastName}
+                mobile={mobile}
+                email={email}
+                city={city}
+                state={state}
+                addressLine1={addressLine1}
+                addressLine2={addressLine2}
+                description={description}
+                setFirstName={setFirstName}
+                setLastName={setLastName}
+                setMobile={setMobile}
+                setBirthDate={setBirthDate}
+                setEmail={setEmail}
+                setGender={setGender}
+                setCity={setCity}
+                setState={setState}
+                setAddressLine1={setAddressLine1}
+                setAddressLine2={setAddressLine2}
+                setDescription={setDescription}
+                disabled={nextDisabled}
+                onClick={handleNext}
+                setLanguageValue={setLanguageValue}
+                setImage={setImage}/>
+            }
 
-          { activeStep === 2 &&
-              <DocRegistrationPage2
+            {activeStep === 2 &&
+            <DocRegistrationPage2
                 councilRegistrationNo={councilRegistrationNo}
                 dateOfRegistration={dateOfRegistration}
                 dateOfRenewal={dateOfRenewal}
@@ -418,48 +418,48 @@ const MultiStepFormRegistration = ({history}) => {
                 setQualification={setQualification}
                 setFee={setFee}
                 disabled={nextDisabled}
-                onClick={handleNext} />
-          }
+                onClick={handleNext}/>
+            }
 
-          { activeStep === 3 &&
-              <DocRegistrationPage3
-              selectedDays={selectedDays}
-              daySlots={daySlots}
-              eveningSlots={eveningSlots}
-              isDayShift={isDayShift}
-              isEveningShift={isEveningShift}
-              dayShiftFrom={dayShiftFrom}
-              dayShiftTo={dayShiftTo}
-              eveningShiftFrom={eveningShiftFrom}
-              eveningShiftTo={eveningShiftTo}
-              dataMorningShift={dataMorningShift}
-              dataEveningShift={dataEveningShift}
-              setSelectedDays={setSelectedDays}
-              setEveningSlots={setEveningSlots}
-              setDaySlots={setDaySlots}
-              setIsDayShift={setIsDayShift}
-              setIsEveningShift={setIsEveningShift}
-              setDayShiftFrom={setDayShiftFrom}
-              setDayShiftTo={setDayShiftTo}
-              setEveningShiftFrom={setEveningShiftFrom}
-              setEveningShiftTo={setEveningShiftTo}
-              setDataMorningShift={setDataMorningShift}
-              setDataEveningShift={setDataEveningShift}
-              ></DocRegistrationPage3>
-          }
-          <Row>
+            {activeStep === 3 &&
+            <DocRegistrationPage3
+                selectedDays={selectedDays}
+                daySlots={daySlots}
+                eveningSlots={eveningSlots}
+                isDayShift={isDayShift}
+                isEveningShift={isEveningShift}
+                dayShiftFrom={dayShiftFrom}
+                dayShiftTo={dayShiftTo}
+                eveningShiftFrom={eveningShiftFrom}
+                eveningShiftTo={eveningShiftTo}
+                dataMorningShift={dataMorningShift}
+                dataEveningShift={dataEveningShift}
+                setSelectedDays={setSelectedDays}
+                setEveningSlots={setEveningSlots}
+                setDaySlots={setDaySlots}
+                setIsDayShift={setIsDayShift}
+                setIsEveningShift={setIsEveningShift}
+                setDayShiftFrom={setDayShiftFrom}
+                setDayShiftTo={setDayShiftTo}
+                setEveningShiftFrom={setEveningShiftFrom}
+                setEveningShiftTo={setEveningShiftTo}
+                setDataMorningShift={setDataMorningShift}
+                setDataEveningShift={setDataEveningShift}
+            ></DocRegistrationPage3>
+            }
+            <Row>
               <Col className='form-btn'>
-               <CustomButton
-                      className='multistepform-button'
-                      disabled={false}
-                      onClick={handleNext}
-                      text={'Continue'}
+                <CustomButton
+                    className='multistepform-button'
+                    disabled={false}
+                    onClick={handleNext}
+                    text={'Continue'}
                 ></CustomButton>
               </Col>
-          </Row>
-        </Col>
-      </Row>
-    </div>
+            </Row>
+          </Col>
+        </Row>
+      </div>
   );
 };
 

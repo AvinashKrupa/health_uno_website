@@ -1,80 +1,75 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Image,
-} from "react-bootstrap";
-import {group, frame, doctor, plant, phone} from '../../../constants/PatientImages'
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {Col, Container, Image, Row,} from "react-bootstrap";
+import {doctor, frame, group, phone, plant} from '../../../constants/PatientImages'
 import {H3} from '../../../commonComponent/TextSize'
 import OtpInput from "react-otp-input";
 import {API, post} from '../../../api/config/APIController';
 import {AuthContext} from '../../../context/AuthContextProvider';
-import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import CustomButton from '../../../commonComponent/Button';
-import { useToasts } from 'react-toast-notifications';
+import {useToasts} from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 import useUserStore from '../../store/userStore';
+import {getPushToken} from "../../../notification/utilities";
 
 const timeOut = 90;
-const OTP = ({history}) => {
-  const { addToast } = useToasts();
+const OTP = async ({history}) => {
+  const {addToast} = useToasts();
   const authContext = useContext(AuthContext);
-  const [otp, setOTP]  = useState('');
+  const [otp, setOTP] = useState('');
   const [mobileNumber, setMobileNumber] = useState(authContext.phone);
   const handleChange = otp => setOTP(otp);
   const maskedMobileNo = Array.from(authContext.phone);
   const [restart, setReStart] = useState(false);
   const [timer, setTimer] = useState(timeOut);
-  const setUserInfo =  useUserStore((state) => state.setUserInfo)
-
+  const setUserInfo = useUserStore((state) => state.setUserInfo)
+  const foundPushToken = await getPushToken();
   const verifyOTP = () => {
     let params = {
       mobile_number: mobileNumber,
       country_code: '+91',
       otp: otp,
       device_type: 'web',
-      device_token: '',
+      device_token: foundPushToken,
       type: 1,
     };
 
     post(API.VERIFYOTP, params)
-      .then(response => {
-        if (response.status === 200) {
-          addToast(response.data.message, { appearance: 'success' });
-          let temp = response.data.data['tempAccessToken'];
-          if (response.data.data['tempAccessToken'] != null) {
-            storeData('TEMP_TOKEN', temp);
-          }
+        .then(response => {
+          if (response.status === 200) {
+            addToast(response.data.message, {appearance: 'success'});
+            let temp = response.data.data['tempAccessToken'];
+            if (response.data.data['tempAccessToken'] != null) {
+              storeData('TEMP_TOKEN', temp);
+            }
 
-          const user = response.data.data['user'];
-          const additional_info = response.data.data['additional_info'];
+            const user = response.data.data['user'];
+            const additional_info = response.data.data['additional_info'];
 
-          if(user) {
-            storeData('userInfo', JSON.stringify(user));
-            setUserInfo(user)
-          }
-          if(additional_info) {
-            storeData('additional_info', JSON.stringify(additional_info));
-          }
+            if (user) {
+              storeData('userInfo', JSON.stringify(user));
+              setUserInfo(user)
+            }
+            if (additional_info) {
+              storeData('additional_info', JSON.stringify(additional_info));
+            }
 
-          const session = response.data.data['session'];
-          if (session != null) {
-            storeData('ACCESS_TOKEN', session.access_token);
-            storeData('REFRESH_TOKEN', session.refresh_token);
-            history.push('/patient/home')
+            const session = response.data.data['session'];
+            if (session != null) {
+              storeData('ACCESS_TOKEN', session.access_token);
+              storeData('REFRESH_TOKEN', session.refresh_token);
+              history.push('/patient/home')
+            } else {
+
+              history.push('/patient/registration');
+            }
           } else {
-
-            history.push('/patient/registration');
+            addToast(response.data.message, {appearance: 'error'});
           }
-        }
-        else {
-          addToast(response.data.message, { appearance: 'error' });
-        }
-      })
-      .catch(error => {
-        addToast('Please go back and enter your mobile number again', { appearance: 'error' });
-      });
+        })
+        .catch(error => {
+          addToast('Please go back and enter your mobile number again', {appearance: 'error'});
+        });
   }
 
   const reSendOTP = () => {
@@ -85,24 +80,25 @@ const OTP = ({history}) => {
       type: 1
     };
     post(API.SENDOTP, params, true)
-      .then(response => {
-        if (response.status === 200) {
-          authContext.setAuth(true);
-          setTimer(timeOut);
-          setReStart(!restart);
-          addToast(response.data.message, { appearance: 'success' });
-        } else {
-          addToast(response.data.message, { appearance: 'error' });
-        }
-      })
-      .catch(error => {
-        addToast(error.response.data.message, { appearance: 'error' });
-      });
+        .then(response => {
+          if (response.status === 200) {
+            authContext.setAuth(true);
+            setTimer(timeOut);
+            setReStart(!restart);
+            addToast(response.data.message, {appearance: 'success'});
+          } else {
+            addToast(response.data.message, {appearance: 'error'});
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, {appearance: 'error'});
+        });
   }
 
   useEffect(() => {
     setMobileNumber(authContext.phone);
-    return () => {};
+    return () => {
+    };
   }, []);
 
   function useInterval(callback, delay) {
@@ -132,110 +128,113 @@ const OTP = ({history}) => {
   }, 1000);
 
   return (
-    <Container fluid>
-      <Row className='login-container'>
-        <Col className='left-nav'>
-          <Row>
-            <Col lg='10' md='10' sm='12' className="text-container">
+      <Container fluid>
+        <Row className='login-container'>
+          <Col className='left-nav'>
+            <Row>
+              <Col lg='10' md='10' sm='12' className="text-container">
 
-              <div className='description'>
-                <Image src={doctor}
-                ></Image>
-                <div>
-                  <H3 text='Book any Doctor you want'></H3>
-                  <p>
-                    Search doctors based on Speciality, Location, Language
-                  </p>
+                <div className='description'>
+                  <Image src={doctor}
+                  ></Image>
+                  <div>
+                    <H3 text='Book any Doctor you want'></H3>
+                    <p>
+                      Search doctors based on Speciality, Location, Language
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div className='description'>
-                <Image src={frame}
-                ></Image>
-                <div>
-                  <H3 text='Book Virtual Appointment '></H3>
-                  <p>
-                    Book an online appointment with the consultant of your choice and consult them privately at your own place of choice.
-                  </p>
+                <div className='description'>
+                  <Image src={frame}
+                  ></Image>
+                  <div>
+                    <H3 text='Book Virtual Appointment '></H3>
+                    <p>
+                      Book an online appointment with the consultant of your choice and consult them privately at your
+                      own place of choice.
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div className='description'>
-                <Image src={plant}
-                ></Image>
-                <div>
-                  <H3 text='Book Virtual Appointments with AYUSH Doctors'></H3>
-                  <p>
-                    Book  virtual Appointments with AYUSH doctors and get medicines delivered to your doorstep.
-                  </p>
+                <div className='description'>
+                  <Image src={plant}
+                  ></Image>
+                  <div>
+                    <H3 text='Book Virtual Appointments with AYUSH Doctors'></H3>
+                    <p>
+                      Book virtual Appointments with AYUSH doctors and get medicines delivered to your doorstep.
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Col>
-            <Col lg='1' md='8' sm='0'></Col>
-          </Row>
-          <Row className='doctor-image' >
-            <Col  lg='1'></Col>
-            <Col  lg='8'> <Image src={group}></Image></Col>
-            <Col  lg='2'></Col>
-          </Row>
-        </Col>
-        <Col className='otp-main-container'>
+              </Col>
+              <Col lg='1' md='8' sm='0'></Col>
+            </Row>
+            <Row className='doctor-image'>
+              <Col lg='1'></Col>
+              <Col lg='8'> <Image src={group}></Image></Col>
+              <Col lg='2'></Col>
+            </Row>
+          </Col>
+          <Col className='otp-main-container'>
             <div className="otp-back-navigation">
               <Link to='/'><i class="fas fa-chevron-left"></i><span>Back</span></Link>
             </div>
-             <Row className="phone-image">
-             <Col lg='3' md='3'  sm='2'  xs='1'></Col>
-             <Col lg='8' md='8' sm='9' xs='10'>
-               <div>
-               <Image src={phone} alt="Image"></Image>
-               </div>
+            <Row className="phone-image">
+              <Col lg='3' md='3' sm='2' xs='1'></Col>
+              <Col lg='8' md='8' sm='9' xs='10'>
+                <div>
+                  <Image src={phone} alt="Image"></Image>
+                </div>
               </Col>
-              <Col lg='1' md='1'  sm='1'  xs='1'></Col>
+              <Col lg='1' md='1' sm='1' xs='1'></Col>
             </Row>
             <Row className='number-input'>
-              <Col lg='3' md='3'  sm='2'  xs='1'></Col>
+              <Col lg='3' md='3' sm='2' xs='1'></Col>
               <Col lg='8' md='8' sm='9' xs='10'>
                 <div className='otp-text-container'>
                   <Row className='verify-otp'>
-                      <span>Verify OTP</span>
-                        <div className='edit-number'>
-                          <p> We have sent OTP on your mobile number {maskedMobileNo[0]}{maskedMobileNo[1]}******{maskedMobileNo[8]}{maskedMobileNo[9]}</p> { <Link to='/patient/'><i class="fas fa-pen"></i></Link>}
-                        </div >
+                    <span>Verify OTP</span>
+                    <div className='edit-number'>
+                      <p> We have sent OTP on your mobile
+                        number {maskedMobileNo[0]}{maskedMobileNo[1]}******{maskedMobileNo[8]}{maskedMobileNo[9]}</p> {
+                      <Link to='/patient/'><i class="fas fa-pen"></i></Link>}
+                    </div>
                   </Row>
                   <div className='otp-container'>
-                    <br />
+                    <br/>
                     <OtpInput
-                      className="OTP"
-                      numInputs="4"
-                      separator={<span> </span>}
-                      value={otp}
-                      onChange={handleChange}
+                        className="OTP"
+                        numInputs="4"
+                        separator={<span> </span>}
+                        value={otp}
+                        onChange={handleChange}
                     />
-                    <br />
+                    <br/>
                   </div>
-                  <br />
+                  <br/>
                   <div className="div-center">
                     <CustomButton
-                      disabled={otp.length !== 4}
-                      onClick={verifyOTP}
-                      text={'Verify OTP'}
-                      ></CustomButton>
-                     <br />
-                     <div className="resend-otp">
-                        { timer === 0 ? (
+                        disabled={otp.length !== 4}
+                        onClick={verifyOTP}
+                        text={'Verify OTP'}
+                    ></CustomButton>
+                    <br/>
+                    <div className="resend-otp">
+                      {timer === 0 ? (
                           <a href='#' onClick={reSendOTP}>Resend OTP</a>
-                        ) : (
+                      ) : (
                           <span>{`Didn't get OTP? Resend in ${timer} seconds`}</span>
-                        )}
-                     </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </Col>
-              <Col lg='' md='1'  sm='1'  xs='1'></Col>
+              <Col lg='' md='1' sm='1' xs='1'></Col>
             </Row>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+        </Row>
+      </Container>
   );
 };
 
