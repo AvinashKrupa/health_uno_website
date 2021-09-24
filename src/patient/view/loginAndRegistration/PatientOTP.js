@@ -13,7 +13,7 @@ import useUserStore from '../../store/userStore';
 import {getPushToken} from "../../../notification/utilities";
 
 const timeOut = 90;
-const OTP = async ({history}) => {
+const OTP = ({history}) => {
   const {addToast} = useToasts();
   const authContext = useContext(AuthContext);
   const [otp, setOTP] = useState('');
@@ -23,8 +23,9 @@ const OTP = async ({history}) => {
   const [restart, setReStart] = useState(false);
   const [timer, setTimer] = useState(timeOut);
   const setUserInfo = useUserStore((state) => state.setUserInfo)
-  const foundPushToken = await getPushToken();
-  const verifyOTP = () => {
+
+  const verifyOTP = async() => {
+    const foundPushToken = await getPushToken();
     let params = {
       mobile_number: mobileNumber,
       country_code: '+91',
