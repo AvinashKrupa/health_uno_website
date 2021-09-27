@@ -40,6 +40,8 @@ const RegistrationComponent = ({history, image}) => {
   const [gender, setGender] = useState('');
   const [addressLine1, setAddressLine1] = useState('');
   const [addressLine2, setAddressLine2] = useState('');
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
@@ -328,8 +330,8 @@ const RegistrationComponent = ({history, image}) => {
       type: '1',
       dob: birthDate,
       gender: gender,
-      height: 300,
-      weight: 300,
+      height: height,
+      weight: weight,
       email: email,
       // language: language,
       dp: image,
@@ -486,6 +488,28 @@ const RegistrationComponent = ({history, image}) => {
                   id="gender"
                   options={genderOptions}
                   handleSelect={setGender}
+              />
+            </Col>
+          </Row>
+          <Row className="g-2">
+            <Col md>
+              <Input
+                  type="number"
+                  placeholder="Enter Your Height (optional)"
+                  id="height"
+                  label="Height"
+                  value={height}
+                  onChange={setHeight}
+              />
+            </Col>
+            <Col md>
+              <Input
+                  type="number"
+                  placeholder="Enter Your Weight (optional)"
+                  id="weight"
+                  label="Weight"
+                  value={weight}
+                  onChange={setWeight}
               />
             </Col>
           </Row>
