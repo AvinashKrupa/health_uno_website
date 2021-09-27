@@ -41,6 +41,7 @@ const UpdateSchedule = (props) => {
   const [selectedDay, setSelectedDay] = useState(moment(currentDate).format('DD'));
 
   useEffect(() => {
+    getDoctorDetails();
     getSlots();
     return () => {
     };
@@ -213,6 +214,49 @@ const UpdateSchedule = (props) => {
         });
   }
 
+  function getDoctorDetails() {
+    post(API.GET_DOCTOR_DETAILS, {
+      doctor_id: JSON.parse(getData('additional_info'))._id,
+      include_similar: true,
+    })
+        .then((response) => {
+          if (response.status === 200) {
+            let dataDay = [
+              {day: 'Sunday', isChecked: false},
+              {day: 'Monday', isChecked: false},
+              {day: 'Tuesday', isChecked: false},
+              {day: 'Wednesday', isChecked: false},
+              {day: 'Thursday', isChecked: false},
+              {day: 'Friday', isChecked: false},
+              {day: 'Saturday', isChecked: false},
+            ];
+            let days = response.data.data.day;
+            let shift = response.data.data.shift;
+            Object.keys(days).forEach((info, index) => {
+              if (index < 7) {
+                dataDay[index].isChecked = days[info];
+              }
+            });
+            if (shift.shift1 && shift.shift1.start != '') {
+              setDayShiftFrom(shift.shift1.start);
+              setDayShiftTo(shift.shift1.end);
+              setIsDayShift(true);
+            }
+            if (shift.shift2 && shift.shift2.start != '') {
+              setEveningShiftFrom(shift.shift2.start);
+              setEveningShiftTo(shift.shift2.end);
+              setIsEveningShift(true);
+            }
+            setSelectedDays(JSON.parse(JSON.stringify(dataDay)));
+          } else {
+            addToast(response.data.message, { appearance: "error" });
+          }
+        })
+        .catch((error) => {
+          addToast(error.response.data.message, { appearance: "error" });
+        });
+  }
+
 
   const dayShiftSlot = () => {
     return Object.entries(dataMorningShift).sort().map((timeSlot) => {
@@ -275,6 +319,91 @@ const UpdateSchedule = (props) => {
     )
   }
 
+  const renderGeneralAvailability = () => {
+    return (
+        <>
+          <Row>
+            <span style={{marginTop: '32px'}} className="section-sub-title">General Availability</span>
+          </Row>
+          <Row className={'days-selection-container'}>
+            {selectedDays.map((item, index) => {
+              let active = item.isChecked;
+              return (
+                  <Button className={'days-selection-button'} onClick={(e) => handleDaysClick(index)}
+                          style={{backgroundColor: active ? '#28A3DA' : 'white'}}>
+                                    <span className="days-button-text"
+                                          style={{color: active ? "white" : ""}}>{item.day}</span>
+                  </Button>
+              )
+            })}
+          </Row>
+          <Row>
+            <Col lg='3'>
+              <InputGroup>
+                <span className="shift-name">Day Shift</span>
+                <Checkbox id="term" checked={isDayShift} handleSelect={setIsDayShift}/>
+              </InputGroup>
+            </Col>
+            <Col></Col>
+            {isDayShift && <Col className='time-select'>
+              <Form.Control
+                  type="time"
+                  placeholder="From"
+                  className="shift-timings-input"
+                  value={dayShiftFrom}
+                  onChange={(e) => {
+                    console.log('amit e.target.value :', e.target.value);
+                    setDayShiftFrom(e.target.value)
+                  }}
+              />
+
+              <Form.Control
+                  type="time"
+                  placeholder="To"
+                  className="shift-timings-input"
+                  value={dayShiftTo}
+                  onChange={(e) => setDayShiftTo(e.target.value)}
+              />
+            </Col>}
+          </Row>
+          <div className='slot-evening'>
+            <Row>
+              <Col lg='3'>
+                <InputGroup>
+                  <span className="shift-name">Evening Shift</span>
+                  <Checkbox id="term" checked={isEveningShift} handleSelect={setIsEveningShift}/>
+                </InputGroup>
+              </Col>
+              <Col> </Col>
+              {isEveningShift && <Col className='time-select'>
+                <Form.Control
+                    type="time"
+                    placeholder="From"
+                    value={eveningShiftFrom}
+                    className="shift-timings-input"
+                    onChange={(e) => setEveningShiftFrom(e.target.value)}
+                />
+                <Form.Control
+                    type="time"
+                    placeholder="To"
+                    value={eveningShiftTo}
+                    className="shift-timings-input"
+                    onChange={(e) => setEveningShiftTo(e.target.value)}
+                />
+              </Col>
+              }
+            </Row>
+            <Row style={{justifyContent: "center"}}>
+              <Button className="update-button" style={{visibility: !shouldShowButton ? 'hidden' : 'unset'}}
+                      onClick={() => updateAvailabilityByDays()}>
+                Update
+              </Button>
+            </Row>
+          </div>
+        </>
+    )
+  }
+
   return (
       <>
         <Row className="update-schedule-container">
@@ -282,80 +411,8 @@ const UpdateSchedule = (props) => {
             <Row>
               <span className="section-title">Update Schedule</span>
             </Row>
+            {renderGeneralAvailability()}
             {renderUpdateByDate()}
-
-            <Row>
-              <span style={{marginTop: '32px'}} className="section-sub-title">General Availability</span>
-            </Row>
-            <Row className={'days-selection-container'}>
-              {selectedDays.map((item, index) => {
-                let active = item.isChecked;
-                return (
-                    <Button className={'days-selection-button'} onClick={(e) => handleDaysClick(index)}
-                            style={{backgroundColor: active ? '#28A3DA' : 'white'}}>
-                                    <span className="days-button-text"
-                                          style={{color: active ? "white" : ""}}>{item.day}</span>
-                    </Button>
-                )
-              })}
-            </Row>
-            <Row>
-              <Col lg='3'>
-                <InputGroup>
-                  <span className="shift-name">Day Shift</span>
-                  <Checkbox id="term" checked={isDayShift} handleSelect={setIsDayShift}/>
-                </InputGroup>
-              </Col>
-              <Col></Col>
-              {isDayShift && <Col className='time-select'>
-                <Form.Control
-                    type="time"
-                    placeholder="From"
-                    className="shift-timings-input"
-                    onChange={(e) => setDayShiftFrom(e.target.value)}
-                />
-
-                <Form.Control
-                    type="time"
-                    placeholder="To"
-                    className="shift-timings-input"
-                    onChange={(e) => setDayShiftTo(e.target.value)}
-                />
-              </Col>}
-            </Row>
-            <div className='slot-evening'>
-              <Row>
-                <Col lg='3'>
-                  <InputGroup>
-                    <span className="shift-name">Evening Shift</span>
-                    <Checkbox id="term" checked={isEveningShift} handleSelect={setIsEveningShift}/>
-                  </InputGroup>
-                </Col>
-                <Col> </Col>
-                {isEveningShift && <Col className='time-select'>
-                  <Form.Control
-                      type="time"
-                      placeholder="From"
-                      className="shift-timings-input"
-                      onChange={(e) => setEveningShiftFrom(e.target.value)}
-                  />
-                  <Form.Control
-                      type="time"
-                      placeholder="To"
-                      className="shift-timings-input"
-                      onChange={(e) => setEveningShiftTo(e.target.value)}
-                  />
-                </Col>
-                }
-              </Row>
-              <Row style={{justifyContent: "center"}}>
-                <Button className="update-button" style={{visibility: !shouldShowButton ? 'hidden' : 'unset'}}
-                        onClick={() => updateAvailabilityByDays()}>
-                  Update
-                </Button>
-              </Row>
-              {/*{EveningShiftSlot()}*/}
-            </div>
           </Col>
         </Row>
       </>
