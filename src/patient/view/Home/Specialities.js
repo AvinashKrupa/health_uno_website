@@ -77,7 +77,7 @@ const Specialities = (props) => {
           </button>
           <Row className='search-container'>
             <SearchInputWithIcon
-              placeholder="Search doctors"
+              placeholder="Search specialities"
               className='patient-homepage-search'
               onChange={(e) => handleSearch(e)}
             >
@@ -97,4 +97,4 @@ const Specialities = (props) => {
   );
 };
 
-export default Specialities;  
+export default Specialities;
