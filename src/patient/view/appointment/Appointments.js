@@ -89,6 +89,7 @@ const Appointments = (props) => {
     post(API.CANCELAPPOINTMENT, params)
       .then(response => {
         if (response.status === 200) {
+          addToast(response.data.message, { appearance: 'success' });
           getUpcomingAppointments()
         } else {
           addToast(response.data.message, { appearance: 'error' });
