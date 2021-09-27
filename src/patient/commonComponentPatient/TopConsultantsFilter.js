@@ -10,7 +10,7 @@ const TopConsultantsFilter = (props) => {
         styles={{
           sidebar: {
             width: "325px",
-            background: "rgba(243, 243, 243, 1)",
+            background: "rgba(255, 255, 255, 1)",
             overflowY: 'none'
           },
         }}
