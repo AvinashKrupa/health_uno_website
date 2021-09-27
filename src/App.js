@@ -27,7 +27,7 @@ import VideoMeeting from "./patient/view/Meeting/VideoMeeting";
 import AddPrescription from "./doctor/view/Prescription/AddPrescription";
 import Report from "./patient/view/Profile/Report";
 import PatientProfile from "./patient/view/Profile/PatientProfile";
-import PDFViewer from "./commonComponent/PDFViewer";
+import PDFViewer from "./commonComponent/PDFViewerScreen";
 import MainView from "./MainView";
 import PrePage from "./patient/view/PrePage";
 import {storeData} from "./storage/LocalStorage/LocalAsyncStorage";

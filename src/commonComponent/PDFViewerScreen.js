@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Col, Image, Row } from "react-bootstrap";
+import PDFViewer from 'mgr-pdf-viewer-react';
 import { back_icon } from "../constants/DoctorImages";
 import {getData} from "../storage/LocalStorage/LocalAsyncStorage";
-export const PDFViewer = (props) => {
+export const PDFViewerScreen = (props) => {
   const [viewPdf, setViewPdf] = useState(props.location?.state?.url);
-  console.log('viewPdf: ', viewPdf);
+  console.info('PDF Link: ', viewPdf);
   const number = viewPdf && viewPdf.toLowerCase().search('pdf');
   const userType = JSON.parse(getData('USER_TYPE'));
-
   return (
     <Row>
         <Col lg='1' md='2' sm='1' xs='1'></Col>
@@ -18,13 +18,17 @@ export const PDFViewer = (props) => {
                  </button>
             <div style={{marginTop: window.screen.availWidth > 415 ? '20px' : '80px'}} className='pdf-view'>
                 <br></br>
+
+
+
+
                 <div className="pdf-container">
                     {viewPdf && (
                       number > 0  ? (
-                        <iframe title='pdf'src={`https://docs.google.com/gview?url=${viewPdf}&embedded=true`} frameborder="0"
-                                 style={{height: '100%', width: '500px'}}
-                        ></iframe>
-                      ) : (
+                          <PDFViewer document={{
+                              url: viewPdf
+                          }} />
+                              ) : (
                         <>
                           <Image src={viewPdf}></Image>
                         </>
@@ -42,4 +46,4 @@ export const PDFViewer = (props) => {
   );
 };
 
-export default PDFViewer;
+export default PDFViewerScreen;
