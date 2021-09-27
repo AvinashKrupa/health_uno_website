@@ -26,6 +26,12 @@ import {convert24hto12h} from "../../../utils/utilities";
     const [selectedDay, setSelectedDay] = useState(moment(currentDate).format('DD'));
 
     useEffect(() => {
+      setSlot('');
+      setSlotId('');
+      setStartTime(moment().format('YYYY-MM-DD'));
+    }, []);
+
+    useEffect(() => {
       getSlots();
       return () => {};
     }, [currentDate]);
