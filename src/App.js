@@ -48,7 +48,7 @@ function App() {
   });
 
   onMessage(messaging, (payload) => {
-    addToast(`${payload.notification.title}\n\n${payload.notification.body}`, {appearance: "error"});
+    addToast(`${payload.notification.title}\n\n${payload.notification.body}`, {appearance: "info"});
   });
   return (
       <div className="App">
