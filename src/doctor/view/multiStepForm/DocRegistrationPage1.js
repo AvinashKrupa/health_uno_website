@@ -120,7 +120,7 @@ function getLanguage() {
             <Row>
               <Col>
                 <br />
-                <Form.Label>Date of birth</Form.Label>
+                <Form.Label>Date of Birth</Form.Label>
                 <br />
                 <Form.Control type="date"  onChange={(e) => setBirthDate(e.target.value)} max={moment(new Date()).format('YYYY-MM-DD')}/>
               </Col>
