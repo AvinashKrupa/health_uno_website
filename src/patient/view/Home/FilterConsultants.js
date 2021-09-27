@@ -19,7 +19,7 @@ const FilterConsultants = (props) => {
 
     const { addToast } = useToasts();
     let [minMax, setMinMax] = useState({ min: 250, max: 5000 });
-    const [showLanguages, setShowLanguages] = useState(false);
+    const [showLanguages, setShowLanguages] = useState(true);
     const [languages, setLanguages] = useState([]);
     const [selectedLanguages, setSelectedLanguages] = useState([]);
     const [sortBy, setSortBy] = useState('asc');
@@ -63,7 +63,7 @@ const FilterConsultants = (props) => {
     function setDefaultValue(e) {
         isDefaultSet = true;
         setSelectedLanguages([]);
-        setShowLanguages(false);
+        setShowLanguages(true);
         setMinMax({ min: 100, max: 1000 });
         setSortBy('');
     }
@@ -169,11 +169,9 @@ const FilterConsultants = (props) => {
               Language
             </span>
             <span style={{ cursor: 'pointer', paddingLeft: "144px" }}>
-              <Image
-                src={minus}
-                className="filter_menu_image"
-                onClick={toggleLanguages}
-              />
+              {showLanguages ? 
+              <i class="fas fa-chevron-up filter_menu_image" onClick={toggleLanguages}></i>
+               : <i class="fas fa-chevron-down filter_menu_image" onClick={toggleLanguages}></i>}
             </span>
             {showLanguages ? (
                 <div
