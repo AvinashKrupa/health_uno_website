@@ -299,9 +299,6 @@ const MultiStepFormRegistration = ({history}) => {
     } else if (isEmpty(language) || language === 'Select language') {
       addToast('Please select language', {appearance: 'error'});
       return false;
-    } else if (!image) {
-      addToast('Please upload the image', {appearance: 'error'});
-      return false;
     } else {
       return true;
     }

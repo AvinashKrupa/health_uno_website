@@ -310,9 +310,6 @@ const RegistrationComponent = ({history, image}) => {
     } else if (termsCondition === false) {
       addToast('Please accept terms and condition', {appearance: 'error'});
       return false;
-    } else if (!image) {
-      addToast('Please upload the image', {appearance: 'error'});
-      return false;
     } else {
       return true;
     }
