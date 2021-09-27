@@ -209,7 +209,12 @@ button.chooseDeleteBtn.btn.btn-primary {
 
 
 
+// CHOOSE TEAMPLATE
 
+.MuiDialog-paperScrollPaper{
+    width: 580px;
+    height: 400px;
+}
 
 
 @media only screen and (max-width: 768px) {
@@ -275,7 +280,7 @@ button.chooseDeleteBtn.btn.btn-primary {
         flex-direction: row-reverse!important;
     }
     .title{
-        display: flex!important;
+        // display: flex!important;
         font-style: normal;
         text-align: center;
         font-family: Montserrat;
@@ -285,6 +290,7 @@ button.chooseDeleteBtn.btn.btn-primary {
         letter-spacing: -0.3px;
         margin-bottom: 32px;
         margin-left: 12px;
+        margin-top: -20px;
 
         color: #1B1B1B;
     }

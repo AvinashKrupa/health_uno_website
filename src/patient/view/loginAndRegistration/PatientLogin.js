@@ -66,7 +66,7 @@ const PatientLogin = ({history}) => {
   return (
     <>
       <Container fluid>
-        <Row className='login-container'>
+        <Row className='login-container LoginPageDoctor'>
           <Col className='left-nav'>
             <Row>
               <Col lg='10' md='10' sm='12' className="text-container">
@@ -106,7 +106,7 @@ const PatientLogin = ({history}) => {
             </Row>
             <Row className='doctor-image' >
               <Col  lg='1'></Col>
-              <Col  lg='8'> <Image src={group}></Image></Col>
+              {/* <Col  lg='8'> <Image src={group}></Image></Col> */}
               <Col  lg='2'></Col>
             </Row>
           </Col>
