@@ -24,6 +24,10 @@ const RegistrationComponent = ({history, image}) => {
   useEffect(() => {
     getState();
     getLanguage()
+    if (!mobile) {
+      history.push(`/patient`);
+      return;
+    }
     return () => {
     };
   }, []);

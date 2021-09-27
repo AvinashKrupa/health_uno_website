@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import {Col, Row} from "react-bootstrap";
 import CustomButton from '../../../commonComponent/Button'
 import DocRegistrationPage1 from "./DocRegistrationPage1";
@@ -36,6 +36,13 @@ const MultiStepFormRegistration = ({history}) => {
     const lanInfo = value.split('|');
     setLanguage(lanInfo[0])
   }
+
+  useEffect(() => {
+    if (!mobile) {
+      history.push(`/doctor`);
+      return;
+    }
+  }, []);
 
 
   //second form information
