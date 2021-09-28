@@ -343,6 +343,7 @@ export default function PrescriptionComponent({
                         placeholder="Start Date"
                         label="Start Date"
                         onChange={setStartDate}
+                        min={moment(new Date()).format('YYYY-MM-DD')}
                         value={prescription.medicineItem.start_date}
                     />
                     <Input
