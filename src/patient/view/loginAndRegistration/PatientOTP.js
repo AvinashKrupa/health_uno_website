@@ -24,7 +24,8 @@ const OTP = ({history}) => {
   const [timer, setTimer] = useState(timeOut);
   const setUserInfo = useUserStore((state) => state.setUserInfo)
 
-  const verifyOTP = async() => {
+  const verifyOTP = async(e) => {
+    e.preventDefault();
     const foundPushToken = await getPushToken();
     let params = {
       mobile_number: mobileNumber,
@@ -202,6 +203,7 @@ const OTP = ({history}) => {
                       <Link to='/patient/'><i class="fas fa-pen"></i></Link>}
                     </div>
                   </Row>
+                  <form onSubmit={verifyOTP}>
                   <div className='otp-container'>
                     <br/>
                     <OtpInput
@@ -216,6 +218,7 @@ const OTP = ({history}) => {
                   <br/>
                   <div className="div-center">
                     <CustomButton
+                        type="submit"
                         disabled={otp.length !== 4}
                         onClick={verifyOTP}
                         text={'Verify OTP'}
@@ -229,6 +232,7 @@ const OTP = ({history}) => {
                       )}
                     </div>
                   </div>
+                  </form>
                 </div>
               </Col>
               <Col lg='' md='1' sm='1' xs='1'></Col>
