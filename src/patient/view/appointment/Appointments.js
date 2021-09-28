@@ -6,6 +6,7 @@ import { useToasts } from "react-toast-notifications";
 import SimilarDoctorsCard from '../doctorDetail/SimilarDoctorsCard'
 import DoctorAppointmentsCard from "./DoctorAppointmentsCard";
 import Grid from '@material-ui/core/Grid';
+import Spinner from "../../../commonComponent/Spinner";
 
 const Appointments = (props) => {
   useEffect(() => {
@@ -17,6 +18,7 @@ const Appointments = (props) => {
   const { addToast } = useToasts();
   const [upcoming, setUpcoming] = useState(true);
   const [previous, setPrevious] = useState(false);
+  const [appointmentLoaderStatus, setAppointmentLoaderStatus] = useState(false);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [previousAppointments, setPreviousAppointments] = useState([]);
 
@@ -37,16 +39,19 @@ const Appointments = (props) => {
           "scheduled",
       ]
   }
-
+    setAppointmentLoaderStatus(true);
     post(API.GETAPPOINTMENTS, params)
       .then(response => {
         if (response.status === 200 && response.data && response.data.data) {
+          setAppointmentLoaderStatus(false);
           setUpcomingAppointments(response.data.data.docs)
         } else {
+          setAppointmentLoaderStatus(false);
           addToast(response.data.message, { appearance: 'error' });
         }
       })
       .catch(error => {
+        setAppointmentLoaderStatus(false);
         addToast(error.response.data.message, { appearance: 'error' });
       });
   }
@@ -66,17 +71,20 @@ const Appointments = (props) => {
         "completed"
       ]
   }
-
+    setAppointmentLoaderStatus(true);
     post(API.GETAPPOINTMENTS, params)
       .then(response => {
         if (response.status === 200 && response.data && response.data.data) {
           setPreviousAppointments(response.data.data.docs)
+          setAppointmentLoaderStatus(false);
         } else {
           addToast(response.data.message, { appearance: 'error' });
+          setAppointmentLoaderStatus(false);
         }
       })
       .catch(error => {
         addToast(error.response.data.message, { appearance: 'error' });
+        setAppointmentLoaderStatus(false);
       });
   }
 
@@ -134,25 +142,45 @@ const Appointments = (props) => {
           </Row>
           <Row className="appointment-page-cards-row">
             {upcoming ? (
-              <>
-                { upcomingAppointments.map((appointment) => {
-                  return(
-                    <Grid container item lg={4}  md={6} sm={8} xs={12} spacing={0.5} className="appointment-page-cards-upcoming">
-                      <DoctorAppointmentsCard appointment={appointment} cancelAppointment={cancelAppointment} />
-                    </Grid>
-                  )
-                })}
-               </>
-            ) : (
-              <>
-                { previousAppointments.map((appointment) => {
-                    return(
-                      <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1} className="appointment-page-cards-previous">
-                        <DoctorAppointmentsCard appointment={appointment} />
-                      </Grid>
+                <>
+                  {appointmentLoaderStatus &&
+                  <div className="empty-list-container">
+                    <Spinner showLoader={appointmentLoaderStatus} width={60} height={60}/>
+                  </div>
+                  }
+                  {!appointmentLoaderStatus && upcomingAppointments.map((appointment) => {
+                    return (
+                        <Grid container item lg={4}  md={6} sm={8} xs={12} spacing={0.5} className="appointment-page-cards-upcoming">
+                          <DoctorAppointmentsCard appointment={appointment} cancelAppointment={cancelAppointment} />
+                        </Grid>
                     )
-                })}
-              </>
+                  })}
+                  {!appointmentLoaderStatus && !upcomingAppointments.length &&
+                  <div className="empty-list-container">
+                    <h4>No appointments found</h4>
+                  </div>
+                  }
+                </>
+            ) : (
+                <>
+                  {appointmentLoaderStatus &&
+                  <div className="empty-list-container">
+                    <Spinner showLoader={appointmentLoaderStatus} width={60} height={60}/>
+                  </div>
+                  }
+                  {!appointmentLoaderStatus && previousAppointments.map((appointment) => {
+                    return (
+                        <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1} className="appointment-page-cards-previous">
+                          <DoctorAppointmentsCard appointment={appointment} />
+                        </Grid>
+                    )
+                  })}
+                  {!appointmentLoaderStatus && !previousAppointments.length &&
+                  <div className="empty-list-container">
+                    <h4>No appointments found</h4>
+                  </div>
+                  }
+                </>
             )}
           </Row>
         </Col>
