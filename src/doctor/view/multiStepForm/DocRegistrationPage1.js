@@ -17,15 +17,53 @@ const DocRegistrationPage1 = (props) => {
       return () => {};
     }, []);
 
- const { firstName, lastName, mobile, email, city, state,
-         addressLine1, addressLine2, description, setFirstName, setLastName, setMobile,
-         setBirthDate, setEmail, setGender, setCity, setState, setAddressLine1, setAddressLine2, setDescription, setLanguageValue} = props;
-  const [dataState, setDataState] = useState([]);
-  const [dataCity, setDataCity] = useState([]);
-  const [dataLanguage, setDataLanguage] = useState([]);
-  const { addToast } = useToasts();
+    
+    const { firstName, lastName, mobile, email, birthDate, gender, city, state, language,
+      addressLine1, addressLine2, description, setFirstName, setLastName, setMobile,
+      setBirthDate, setEmail, setGender, setCity, setState, setAddressLine1, setAddressLine2, setDescription, setLanguageValue} = props;
+      const [dataState, setDataState] = useState([]);
+      const [dataCity, setDataCity] = useState([]);
+      const [dataLanguage, setDataLanguage] = useState([]);
+      const { addToast } = useToasts();
+      
+      let genderOptions = ["Male", "Female", "Other"];
+      
+      useEffect(() => {
+        if(props.state && dataCity.length === 0){
+          const stateData = dataState.find(state => state.value === props.state)
+          if(stateData){
+            getCity(stateData.id)
+          }
+        }
+        return () => {};
+      }, [dataState]);
+
+  const getStateValue = value => {
+    if(value){
+      const selectedState = dataState.find(state => state.value === value)
+      return selectedState ? `${selectedState.id}|${selectedState.value}` : ''
+    }else{
+      return ''
+    }
+  }
   
-  let genderOptions = ["Male", "Female", "Other"];
+  const getCityValue = value => {
+    if(value){
+      const selectedCity = dataCity.find(city => city.value === value)
+      return selectedCity ? `${selectedCity.id}|${selectedCity.value}` : ''
+    }else{
+      return ''
+    }
+  }
+  
+  const getLanguageValue = value => {
+    if(value){
+      const selectedLanguage = dataLanguage.find(language => language.id === value)
+      return selectedLanguage ? `${selectedLanguage.id}|${selectedLanguage.value}` : ''
+    }else{
+      return ''
+    }
+  }
 
   const setIdAndState = (value) => {
     const stateInfo = value.split('|');
@@ -122,13 +160,14 @@ function getLanguage() {
                 <br />
                 <Form.Label>Date of Birth</Form.Label>
                 <br />
-                <Form.Control type="date"  onChange={(e) => setBirthDate(e.target.value)} max={moment(new Date()).format('YYYY-MM-DD')}/>
+                <Form.Control type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} max={moment(new Date()).format('YYYY-MM-DD')}/>
               </Col>
               <Col>
                 <Select
                   label="Gender"
                   defaultValue="Select Gender"
                   id="gender"
+                  value={gender}
                   options={genderOptions}
                   handleSelect={setGender}
                 />
@@ -184,7 +223,7 @@ function getLanguage() {
                   <Row className="g-2">
                     <Col md>
                       <KeyValueSelector
-                        value={state}
+                        value={getStateValue(state)}
                         label="State"
                         defaultValue="Select state"
                         id="state"
@@ -194,7 +233,7 @@ function getLanguage() {
                     </Col>
                     <Col md>
                       <KeyValueSelector
-                      value={city}
+                      value={getCityValue(city)}
                       label="City"
                       defaultValue="Select city"
                       id="city"
@@ -208,7 +247,7 @@ function getLanguage() {
             <Row className="g-2">
             <Col md>
                 <KeyValueSelector
-                  value='Language'
+                   value={getLanguageValue(language)}
                     label="Language"
                     defaultValue="Select language"
                     id="Language"

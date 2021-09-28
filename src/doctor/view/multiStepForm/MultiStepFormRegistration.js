@@ -386,8 +386,11 @@ const MultiStepFormRegistration = ({history}) => {
                 lastName={lastName}
                 mobile={mobile}
                 email={email}
+                birthDate={birthDate}
+                gender={gender}
                 city={city}
                 state={state}
+                language={language}
                 addressLine1={addressLine1}
                 addressLine2={addressLine2}
                 description={description}
@@ -414,6 +417,9 @@ const MultiStepFormRegistration = ({history}) => {
                 dateOfRegistration={dateOfRegistration}
                 dateOfRenewal={dateOfRenewal}
                 fee={fee}
+                department={department}
+                specialization={specialization}
+                qualification={qualification}
                 setDepartment={setDepartment}
                 setCouncilRegistrationNo={setCouncilRegistrationNo}
                 setDateOfRegistration={setDateOfRegistration}

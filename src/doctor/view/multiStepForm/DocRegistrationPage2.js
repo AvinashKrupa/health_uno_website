@@ -20,7 +20,7 @@ const DocRegistrationPage2 = (props) => {
   const [specializations, setSpecializations] = useState([]);
   const [qualifications, setQualifications] = useState([]);
 
-  const {councilRegistrationNo, dateOfRegistration, dateOfRenewal,fee, setDepartment,
+  const {councilRegistrationNo, department, specialization, qualification, dateOfRegistration, dateOfRenewal,fee, setDepartment,
     setCouncilRegistrationNo, setDateOfRegistration, setDateOfRenewal,
     setSpecialization, setQualification, setFee} = props;
 
@@ -29,6 +29,33 @@ const DocRegistrationPage2 = (props) => {
   const setDepartmentValue = (value) => {
     const departmentInfo = value.split('|');
     setDepartment(departmentInfo[0]);
+  }
+
+  const getDepartmentValue = value => {
+    if(value){
+      const selectedDepartment = departments.find(department => department.id === value)
+      return selectedDepartment ? `${selectedDepartment.id}|${selectedDepartment.value}` : ''
+    }else{
+      return ''
+    }
+  }
+  
+  const getSpecializationValue = value => {
+    if(value){
+      const selectedSpecialization = specializations.find(specialization => specialization.id === value)
+      return selectedSpecialization ? `${selectedSpecialization.id}|${selectedSpecialization.value}` : ''
+    }else{
+      return ''
+    }
+  }
+  
+  const getQualificationValue = value => {
+    if(value){
+      const selectedQualification = qualifications.find(qualification => qualification.id === value)
+      return selectedQualification ? `${selectedQualification.id}|${selectedQualification.value}` : ''
+    }else{
+      return ''
+    }
   }
 
   const setSpecializationValue = (value) => {
@@ -103,6 +130,7 @@ const DocRegistrationPage2 = (props) => {
               <KeyValueSelector
                 label="Department"
                 id="department"
+                value={getDepartmentValue(department)}
                 defaultValue="Select department"
                 options={departments}
                 handleSelect={setDepartmentValue}
@@ -138,14 +166,16 @@ const DocRegistrationPage2 = (props) => {
             <KeyValueSelector
                 label="Specialization"
                 id="specialization"
+                value={getSpecializationValue(specialization)}
                 defaultValue="Select specialization"
                 options={specializations}
                 handleSelect={setSpecializationValue}
-              />
+                />
             </Col>
             <Col>
               <KeyValueSelector
                 label="Highest Qualification"
+                value={getQualificationValue(qualification)}
                 id="qualification"
                 defaultValue="Select qualification"
                 options={qualifications}
