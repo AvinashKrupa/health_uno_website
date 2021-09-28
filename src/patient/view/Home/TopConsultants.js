@@ -44,7 +44,7 @@ const TopConsultants = (props) => {
   function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '', isPagination = false) {
     let params = {
       limit: 15,
-      page: isPagination ? page : 1,
+      page: isPagination ? page + 1 : 1,
       filter: {
         text: searchText,
         fee_min: min,
@@ -70,7 +70,7 @@ const TopConsultants = (props) => {
         }
       })
       .catch(error => {
-        addToast(error.response.data.message, { appearance: "error" });
+        addToast(error && error.response && error.response.data && error.response.data.message, { appearance: "error" });
       });
   }
 
