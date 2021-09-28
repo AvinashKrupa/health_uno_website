@@ -3,6 +3,7 @@ import {icon_man, icon_badge, icon_money} from "../../../constants/PatientImages
 import { Row, Col, Image, InputGroup } from "react-bootstrap";
 
 const ColorCards = (props) => {
+  const totalConsultation = props.total_consultations < 10 ? '10+': props.total_consultations
   return (
     <Row>
         <Col lg="4" md='6' sm='6' xs='12'>
@@ -15,12 +16,12 @@ const ColorCards = (props) => {
             </div>
             <Card className="color_card_container_1">
                 <Row className='circle-card-content' >
-                    <span className="color_card_text_h3">{props.total_patients}</span>
+                    <span className="color_card_text_h3">{totalConsultation}</span>
                     <span className="color_card_text_h4">Consultations</span>
                 </Row>
             </Card>
         </Col>
-     
+
         <Col lg="4" md='6' sm='6' xs='12'>
              <div className='circle-card-icon'>
                 <InputGroup>

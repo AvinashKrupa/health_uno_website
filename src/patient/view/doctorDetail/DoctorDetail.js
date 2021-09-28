@@ -90,7 +90,7 @@ const DoctorDetails = (props) => {
                                     </Col>
                                 </Row>
                                 <Row style={{ marginTop: "20px", marginBottom: "48px" }} className='color-card-container'>
-                                {doctorDetails &&  <ColorCard fee={doctorDetails.fee} exp={doctorDetails.exp} total_patients={doctorDetails.total_patients}/>}
+                                {doctorDetails &&  <ColorCard fee={doctorDetails.fee} exp={doctorDetails.exp} total_consultations={doctorDetails.total_consultations}/>}
                                 </Row>
                                 <Row>
                                     <span
