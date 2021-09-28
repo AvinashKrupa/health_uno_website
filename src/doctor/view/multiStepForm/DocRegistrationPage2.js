@@ -129,7 +129,7 @@ const DocRegistrationPage2 = (props) => {
             <br />
                 <Form.Label>Date of Renewal</Form.Label>
                 <br />
-                <Form.Control type="date" value={dateOfRenewal} onChange={(e) => setDateOfRenewal(e.target.value)} />
+                <Form.Control type="date" value={dateOfRenewal} onChange={(e) => setDateOfRenewal(e.target.value)} min={moment(new Date()).format('YYYY-MM-DD')} />
             </Col>
           </Row>
 
