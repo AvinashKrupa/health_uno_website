@@ -24,6 +24,12 @@ const DoctorOTP = ({history}) => {
     const [timer, setTimer] = useState(timeOut);
     const setUserInfo = useUserStore((state) => state.setUserInfo)
 
+    useEffect(() => {
+        if (!mobileNumber) {
+            history.push(`/doctor`);
+            return;
+        }
+    }, []);
     const verifyOTP = async (e) => {
         e.preventDefault();
         const foundPushToken = await getPushToken();

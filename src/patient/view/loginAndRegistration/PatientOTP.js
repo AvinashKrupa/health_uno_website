@@ -36,6 +36,7 @@ const OTP = ({history}) => {
       type: 1,
     };
 
+
     post(API.VERIFYOTP, params)
         .then(response => {
           if (response.status === 200) {
@@ -101,6 +102,13 @@ const OTP = ({history}) => {
     setMobileNumber(authContext.phone);
     return () => {
     };
+  }, []);
+
+  useEffect(() => {
+    if (!mobileNumber) {
+      history.push(`/patient`);
+      return;
+    }
   }, []);
 
   function useInterval(callback, delay) {
