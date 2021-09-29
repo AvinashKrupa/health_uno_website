@@ -4,7 +4,11 @@ import PDFViewer from 'mgr-pdf-viewer-react';
 import { back_icon } from "../constants/DoctorImages";
 import {getData} from "../storage/LocalStorage/LocalAsyncStorage";
 export const PDFViewerScreen = (props) => {
-  const [viewPdf, setViewPdf] = useState(props.location?.state?.url);
+  
+  if(props.location?.state?.url){
+    localStorage.setItem('PDF_URL',props.location?.state?.url)
+  }
+  const [viewPdf, setViewPdf] = useState(props.location?.state?.url ? props.location?.state?.url : localStorage.getItem('PDF_URL'));
   console.info('PDF Link: ', viewPdf);
   const number = viewPdf && viewPdf.toLowerCase().search('pdf');
   const userType = JSON.parse(getData('USER_TYPE'));
