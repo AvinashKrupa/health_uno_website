@@ -115,7 +115,7 @@ const DoctorLogin = ({history}) => {
                     <Col className='form'>
                         <div>
                             <div className='logo'>
-                                <Image src={logo}></Image>
+                                <Image style={{cursor: 'pointer'}} src={logo} onClick={()=>history.push('/')}></Image>
                             </div>
 
                             <div className='right-nav'>
