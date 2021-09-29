@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Button,Col, Container, Dropdown, DropdownButton, FormControl, Image, InputGroup, Row,} from "react-bootstrap";
+import {Button, Col, Container, Dropdown, DropdownButton, FormControl, Image, InputGroup, Row,} from "react-bootstrap";
 import {doctor, frame, logo, plant} from '../../../constants/PatientImages';
 import {H1, H3} from '../../../commonComponent/TextSize';
 import {API, post} from '../../../api/config/APIController';
@@ -119,7 +119,7 @@ const PatientLogin = ({history}) => {
                     <Col className='form'>
                         <div>
                             <div className='logo'>
-                                <Image style={{cursor: 'pointer'}} src={logo} onClick={()=>history.push('/')}></Image>
+                                <Image style={{cursor: 'pointer'}} src={logo} onClick={() => history.push('/')}></Image>
                             </div>
 
                             <div className='right-nav'>
@@ -146,8 +146,9 @@ const PatientLogin = ({history}) => {
                                                                      className="error-text">{mobileNumberError}</div>}
                                     </InputGroup>
                                     {showLoader &&
-                                    <Button className={`btn-loading`} type="submit" disabled={!(mobileNumber.length === 10 && !mobileNumberError)}
-                                            onClick={debounce}><Spinner showLoader={showLoader} width={30} height={30}/></Button>}
+                                    <Button className={`btn-loading`} type="submit" disabled>
+                                        <Spinner showLoader={showLoader} width={30} height={30}/>
+                                    </Button>}
                                     {!showLoader && <CustomButton
                                         type="submit"
                                         className={'login-btn'}

@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Col, Container, Dropdown, DropdownButton, FormControl, Image, InputGroup, Row,} from "react-bootstrap";
+import {Button, Col, Container, Dropdown, DropdownButton, FormControl, Image, InputGroup, Row,} from "react-bootstrap";
 import {doctor, frame, logo, plant} from '../../constants/PatientImages';
 import {H1, H3} from './../../commonComponent/TextSize';
 import {API, post} from '../../api/config/APIController';
@@ -7,6 +7,7 @@ import {AuthContext} from '../../context/AuthContextProvider';
 import CustomButton from './../../commonComponent/Button';
 import {useToasts} from 'react-toast-notifications';
 import {storeData} from "../../storage/LocalStorage/LocalAsyncStorage";
+import Spinner from "../../commonComponent/Spinner";
 
 const DoctorLogin = ({history}) => {
     let timer = null;
@@ -14,6 +15,7 @@ const DoctorLogin = ({history}) => {
     const authContext = useContext(AuthContext);
     const [mobileNumber, setMobileNumber] = useState(authContext.phone ? authContext.phone : '');
     const [mobileNumberError, setMobileNumberError] = useState('');
+    const [showLoader, setShowLoader] = useState(false);
 
     const handleOnChange = (e) => {
         if (isNaN(Number(e.target.value))) {
@@ -44,19 +46,22 @@ const DoctorLogin = ({history}) => {
         };
 
         authContext.setPhone(mobileNumber);
-
+        setShowLoader(true);
         post(API.SENDOTP, params, true)
             .then(response => {
                 if (response.status === 200) {
                     storeData('USER_TYPE', 2)
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'success'});
                     history.push('/doctor/otp');
                 } else {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'error'});
                 }
             })
             .catch(error => {
-                addToast('Please try again!', {appearance: 'error'});
+                setShowLoader(false);
+                addToast(error.response.data.message, { appearance: 'error' });
             });
     }
 
@@ -141,12 +146,16 @@ const DoctorLogin = ({history}) => {
                                         {!!mobileNumberError && <div style={{textAlign: "center"}}
                                                                      className="error-text">{mobileNumberError}</div>}
                                     </InputGroup>
-                                    <CustomButton
+                                    {showLoader &&
+                                    <Button className={`btn-loading`} type="submit" disabled>
+                                        <Spinner showLoader={showLoader} width={30} height={30}/>
+                                    </Button>}
+                                    {!showLoader && <CustomButton
                                         type="submit"
                                         disabled={!(mobileNumber.length === 10 && !mobileNumberError)}
                                         onClick={debounce}
                                         text={'Continue'}
-                                    ></CustomButton>
+                                    ></CustomButton>}
                                 </form>
                             </div>
 

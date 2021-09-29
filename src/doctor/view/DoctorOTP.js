@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {Col, Container, Image, Row,} from "react-bootstrap";
+import {Button, Col, Container, Image, Row,} from "react-bootstrap";
 import {doctor, frame, group, phone, plant} from '../../constants/PatientImages';
 import {H3} from '../../commonComponent/TextSize'
 import OtpInput from "react-otp-input";
@@ -11,6 +11,7 @@ import {useToasts} from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 import useUserStore from "../store/userStore";
 import {getPushToken} from "../../notification/utilities";
+import Spinner from "../../commonComponent/Spinner";
 
 const timeOut = 60;
 const DoctorOTP = ({history}) => {
@@ -23,6 +24,7 @@ const DoctorOTP = ({history}) => {
     const [restart, setReStart] = useState(false);
     const [timer, setTimer] = useState(timeOut);
     const setUserInfo = useUserStore((state) => state.setUserInfo)
+    const [showLoader, setShowLoader] = useState(false);
 
     useEffect(() => {
         if (!mobileNumber) {
@@ -41,10 +43,11 @@ const DoctorOTP = ({history}) => {
             device_token: foundPushToken,
             type: 2,
         };
-
+        setShowLoader(true);
         post(API.VERIFYOTP, params)
             .then(response => {
                 if (response.status === 200) {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'success'});
 
                     const temp = response.data.data['tempAccessToken'];
@@ -73,10 +76,12 @@ const DoctorOTP = ({history}) => {
                         history.push('/doctor/registration')
                     }
                 } else {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'error'});
                 }
             })
             .catch(error => {
+                setShowLoader(false);
                 addToast(error.response.data.message, {appearance: 'error'});
             });
     }
@@ -211,35 +216,39 @@ const DoctorOTP = ({history}) => {
                                     </div>
                                 </Row>
                                 <form onSubmit={verifyOTP}>
-                                <div className='otp-container'>
-                                    <br/>
-                                    <OtpInput
-                                        className="OTP"
-                                        numInputs="4"
-                                        separator={<span> </span>}
-                                        value={otp}
-                                        onChange={handleChange}
-                                    />
-                                    <br/>
-                                </div>
-                                <br/>
-                                <div className="div-center">
-                                    <CustomButton
-                                        type="submit"
-                                        disabled={otp.length !== 4}
-                                        onClick={verifyOTP}
-                                        text={'Verify OTP'}
-                                    ></CustomButton>
-                                    <br/>
-                                    <div className="resend-otp">
-                                        {timer === 0 ? (
-                                            <a href='#' onClick={reSendOTP}>Resend OTP</a>
-                                        ) : (
-                                            <span>{`Didn't get OTP? Resend in ${timer} seconds`}</span>
-                                        )}
+                                    <div className='otp-container'>
+                                        <br/>
+                                        <OtpInput
+                                            className="OTP"
+                                            numInputs="4"
+                                            separator={<span> </span>}
+                                            value={otp}
+                                            onChange={handleChange}
+                                        />
+                                        <br/>
                                     </div>
-                                </div>
-                             </form>
+                                    <br/>
+                                    <div className="div-center">
+                                        {showLoader &&
+                                        <Button className={`btn-loading`} type="submit" disabled>
+                                            <Spinner showLoader={showLoader} width={30} height={30}/>
+                                        </Button>}
+                                        {!showLoader && <CustomButton
+                                            type="submit"
+                                            disabled={otp.length !== 4}
+                                            onClick={verifyOTP}
+                                            text={'Verify OTP'}
+                                        ></CustomButton>}
+                                        <br/>
+                                        <div className="resend-otp">
+                                            {timer === 0 ? (
+                                                <a href='#' onClick={reSendOTP}>Resend OTP</a>
+                                            ) : (
+                                                <span>{`Didn't get OTP? Resend in ${timer} seconds`}</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </Col>
                         <Col lg='' md='1' sm='1' xs='1'></Col>
