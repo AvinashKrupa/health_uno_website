@@ -165,7 +165,7 @@ const AppointmentDetail = (props) => {
                                     />
                                 </div>
                             }
-                            {["completed","ongoing"].includes(appointmentDetail.status) && !appointmentDetail.prescription?.length &&
+                            {["completed"].includes(appointmentDetail.status) && !appointmentDetail.prescription?.length &&
                             <div className="row-add-doctor" onClick={() =>
                                 props.history.push({
                                     pathname: `/doctor/addPrescription/${appointmentDetail?._id}`,
@@ -180,7 +180,7 @@ const AppointmentDetail = (props) => {
                                 <div className="row-add-doctor-text">Add Prescription</div>
                                 <div><Image src={plus_icon}/></div>
                             </div>}
-                            {["completed","ongoing"].includes(appointmentDetail.status) && !!appointmentDetail.prescription?.length &&
+                            {["completed"].includes(appointmentDetail.status) && !!appointmentDetail.prescription?.length &&
                             <div className="edit-prescription-button" onClick={() => null}>
                                 <div className="row-add-doctor-text">Prescription already Added</div>
                             </div>}
