@@ -1,4 +1,9 @@
 body {
+  .btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: #27a3da;
+    border-color: #27a3da;
+  }
   .btn-primary{
     border-color: rgba(27, 27, 27, 0.2) !important;
   }
