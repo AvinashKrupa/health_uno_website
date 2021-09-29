@@ -595,11 +595,14 @@ const AddPrescription = (props) => {
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogContent>
-                    <div className="close-button">
-                        <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34}
-                                      onClick={() => handleChooseTempClickClose()}/>
+                    <div className="modal-title-container">
+                        <div className="choose-template-title">Choose Template</div>
+                        <div className="choose-template-close-button">
+                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34}
+                                          onClick={() => handleChooseTempClickClose()}/>
+                        </div>
                     </div>
-                    <div className={'title'}>Choose Template</div>
+
                     <Typography gutterBottom>
                         <div className="chooseTemplateSection">
                             <Row className="g-2">
@@ -608,17 +611,22 @@ const AddPrescription = (props) => {
                                                                                                 index={index}
                                                                                                 chosenTemplate={chosenTemplate}
                                                                                                 handleChooseTemplate={handleChooseTemplate}/>)}
+                                {!savedPrescription.length &&
+                                <div className="empty-template-list-container">
+                                    <h5>No saved templates found</h5>
+                                </div>
+                                }
                             </Row>
                         </div>
                     </Typography>
                 </DialogContent>
                 <DialogActions dividers>
-                    <Button className="chooseTempBtn" onClick={() => handleChooseTempProceed()} color="info">
+                    <Button disabled={!savedPrescription.length} className="chooseTempBtn" onClick={() => handleChooseTempProceed()} color="info">
                         Choose template
                     </Button>
                 </DialogActions>
                 <DialogActions>
-                    <Button className="chooseDeleteBtn" onClick={() => handleChooseTempDeleteClickClose()}
+                    <Button disabled={!savedPrescription.length} className="chooseDeleteBtn" onClick={() => handleChooseTempDeleteClickClose()}
                             color="secondary">
                         delete template
                     </Button>

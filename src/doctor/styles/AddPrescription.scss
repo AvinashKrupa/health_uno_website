@@ -244,6 +244,36 @@ button.chooseDeleteBtn.btn.btn-primary {
     }
 
   }
+.empty-template-list-container {
+    display: flex;
+    background-color: #f8f9f9;
+    min-height: 200px;
+    justify-content: center;
+    align-items: center;
+    h5{
+        color: #686868;
+    }
+}
+.choose-template-title{
+    flex:9;
+    font-family: Montserrat;
+    font-style: normal;
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.3px;
+    margin-bottom: 32px;
+    color: #1B1B1B;
+}
+.choose-template-close-button{
+    text-align: center;
+}
+
+.modal-title-container{
+    display: flex;
+    flex-direction: row;
+
+}
 
 .modal-save-template{
     .close-button{
