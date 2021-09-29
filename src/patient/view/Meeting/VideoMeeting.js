@@ -305,7 +305,7 @@ const VideoMeeting = (props) => {
                       </Row>
                       <Row>
                         <span className="meeting-page-text-doctor-name">
-                          {`Dr ${doctorDetails.first_name}, ${doctorDetails.last_name}`}
+                          {`Dr ${doctorDetails.first_name} ${doctorDetails.last_name}`}
                         </span>
                       </Row>
                       <Row>
