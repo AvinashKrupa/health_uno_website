@@ -17,7 +17,7 @@ const DocRegistrationPage1 = (props) => {
       return () => {};
     }, []);
 
-    
+
     const { firstName, lastName, mobile, email, birthDate, gender, city, state, language,
       addressLine1, addressLine2, description, setFirstName, setLastName, setMobile,
       setBirthDate, setEmail, setGender, setCity, setState, setAddressLine1, setAddressLine2, setDescription, setLanguageValue} = props;
@@ -25,9 +25,9 @@ const DocRegistrationPage1 = (props) => {
       const [dataCity, setDataCity] = useState([]);
       const [dataLanguage, setDataLanguage] = useState([]);
       const { addToast } = useToasts();
-      
+
       let genderOptions = ["Male", "Female", "Other"];
-      
+
       useEffect(() => {
         if(props.state && dataCity.length === 0){
           const stateData = dataState.find(state => state.value === props.state)
@@ -46,7 +46,7 @@ const DocRegistrationPage1 = (props) => {
       return ''
     }
   }
-  
+
   const getCityValue = value => {
     if(value){
       const selectedCity = dataCity.find(city => city.value === value)
@@ -55,7 +55,7 @@ const DocRegistrationPage1 = (props) => {
       return ''
     }
   }
-  
+
   const getLanguageValue = value => {
     if(value){
       const selectedLanguage = dataLanguage.find(language => language.id === value)
@@ -176,7 +176,7 @@ function getLanguage() {
             <Row className='form-wizard-text-area'>
               <Col>
                 <TextArea
-                  label="Profile description"
+                  label="Profile Description"
                   type="textarea"
                   row="3"
                   value={description}
@@ -260,7 +260,7 @@ function getLanguage() {
         </Col>
         <Col lg='2'> </Col>
       </Row>
-      
+
     </div>
   );
 };

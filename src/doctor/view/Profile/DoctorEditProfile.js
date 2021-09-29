@@ -187,7 +187,7 @@ const DoctorEditProfile = (props) => {
             <Row className='form-wizard-text-area'>
                 <Col>
                     <TextArea
-                        label="Profile description"
+                        label="Profile Description"
                         type="textarea"
                         row="3"
                         value={description}
