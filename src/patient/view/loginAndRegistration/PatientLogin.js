@@ -145,10 +145,15 @@ const PatientLogin = ({history}) => {
                                         {!!mobileNumberError && <div style={{textAlign: "center"}}
                                                                      className="error-text">{mobileNumberError}</div>}
                                     </InputGroup>
-                                    {showLoader &&
-                                    <Button className={`btn-loading`} type="submit" disabled>
-                                        <Spinner showLoader={showLoader} width={30} height={30}/>
-                                    </Button>}
+                                    {showLoader && <CustomButton
+                                        type="submit"
+                                        className={'login-btn'}
+                                        disabled
+                                        onClick={debounce}
+                                        importantStyle={{backgroundColor: "#e2e9e9"}}
+                                        showLoader={showLoader}
+                                    ></CustomButton>}
+
                                     {!showLoader && <CustomButton
                                         type="submit"
                                         className={'login-btn'}

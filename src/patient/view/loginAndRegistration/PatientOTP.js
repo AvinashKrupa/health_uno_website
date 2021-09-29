@@ -230,12 +230,17 @@ const OTP = ({history}) => {
                     </div>
                     <br/>
                     <div className="div-center">
-                      {showLoader &&
-                      <Button className={`btn-loading`} type="submit" disabled>
-                        <Spinner showLoader={showLoader} width={30} height={30}/>
-                      </Button>}
+                      {showLoader && <CustomButton
+                          type="submit"
+                          className={'login-btn'}
+                          disabled
+                          onClick={verifyOTP}
+                          importantStyle={{backgroundColor: "#e2e9e9"}}
+                          showLoader={showLoader}
+                      ></CustomButton>}
                       {!showLoader && <CustomButton
                           type="submit"
+                          className={'login-btn'}
                           disabled={otp.length !== 4}
                           onClick={verifyOTP}
                           text={'Verify OTP'}
