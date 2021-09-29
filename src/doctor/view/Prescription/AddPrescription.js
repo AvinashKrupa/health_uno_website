@@ -648,11 +648,13 @@ const AddPrescription = (props) => {
                     aria-describedby="alert-dialog-slide-description"
                 >
                     <DialogContent>
-                        <div className="close-button">
-                            <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34}
-                                          onClick={() => setOpenSaveTemplateDialog(false)}/>
+                        <div className="modal-title-container" style={{marginTop:20}}>
+                            <div className="choose-template-title" style={{marginBottom:10}}>Save Template</div>
+                            <div className="choose-template-close-button">
+                                <IoCloseSharp style={{cursor: 'pointer'}} color={'#000'} size={34}
+                                              onClick={() => setOpenSaveTemplateDialog(false)}/>
+                            </div>
                         </div>
-                        <div className={'title'}>Save Template</div>
                         <TextArea
                             id={'save-template-text'}
                             placeholder="Enter name of the template"

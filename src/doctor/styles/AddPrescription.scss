@@ -217,6 +217,12 @@ button.chooseDeleteBtn.btn.btn-primary {
 }
 
 
+@media only screen and (max-width: 375px) {
+    .sendPrescriptionAction{
+        width: 220px;
+    }
+}
+
 @media only screen and (max-width: 768px) {
 .topsctionName .form-group{
     margin-top: -10px;
