@@ -55,8 +55,8 @@ const DoctorHomePage = (props) => {
     post(API.DOCTOR_GET_APPOINTMENTS_API, {
       limit: 20,
       page:1,
-      sort_order: "asc",
-      sort_key: "created_at",
+      sort_order: "desc",
+      sort_key: "time.utc_time",
       date: currentDate,
       status: [
         // "pending",

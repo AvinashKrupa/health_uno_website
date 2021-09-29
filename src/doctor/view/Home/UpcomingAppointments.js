@@ -42,8 +42,8 @@ const UpcomingAppointments = (props) => {
     let params = {
       limit: 20,
       page: 1,
-      sort_order: 'desc',
-      sort_key: "created_at",
+      sort_order: "desc",
+      sort_key: "time.utc_time",
       search_text: searchText,
       date: currentDate,
       status: [
@@ -73,7 +73,7 @@ const UpcomingAppointments = (props) => {
       limit: 20,
       page:1,
       sort_order: "desc",
-      sort_key: "created_at",
+      sort_key: "time.utc_time",
       search_text: searchText,
       date: currentDate,
       status: [

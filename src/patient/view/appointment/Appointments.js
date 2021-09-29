@@ -33,7 +33,7 @@ const Appointments = (props) => {
       limit: 20,
       page:1,
       sort_order: "desc",
-      sort_key: "created_at",
+      sort_key: "time.utc_time",
       date: "" ,
       status: [
           "scheduled",
@@ -61,7 +61,7 @@ const Appointments = (props) => {
       limit: 20,
       page:1,
       sort_order: "desc",
-      sort_key: "created_at",
+      sort_key: "time.utc_time",
       date: "" ,
       status: [
         "pending",
