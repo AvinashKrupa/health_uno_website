@@ -32,7 +32,7 @@ const Appointments = (props) => {
     let params = {
       limit: 20,
       page:1,
-      sort_order: "desc",
+      sort_order: "asc",
       sort_key: "time.utc_time",
       date: "" ,
       status: [
