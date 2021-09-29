@@ -67,6 +67,7 @@ const PatientBookingSummary = (props) => {
             let params = {
                 reason: purpose,
                 doctor_id: props.match.params.doctor_id,
+                complaints: complaints,
                 slot_id: slot_id,
                 slot: startTime,
                 date: moment(date).format('YYYY-MM-DD'),
