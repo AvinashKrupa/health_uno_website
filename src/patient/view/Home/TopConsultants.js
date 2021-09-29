@@ -22,11 +22,12 @@ const TopConsultants = (props) => {
   let [searchText, setSearchText] = useState(useSearchStore(state => state.searchText));
   let [consultants, setConsultant] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchClear, setSearchClear] = useState(false);
   const [page, setPage] = useState(1);
   useEffect(() => {
     const searchInput = document.getElementById('top-const-search')
     searchInput.focus();
-    getTopConsultants();
+      getTopConsultants();
   }, [searchText]);
 
 
@@ -44,7 +45,7 @@ const TopConsultants = (props) => {
   function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '', isPagination = false) {
     let params = {
       limit: 15,
-      page: isPagination ? page + 1 : 1,
+      page: isPagination ? page : 1,
       filter: {
         text: searchText,
         fee_min: min,
@@ -59,10 +60,17 @@ const TopConsultants = (props) => {
       .then(response => {
         if (response.status === 200) {
           if(isPagination) {
-            setConsultant([...consultants, ...response.data.data.docs]);
             setPage(page + 1)
-          } else {
-            setConsultant(response.data.data.docs);
+            if(page > 1){
+              setConsultant([...consultants, ...response.data.data.docs]);
+            }else{
+              setConsultant(response.data.data.docs);
+            }
+            } else {
+              if(!searchClear){
+                setPage(page + 1)
+              }
+              setConsultant(response.data.data.docs);
           }
 
         } else {
@@ -78,6 +86,12 @@ const TopConsultants = (props) => {
   function debounce(txt) {
     clearTimeout(timer);
     timer = setTimeout(function() {
+      if(!txt){
+        setSearchClear(true)
+      }else{
+        setPage(1)
+        setSearchClear(false)
+      }
       setSearchText(txt);
     }, 1000);
   }
