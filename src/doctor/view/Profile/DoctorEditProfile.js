@@ -59,9 +59,12 @@ const DoctorEditProfile = (props) => {
     function getUserProfile() {
         get(API.GET_PROFILE)
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     let user = response.data.data.user;
                     const additional_info = response.data.data['additional_info'];
+                    if (user) {
+                        storeData('userInfo', JSON.stringify(user));
+                    }
                     if(additional_info) {
                         storeData('additional_info', JSON.stringify(additional_info));
                     }
@@ -115,6 +118,7 @@ const DoctorEditProfile = (props) => {
                 } else {
                     addToast(response.data.message, {appearance: 'error'});
                 }
+                props.setReloadSideColumn(true)
             })
             .catch(error => {
                 addToast(error.response.data.message, {appearance: 'error'});

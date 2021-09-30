@@ -8,6 +8,7 @@ import {withRouter} from 'react-router-dom'
 import ProfileButton from "../../../commonComponent/ProfileButton";
 import {Card} from "@material-ui/core";
 import UploadImage from '../../../commonComponent/Upload';
+import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const EditProfilePictureColumn = (props) => {
     const [firstName, setFirstName] = useState('');
@@ -29,12 +30,20 @@ const EditProfilePictureColumn = (props) => {
         };
     }, []);
 
+  useEffect(() => {
+        getUserProfile()
+        setTimeout(()=>props.setReloadSideColumn(false),1000)
+    }, [props.reloadSideColumn]);
+
     function getUserProfile() {
         get(API.GET_PROFILE)
             .then(response => {
                 if (response.status === 200) {
                     let user = response.data.data.user;
                     let additionalInfo = response.data.data.additional_info;
+                    if (user) {
+                        storeData('userInfo', JSON.stringify(user));
+                    }
                     setDoctorMedId(additionalInfo.qualif.med_reg_num);
                     setFirstName(user.first_name);
                     setLastName(user.last_name);

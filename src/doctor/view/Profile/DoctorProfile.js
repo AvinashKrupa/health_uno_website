@@ -10,18 +10,19 @@ import AboutUs from "../../../commonComponent/AboutUs";
 const DoctorProfile = (props) => {
     const type = props.match.params.type
     const [profilePic,setProfilePic]=useState("");
+    const [reloadSideColumn, setReloadSideColumn] = useState(false);
 
 
     return (
         <Col lg="10" sm="10" xs="10" >
             <Row>
                 <Col lg="3">
-                    <ProfilePictureColumn setProfilePic ={setProfilePic}/>
+                    <ProfilePictureColumn setProfilePic ={setProfilePic} setReloadSideColumn={setReloadSideColumn} reloadSideColumn={reloadSideColumn}/>
                 </Col>
                 <Col lg='9' id="second-page">
                     {
                         type === 'editProfile' && (
-                            <EditProfilePage profilePic={profilePic}></EditProfilePage>
+                            <EditProfilePage profilePic={profilePic} setReloadSideColumn={setReloadSideColumn}></EditProfilePage>
                         )
                     }
                     {
