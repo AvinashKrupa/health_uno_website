@@ -64,7 +64,7 @@ const FilterConsultants = (props) => {
         isDefaultSet = true;
         setSelectedLanguages([]);
         setShowLanguages(true);
-        setMinMax({ min: 100, max: 1000 });
+        setMinMax({ min: 250, max: 5000 });
         setSortBy('');
     }
 

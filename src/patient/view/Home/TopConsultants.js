@@ -24,6 +24,7 @@ const TopConsultants = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchClear, setSearchClear] = useState(false);
   const [page, setPage] = useState(1);
+  const [totalConsultants, setTotalConsultants] = useState(0);
   useEffect(() => {
     const searchInput = document.getElementById('top-const-search')
     searchInput.focus();
@@ -32,7 +33,6 @@ const TopConsultants = (props) => {
 
 
   useEffect(() => {
-    getTopConsultants();
       document.querySelectorAll('[role="navigation"]').forEach(function (el){
         el.classList.add("filter-list-close");
         });
@@ -43,8 +43,8 @@ const TopConsultants = (props) => {
   }
 
   function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '', isPagination = false) {
-    let params = {
-      limit: 15,
+      let params = {
+      limit: 40,
       page: isPagination ? page : 1,
       filter: {
         text: searchText,
@@ -59,6 +59,7 @@ const TopConsultants = (props) => {
     post(API.GETTOPCONSULTANT, params)
       .then(response => {
         if (response.status === 200) {
+          setTotalConsultants(response.data.data.total)
           if(isPagination) {
             setPage(page + 1)
             if(page > 1){
@@ -110,7 +111,9 @@ const TopConsultants = (props) => {
     setSidebarOpen(!sidebarOpen);
   }
   const fetchMoreData = () => {
+    if(totalConsultants > consultants.length){
       getTopConsultants('asc','',  '' , '', true)
+    }
   };
   return (
     <div>
