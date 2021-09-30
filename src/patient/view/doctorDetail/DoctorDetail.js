@@ -165,28 +165,29 @@ const DoctorDetails = (props) => {
                             </Row>
                             </Col>
                             <Col lg={(window.screen.availWidth  > 800 &&  window.screen.availWidth < 1100) ? '12': '4' }>
-                            <Row className='doctor_details-doctor-card-remove-pad' style={{ justifyContent: (window.screen.availWidth  > 800 &&  window.screen.availWidth < 1100) ? 'space-around' : ''}}>
+                                {!!doctorDetails.similar_doctors.length && <Row className='doctor_details-doctor-card-remove-pad'
+                                      style={{justifyContent: (window.screen.availWidth > 800 && window.screen.availWidth < 1100) ? 'space-around' : ''}}>
                                 <span
-                                className="doctor_details_h3"
-                                style={{ marginBottom: "17px" }}
+                                    className="doctor_details_h3"
+                                    style={{marginBottom: "17px"}}
                                 >
                                 Similar Doctors
                                 </span>
-                                {
-                                    doctorDetails.similar_doctors.map((doctor) => {
-                                        return(
-                                            <SimilarDoctorsCard
-                                                id={doctor._id}
-                                                image={doctor.dp}
-                                                name={`${doctor.first_name} ${doctor.last_name}`}
-                                                fees="2000"
-                                                details={`${doctor.city}, ${doctor.country} | ${doctor.exp} Y Exp`}
-                                                qualifications={doctor.specialities}
-                                            />
-                                        )
-                                    })
-                                }
-                            </Row>
+                                    {
+                                        doctorDetails.similar_doctors.map((doctor) => {
+                                            return (
+                                                <SimilarDoctorsCard
+                                                    id={doctor._id}
+                                                    image={doctor.dp}
+                                                    name={`${doctor.first_name} ${doctor.last_name}`}
+                                                    fees="2000"
+                                                    details={`${doctor.city}, ${doctor.country} | ${doctor.exp} Y Exp`}
+                                                    qualifications={doctor.specialities}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </Row>}
                             </Col>
                         </Row>
                     </>
