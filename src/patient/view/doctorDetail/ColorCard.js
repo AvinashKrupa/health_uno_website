@@ -3,7 +3,7 @@ import {icon_man, icon_badge, icon_money} from "../../../constants/PatientImages
 import { Row, Col, Image, InputGroup } from "react-bootstrap";
 
 const ColorCards = (props) => {
-  const totalConsultation = props.total_consultations < 10 ? '10+': props.total_consultations
+  const totalConsultation = props.total_consultations < 10 ? '10': props.total_consultations;
   return (
     <Row>
         <Col lg="4" md='6' sm='6' xs='12'>
