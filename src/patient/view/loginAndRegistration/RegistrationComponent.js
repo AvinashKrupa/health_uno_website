@@ -786,7 +786,7 @@ const RegistrationComponent = ({history, image}) => {
             <Col md>
               <div style={{display:"flex", flexDirection:"row",}}>
                 <Checkbox id="term" checked={termsCondition} handleSelect={setTermsCondition}/>
-                <span style={{cursor:"pointer", lineHeight:'65px' }} onClick={()=>window.open('https://healthuno.com/terms-and-conditions/')}>I accept Terms and Conditions</span>
+                <span style={{cursor:"pointer", lineHeight:'65px' }} onClick={()=>window.open('https://dev.healthuno.com:6002/v1/termsandcondition/userTC')}>I accept Terms and Conditions</span>
               </div>
             </Col>
             <Col md></Col>
