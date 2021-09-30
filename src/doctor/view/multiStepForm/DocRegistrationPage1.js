@@ -262,8 +262,10 @@ function getLanguage() {
                   id="experienceField"
                   label="Experience"
                   value={experience}
-                  onChange={setExperience}
-              />
+                  pattern="[0-9]*"
+                  onChange={value => {
+                      setExperience(value.replace(/\D/, '').slice(0,2))
+                  }}/>
           </Col>
         </Row>
         </Col>

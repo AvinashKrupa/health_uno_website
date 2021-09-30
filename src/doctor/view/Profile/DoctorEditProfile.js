@@ -22,6 +22,7 @@ const DoctorEditProfile = (props) => {
     const [addressLine2, setAddressLine2] = useState('');
     const [description, setDescription] = useState('');
     const [country, setCountry] = useState('');
+    const [experience, setExperience] = useState(1);
 
     useEffect(() => {
         getUserProfile();
@@ -45,7 +46,7 @@ const DoctorEditProfile = (props) => {
           return ''
         }
       }
-      
+
       const getCityValue = value => {
         if(value){
           const selectedCity = dataCity.find(city => city.value === value)
@@ -77,6 +78,7 @@ const DoctorEditProfile = (props) => {
                     setState(additionalInfo.address.state);
                     setCity(additionalInfo.address.city);
                     setCountry(additionalInfo.address.country);
+                    setExperience(additionalInfo.qualif.exp);
                 } else {
                     addToast(response.data.message, {appearance: 'error'});
                 }
@@ -100,7 +102,10 @@ const DoctorEditProfile = (props) => {
                 state: state,
                 city: city,
                 country: country
-            }
+            },
+            qualif: {
+                exp: experience,
+            },
         };
 
         post(API.UPDATE_PROFILE, params, true)
@@ -272,7 +277,21 @@ const DoctorEditProfile = (props) => {
                         </Col>
                     </Row>
                 </Col>
-
+            </Row>
+            <Row className="g-2">
+                <Col md>
+                        <Input
+                            type="text"
+                            placeholder="Enter Your Experience"
+                            id="experienceField"
+                            label="Experience"
+                            value={experience}
+                            pattern="[0-9]*"
+                            onChange={value => {
+                                setExperience(value.replace(/\D/, '').slice(0,2))
+                            }}/>
+                </Col>
+                <Col md></Col>
             </Row>
             <Col className='form-btn'>
                 <CustomButton
