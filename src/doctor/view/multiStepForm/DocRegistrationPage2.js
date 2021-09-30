@@ -13,7 +13,7 @@ const DocRegistrationPage2 = (props) => {
     getDepartment();
     getSpecialization();
     getQualification();
-    return () => {};  
+    return () => {};
   }, []);
 
   const [departments, setDepartments] = useState([]);
@@ -39,7 +39,7 @@ const DocRegistrationPage2 = (props) => {
       return ''
     }
   }
-  
+
   const getSpecializationValue = value => {
     if(value){
       const selectedSpecialization = specializations.find(specialization => specialization.id === value)
@@ -48,7 +48,7 @@ const DocRegistrationPage2 = (props) => {
       return ''
     }
   }
-  
+
   const getQualificationValue = value => {
     if(value){
       const selectedQualification = qualifications.find(qualification => qualification.id === value)
@@ -139,7 +139,7 @@ const DocRegistrationPage2 = (props) => {
             <Col>
               <Input
                 label="Medical Council Registration Number"
-                placeholder="9876503210"
+                placeholder="Type your registration Number"
                 type="number"
                 value={councilRegistrationNo}
                 onChange={setCouncilRegistrationNo}

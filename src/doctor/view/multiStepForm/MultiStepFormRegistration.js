@@ -29,6 +29,7 @@ const MultiStepFormRegistration = ({history}) => {
   const [state, setState] = useState('');
   const [addressLine1, setAddressLine1] = useState('');
   const [addressLine2, setAddressLine2] = useState('');
+  const [experience, setExperience] = useState('');
   const [description, setDescription] = useState('');
   const [language, setLanguage] = useState('');
 
@@ -155,7 +156,7 @@ const MultiStepFormRegistration = ({history}) => {
         reg_date: dateOfRegistration,
         renewal_date: dateOfRenewal,
         fee: fee,
-        exp: 10,
+        exp: experience,
         quals: [],
         highest_qual: qualification
       },
@@ -306,6 +307,9 @@ const MultiStepFormRegistration = ({history}) => {
     } else if (isEmpty(language) || language === 'Select language') {
       addToast('Please select language', {appearance: 'error'});
       return false;
+    }else if (isEmpty(experience)) {
+      addToast('Please enter your experience', {appearance: 'error'});
+      return false;
     } else {
       return true;
     }
@@ -404,6 +408,8 @@ const MultiStepFormRegistration = ({history}) => {
                 setState={setState}
                 setAddressLine1={setAddressLine1}
                 setAddressLine2={setAddressLine2}
+                experience={experience}
+                setExperience={setExperience}
                 setDescription={setDescription}
                 disabled={nextDisabled}
                 onClick={handleNext}

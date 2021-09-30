@@ -19,7 +19,7 @@ const DocRegistrationPage1 = (props) => {
 
 
     const { firstName, lastName, mobile, email, birthDate, gender, city, state, language,
-      addressLine1, addressLine2, description, setFirstName, setLastName, setMobile,
+      addressLine1, addressLine2, description, setFirstName, setLastName, setMobile,experience, setExperience,
       setBirthDate, setEmail, setGender, setCity, setState, setAddressLine1, setAddressLine2, setDescription, setLanguageValue} = props;
       const [dataState, setDataState] = useState([]);
       const [dataCity, setDataCity] = useState([]);
@@ -141,10 +141,10 @@ function getLanguage() {
         <Col lg='6'>
               <Row>
               <Col className="registration-page-1-column">
-                <Input label="First Name" type="text" placeholder="eg John" value={firstName} onChange={setFirstName}/>
+                <Input label="First Name" type="text" placeholder="Enter Your First Name" value={firstName} onChange={setFirstName}/>
               </Col>
               <Col className="registration-page-1-column">
-                <Input label="Last Name" type="text" placeholder="eg Doe" value={lastName} onChange={setLastName} />
+                <Input label="Last Name" type="text" placeholder="Enter Your Surname" value={lastName} onChange={setLastName} />
               </Col>
             </Row>
             <Row>
@@ -152,7 +152,7 @@ function getLanguage() {
                 <Input label="Mobile Number" type="number" readonly="true" value={mobile} onChange={setMobile} />
               </Col>
               <Col>
-                <Input label="Email" type="email" placeholder="sample@gmail.com" value={email} onChange={setEmail} />
+                <Input label="Email" type="email" placeholder="Enter your email address" value={email} onChange={setEmail} />
               </Col>
             </Row>
             <Row>
@@ -190,7 +190,7 @@ function getLanguage() {
               <Col>
                 <Input
                   type="text"
-                  placeholder="Enter address (optional)"
+                  placeholder="Enter address"
                   id="addressLine1"
                   label="Address Line 1"
                   value={addressLine1}
@@ -255,7 +255,16 @@ function getLanguage() {
                     handleSelect={setLanguageValue}
                   />
             </Col>
-          <Col md></Col>
+          <Col md>
+              <Input
+                  type="text"
+                  placeholder="Enter Your Experience"
+                  id="experienceField"
+                  label="Experience"
+                  value={experience}
+                  onChange={setExperience}
+              />
+          </Col>
         </Row>
         </Col>
         <Col lg='2'> </Col>

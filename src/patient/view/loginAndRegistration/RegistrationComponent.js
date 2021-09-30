@@ -327,7 +327,7 @@ const RegistrationComponent = ({history, image}) => {
       return ''
     }
   }
-  
+
   const getCityValue = value => {
     if(value){
       const selectedCity = dataCity.find(city => city.value === value)
@@ -336,7 +336,7 @@ const RegistrationComponent = ({history, image}) => {
       return ''
     }
   }
-  
+
   const getLanguageValue = value => {
     if(value){
       const selectedLanguage = dataLanguage.find(language => language.value === value)
@@ -461,7 +461,7 @@ const RegistrationComponent = ({history, image}) => {
             <Col md>
               <Input
                   type="text"
-                  placeholder="eg John"
+                  placeholder="Enter Your First Name"
                   id="firstName"
                   label="First Name"
                   value={firstName}
@@ -471,7 +471,7 @@ const RegistrationComponent = ({history, image}) => {
             <Col md>
               <Input
                   type="text"
-                  placeholder="eg Doe"
+                  placeholder="Enter Your Surname"
                   id="lastName"
                   label="Last Name"
                   value={lastName}
@@ -493,7 +493,7 @@ const RegistrationComponent = ({history, image}) => {
             <Col md>
               <Input
                   type="email"
-                  placeholder="sample@gmail.com"
+                  placeholder="Enter your email address"
                   id="email"
                   label="Email"
                   value={email}
