@@ -126,7 +126,7 @@ const PatientHomePage = (props) => {
                     <SimilarDoctorsCard
                         id={doctor._id}
                         image={doctor.dp}
-                        name={`${doctor.first_name} ${doctor.last_name}`}
+                        name={`Dr ${doctor.first_name} ${doctor.last_name}`}
                         fees={doctor.fee}
                         details={`${doctor.city}, ${doctor.country} | ${doctor.exp}  Y Exp`}
                         qualifications={doctor.specialities}
