@@ -1,6 +1,6 @@
 import {Col, Row} from "react-bootstrap";
 import React,{useState} from "react";
-import ProfilePictureColumn from "./EditProfilePictureColumn";
+import ProfilePictureColumn from "./EditDoctorProfileColumn";
 import EditProfilePage from "./DoctorEditProfile";
 import Invite from "../../../patient/view/invite/Invite";
 import Chat from "../../../chat/Chat";

@@ -10,7 +10,7 @@ import {Card} from "@material-ui/core";
 import UploadImage from '../../../commonComponent/Upload';
 import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 
-const EditProfilePictureColumn = (props) => {
+const EditDoctorProfileColumn = (props) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [mobile, setMobile] = useState('');
@@ -196,4 +196,4 @@ const EditProfilePictureColumn = (props) => {
     );
 };
 
-export default withRouter(EditProfilePictureColumn);
+export default withRouter(EditDoctorProfileColumn);
