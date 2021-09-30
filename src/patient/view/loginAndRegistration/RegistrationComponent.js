@@ -319,6 +319,33 @@ const RegistrationComponent = ({history, image}) => {
     }
   }
 
+  const getStateValue = value => {
+    if(value){
+      const selectedState = dataState.find(state => state.value === value)
+      return selectedState ? `${selectedState.id}|${selectedState.value}` : ''
+    }else{
+      return ''
+    }
+  }
+  
+  const getCityValue = value => {
+    if(value){
+      const selectedCity = dataCity.find(city => city.value === value)
+      return selectedCity ? `${selectedCity.id}|${selectedCity.value}` : ''
+    }else{
+      return ''
+    }
+  }
+  
+  const getLanguageValue = value => {
+    if(value){
+      const selectedLanguage = dataLanguage.find(language => language.value === value)
+      return selectedLanguage ? `${selectedLanguage.id}|${selectedLanguage.value}` : ''
+    }else{
+      return ''
+    }
+  }
+
   async function registerUserAPICalling() {
     const foundPushToken = await getPushToken();
     let params = {
@@ -552,7 +579,7 @@ const RegistrationComponent = ({history, image}) => {
               <Row className="g-2">
                 <Col md>
                   <KeyValueSelector
-                      value={state}
+                      value={getStateValue(state)}
                       label="State"
                       defaultValue="Select state"
                       id="state"
@@ -567,7 +594,7 @@ const RegistrationComponent = ({history, image}) => {
                   </div>
                   }
                   <KeyValueSelector
-                      value='0'
+                      value={getCityValue(city)}
                       label="City"
                       defaultValue="Select city"
                       id="city"
@@ -581,7 +608,7 @@ const RegistrationComponent = ({history, image}) => {
           <Row className="g-2">
             <Col md>
               <KeyValueSelector
-                  value='Language'
+                  value={getLanguageValue(language)}
                   label="Language"
                   defaultValue="Select language"
                   id="Language"
