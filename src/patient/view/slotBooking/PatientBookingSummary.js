@@ -14,7 +14,6 @@ import { isEmpty } from "../../../utils/Validators";
 import { back_icon } from "../../../constants/DoctorImages";
 
 const PatientBookingSummary = (props) => {
-
     useEffect(() => {
         getDoctorDetails();
         return () => {};
@@ -28,6 +27,13 @@ const PatientBookingSummary = (props) => {
     const [purpose, setPurpose] = useState('');
     let transactionID = '';
     const slot_id =  patientSlotBookingStore((state) => state.slot_id);
+
+    useEffect(() => {
+        if (!startTime) {
+            props.history.goBack();
+            return;
+        }
+    }, []);
 
     function getDoctorDetails() {
         post(API.GETDOCTORDETAILS, {doctor_id: props.match.params.doctor_id, include_similar: true })
