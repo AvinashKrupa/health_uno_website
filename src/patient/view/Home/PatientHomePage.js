@@ -41,7 +41,12 @@ const PatientHomePage = (props) => {
   }
 
   function getTopConsultants() {
-    post(API.GETTOPCONSULTANT)
+    let params = {
+      limit: 25,
+      sort_order: 'asc',
+      sort_key: 'first_name',
+    };
+    post(API.GETTOPCONSULTANT, params)
         .then((response) => {
           if (response.status === 200) {
             setConsultant(response.data.data.docs);
@@ -120,7 +125,7 @@ const PatientHomePage = (props) => {
             </Col>
           </Row>
           <Row style={{display: "flex", flexDirection: "row"}}>
-            {consultants && consultants.slice(0, 3).map((doctor) => {
+            {consultants && consultants.slice(0, 21).map((doctor) => {
               return (
                   <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
                     <SimilarDoctorsCard
