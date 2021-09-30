@@ -106,6 +106,24 @@ const PatientEditProfile = (props) => {
         setCity(cityInfo[1])
     }
 
+    const getStateValue = value => {
+        if(value){
+          const selectedState = dataState.find(state => state.value === value)
+          return selectedState ? `${selectedState.id}|${selectedState.value}` : ''
+        }else{
+          return ''
+        }
+      }
+      
+      const getCityValue = value => {
+        if(value){
+          const selectedCity = dataCity.find(city => city.value === value)
+          return selectedCity ? `${selectedCity.id}|${selectedCity.value}` : ''
+        }else{
+          return ''
+        }
+      }
+
     // Get city from server
     function getCity(id, cityId) {
         setLoader(true)
@@ -249,7 +267,7 @@ const PatientEditProfile = (props) => {
                         <Col md>
                             <KeyValueSelector
                                 defaultValue={stateName}
-                                value={stateName}
+                                value={getStateValue(state)}
                                 label="State"
                                 id="state"
                                 options={dataState}
@@ -264,7 +282,7 @@ const PatientEditProfile = (props) => {
                          }
                             <KeyValueSelector
                                 defaultValue={city}
-                                 value='0'
+                                 value={getCityValue(city)}
                                  label="City"
                                  id="city"
                                  options={dataCity}

@@ -37,6 +37,24 @@ const DoctorEditProfile = (props) => {
 
     let genderOptions = ["Male", "Female", "Other"];
 
+    const getStateValue = value => {
+        if(value){
+          const selectedState = dataState.find(state => state.value === value)
+          return selectedState ? `${selectedState.id}|${selectedState.value}` : ''
+        }else{
+          return ''
+        }
+      }
+      
+      const getCityValue = value => {
+        if(value){
+          const selectedCity = dataCity.find(city => city.value === value)
+          return selectedCity ? `${selectedCity.id}|${selectedCity.value}` : ''
+        }else{
+          return ''
+        }
+      }
+
     function getUserProfile() {
         get(API.GET_PROFILE)
             .then(response => {
@@ -234,8 +252,8 @@ const DoctorEditProfile = (props) => {
                         <Col md>
                             <KeyValueSelector
                                 defaultValue={state}
+                                value={getStateValue(state)}
                                 disabled={true}
-                                value={state}
                                 label="State"
                                 id="state"
                                 options={dataState}
@@ -245,11 +263,10 @@ const DoctorEditProfile = (props) => {
                         <Col md>
                             <KeyValueSelector
                                 defaultValue={city}
-                                // value='0'
                                 id="city"
+                                value={getCityValue(city)}
                                 options={dataCity}
                                 handleSelect={setCityValue}
-                                value={city}
                                 label="City"
                             />
                         </Col>
