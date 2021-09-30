@@ -54,7 +54,7 @@ const PatientLogin = ({history}) => {
                 }
             })
             .catch(error => {
-                addToast('Please try again!', {appearance: 'error'});
+                addToast(error.response.data.message, {appearance: "error"});
                 setShowLoader(false);
             });
     }
