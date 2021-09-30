@@ -8,6 +8,7 @@ import CustomButton from "../../../commonComponent/Button";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import { isEmpty } from "../../../utils/Validators";
 import Spinner from "../../../commonComponent/Spinner";
+import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const PatientEditProfile = (props) => {
     // Get state and language from server
@@ -32,6 +33,10 @@ const PatientEditProfile = (props) => {
         };
     }, []);
 
+    useEffect(() => {
+        getUserProfile()
+        setTimeout(()=>props.setReloadSideColumn(false),1000)
+    }, [props.reloadSideColumn]);
 
     const [dataState, setDataState] = useState([]);
     const [dataCity, setDataCity] = useState([]);
@@ -43,6 +48,9 @@ const PatientEditProfile = (props) => {
                 if (response.data.status === 200) {
                     let user = response.data.data.user;
                     let additionalInfo = response.data.data.additional_info;
+                    if(additionalInfo) {
+                        storeData('additional_info', JSON.stringify(additionalInfo));
+                    }
                     setFirstName(user.first_name);
                     setLastName(user.last_name);
                     setEmail(user.email);
@@ -87,6 +95,7 @@ const PatientEditProfile = (props) => {
                 } else {
                     addToast(response.data.message, {appearance: 'error'});
                 }
+                props.setReloadSideColumn(true)
             })
             .catch(error => {
                 addToast(error.response.data.message, {appearance: 'error'});
@@ -114,7 +123,7 @@ const PatientEditProfile = (props) => {
           return ''
         }
       }
-      
+
       const getCityValue = value => {
         if(value){
           const selectedCity = dataCity.find(city => city.value === value)

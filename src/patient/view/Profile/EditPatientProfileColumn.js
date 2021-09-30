@@ -1,17 +1,45 @@
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {doctor} from "../../../constants/DoctorImages";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import React from "react";
 import ProfileButton from "../../../commonComponent/ProfileButton";
 import { withRouter } from 'react-router-dom'
 import UploadImage from "../../../commonComponent/Upload"
-
+import {API, get} from "../../../api/config/APIController";
+import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
+import {useToasts} from "react-toast-notifications";
 
 const EditProfilePictureColumn = (props) => {
     const[ image, setImage ]= useState(props.img);
+    const {addToast} = useToasts();
     const handleImage = (file)=>{
     setImage(file)
+    }
+    useEffect(() => {
+        getUserProfile()
+        setTimeout(()=>props.setReloadSideColumn(false),1000)
+    }, [props.reloadSideColumn]);
+
+    function getUserProfile() {
+        get(API.GET_PROFILE)
+            .then(response => {
+                if (response.status === 200) {
+                    let user = response.data.data.user;
+                    let additionalInfo = response.data.data.additional_info;
+                    if (user) {
+                        storeData('userInfo', JSON.stringify(user));
+                    }
+                    if(additionalInfo) {
+                        storeData('additional_info', JSON.stringify(additionalInfo));
+                    }
+                } else {
+                    addToast(response.data.message, {appearance: 'error'});
+                }
+            })
+            .catch(error => {
+                addToast(error.response.data.message, {appearance: 'error'});
+            });
     }
     return (
         <Container className="profile-left-Column">
