@@ -32,7 +32,7 @@ const ColorCards = (props) => {
             </div>
             <Card className="color_card_container_2">
                 <Row className='circle-card-content'>
-                    <span className="color_card_text_h3">{props.exp} Y</span>
+                    <span className="color_card_text_h3">{props.exp} Yrs</span>
                     <span className="color_card_text_h4">Experience</span>
                 </Row>
             </Card>
