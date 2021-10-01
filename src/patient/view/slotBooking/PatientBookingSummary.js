@@ -83,7 +83,12 @@ const PatientBookingSummary = (props) => {
                 .then(response => {
                   if (response.status === 200) {
                     transactionID = `${response.data.data._id}`;
-                    processRazorPayment(response.data.data.razorpay_order_id, transactionID);
+                      if(response.data.data.razorpay_order_id){
+                          processRazorPayment(response.data.data.razorpay_order_id, transactionID);
+                      }else {
+                          addToast('Slot is successfully booked', { appearance: 'success' });
+                          props.history.push('/patient/appointments')
+                      }
                   } else {
                       addToast(response.data.message, { appearance: 'error' });
                   }
