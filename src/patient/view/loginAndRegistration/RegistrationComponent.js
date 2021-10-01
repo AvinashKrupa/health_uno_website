@@ -33,6 +33,7 @@ const RegistrationComponent = ({history, image}) => {
   }, []);
 
   const {addToast} = useToasts();
+  const [showLoader, setShowLoader] = useState(false);
   const setUserInfo = useUserStore((state) => state.setUserInfo)
   const authContext = useContext(AuthContext);
   const [firstName, setFirstName] = useState('');
@@ -425,7 +426,7 @@ const RegistrationComponent = ({history, image}) => {
         country: country,
       },
     };
-
+    setShowLoader(true);
     post(API.REGISTERPATIENT, params, true)
         .then(response => {
           if (response.status === 200) {
@@ -441,11 +442,14 @@ const RegistrationComponent = ({history, image}) => {
             }
             addToast(response.data.message, {appearance: 'success'});
             history.push('/patient/home')
+            setShowLoader(false);
           } else {
+            setShowLoader(false);
             addToast(response.data.message, {appearance: 'error'});
           }
         })
         .catch(error => {
+          setShowLoader(false);
           addToast(error.response.data.message, {appearance: 'error'});
         });
   }
@@ -793,13 +797,30 @@ const RegistrationComponent = ({history, image}) => {
           </Row>
 
           <Row>
-            <CustomButton text={'Continue'} className="primary registration-btn" onClick={() => {
-              if (validation()) {
-                registerUserAPICalling();
-              }
-            }
-            }></CustomButton>
-
+            {showLoader && <CustomButton
+                className="primary registration-btn"
+                type="submit"
+                disabled
+                onClick={() => {
+                  if (validation()) {
+                    registerUserAPICalling();
+                  }
+                }
+                }
+                importantStyle={{backgroundColor: "#e2e9e9"}}
+                showLoader={showLoader}
+            ></CustomButton>}
+            {!showLoader && <CustomButton
+                className="primary registration-btn"
+                type="submit"
+                onClick={() => {
+                  if (validation()) {
+                    registerUserAPICalling();
+                  }
+                }
+                }
+                text={'Submit'}
+            ></CustomButton>}
           </Row>
         </div>
       </div>

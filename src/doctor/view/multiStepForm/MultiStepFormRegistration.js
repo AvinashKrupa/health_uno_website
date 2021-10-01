@@ -16,7 +16,7 @@ import {getPushToken} from "../../../notification/utilities";
 
 const MultiStepFormRegistration = ({history}) => {
   const authContext = useContext(AuthContext);
-
+  const [showLoader, setShowLoader] = useState(false);
   //First form information
   const currentDate = new Date();
   const [firstName, setFirstName] = useState('');
@@ -77,6 +77,7 @@ const MultiStepFormRegistration = ({history}) => {
   const [image, setImage] = useState("")
 
   function registerLogin(params) {
+    setShowLoader(true);
     post(API.REGISTER_DOCTOR, params, true)
         .then(response => {
           if (response.status === 200) {
@@ -91,12 +92,15 @@ const MultiStepFormRegistration = ({history}) => {
               storeData('additional_info', JSON.stringify(additional_info));
             }
             history.push('/doctor/home');
+            setShowLoader(false);
             addToast(response.data.message, {appearance: 'success'});
           } else {
+            setShowLoader(false);
             addToast(response.data.message, {appearance: 'error'});
           }
         })
         .catch(error => {
+          setShowLoader(false);
           addToast(error.response.data.message, {appearance: "error"});
         });
   }
@@ -465,12 +469,20 @@ const MultiStepFormRegistration = ({history}) => {
             }
             <Row>
               <Col className='form-btn'>
-                <CustomButton
+                {showLoader && <CustomButton
                     className='multistepform-button'
-                    disabled={false}
+                    type="submit"
+                    disabled
                     onClick={handleNext}
-                    text={'Continue'}
-                ></CustomButton>
+                    importantStyle={{backgroundColor: "#e2e9e9"}}
+                    showLoader={showLoader}
+                ></CustomButton>}
+                {!showLoader && <CustomButton
+                    className='multistepform-button'
+                    type="submit"
+                    onClick={handleNext}
+                    text={'Submit'}
+                ></CustomButton>}
               </Col>
             </Row>
           </Col>
