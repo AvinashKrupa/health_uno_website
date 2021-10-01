@@ -301,19 +301,18 @@ export default function PrescriptionComponent({
 
                     <Row className="g-3">
                         <Col xs={12} md={6}>
-                            <SelectorForMedicine
-                                key={`select-days-${index}`}
-                                label="Days"
-                                defaultValue="Select"
+                            <Input
+                                type="text"
+                                placeholder="Enter Periodicity Value"
+                                label="Periodicity"
                                 value={prescription.medicineItem.days}
-                                options={DAYS_LIST}
-                                handleSelect={onDaysSelect}
+                                onChange={onDaysSelect}
                             />
                         </Col>
                         <Col xs={12} md={6}>
                             <SelectorForMedicine
                                 key={`select-periodicity-${index}`}
-                                label="Periodicity"
+                                label="Type"
                                 defaultValue="Select"
                                 value={prescription.medicineItem.periodicity}
                                 options={PERIODICITY_LIST}

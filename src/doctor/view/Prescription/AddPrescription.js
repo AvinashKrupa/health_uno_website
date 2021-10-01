@@ -73,6 +73,12 @@ const AddPrescription = (props) => {
         "name": `${props.location?.state?.patientHeight}` || '',
         "_id": `${props.location?.state?.patientHeight}` || ''
     }];
+    useEffect(() => {
+        if (!props.location?.state?.patientName) {
+            props.history.goBack();
+            return;
+        }
+    }, []);
 
     useEffect(() => {
         if (investigationRequiredCheck) {
