@@ -338,14 +338,14 @@ export default function PrescriptionComponent({
                     {!!prescription.validationInfo.medicine_type_error &&
                     <span className="error-text">{prescription.validationInfo.medicine_type_error}</span>
                     }
-                    <Input
-                        type="date"
-                        placeholder="Start Date"
-                        label="Start Date"
-                        onChange={setStartDate}
-                        min={moment(new Date()).format('YYYY-MM-DD')}
-                        value={prescription.medicineItem.start_date}
-                    />
+                    <br/>
+                    <Form.Label>Start Date</Form.Label>
+                    <br/>
+                    <Form.Control type="date" onChange={setStartDate}
+                    placeholder="Start Date"
+                    onKeyDown={(e) => e.preventDefault()}
+                    min={moment(new Date()).format('YYYY-MM-DD')}
+                    value={prescription.medicineItem.start_date}/>
                     <Input
                         type="text"
                         placeholder="Enter text here"
