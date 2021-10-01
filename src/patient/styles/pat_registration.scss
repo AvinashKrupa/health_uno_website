@@ -7,7 +7,7 @@
   }
 
 
-   
+
     h4 {
       margin-top: 33px;
     }
@@ -22,7 +22,7 @@
     .form-check-label {
       padding-left: 5px;
     }
-  
+
     .registration-btn{
       margin: auto;
       margin-top: 50px;
@@ -39,6 +39,22 @@
     img {
       padding-top: 54px;
     }
+
+  .terms-text{
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 65px;
+    letter-spacing: 0.30034899711608887px;
+    text-align: left;
+    cursor: pointer;
+
+    .blue-text{
+      color: #28A3DA;
+      text-decoration-line: underline;
+    }
+  }
   }
 
 
@@ -57,7 +73,7 @@
   .fa-arrow-left {
     font-size: 17px;
     width: 24px;
-    
+
   }
   span {
     font-size: 24px;
