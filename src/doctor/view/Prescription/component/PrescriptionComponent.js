@@ -80,7 +80,7 @@ export default function PrescriptionComponent({
         })
     }
 
-    function onDaysSelect(value) {
+    function onPeriodicityTextChange(value) {
         dispatch({
             type: ACTIONS.SET_DAYS, payload: {id: index, value: value}
         })
@@ -306,7 +306,7 @@ export default function PrescriptionComponent({
                                 placeholder="Enter Periodicity Value"
                                 label="Periodicity"
                                 value={prescription.medicineItem.days}
-                                onChange={onDaysSelect}
+                                onChange={onPeriodicityTextChange}
                             />
                         </Col>
                         <Col xs={12} md={6}>
