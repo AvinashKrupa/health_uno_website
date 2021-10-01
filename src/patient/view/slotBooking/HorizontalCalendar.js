@@ -9,15 +9,15 @@ import {calendar} from '../../../constants/PatientImages';
 const HorizontalCalendar = (props) => {
   const {slot_id, date, selectedDay, setDateValue, setSelectedDay} = props;
   const [dates, setDate] = useState([]);
+  const size = window.screen.availWidth > 414 ? 7: 4
 
   const handleIndex = (dateValue) => {
     const selectedDateIndex = dates.findIndex(date => date === moment(dateValue).format("DD MMM YYYY"))
-    const remainingData = selectedDateIndex%7
+    const remainingData = selectedDateIndex%size
     const finalIndex =  selectedDateIndex - remainingData
-    return finalIndex + 7
+    return finalIndex + size
   }
 
-  const size = window.screen.availWidth > 414 ? 7: 4
   const [lastIndex, setLastIndex] = useState(size);
 
   useEffect(() => {
@@ -47,9 +47,9 @@ const HorizontalCalendar = (props) => {
 const handleSelectedDate = (dateValue) => {
   setDateValue(dateValue)
   const selectedDateIndex = dates.findIndex(date => date === moment(dateValue).format("DD MMM YYYY"))
-  const remainingData = selectedDateIndex%7
+  const remainingData = selectedDateIndex%size
   const finalIndex =  selectedDateIndex - remainingData
-  setLastIndex(finalIndex+7)
+  setLastIndex(finalIndex+size)
 }
 
   const _renderDays = (info) => {
