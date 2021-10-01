@@ -10,6 +10,14 @@ const HorizontalCalendar = (props) => {
   const {slot_id, date, selectedDay, setDateValue, setSelectedDay} = props;
   const [dates, setDate] = useState([]);
   const size = window.screen.availWidth > 414 ? 7: 4
+
+  const handleIndex = (dateValue) => {
+    const selectedDateIndex = dates.findIndex(date => date === moment(dateValue).format("DD MMM YYYY"))
+    const remainingData = selectedDateIndex%size
+    const finalIndex =  selectedDateIndex - remainingData
+    return finalIndex + size
+  }
+
   const [lastIndex, setLastIndex] = useState(size);
 
   useEffect(() => {
@@ -22,22 +30,27 @@ const HorizontalCalendar = (props) => {
 
     setDate(datesArr);
 
-
   }, [date]);
 
 
-  // useEffect(() => {
-  //   for (let i = 0; i < 30; i++) {
-  //     if(slot_id !== '' && date === moment().add(i, 'days').format('YYYY-MM-DD')) {
-  //       setLastIndex(i + 3)
-  //     }
-  //   }
-  // },[]);
+  useEffect(() => {
+      if(selectedDay && dates.length){
+        setLastIndex(handleIndex(date))
+      }
+  },[dates]);
 
   const handleDaysClick = (day, info) => {
     setSelectedDay(day, info);
 
 };
+
+const handleSelectedDate = (dateValue) => {
+  setDateValue(dateValue)
+  const selectedDateIndex = dates.findIndex(date => date === moment(dateValue).format("DD MMM YYYY"))
+  const remainingData = selectedDateIndex%size
+  const finalIndex =  selectedDateIndex - remainingData
+  setLastIndex(finalIndex+size)
+}
 
   const _renderDays = (info) => {
   let dateFormate = moment(`${info}`);
@@ -92,9 +105,9 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="slot-calendar" style={{display: 'flex', flexDirection: 'row', paddingTop: '10px'}}>
             <DatePicker
                 selected={new Date(date)}
-                onChange={(date) => setDateValue(date)}
-                maxDate={new Date( new Date().getFullYear(), new Date().getMonth()+1, 15)}
-                minDate={new Date( new Date().getFullYear(), new Date().getMonth(), 15)}
+                onChange={(date) => handleSelectedDate(date)}
+                maxDate={new Date( new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+29)}
+                minDate={new Date( new Date().getFullYear(), new Date().getMonth(), new Date().getDate())}
                 placeholderText="Select a date before 30 days in the future"
                 customInput={<ExampleCustomInput />}
 

@@ -37,6 +37,12 @@ class AutoSuggestInput extends React.Component {
                 this.props.setShouldClearInput(false)
             })
         }
+        if(this.props.medicineName !== this.state.value){
+            this.setState({
+                value: this.props.medicineName || '',
+                suggestions: [],
+            })
+        }
     }
 
     getSuggestionValue = suggestion => suggestion.name;
@@ -97,7 +103,7 @@ class AutoSuggestInput extends React.Component {
             value,
             onChange: this.onChange
         };
-
+        
         return (
             <>
                 <Autosuggest
