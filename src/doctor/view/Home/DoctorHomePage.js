@@ -53,7 +53,7 @@ const DoctorHomePage = (props) => {
   function getDoctorAppointments() {
     setAppointmentLoaderStatus(true)
     post(API.DOCTOR_GET_APPOINTMENTS_API, {
-      limit: 20,
+      limit: 30,
       page:1,
       sort_order: "asc",
       sort_key: "time.utc_time",

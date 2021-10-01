@@ -40,7 +40,7 @@ const UpcomingAppointments = (props) => {
 
   function getUpcomingAppointments() {
     let params = {
-      limit: 20,
+      limit: 30,
       page: 1,
       sort_order: "asc",
       sort_key: "time.utc_time",
@@ -70,7 +70,7 @@ const UpcomingAppointments = (props) => {
 
   function getPreviousAppointments() {
     let params = {
-      limit: 20,
+      limit: 30,
       page:1,
       sort_order: "desc",
       sort_key: "time.utc_time",
