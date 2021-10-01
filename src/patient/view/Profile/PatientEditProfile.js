@@ -12,6 +12,7 @@ import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const PatientEditProfile = (props) => {
     // Get state and language from server
+    const [showLoader, setShowLoader] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [mobile, setMobile] = useState('');
@@ -87,17 +88,20 @@ const PatientEditProfile = (props) => {
                 country: 'India'
             }
         };
-
+        setShowLoader(true);
         post(API.UPDATE_PROFILE, params, true)
             .then(response => {
                 if (response.status === 200) {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'success'});
                 } else {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'error'});
                 }
                 props.setReloadSideColumn(true)
             })
             .catch(error => {
+                setShowLoader(false);
                 addToast(error.response.data.message, {appearance: 'error'});
             });
     }
@@ -304,16 +308,26 @@ const PatientEditProfile = (props) => {
             </Row>
             <Col className='form-btn' style={{margin: 'inherit',
                  textAlign: 'center'}}>
-                <CustomButton
+                {showLoader && <CustomButton
                     className='multistepform-button edit-profile-update-button'
-                    disabled={false}
+                    disabled
+                    onClick={() => {
+                        if(validation()) {
+                            updateUserProfile();
+                        }
+                    }}
+                    importantStyle={{backgroundColor: "#e2e9e9"}}
+                    showLoader={showLoader}
+                ></CustomButton>}
+                {!showLoader && <CustomButton
+                    className='multistepform-button edit-profile-update-button'
                     onClick={() => {
                         if(validation()) {
                             updateUserProfile();
                         }
                     }}
                     text={'Update'}
-                ></CustomButton>
+                ></CustomButton>}
             </Col>
 
         </div>

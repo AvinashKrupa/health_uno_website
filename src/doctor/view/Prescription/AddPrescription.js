@@ -48,6 +48,7 @@ export const ACTIONS = {
 }
 const AddPrescription = (props) => {
     const {addToast} = useToasts();
+    const [showLoader, setShowLoader] = useState(false);
     let [medicineCount, setMedicineCount] = useState(1);
     let [tempPrescriptionType, setTempPrescriptionType] = useState('');
     let [templateTitle, setTemplateTitle] = useState('');
@@ -539,16 +540,20 @@ const AddPrescription = (props) => {
             prescriptions: allMedicines,
             investigations: investigations,
         };
+        setShowLoader(true);
         post(API.SUBMIT_PRESCRIPTION, params)
             .then(response => {
                 if (response.status === 200) {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'success'});
                     props.history.push('/doctor/home');
                 } else {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: "error"});
                 }
             })
             .catch(error => {
+                setShowLoader(false);
                 addToast(error.response?.data?.message?.investigations?.message || error.response?.data?.message, {appearance: "error"});
             });
     }
@@ -842,12 +847,19 @@ const AddPrescription = (props) => {
 
 
                         <Row className="sendPrescriptionAction">
-                            <CustomButton text={'Send Prescription'}
-                                          className="primary SendPrescription"
-                                          disabled={!prescription_list.length || !userShouldProceed}
-
-                                          onClick={() => submitPrescription()}
-                            ></CustomButton>
+                            {showLoader && <CustomButton
+                                className="primary SendPrescription"
+                                disabled
+                                onClick={() => submitPrescription()}
+                                importantStyle={{backgroundColor: "#e2e9e9"}}
+                                showLoader={showLoader}
+                            ></CustomButton>}
+                            {!showLoader && <CustomButton
+                                className="primary SendPrescription"
+                                disabled={!prescription_list.length || !userShouldProceed}
+                                onClick={() => submitPrescription()}
+                                text={'Send Prescription'}
+                            ></CustomButton>}
                             {!prescription_list.length &&
                             <span className="error-text">Please add a medicine to proceed</span>}
                             {!userShouldProceed && prescription_list.length > 1 &&

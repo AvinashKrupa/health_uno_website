@@ -20,6 +20,7 @@ const PatientBookingSummary = (props) => {
     }, [props.match.params.doctor_id]);
 
     const { addToast } = useToasts();
+    const [showLoader, setShowLoader] = useState(false);
     const date = patientSlotBookingStore((state) => state.date);
     const startTime = patientSlotBookingStore((state) => state.startTime);
     const [doctorDetails, setDoctorDetails] = useState('');
@@ -78,7 +79,7 @@ const PatientBookingSummary = (props) => {
                 slot: startTime,
                 date: moment(date).format('YYYY-MM-DD'),
               };
-
+            setShowLoader(true);
               post(API.BOOKAPPOINTMENT, params)
                 .then(response => {
                   if (response.status === 200) {
@@ -86,14 +87,17 @@ const PatientBookingSummary = (props) => {
                       if(response.data.data.razorpay_order_id){
                           processRazorPayment(response.data.data.razorpay_order_id, transactionID);
                       }else {
+                          setShowLoader(false);
                           addToast('Slot is successfully booked', { appearance: 'success' });
                           props.history.push('/patient/appointments')
                       }
                   } else {
+                      setShowLoader(false);
                       addToast(response.data.message, { appearance: 'error' });
                   }
                 })
                 .catch(error => {
+                    setShowLoader(false);
                   addToast(error.response.data.message, { appearance: 'error' });
                 });
         }
@@ -148,13 +152,16 @@ const PatientBookingSummary = (props) => {
             post(API.CONFIRMPAYENT, data)
             .then(result => {
               if (result.status === 200) {
+                  setShowLoader(false);
                 addToast('Slot is successfully booked', { appearance: 'success' });
                 props.history.push('/patient/appointments')
               } else {
+                  setShowLoader(false);
                   addToast(result.data.message, { appearance: 'error' });
               }
             })
             .catch(error => {
+                setShowLoader(false);
               addToast(error.response.data.message, { appearance: 'error' });
             });
         },
@@ -267,11 +274,18 @@ const PatientBookingSummary = (props) => {
                         </>
                     }
                     <div style={{textAlign: 'center'}}>
-                        <CustomButton
-                        className={'patient-order-booking-btn'}
-                        onClick={bookSlots}
-                        text={`Pay ₹${doctorDetails.fee}`}
-                        ></CustomButton>
+                        {showLoader && <CustomButton
+                            className={'patient-order-booking-btn'}
+                            disabled
+                            onClick={bookSlots}
+                            importantStyle={{backgroundColor: "#e2e9e9"}}
+                            showLoader={showLoader}
+                        ></CustomButton>}
+                        {!showLoader && <CustomButton
+                            className={'patient-order-booking-btn'}
+                            onClick={bookSlots}
+                            text={`Pay ₹${doctorDetails.fee}`}
+                        ></CustomButton>}
                     </div>
                 </Col>
                 <Col lg="1" md='1' />

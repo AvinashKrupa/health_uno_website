@@ -10,6 +10,7 @@ import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const DoctorEditProfile = (props) => {
     // Get state and language from server
+    const [showLoader, setShowLoader] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [mobile, setMobile] = useState('');
@@ -107,20 +108,23 @@ const DoctorEditProfile = (props) => {
                 country: country
             },
             qualif: {
-                exp: experience,
+                exp: Number(experience),
             },
         };
-
+        setShowLoader(true);
         post(API.UPDATE_PROFILE, params, true)
             .then(response => {
                 if (response.status === 200) {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'success'});
                 } else {
+                    setShowLoader(false);
                     addToast(response.data.message, {appearance: 'error'});
                 }
                 props.setReloadSideColumn(true)
             })
             .catch(error => {
+                setShowLoader(false);
                 addToast(error.response.data.message, {appearance: 'error'});
             });
     }
@@ -298,12 +302,18 @@ const DoctorEditProfile = (props) => {
                 <Col md></Col>
             </Row>
             <Col className='form-btn'>
-                <CustomButton
+                {showLoader && <CustomButton
                     className='multistepform-button edit-profile-update-button'
-                    disabled={false}
+                    disabled
+                    onClick={updateUserProfile}
+                    importantStyle={{backgroundColor: "#e2e9e9"}}
+                    showLoader={showLoader}
+                ></CustomButton>}
+                {!showLoader && <CustomButton
+                    className='multistepform-button edit-profile-update-button'
                     onClick={updateUserProfile}
                     text={'Update'}
-                ></CustomButton>
+                ></CustomButton>}
             </Col>
 
         </div>
