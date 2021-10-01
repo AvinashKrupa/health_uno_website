@@ -39,18 +39,18 @@ const TopConsultants = (props) => {
   }, []);
 
   function callBackFilter(data) {
-    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages);
+    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages, data.experience);
   }
 
-  function getTopConsultants(sortBy = 'asc', min = '', max = '' , lang = '', isPagination = false) {
-      let params = {
+  function getTopConsultants(sortBy = 'asc', min = '100', max = '5000' , lang = '',exp = '', isPagination = false,) {
+    let params = {
       limit: 40,
       page: isPagination ? page : 1,
       filter: {
         text: searchText,
         fee_min: min,
         fee_max: max,
-        exp: '',
+        exp: exp,
         language: lang,
       },
       sort_order: sortBy,

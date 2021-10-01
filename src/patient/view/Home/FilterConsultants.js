@@ -1,12 +1,13 @@
 import { Row, Col, Button, InputGroup, Image } from "react-bootstrap";
 import CheckboxList from "../../../commonComponent/CheckboxList";
-import {minus} from '../../../constants/PatientImages';
 import InputRange from "react-input-range";
 import {API, get} from '../../../api/config/APIController';
 import { useEffect, useState } from "react";
 import { useToasts } from 'react-toast-notifications';
 import "react-input-range/lib/css/index.css";
 import CustomButton from '../../../commonComponent/Button'
+import {EXPERIENCE_LIST} from "./constants";
+import SelectWithoutDefault from "../../../commonComponent/SelectWithoutDefault";
 
 let isDefaultSet = true;
 
@@ -23,7 +24,8 @@ const FilterConsultants = (props) => {
     const [languages, setLanguages] = useState([]);
     const [selectedLanguages, setSelectedLanguages] = useState([]);
     const [sortBy, setSortBy] = useState('asc');
-   
+    const [experience, setExperience] = useState(10);
+
     function getLanguage() {
         get(API.GETLANGUAGE)
         .then(response => {
@@ -66,13 +68,18 @@ const FilterConsultants = (props) => {
         setShowLanguages(true);
         setMinMax({ min: 250, max: 5000 });
         setSortBy('');
+        setExperience(1);
     }
 
     function filter() {
         const min = !isDefaultSet ? minMax.min : '';
         const max = !isDefaultSet ? minMax.max : '' ;
-        props.callBackFilter({min, max, selectedLanguages, sortBy});
+        props.callBackFilter({min, max, selectedLanguages, sortBy, experience});
         props.toggleSidebar()
+    }
+
+    function onExperienceSelect(value) {
+        setExperience(value)
     }
 
   return (
@@ -118,7 +125,7 @@ const FilterConsultants = (props) => {
                 value={'asc'}
                 className="filter_menu_button"
                 style={{ marginLeft: "18px", color: sortBy === "asc" ? "white" : "",backgroundColor: sortBy === 'asc' ? '#28A3DA' : ''  }}
-                onClick={(e) => { 
+                onClick={(e) => {
                     isDefaultSet = false
                     setSortBy(e.target.value)
                 }}
@@ -131,7 +138,7 @@ const FilterConsultants = (props) => {
                 style={{ marginLeft: "18px", color: sortBy === "desc" ? "white" : "",
 
                 backgroundColor: sortBy === 'desc' ? '#28A3DA' : '' }}
-                onClick={(e) => { 
+                onClick={(e) => {
                     isDefaultSet = false
                     setSortBy(e.target.value)
                 }}
@@ -169,7 +176,7 @@ const FilterConsultants = (props) => {
               Language
             </span>
             <span style={{ cursor: 'pointer', paddingLeft: "144px" }}>
-              {showLanguages ? 
+              {showLanguages ?
               <i class="fas fa-chevron-up filter_menu_image" onClick={toggleLanguages}></i>
                : <i class="fas fa-chevron-down filter_menu_image" onClick={toggleLanguages}></i>}
             </span>
@@ -180,6 +187,22 @@ const FilterConsultants = (props) => {
                   <CheckboxList onClick={handleLanguageGroup} list={languages} />
                 </div>
             ) : null}
+              <Col md>
+                  <div
+                      className="filter_menu_h4"
+                      style={{ paddingLeft: "5px", paddingTop: "20px" }}
+                  >
+              Experience
+            </div>
+                  <Col>
+                      <SelectWithoutDefault
+                          value={experience}
+                          id="experience"
+                          options={EXPERIENCE_LIST}
+                          handleSelect={onExperienceSelect}
+                      />
+                  </Col>
+              </Col>
           </Row>
 
           <div >
