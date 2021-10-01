@@ -68,7 +68,7 @@ const FilterConsultants = (props) => {
         setShowLanguages(true);
         setMinMax({ min: 100, max: 5000 });
         setSortBy('asc');
-        setExperience(1);
+        setExperience(10);
     }
 
     function filter() {

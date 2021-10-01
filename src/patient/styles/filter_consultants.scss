@@ -3,14 +3,14 @@
     width: 247px;
     background: #f3f3f3;
   }
-  
+
   .filter_menu_h4 {
     height: 20px;
     font-weight: 600;
     line-height: 20px;
     letter-spacing: -0.30000001192092896px;
   }
-  
+
   .filter_menu_h5 {
     max-width: 100px;
     width: 100px;
@@ -21,7 +21,7 @@
     margin: 24px;
     height: 40px;
   }
-  
+
   .filter_menu_button {
     height: 40px;
     width: 90px;
@@ -37,12 +37,12 @@
     line-height: 15px;
     letter-spacing: 0px;
   }
-  
+
   .filter_menu_image {
     float: right;
     padding-right: 21px
   }
-  
+
   .filter_menu_inputrange {
     font-family: Montserrat;
     font-size: 11px;
@@ -55,34 +55,41 @@
     width: 213px;
     left: 17px;
     top: 308px;
-    border-radius: nullpx;
     margin-top: 60px;
   }
-  
+.input-range__label {
+    font-family: Montserrat!important;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.5173913836479187px;
+    text-align: center;
+  }
+
   .input-range {
     width: 213px !important;
     margin: auto;
     margin-top: 55px;
   }
-  
+
   .input-range__slider {
     background: #28a3da !important;
     height: 15px !important;
     width: 15px !important;
   }
-  
+
   .input-range__track.input-range__track--active {
     background: #28a3da !important;
   }
-  
+
   .input-range__track.input-range__track--background {
     background: rgb(206, 203, 202);
   }
-  
+
   .input-range__label-container {
     top: 35px;
   }
-  
+
   .input-range__label.input-range__label--min {
     display: none;
   }
