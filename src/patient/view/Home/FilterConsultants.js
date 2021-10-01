@@ -19,7 +19,7 @@ const FilterConsultants = (props) => {
     }, []);
 
     const { addToast } = useToasts();
-    let [minMax, setMinMax] = useState({ min: 250, max: 5000 });
+    let [minMax, setMinMax] = useState({ min: 100, max: 5000 });
     const [showLanguages, setShowLanguages] = useState(true);
     const [languages, setLanguages] = useState([]);
     const [selectedLanguages, setSelectedLanguages] = useState([]);
@@ -66,14 +66,14 @@ const FilterConsultants = (props) => {
         isDefaultSet = true;
         setSelectedLanguages([]);
         setShowLanguages(true);
-        setMinMax({ min: 250, max: 5000 });
-        setSortBy('');
+        setMinMax({ min: 100, max: 5000 });
+        setSortBy('asc');
         setExperience(1);
     }
 
     function filter() {
-        const min = !isDefaultSet ? minMax.min : '';
-        const max = !isDefaultSet ? minMax.max : '' ;
+        const min = !isDefaultSet ? minMax.min : 100;
+        const max = !isDefaultSet ? minMax.max :  5000;
         props.callBackFilter({min, max, selectedLanguages, sortBy, experience});
         props.toggleSidebar()
     }
@@ -157,7 +157,7 @@ const FilterConsultants = (props) => {
             <InputRange
               step={100}
               className="filter_menu_inputrange"
-              minValue={250}
+              minValue={100}
               maxValue={5000}
               value={minMax}
               onChange={(value) => {
@@ -184,7 +184,7 @@ const FilterConsultants = (props) => {
                 <div
                   className="filter_menu_scrollable_div"
                 >
-                  <CheckboxList onClick={handleLanguageGroup} list={languages} />
+                  <CheckboxList onClick={handleLanguageGroup} list={languages} selectedLanguages={selectedLanguages}/>
                 </div>
             ) : null}
               <Col md>

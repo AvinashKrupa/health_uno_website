@@ -50,7 +50,7 @@ const TopConsultants = (props) => {
         text: searchText,
         fee_min: min,
         fee_max: max,
-        exp: exp,
+        exp: Number(exp),
         language: lang,
       },
       sort_order: sortBy,
