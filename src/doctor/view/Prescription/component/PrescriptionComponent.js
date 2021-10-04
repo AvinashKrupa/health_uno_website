@@ -340,7 +340,8 @@ export default function PrescriptionComponent({
                     <br/>
                     <Form.Label>Start Date</Form.Label>
                     <br/>
-                    <Form.Control type="date" onChange={setStartDate}
+                    <Form.Control type="date" 
+                    onChange={(e) => setStartDate(e.target.value)}
                     placeholder="Start Date"
                     onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date()).format('YYYY-MM-DD')}
