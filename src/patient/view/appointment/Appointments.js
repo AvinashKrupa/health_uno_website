@@ -114,7 +114,7 @@ const Appointments = (props) => {
         <Col lg='1' md='1' sm='1' xs='1'>
 
         </Col>
-        <Col  lg='10' md='11' sm='10' xs='10'  className="screen-768 appointment-page-content-column">
+        <Col  lg='11' md='11' sm='11' xs='11'  className="screen-768 appointment-page-content-column">
           <Row>
             <span className="appointment-page-text-heading">Appointments</span>
           </Row>
