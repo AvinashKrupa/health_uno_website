@@ -6,7 +6,8 @@ class AutoSuggestInput extends React.Component {
         this.state = {
             value: '',
             suggestions: [],
-            noSuggestions: false
+            noSuggestions: false,
+            isChanged: false
         };
     }
 
@@ -37,12 +38,13 @@ class AutoSuggestInput extends React.Component {
                 this.props.setShouldClearInput(false)
             })
         }
-        // if(this.props.medicineName !== this.state.value){
-        //     this.setState({
-        //         value: this.props.medicineName || '',
-        //         suggestions: [],
-        //     })
-        // }
+
+        if(this.props.medicineName !== this.state.value && !this.state.isChanged){
+            this.setState({
+                value: this.props.medicineName || '',
+                suggestions: [],
+            })
+        }
     }
 
     getSuggestionValue = suggestion => suggestion.name;
@@ -55,7 +57,8 @@ class AutoSuggestInput extends React.Component {
 
     onChange = (event, { newValue }) => {
         this.setState({
-            value: newValue
+            value: newValue,
+            isChanged: true
         });
     };
 
