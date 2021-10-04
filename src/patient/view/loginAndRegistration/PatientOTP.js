@@ -144,7 +144,7 @@ const OTP = ({history}) => {
 
   return (
       <Container fluid>
-        <Row className='login-container'>
+        <Row className='login-container LoginPageDoctor'>
           <Col className='left-nav'>
             <Row>
               <Col lg='10' md='10' sm='12' className="text-container">

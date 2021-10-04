@@ -33,7 +33,6 @@ const RegistrationComponent = ({history, image}) => {
   }, []);
 
   const {addToast} = useToasts();
-  const [showLoader, setShowLoader] = useState(false);
   const setUserInfo = useUserStore((state) => state.setUserInfo)
   const authContext = useContext(AuthContext);
   const [firstName, setFirstName] = useState('');
@@ -426,7 +425,7 @@ const RegistrationComponent = ({history, image}) => {
         country: country,
       },
     };
-    setShowLoader(true);
+
     post(API.REGISTERPATIENT, params, true)
         .then(response => {
           if (response.status === 200) {
@@ -442,14 +441,11 @@ const RegistrationComponent = ({history, image}) => {
             }
             addToast(response.data.message, {appearance: 'success'});
             history.push('/patient/home')
-            setShowLoader(false);
           } else {
-            setShowLoader(false);
             addToast(response.data.message, {appearance: 'error'});
           }
         })
         .catch(error => {
-          setShowLoader(false);
           addToast(error.response.data.message, {appearance: 'error'});
         });
   }
@@ -510,7 +506,7 @@ const RegistrationComponent = ({history, image}) => {
               <br/>
               <Form.Label>Date of birth</Form.Label>
               <br/>
-              <Form.Control type="date" onKeyDown={(e) => e.preventDefault()} onChange={(e) => setBirthDate(e.target.value)}
+              <Form.Control type="date" onChange={(e) => setBirthDate(e.target.value)}
                             max={moment(new Date()).format('YYYY-MM-DD')}/>
             </Col>
             <Col md>
@@ -636,7 +632,7 @@ const RegistrationComponent = ({history, image}) => {
                 {isDiabetic &&
                 <Col>
                   <br/>
-                  <br/> <Form.Control type="date" onKeyDown={(e) => e.preventDefault()} max={moment(new Date()).format('YYYY-MM-DD')}
+                  <br/> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')}
                                       onChange={(e) => setDiabeticValue(e.target.value)}/>
                 </Col>
                 }
@@ -656,7 +652,7 @@ const RegistrationComponent = ({history, image}) => {
                 {isHypertensive &&
                 <Col>
                   <br/>
-                  <br/> <Form.Control type="date" onKeyDown={(e) => e.preventDefault()} max={moment(new Date()).format('YYYY-MM-DD')}
+                  <br/> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')}
                                       onChange={(e) => setHypertensiveValue(e.target.value)}/>
                 </Col>
                 }
@@ -745,7 +741,7 @@ const RegistrationComponent = ({history, image}) => {
               <Row>
                 {isVaccinated &&
                 <Col md style={{paddingTop: '32px'}}>
-                  <br/> <Form.Control type="date" onKeyDown={(e) => e.preventDefault()} max={moment(new Date()).format('YYYY-MM-DD')}
+                  <br/> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')}
                                       onChange={(e) => setVaccineDate(e.target.value)}/>
                   <Selector
                       defaultValue="Choose dose type"
@@ -790,37 +786,20 @@ const RegistrationComponent = ({history, image}) => {
             <Col md>
               <div style={{display:"flex", flexDirection:"row",}}>
                 <Checkbox id="term" checked={termsCondition} handleSelect={setTermsCondition}/>
-                <span className="terms-text"  onClick={()=>window.open('https://dev.healthuno.com:6002/v1/termsandcondition/userTC')}>I Accept <span className='blue-text'>Terms and Conditions</span></span>
+                <span style={{cursor:"pointer", lineHeight:'65px' }} onClick={()=>window.open('https://dev.healthuno.com:6002/v1/termsandcondition/userTC')}>I accept Terms and Conditions</span>
               </div>
             </Col>
             <Col md></Col>
           </Row>
 
           <Row>
-            {showLoader && <CustomButton
-                className="primary registration-btn"
-                type="submit"
-                disabled
-                onClick={() => {
-                  if (validation()) {
-                    registerUserAPICalling();
-                  }
-                }
-                }
-                importantStyle={{backgroundColor: "#e2e9e9"}}
-                showLoader={showLoader}
-            ></CustomButton>}
-            {!showLoader && <CustomButton
-                className="primary registration-btn"
-                type="submit"
-                onClick={() => {
-                  if (validation()) {
-                    registerUserAPICalling();
-                  }
-                }
-                }
-                text={'Submit'}
-            ></CustomButton>}
+            <CustomButton text={'Continue'} className="primary registration-btn" onClick={() => {
+              if (validation()) {
+                registerUserAPICalling();
+              }
+            }
+            }></CustomButton>
+
           </Row>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import {Button, Col, Container, Dropdown, DropdownButton, FormControl, Image, InputGroup, Row,} from "react-bootstrap";
-import {doctor, frame, logo, plant} from '../../constants/PatientImages';
+import {doctor, frame, logo, plant, group} from '../../constants/PatientImages';
 import {H1, H3} from './../../commonComponent/TextSize';
 import {API, post} from '../../api/config/APIController';
 import {AuthContext} from '../../context/AuthContextProvider';
@@ -113,7 +113,7 @@ const DoctorLogin = ({history}) => {
                         </Row>
                         <Row className='doctor-image'>
                             <Col lg='1'></Col>
-                            {/* <Col  lg='8'> <Image src={group}></Image></Col> */}
+                            <Col  lg='8'> <Image src={group}></Image></Col>
                             <Col lg='2'></Col>
                         </Row>
                     </Col>
