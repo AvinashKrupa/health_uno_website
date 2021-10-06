@@ -139,7 +139,7 @@ const TopConsultants = (props) => {
             >
             </SearchInputWithIcon>
             <Button onClick={toggleSidebar} style={{marginTop: '33px'}}>
-              <img src={filter} alt='filter-img' style={{height: '26px', width: '24px'}}></img>
+              <img src={filter} alt='filter-img' style={{height: '26px', width: '24px', zIndex: -1}}></img>
             </Button>
           </div>
           <div>
