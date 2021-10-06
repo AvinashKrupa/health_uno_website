@@ -11,8 +11,12 @@ const TopConsultantsFilter = (props) => {
           sidebar: {
             width: "325px",
             background: "rgba(255, 255, 255, 1)",
-            overflowY: 'none'
+            overflowY: 'auto'
           },
+          root:{
+            position:'fixed',
+            zIndex: 99
+          }
         }}
         pullRight={true}
         sidebar={<FilterConsultants toggleSidebar={props.toggleSidebar}toggle={props.toggleSidebar} callBackFilter={props.callBackFilter} />}
