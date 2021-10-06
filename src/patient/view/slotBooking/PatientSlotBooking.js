@@ -148,7 +148,7 @@ import {convert24hto12h} from "../../../utils/utilities";
                   <Link to={`/patient/doctorDetails/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Book Slot</span></Link>
               </Row> */}
                 <button className="back-nav-container back-navigation">
-                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
+                <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.push(`/patient/doctorDetails/${props.match.params.doctor_id}`)}></img>
                     <span>Book Slot</span>
                 </button>
                <HorizontalCalendar
