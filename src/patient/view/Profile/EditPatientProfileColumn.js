@@ -6,16 +6,36 @@ import React from "react";
 import ProfileButton from "../../../commonComponent/ProfileButton";
 import { withRouter } from 'react-router-dom'
 import UploadImage from "../../../commonComponent/Upload"
-import {API, get} from "../../../api/config/APIController";
+import {API, get, post} from "../../../api/config/APIController";
 import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import {useToasts} from "react-toast-notifications";
 
 const EditProfilePictureColumn = (props) => {
     const[ image, setImage ]= useState(props.img);
     const {addToast} = useToasts();
-    const handleImage = (file)=>{
-    setImage(file)
-    }
+    function updateUserProfile(file) {
+        let params = {
+          dp: file,
+        };
+        post(API.UPDATE_PROFILE, params, true)
+          .then((response) => {
+            if (response.status === 200) {
+              addToast(response.data.message, { appearance: "success" });
+            } else {
+              addToast(response.data.message, { appearance: "error" });
+            }
+            props.setReloadSideColumn(true);
+          })
+          .catch((error) => {
+            addToast(error.response.data.message, { appearance: "error" });
+          });
+      }
+    
+      const handleImage = (file) => {
+        setImage(file);
+        updateUserProfile(file);
+        props.setProfilePic(file);
+      };
     useEffect(() => {
         getUserProfile()
         setTimeout(()=>props.setReloadSideColumn(false),1000)
