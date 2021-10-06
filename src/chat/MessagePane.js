@@ -129,7 +129,7 @@ class MessagePane extends Component {
             let finalMessage = {
                 message: this.state.text,
                 sender: {_id: this.state.user_id, name: this.state.user_id, avatar: ""},
-                created_at: moment().utc().format()
+                created_at: moment().utc().toDate()
             }
             this.state.socketObj.emit("sendMessage", finalMessage);
             let messages = this.state.messages;
