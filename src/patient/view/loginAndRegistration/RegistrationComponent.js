@@ -506,7 +506,7 @@ const RegistrationComponent = ({history, image}) => {
               <br/>
               <Form.Label>Date of birth</Form.Label>
               <br/>
-              <Form.Control type="date" onChange={(e) => setBirthDate(e.target.value)}
+              <Form.Control type="date" onKeyDown={(e) => e.preventDefault()} onChange={(e) => setBirthDate(e.target.value)}
                             max={moment(new Date()).format('YYYY-MM-DD')}/>
             </Col>
             <Col md>
@@ -632,7 +632,7 @@ const RegistrationComponent = ({history, image}) => {
                 {isDiabetic &&
                 <Col>
                   <br/>
-                  <br/> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')}
+                  <br/> <Form.Control type="date" onKeyDown={(e) => e.preventDefault()} max={moment(new Date()).format('YYYY-MM-DD')}
                                       onChange={(e) => setDiabeticValue(e.target.value)}/>
                 </Col>
                 }
@@ -652,7 +652,7 @@ const RegistrationComponent = ({history, image}) => {
                 {isHypertensive &&
                 <Col>
                   <br/>
-                  <br/> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')}
+                  <br/> <Form.Control type="date" onKeyDown={(e) => e.preventDefault()} max={moment(new Date()).format('YYYY-MM-DD')}
                                       onChange={(e) => setHypertensiveValue(e.target.value)}/>
                 </Col>
                 }
@@ -741,7 +741,7 @@ const RegistrationComponent = ({history, image}) => {
               <Row>
                 {isVaccinated &&
                 <Col md style={{paddingTop: '32px'}}>
-                  <br/> <Form.Control type="date" max={moment(new Date()).format('YYYY-MM-DD')}
+                  <br/> <Form.Control type="date" onKeyDown={(e) => e.preventDefault()} max={moment(new Date()).format('YYYY-MM-DD')}
                                       onChange={(e) => setVaccineDate(e.target.value)}/>
                   <Selector
                       defaultValue="Choose dose type"
