@@ -86,7 +86,7 @@ const RegistrationComponent = ({history, image}) => {
 
   const setLanguageValue = (value) => {
     const lanInfo = value.split('|');
-    setLanguage(lanInfo[1])
+    setLanguage(lanInfo[0])
   }
 
   // Need state id to get city API call
@@ -339,7 +339,7 @@ const RegistrationComponent = ({history, image}) => {
 
   const getLanguageValue = value => {
     if(value){
-      const selectedLanguage = dataLanguage.find(language => language.value === value)
+      const selectedLanguage = dataLanguage.find(language => language.id === value)
       return selectedLanguage ? `${selectedLanguage.id}|${selectedLanguage.value}` : ''
     }else{
       return ''
@@ -361,7 +361,7 @@ const RegistrationComponent = ({history, image}) => {
       height: height,
       weight: weight,
       email: email,
-      // language: language,
+      language: language,
       dp: image,
       med_cond: [
         {
@@ -786,7 +786,7 @@ const RegistrationComponent = ({history, image}) => {
             <Col md>
               <div style={{display:"flex", flexDirection:"row",}}>
                 <Checkbox id="term" checked={termsCondition} handleSelect={setTermsCondition}/>
-                <span style={{cursor:"pointer", lineHeight:'65px' }} onClick={()=>window.open('https://dev.healthuno.com:6002/v1/termsandcondition/userTC')}>I accept Terms and Conditions</span>
+                <a style={{color: 'blue', lineHeight:'65px' }} onClick={()=>window.open('https://dev.healthuno.com:6002/v1/termsandcondition/userTC')}>I accept Terms and Conditions</a>
               </div>
             </Col>
             <Col md></Col>
