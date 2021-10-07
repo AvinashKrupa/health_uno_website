@@ -192,7 +192,7 @@ const FilterConsultants = (props) => {
                       className="filter_menu_h4"
                       style={{ paddingLeft: "5px", paddingTop: "20px" }}
                   >
-              Experience
+              Min Experience (In years)
             </div>
                   <Col>
                       <SelectWithoutDefault
