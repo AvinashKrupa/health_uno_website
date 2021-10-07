@@ -91,7 +91,7 @@ const AppointmentDetail = (props) => {
                                 <div className="detail-container">
                                     <div className="field-container" style={{justifyContent: "space-between"}}>
                                         <div
-                                            className="patient-name">{`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}</div>
+                                            className="patient-name rrr">{`${appointmentDetail?.patient?.user?.first_name} ${appointmentDetail?.patient?.user?.last_name}`}</div>
                                         <div style={{marginRight: '2%'}}>
                                             <Button className="view-report-button"
                                                     onClick={() => props.history.push(`/doctor/reports/${appointmentDetail?.patient?._id}`)}>
