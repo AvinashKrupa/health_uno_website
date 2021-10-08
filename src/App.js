@@ -49,7 +49,7 @@ function App() {
   });
 
   onMessage(messaging, (payload) => {
-    addToast(`${payload.notification.title}\n\n${payload.notification.body}`, {appearance: "info"});
+    addToast(<p><b>{payload.notification.title}</b><br/>{payload.notification.body}</p>, {appearance: "info"});
   });
   return (
     <div className="App">
