@@ -42,7 +42,7 @@ const TopConsultants = (props) => {
     getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages, data.experience);
   }
 
-  function getTopConsultants(sortBy = 'asc', min = '100', max = '5000' , lang = [],exp = 10, isPagination = false,) {
+  function getTopConsultants(sortBy = 'asc', min = '100', max = '5000' , lang = [],exp, isPagination = false,) {
     let params = {
       limit: 40,
       page: isPagination ? page : 1,
@@ -50,7 +50,7 @@ const TopConsultants = (props) => {
         text: searchText,
         fee_min: Number(min),
         fee_max: Number(max),
-        exp: Number(exp),
+        ...exp && {exp: Number(exp)},
         language: lang,
       },
       sort_order: sortBy,
