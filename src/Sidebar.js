@@ -7,6 +7,14 @@ const sidebar = ['home', 'appointments', 'profile', 'reports']
 
 const Sidebar = (props) => {
     const userType = JSON.parse(getData('USER_TYPE'));
+    const newRoutes = props.location.pathname.split("/") || [];
+    let defaultSelection = "home"
+    for (let i = 0; i <newRoutes.length ; i++) {
+        const found = sidebar.includes(newRoutes[i])
+        if(found){
+            defaultSelection = newRoutes[i];
+        }
+    }
     return (
         <div className="sidebarMenu">
             <SideNav onSelect={(selected) => {
@@ -33,7 +41,7 @@ const Sidebar = (props) => {
                 sidebar.includes(selected) && props.history.push(`${routeName}${selected}`);
             }}>
                 <SideNav.Toggle/>
-                <SideNav.Nav defaultSelected="home">
+                <SideNav.Nav defaultSelected={defaultSelection}>
                     <NavItem className="setLogo">
                         <NavIcon>
                             <img alt='logo' src={process.env.PUBLIC_URL + '/assets/logo.png'}></img>
