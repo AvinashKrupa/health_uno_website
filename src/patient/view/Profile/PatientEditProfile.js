@@ -1,6 +1,7 @@
 import Input from "../../../commonComponent/Input";
 import TextArea from "../../../commonComponent/TextArea";
-import {Col, Row} from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
+import moment from "moment";
 import React, {useEffect, useState} from "react";
 import {API, get, post} from '../../../api/config/APIController';
 import {useToasts} from "react-toast-notifications";
@@ -9,6 +10,8 @@ import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import { isEmpty } from "../../../utils/Validators";
 import Spinner from "../../../commonComponent/Spinner";
 import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
+import Radio from "../../../commonComponent/Radio";
+import Selector from "../../../commonComponent/Select";
 
 const PatientEditProfile = (props) => {
     // Get state and language from server
@@ -27,6 +30,35 @@ const PatientEditProfile = (props) => {
     const [appointmentStats, setAppointmentStats] = useState({});
     const [stateName, setStateName] = useState('');
     let [loader, setLoader] = useState(false);
+    const dosages = ["First", "Second"];
+    const vaccineNames = ["Covishield", "Covaxin", "Sputnik", "J&J", "Pfizer", "Others"];
+    const [isDiabetic, setIsDiabetic] = useState('');
+    const [diabetics, setDiabetics] = useState([{id: 'yes', value: 'Yes', checked: false},
+        {id: 'no', value: 'No', checked: false}]);
+    const [diabeticValue, setDiabeticValue] = useState('');
+    const [hypertensiveValue, setHypertensiveValue] = useState('');
+    const [hypertensives, setHypertensives] = useState([{id: 'yes', value: 'Yes', checked: false},
+        {id: 'no', value: 'No', checked: false}]);
+    const [isHypertensive, setIsHypertensive] = useState('');
+    const [surgerys, setSurgerys] = useState([{id: 'yes', value: 'Yes', checked: false},
+        {id: 'no', value: 'No', checked: false}]);
+    const [isSurgery, setIsSurgery] = useState('');
+    const [surgeryValue, setSurgeryValue] = useState('');
+    const [allergieValue, seAllergieValue] = useState('')
+    const [allergies, setAllergies] = useState([{id: 'yes', value: 'Yes', checked: false},
+        {id: 'no', value: 'No', checked: false}]);
+    const [isAllergie, setIsAllergie] = useState('');
+    const [covids, setCovids] = useState([{id: 'yes', value: 'Yes', checked: false},
+        {id: 'no', value: 'No', checked: false}]);
+    const [isCovid, setIsCovid] = useState('');
+    const [otherMedical, setOtherMedical] = useState('');
+    const [vaccinated, setVaccinated] = useState([{id: 'yes', value: 'Yes', checked: false},
+        {id: 'no', value: 'No', checked: false}]);
+    const [isVaccinated, setIsVaccinated] = useState('');
+    const [vaccineDate, setVaccineDate] = useState('');
+    const [dose, setDose] = useState('');
+    const [vaccineName, setVaccineName] = useState('');
+    const [covidDetails, handleCovidDetails] = useState('');
 
     useEffect(() => {
         getUserProfile();
@@ -43,6 +75,65 @@ const PatientEditProfile = (props) => {
     const [dataCity, setDataCity] = useState([]);
     const {addToast} = useToasts();
 
+    const handleDiabetic = (id) => {
+        setIsDiabetic(id === 'yes');
+        const newDiabetic = diabetics.map((item) => {
+            return Object.assign({}, item, {checked: item.id === id});
+        })
+
+        setDiabetics(newDiabetic);
+    }
+
+    const handleHypertensive = (id) => {
+        setIsHypertensive(id === 'yes')
+        const newHypertensives = hypertensives.map((item) => {
+            return Object.assign({}, item, {checked: item.id === id});
+        })
+
+        setHypertensives(newHypertensives);
+    }
+
+    const handleSurgerys = (id) => {
+        setIsSurgery(id === 'yes')
+
+        const newSurgerys = hypertensives.map((item) => {
+            return Object.assign({}, item, {checked: item.id === id});
+        })
+
+        setSurgerys(newSurgerys);
+    }
+
+    const handleAllergies = (id) => {
+        setIsAllergie(id === 'yes')
+
+        const newAllergies = allergies.map((item) => {
+            return Object.assign({}, item, {checked: item.id === id});
+        })
+
+        setAllergies(newAllergies);
+    }
+
+    const handleCovids = (id) => {
+        setIsCovid(id === 'yes')
+
+        const newCovids = covids.map((item) => {
+            return Object.assign({}, item, {checked: item.id === id});
+        })
+
+        setCovids(newCovids);
+    }
+
+    const handleVaccinated = (id) => {
+        setIsVaccinated(id === 'yes')
+
+        const newVaccinatedList = vaccinated.map((item) => {
+            return Object.assign({}, item, {checked: item.id === id});
+        })
+
+        setVaccinated(newVaccinatedList);
+    }
+
+
     function getUserProfile() {
         get(API.GET_PROFILE)
             .then(response => {
@@ -52,6 +143,97 @@ const PatientEditProfile = (props) => {
                     if(additionalInfo) {
                         storeData('additional_info', JSON.stringify(additionalInfo));
                     }
+                    //diabetic
+                    if(additionalInfo.med_cond[0].selected){
+                        setDiabetics(
+                            [{id: 'yes', value: 'Yes', checked: true},
+                                {id: 'no', value: 'No', checked: false}]
+                        )
+                        setDiabeticValue((moment(additionalInfo.med_cond[0].diag_at).format('YYYY-MM-DD')))
+                        setIsDiabetic(true)
+                    }else {
+                        setDiabetics(
+                            [{id: 'yes', value: 'Yes', checked: false},
+                                {id: 'no', value: 'No', checked: true}]
+                        )
+                    }
+                    //hypertensive
+                    if(additionalInfo.med_cond[1].selected){
+                        setHypertensives(
+                            [{id: 'yes', value: 'Yes', checked: true},
+                                {id: 'no', value: 'No', checked: false}]
+                        )
+                        setIsHypertensive(true)
+                        setHypertensiveValue(moment(additionalInfo.med_cond[1].diag_at).format('YYYY-MM-DD'))
+                    }else {
+                        setHypertensives(
+                            [{id: 'yes', value: 'Yes', checked: false},
+                                {id: 'no', value: 'No', checked: true}]
+                        )
+                    }
+                    //diagnosed_with_covid
+                    if(additionalInfo.med_cond[2].selected){
+                        setCovids(
+                            [{id: 'yes', value: 'Yes', checked: true},
+                                {id: 'no', value: 'No', checked: false}]
+                        )
+                        handleCovidDetails(additionalInfo.med_cond[2].desc)
+                        setIsCovid(true)
+                    }else {
+                        setCovids(
+                            [{id: 'yes', value: 'Yes', checked: false},
+                                {id: 'no', value: 'No', checked: true}]
+                        )
+                    }
+
+                    //past_surgeries
+                    if(additionalInfo.med_cond[3].selected){
+                        setSurgerys(
+                            [{id: 'yes', value: 'Yes', checked: true},
+                                {id: 'no', value: 'No', checked: false}]
+                        )
+                        setSurgeryValue(additionalInfo.med_cond[3].desc)
+                        setIsSurgery(true)
+                    }else {
+                        setSurgerys(
+                            [{id: 'yes', value: 'Yes', checked: false},
+                                {id: 'no', value: 'No', checked: true}]
+                        )
+                    }
+
+                    //allergy_to_meds
+                    if(additionalInfo.med_cond[4].selected){
+                        setAllergies(
+                            [{id: 'yes', value: 'Yes', checked: true},
+                                {id: 'no', value: 'No', checked: false}]
+                        )
+                        seAllergieValue(additionalInfo.med_cond[4].desc)
+                        setIsAllergie(true)
+                    }else {
+                        setAllergies(
+                            [{id: 'yes', value: 'Yes', checked: false},
+                                {id: 'no', value: 'No', checked: true}]
+                        )
+                    }
+
+                    //covid_vaccinated
+                    if(additionalInfo.med_cond[5].selected){
+                        setVaccinated(
+                            [{id: 'yes', value: 'Yes', checked: true},
+                                {id: 'no', value: 'No', checked: false}]
+                        )
+                        setIsVaccinated(true)
+                        setVaccineDate(moment(additionalInfo.med_cond[5].diag_at).format('YYYY-MM-DD'))
+                        // setDose('')
+                        // setVaccineName('')
+                    }else {
+                        setVaccinated(
+                            [{id: 'yes', value: 'Yes', checked: false},
+                                {id: 'no', value: 'No', checked: true}]
+                        )
+                    }
+                    setOtherMedical(additionalInfo.other_med_cond)
+
                     setFirstName(user.first_name);
                     setLastName(user.last_name);
                     setEmail(user.email);
@@ -86,7 +268,60 @@ const PatientEditProfile = (props) => {
                 state: state,
                 city: city,
                 country: 'India'
-            }
+            },
+            med_cond: [
+                {
+                    name: 'diabetic',
+                    selected: isDiabetic,
+                    diag_at: isDiabetic ? diabeticValue : '',
+                    desc: '',
+                },
+                {
+                    name: 'hypertensive',
+                    selected: isHypertensive,
+                    diag_at: isHypertensive ? hypertensiveValue : '',
+                    desc: '',
+                },
+                {
+                    name: 'diagnosed_with_covid',
+                    selected: isCovid,
+                    diag_at: '',
+                    desc: isCovid ? covidDetails : '',
+                },
+                {
+                    name: 'past_surgeries',
+                    selected: isSurgery,
+                    diag_at: '',
+                    desc: isSurgery ? surgeryValue : '',
+                },
+                {
+                    name: 'allergy_to_meds?',
+                    selected: isAllergie,
+                    diag_at: '',
+                    desc: isAllergie ? allergieValue : '',
+                },
+                {
+                    name: 'covid_vaccinated',
+                    selected: isVaccinated,
+                    diag_at: isVaccinated ? vaccineDate : '',
+                    desc: '',
+                    meta: isVaccinated ? [
+                        {
+                            name: 'dose_type',
+                            selected: '',
+                            diag_at: '',
+                            desc: dose,
+                        },
+                        {
+                            name: 'vaccine_name',
+                            selected: '',
+                            diag_at: '',
+                            desc: vaccineName,
+                        }
+                    ] : []
+                },
+            ],
+            other_med_cond: otherMedical,
         };
         setShowLoader(true);
         post(API.UPDATE_PROFILE, params, true)
@@ -304,6 +539,168 @@ const PatientEditProfile = (props) => {
                         </Col>
                     </Row>
                 </Col>
+                <Row className="g-2">
+                    <Col md>
+                        <Row>
+                            <Radio
+                                label="Are you Diabetic?"
+                                id="radioDiabetes"
+                                options={diabetics}
+                                handleSelect={handleDiabetic}
+                            />
+                        </Row>
+                        <Row>
+                            {isDiabetic &&
+                            <Col>
+                                <br/>
+                                <br/> <Form.Control type="date"
+                                                    value={diabeticValue}
+                                                    max={moment(new Date()).format('YYYY-MM-DD')}
+                                                    onChange={(e) => setDiabeticValue(e.target.value)}/>
+                            </Col>
+                            }
+
+                        </Row>
+                    </Col>
+                    <Col md>
+                        <Row>
+                            <Radio
+                                label="Are you Hypertensive?"
+                                id="radioHypertensive"
+                                options={hypertensives}
+                                handleSelect={handleHypertensive}
+                            />
+                        </Row>
+                        <Row>
+                            {isHypertensive &&
+                            <Col>
+                                <br/>
+                                <br/> <Form.Control type="date"
+                                                    value={hypertensiveValue}
+                                                    max={moment(new Date()).format('YYYY-MM-DD')}
+                                                    onChange={(e) => setHypertensiveValue(e.target.value)}/>
+                            </Col>
+                            }
+                        </Row>
+                    </Col>
+                </Row>
+                <Row className="g-2">
+                    <Col md>
+                        <Row>
+                            <Radio
+                                label="Any past surgery?"
+                                id="radioSurgery"
+                                options={surgerys}
+                                handleSelect={handleSurgerys}
+                            />
+                        </Row>
+                        {isSurgery &&
+                        <Row>
+                            <TextArea
+                                id={'surgery'}
+                                value={surgeryValue}
+                                placeholder="Please mention in brief"
+                                onChange={setSurgeryValue}
+                                rows={4}
+                                cols={35}
+                            ></TextArea>
+                        </Row>
+                        }
+                    </Col>
+                    <Col md>
+                        <Row>
+                            <Radio
+                                label="Any allergies to medications?"
+                                id="radioAllergies"
+                                options={allergies}
+                                handleSelect={handleAllergies}
+                            />
+                        </Row>
+                        <Row>
+                            {isAllergie &&
+                            <TextArea
+                                id={'textareaSurgery'}
+                                value={allergieValue}
+                                placeholder="Please mention in brief"
+                                onChange={seAllergieValue}
+                                rows={4}
+                                cols={35}
+                            ></TextArea>
+                            }
+                        </Row>
+                    </Col>
+                </Row>
+                <Row className="g-2">
+                    <Col md>
+                        <Row>
+                            <Radio
+                                label="Have you been diagnosed with Covid?"
+                                id="diagCovid"
+                                options={covids}
+                                handleSelect={handleCovids}
+                            />
+                        </Row>
+                        <Row>
+                            {isCovid &&
+                            <Col md>
+                                <Input
+                                    type="text"
+                                    placeholder="Enter additional details"
+                                    label="Provide additional details of Covid illness"
+                                    value={covidDetails}
+                                    onChange={handleCovidDetails}
+                                />
+                            </Col>
+                            }
+                        </Row>
+                    </Col>
+                    <Col md>
+                        <Row>
+                            <Radio
+                                label="Have you been vaccinated against Covid?"
+                                id="vaccinated"
+                                options={vaccinated}
+                                handleSelect={handleVaccinated}
+                            />
+                        </Row>
+                        <Row>
+                            {isVaccinated &&
+                            <Col md style={{paddingTop: '32px'}}>
+                                <br/> <Form.Control type="date"
+                                                    value={vaccineDate}
+                                                    max={moment(new Date()).format('YYYY-MM-DD')}
+                                                    onChange={(e) => setVaccineDate(e.target.value)}/>
+                                <Selector
+                                    defaultValue="Choose dose type"
+                                    id="dose"
+                                    options={dosages}
+                                    handleSelect={setDose}
+                                />
+                                <Selector
+                                    defaultValue="Choose vaccine name"
+                                    id="v-name"
+                                    options={vaccineNames}
+                                    handleSelect={setVaccineName}
+                                />
+                            </Col>
+                            }
+                        </Row>
+                    </Col>
+                </Row>
+                <Row className="g-2">
+                    <Col md>
+                        <TextArea
+                            label="Other medical conditions"
+                            id={'other-condition'}
+                            value={otherMedical}
+                            placeholder="Add conditions"
+                            onChange={setOtherMedical}
+                            rows={1}
+                            cols={20}
+                        ></TextArea>
+                    </Col>
+                    <Col md></Col>
+                </Row>
 
             </Row>
             <Col className='form-btn' style={{margin: 'inherit',

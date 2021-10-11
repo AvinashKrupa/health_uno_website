@@ -710,7 +710,7 @@ const RegistrationComponent = ({history, image}) => {
               <Row>
                 <Radio
                     label="Have you been diagnosed with Covid?"
-                    id="radioHypertensive"
+                    id="diagCovid"
                     options={covids}
                     handleSelect={handleCovids}
                 />
