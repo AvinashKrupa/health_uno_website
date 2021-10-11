@@ -224,8 +224,8 @@ const PatientEditProfile = (props) => {
                         )
                         setIsVaccinated(true)
                         setVaccineDate(moment(additionalInfo.med_cond[5].diag_at).format('YYYY-MM-DD'))
-                        // setDose('')
-                        // setVaccineName('')
+                        setDose(additionalInfo.med_cond[5].meta[0].desc)
+                        setVaccineName(additionalInfo.med_cond[5].meta[1].desc)
                     }else {
                         setVaccinated(
                             [{id: 'yes', value: 'Yes', checked: false},
@@ -308,13 +308,13 @@ const PatientEditProfile = (props) => {
                     meta: isVaccinated ? [
                         {
                             name: 'dose_type',
-                            selected: '',
+                            selected: true,
                             diag_at: '',
                             desc: dose,
                         },
                         {
                             name: 'vaccine_name',
-                            selected: '',
+                            selected: true,
                             diag_at: '',
                             desc: vaccineName,
                         }
@@ -678,12 +678,14 @@ const PatientEditProfile = (props) => {
                                     id="dose"
                                     options={dosages}
                                     handleSelect={setDose}
+                                    value={dose}
                                 />
                                 <Selector
                                     defaultValue="Choose vaccine name"
                                     id="v-name"
                                     options={vaccineNames}
                                     handleSelect={setVaccineName}
+                                    value={vaccineName}
                                 />
                             </Col>
                             }
