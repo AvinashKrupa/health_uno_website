@@ -555,6 +555,7 @@ const PatientEditProfile = (props) => {
                                 <br/>
                                 <br/> <Form.Control type="date"
                                                     value={diabeticValue}
+                                                    onKeyDown={(e) => e.preventDefault()}
                                                     max={moment(new Date()).format('YYYY-MM-DD')}
                                                     onChange={(e) => setDiabeticValue(e.target.value)}/>
                             </Col>
@@ -577,6 +578,7 @@ const PatientEditProfile = (props) => {
                                 <br/>
                                 <br/> <Form.Control type="date"
                                                     value={hypertensiveValue}
+                                                    onKeyDown={(e) => e.preventDefault()}
                                                     max={moment(new Date()).format('YYYY-MM-DD')}
                                                     onChange={(e) => setHypertensiveValue(e.target.value)}/>
                             </Col>
@@ -668,6 +670,7 @@ const PatientEditProfile = (props) => {
                             <Col md style={{paddingTop: '32px'}}>
                                 <br/> <Form.Control type="date"
                                                     value={vaccineDate}
+                                                    onKeyDown={(e) => e.preventDefault()}
                                                     max={moment(new Date()).format('YYYY-MM-DD')}
                                                     onChange={(e) => setVaccineDate(e.target.value)}/>
                                 <Selector
