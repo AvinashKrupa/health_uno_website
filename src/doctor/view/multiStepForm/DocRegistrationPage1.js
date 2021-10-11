@@ -6,6 +6,7 @@ import { Row, Col, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import {API, get, post} from '../../../api/config/APIController';
 import { useToasts } from "react-toast-notifications";
+import Spinner from "../../../commonComponent/Spinner";
 import ProfilePictureColumn from "./profilePictureColumn";
 import moment from "moment";
 
@@ -23,6 +24,7 @@ const DocRegistrationPage1 = (props) => {
       setBirthDate, setEmail, setGender, setCity, setState, setAddressLine1, setAddressLine2, setDescription, setLanguageValue} = props;
       const [dataState, setDataState] = useState([]);
       const [dataCity, setDataCity] = useState([]);
+      let [loader, setLoader] = useState(false);
       const [dataLanguage, setDataLanguage] = useState([]);
       const { addToast } = useToasts();
 
@@ -79,18 +81,22 @@ const DocRegistrationPage1 = (props) => {
 
   // Get city from server
   function getCity(id) {
+    setLoader(true)
     post(API.GETCITY, {countryId: 101, stateId: parseInt(id)})
       .then(response => {
         if (response.status === 200) {
           let data = response.data.data.map((info) => {
             return {value: info.name, id: info.id};
           });
+          setLoader(false)
           setDataCity(data);
         } else {
+          setLoader(false)
           addToast(response.data.message, { appearance: 'error' });
         }
       })
       .catch(error => {
+        setLoader(false)
         addToast(error.response.data.message, { appearance: 'error' });
       });
   }
@@ -231,7 +237,12 @@ function getLanguage() {
                         handleSelect={setIdAndState}
                       />
                     </Col>
-                    <Col md>
+                    <Col md style={{position: "relative"}}>
+                    {loader &&
+                  <div style={{position: "absolute", zIndex: 6, top: '60px', left: '60px'}}>
+                    <Spinner showLoader={loader} width={40} height={40}/>
+                  </div>
+                  }
                       <KeyValueSelector
                       value={getCityValue(city)}
                       label="City"
