@@ -435,13 +435,13 @@ const RegistrationComponent = ({ history, image }) => {
             ? [
                 {
                   name: "dose_type",
-                  selected: "",
+                  selected: true,
                   diag_at: "",
                   desc: dose,
                 },
                 {
                   name: "vaccine_name",
-                  selected: "",
+                  selected: true,
                   diag_at: "",
                   desc: vaccineName,
                 },
