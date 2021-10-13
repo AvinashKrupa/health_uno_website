@@ -5,7 +5,13 @@ import { Grid } from "@material-ui/core";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 const Report = (props) => {
+  const [totalInvestigation, setTotalInvestigation] = useState(0);
+  const [totalPrescription, setTotalPrescription] = useState(0);
+  const [page, setPage] = useState(1);
+  const [prescriptionPage, setPrescriptionPage] = useState(0);
 
   useEffect(() => {
     getInvestigationsReports();
@@ -30,57 +36,94 @@ const Report = (props) => {
     setInvestigationsSelected(false);
   };
 
-
-
-
-function getInvestigationsReports() {
-    const userInfo = JSON.parse(getData('userInfo'));
+  function getInvestigationsReports(sortBy = "asc", isPagination = false) {
+    const userInfo = JSON.parse(getData("userInfo"));
 
     let params = {
       // patient_id: userInfo._id,
-    }
+      limit: 20,
+      page: isPagination ? page : 1,
+      sort_order: sortBy,
+    };
 
-    if(userInfo) {
+    if (userInfo) {
       post(API.GETREPORTS, params)
-      .then(response => {
-        if (response.status === 200 && response.data && response.data.data) {
-          console.log('response.data: ', response.data);
-          setInvestigationsReports(response.data.data)
-        } else {
-          addToast(response.data.message, { appearance: 'error' });
-        }
-      })
-      .catch(error => {
-        addToast(error.response.data.message, { appearance: 'error' });
-      });
+        .then((response) => {
+          if (response.status === 200 && response.data && response.data.data) {
+            setTotalInvestigation(response.data.data.total);
+            if (isPagination) {
+              setPage(page + 1);
+              if (page > 1) {
+                setInvestigationsReports([
+                  ...investigationsReports,
+                  ...response.data.data.docs,
+                ]);
+              } else {
+                setInvestigationsReports(response.data.data.docs);
+              }
+            } else {
+              setPage(page + 1);
+              setInvestigationsReports(response.data.data.docs);
+            }
+          } else {
+            addToast(response.data.message, { appearance: "error" });
+          }
+        })
+        .catch((error) => {
+          addToast(error.response.data.message, { appearance: "error" });
+        });
     }
   }
+  const fetchMoreData = () => {
+    if (totalInvestigation > investigationsReports.length) {
+      getInvestigationsReports("asc", true);
+    }
+  };
 
-  function getPrescriptionsReports() {
-    let params = {}
-      post(API.GET_PRESCRIPTIONS, params)
-      .then(response => {
+  function getPrescriptionsReports(sortBy = "asc", isPagination = false) {
+    let params = {
+      limit: 20,
+      page: isPagination ? page : 1,
+      sort_order: sortBy,
+    };
+    post(API.GET_PRESCRIPTIONS, params)
+      .then((response) => {
         if (response.status === 200 && response.data && response.data.data) {
-          setPrescriptionReports(response.data.data)
+          setTotalPrescription(response.data.data.total);
+          if (isPagination) {
+            setPrescriptionPage(prescriptionPage + 1);
+            if (prescriptionPage > 1) {
+              setPrescriptionReports([
+                ...prescriptionReports,
+                ...response.data.data.docs,
+              ]);
+            } else {
+              setPrescriptionReports(response.data.data.docs);
+            }
+          } else {
+            setPrescriptionPage(prescriptionPage + 1);
+            setPrescriptionReports(response.data.data.docs);
+          }
         } else {
-          addToast(response.data.message, { appearance: 'error' });
+          addToast(response.data.message, { appearance: "error" });
         }
       })
-      .catch(error => {
-        addToast(error.response.data.message, { appearance: 'error' });
+      .catch((error) => {
+        addToast(error.response.data.message, { appearance: "error" });
       });
   }
-
-
+  const fetchMorePrescriptionData = () => {
+    if (totalPrescription > prescriptionReports.length) {
+      getPrescriptionsReports("asc", true);
+    }
+  };
   return (
     <>
       <Row>
         <Col className="report-page-left-navbar" />
         <Col className="report-page-content-container">
           <Row style={{ marginTop: "32px" }}>
-            <span className="report-page-text-heading">
-              Reports
-            </span>
+            <span className="report-page-text-heading">Reports</span>
           </Row>
           <Row
             className="report-page-card-container"
@@ -113,34 +156,53 @@ function getInvestigationsReports() {
                   Investigations
                 </span>
               </Col>
-              <Col className="padding-0">
-              </Col>
+              <Col className="padding-0"></Col>
             </Row>
             {prescriptionsSelected ? (
               <Row>
                 <InputGroup>
-                  {prescriptionReports && prescriptionReports.map((report) => {
-                    return( <ReportCard report={report} history={props.history}/>);
-                  })}
-                  {!prescriptionReports.length &&
-                  <div className="empty-list-container_center">
-                    <h4>No prescriptions found</h4>
-                  </div>
-                  }
+                  <InfiniteScroll
+                    dataLength={prescriptionReports.length}
+                    next={fetchMorePrescriptionData}
+                    hasMore={true}
+                    className="load-data"
+                  >
+                    {prescriptionReports &&
+                      prescriptionReports.map((report) => {
+                        return (
+                          <ReportCard report={report} history={props.history} />
+                        );
+                      })}
+                  </InfiniteScroll>
+                  {!prescriptionReports.length && (
+                    <div className="empty-list-container_center">
+                      <h4>No prescriptions found</h4>
+                    </div>
+                  )}
                 </InputGroup>
               </Row>
             ) : null}
             {investigationsSelected ? (
               <Row>
                 <InputGroup>
-                 {investigationsReports && investigationsReports.map((report) => {
-                      return( <ReportCard report={report} history={props.history}/>);
-                  })}
-                  {!investigationsReports.length &&
-                  <div className="empty-list-container_center">
-                    <h4>No reports found</h4>
-                  </div>
-                  }
+                  <InfiniteScroll
+                    dataLength={investigationsReports.length}
+                    next={fetchMoreData}
+                    hasMore={true}
+                    className="load-data"
+                  >
+                    {investigationsReports &&
+                      investigationsReports.map((report) => {
+                        return (
+                          <ReportCard report={report} history={props.history} />
+                        );
+                      })}
+                  </InfiniteScroll>
+                  {!investigationsReports.length && (
+                    <div className="empty-list-container_center">
+                      <h4>No reports found</h4>
+                    </div>
+                  )}
                 </InputGroup>
               </Row>
             ) : null}
