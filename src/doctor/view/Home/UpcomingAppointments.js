@@ -47,7 +47,7 @@ const UpcomingAppointments = (props) => {
 
   function getUpcomingAppointments(isPagination = false, sortBy = "asc") {
     let params = {
-      limit: 10,
+      limit: 20,
       page: isPagination ? upcomingPage : 1,
       sort_order: sortBy,
       sort_key: "time.utc_time",
@@ -94,7 +94,7 @@ const UpcomingAppointments = (props) => {
   };
   function getPreviousAppointments(isPagination = false, sortBy = "desc") {
     let params = {
-      limit: 10,
+      limit: 20,
       page: isPagination ? previousPage : 1,
       sort_order: sortBy,
       sort_key: "time.utc_time",
