@@ -245,6 +245,12 @@
   }
 }
 
+@media screen and (max-width: 1660px ) and (min-width:1500px) {
+  .calendar-days-button{
+    width: 80px;
+  }
+  }
+
 @media screen and (max-width: 375px) {
   .update-schedule-container {
 

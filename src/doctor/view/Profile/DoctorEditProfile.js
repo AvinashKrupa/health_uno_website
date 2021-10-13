@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {API, get, post} from '../../../api/config/APIController';
 import {useToasts} from "react-toast-notifications";
 import CustomButton from "../../../commonComponent/Button";
+import Spinner from "../../../commonComponent/Spinner";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 
@@ -24,6 +25,7 @@ const DoctorEditProfile = (props) => {
     const [description, setDescription] = useState('');
     const [country, setCountry] = useState('');
     const [experience, setExperience] = useState(1);
+    const [loader, setLoader] = useState(false);
 
     useEffect(() => {
         getUserProfile();
@@ -143,18 +145,23 @@ const DoctorEditProfile = (props) => {
 
     // Get city from server
     function getCity(id) {
+        setLoader(true)
         post(API.GETCITY, {countryId: 101, stateId: parseInt(id)})
             .then(response => {
                 if (response.status === 200) {
                     let data = response.data.data.map((info) => {
                         return {value: info.name, id: info.id};
                     });
+                    setLoader(false)
                     setDataCity(data);
+                    setCity('Select city')
                 } else {
+                    setLoader(false)
                     addToast(response.data.message, {appearance: 'error'});
                 }
             })
             .catch(error => {
+                setLoader(false)
                 addToast(error.response.data.message, {appearance: 'error'});
             });
     }
@@ -273,7 +280,12 @@ const DoctorEditProfile = (props) => {
                                 handleSelect={setIdAndState}
                             />
                         </Col>
-                        <Col md>
+                        <Col md style={{position: "relative"}}>
+                        { loader &&
+                            <div style={{position: "absolute", zIndex: 6, top: '60px', left: '60px'}}>
+                                <Spinner showLoader={loader} width={40} height={40}/>
+                            </div>
+                         }
                             <KeyValueSelector
                                 defaultValue={city}
                                 id="city"
