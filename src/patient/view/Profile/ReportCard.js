@@ -29,7 +29,7 @@ const ReportCard = (props) => {
             <Row>
               <a href='#' onClick={() => {
                 props.history.push({
-                  pathname: '/patient/PDF',
+                  pathname: '/patient/reports/view',
                   state: { url: props.report.url }
                 });
               }} className="report-card-button">View</a>

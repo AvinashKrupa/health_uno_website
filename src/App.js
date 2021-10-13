@@ -88,7 +88,7 @@ function App() {
         <PrivateRoute exact path='/patient/reports' component={Report}/>
         <PrivateRoute exact path='/patient/profile/:type' component={PatientProfile}/>
         <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription}/>
-        <PrivateRoute exact path='/patient/PDF' component={PDFViewer}/>
+        <PrivateRoute exact path='/patient/reports/view' component={PDFViewer}/>
         {/* <PrivateRoute exact path='/patient/profile/upload' component={UploadReport} /> */}
         <Route component={NotFoundPage} isNotFound={true} />
         </Switch>

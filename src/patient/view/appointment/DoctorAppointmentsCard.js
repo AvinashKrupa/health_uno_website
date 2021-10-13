@@ -106,7 +106,7 @@ const isPrescriptionPresent = props.appointment?.prescription && props.appointme
                   <Col>
                   { props.appointment.status === 'scheduled' && <span onClick={setToggleModal} className={`card-text-${buttonTitle}`}>{buttonTitle}</span>}
                   { props.appointment.status !== 'scheduled' && <button disabled={!isPrescriptionPresent} className={ !isPrescriptionPresent ? 'card-text-button-disabled':`card-text-${buttonTitle}`} onClick={() => props.history.push({
-                          pathname: '/patient/PDF',
+                          pathname: '/patient/reports/view',
                           state: { url: isPrescriptionPresent }
                       })
                   }> {buttonTitle}</button>  }
