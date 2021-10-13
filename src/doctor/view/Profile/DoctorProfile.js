@@ -14,7 +14,7 @@ const DoctorProfile = (props) => {
 
 
     return (
-        <Col lg="10" sm="10" xs="10" >
+        <Col lg="11" sm="11" xs="11" >
             <Row>
                 <Col lg="3">
                     <ProfilePictureColumn setProfilePic ={setProfilePic} setReloadSideColumn={setReloadSideColumn} reloadSideColumn={reloadSideColumn}/>
