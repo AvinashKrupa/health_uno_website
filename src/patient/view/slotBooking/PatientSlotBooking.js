@@ -28,7 +28,7 @@ import {convert24hto12h} from "../../../utils/utilities";
     useEffect(() => {
       setSlot('');
       setSlotId('');
-      setStartTime(moment().format('YYYY-MM-DD'));
+      setStartTime('');
     }, []);
 
     useEffect(() => {
