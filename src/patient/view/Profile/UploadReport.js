@@ -146,12 +146,11 @@ const UploadReport = (props) => {
                 <br />
                 <Form.Label>Upload Date</Form.Label>
                 <br />
-                <Form.Control
-                  type="datetime-local"
-                  placeholder="05-July-2021"
-                  onKeyDown={(e) => e.preventDefault()}
+                <Form.Control type="datetime-local"
                   value={uploadDate}
-                  onChange={setUploadDate}
+                  onKeyDown={(e) => e.preventDefault()}
+                  onChange={(e) => setUploadDate(e.target.value)}
+
                 />
               </Col>
             </Row>
