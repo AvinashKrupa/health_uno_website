@@ -1,12 +1,12 @@
-import { Row, Col, Image } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 // import map_pin from "./Map Pin.svg";
-import {API, post} from '../../../api/config/APIController';
+import { API, post } from "../../../api/config/APIController";
 import { useToasts } from "react-toast-notifications";
-import SimilarDoctorsCard from '../doctorDetail/SimilarDoctorsCard'
 import DoctorAppointmentsCard from "./DoctorAppointmentsCard";
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 import Spinner from "../../../commonComponent/Spinner";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Appointments = (props) => {
   useEffect(() => {
@@ -20,101 +20,139 @@ const Appointments = (props) => {
   const [previous, setPrevious] = useState(false);
   const [appointmentLoaderStatus, setAppointmentLoaderStatus] = useState(false);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  const [totalUpcomingAppointments, setTotalUpcomingAppointments] = useState(0);
+  const [upcomingPage, setUpcomingPage] = useState(1);
   const [previousAppointments, setPreviousAppointments] = useState([]);
-
+  const [totalPreviousAppointments, setTotalPreviousAppointments] = useState(0);
+  const [previousPage, setPreviousPage] = useState(1);
 
   const handleSelection = () => {
     setUpcoming(!upcoming);
     setPrevious(!previous);
   };
 
-  function getUpcomingAppointments() {
+  function getUpcomingAppointments(sort_order = "asc", isPagination = false) {
     let params = {
       limit: 20,
-      page:1,
-      sort_order: "asc",
+      page: isPagination ? upcomingPage : 1,
+      sort_order: sort_order,
       sort_key: "time.utc_time",
-      date: "" ,
-      status: [
-          "scheduled",
-      ]
-  }
+      date: "",
+      status: ["scheduled"],
+    };
     setAppointmentLoaderStatus(true);
     post(API.GETAPPOINTMENTS, params)
-      .then(response => {
+      .then((response) => {
         if (response.status === 200 && response.data && response.data.data) {
           setAppointmentLoaderStatus(false);
-          setUpcomingAppointments(response.data.data.docs)
-        } else {
-          setAppointmentLoaderStatus(false);
-          addToast(response.data.message, { appearance: 'error' });
-        }
-      })
-      .catch(error => {
-        setAppointmentLoaderStatus(false);
-        addToast(error.response.data.message, { appearance: 'error' });
-      });
-  }
+          setTotalUpcomingAppointments(response.data.data.total);
 
-  function getPreviousAppointments() {
+          if (isPagination) {
+            setUpcomingPage(upcomingPage + 1);
+            if (upcomingPage > 1) {
+              setUpcomingAppointments([
+                ...upcomingAppointments,
+                ...response.data.data.docs,
+              ]);
+            } else {
+              setUpcomingAppointments(response.data.data.docs);
+            }
+          } else {
+            setUpcomingPage(upcomingPage + 1);
+            setUpcomingAppointments(response.data.data.docs);
+          }
+        } else {
+          setAppointmentLoaderStatus(false);
+          addToast(response.data.message, { appearance: "error" });
+        }
+      })
+      .catch((error) => {
+        setAppointmentLoaderStatus(false);
+        addToast(error.response.data.message, { appearance: "error" });
+      });
+  }
+  const fetchMoreUpcomingData = () => {
+    if (totalUpcomingAppointments > upcomingAppointments.length) {
+      getUpcomingAppointments("asc", true);
+    }
+  };
+
+  function getPreviousAppointments(sort_order = "desc", isPagination = false) {
     let params = {
       limit: 20,
-      page:1,
-      sort_order: "desc",
+      page: isPagination ? previousPage : 1,
+      sort_order: sort_order,
       sort_key: "time.utc_time",
-      date: "" ,
-      status: [
-        "pending",
-        "cancelled",
-        "rejected",
-        "ongoing",
-        "completed"
-      ]
-  }
+      date: "",
+      status: ["pending", "cancelled", "rejected", "ongoing", "completed"],
+    };
     setAppointmentLoaderStatus(true);
     post(API.GETAPPOINTMENTS, params)
-      .then(response => {
+      .then((response) => {
         if (response.status === 200 && response.data && response.data.data) {
-          setPreviousAppointments(response.data.data.docs)
           setAppointmentLoaderStatus(false);
+          setTotalPreviousAppointments(response.data.data.total);
+          if (isPagination) {
+            setPreviousPage(previousPage + 1);
+            if (previousPage > 1) {
+              setPreviousAppointments([
+                ...previousAppointments,
+                ...response.data.data.docs,
+              ]);
+            } else {
+              setPreviousAppointments(response.data.data.docs);
+            }
+          } else {
+            setPreviousPage(previousPage + 1);
+            setPreviousAppointments(response.data.data.docs);
+          }
         } else {
-          addToast(response.data.message, { appearance: 'error' });
+          addToast(response.data.message, { appearance: "error" });
           setAppointmentLoaderStatus(false);
         }
       })
-      .catch(error => {
-        addToast(error.response.data.message, { appearance: 'error' });
+      .catch((error) => {
+        addToast(error.response.data.message, { appearance: "error" });
         setAppointmentLoaderStatus(false);
       });
   }
+  const fetchMorePreviousData = () => {
+    if (totalPreviousAppointments > previousAppointments.length) {
+      getPreviousAppointments("desc", true);
+    }
+  };
 
   function cancelAppointment(id, reason) {
     let params = {
       appointment_id: id,
       cancel_reason: reason,
-   }
+    };
 
     post(API.CANCELAPPOINTMENT, params)
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
-          addToast(response.data.message, { appearance: 'success' });
-          getUpcomingAppointments()
+          addToast(response.data.message, { appearance: "success" });
+          getUpcomingAppointments();
         } else {
-          addToast(response.data.message, { appearance: 'error' });
+          addToast(response.data.message, { appearance: "error" });
         }
       })
-      .catch(error => {
-        addToast(error.response.data.message, { appearance: 'error' });
+      .catch((error) => {
+        addToast(error.response.data.message, { appearance: "error" });
       });
   }
 
   return (
     <>
       <Row>
-        <Col lg='1' md='1' sm='1' xs='1'>
-
-        </Col>
-        <Col  lg='11' md='11' sm='11' xs='11'  className="screen-768 appointment-page-content-column">
+        <Col lg="1" md="1" sm="1" xs="1"></Col>
+        <Col
+          lg="11"
+          md="11"
+          sm="11"
+          xs="11"
+          className="screen-768 appointment-page-content-column"
+        >
           <Row>
             <span className="appointment-page-text-heading">Appointments</span>
           </Row>
@@ -142,45 +180,106 @@ const Appointments = (props) => {
           </Row>
           <Row className="appointment-page-cards-row">
             {upcoming ? (
-                <>
-                  {appointmentLoaderStatus &&
+              <>
+                {appointmentLoaderStatus && (
                   <div className="empty-list-container">
-                    <Spinner showLoader={appointmentLoaderStatus} width={60} height={60}/>
+                    <Spinner
+                      showLoader={appointmentLoaderStatus}
+                      width={60}
+                      height={60}
+                    />
                   </div>
-                  }
-                  {!appointmentLoaderStatus && upcomingAppointments.map((appointment) => {
-                    return (
-                        <Grid container item lg={4}  md={6} sm={8} xs={12} spacing={0.5} className="appointment-page-cards-upcoming">
-                          <DoctorAppointmentsCard appointment={appointment} cancelAppointment={cancelAppointment} />
-                        </Grid>
-                    )
-                  })}
-                  {!appointmentLoaderStatus && !upcomingAppointments.length &&
+                )}
+                <InfiniteScroll
+                  dataLength={upcomingAppointments.length}
+                  next={fetchMoreUpcomingData}
+                  hasMore={true}
+                  className="load-data"
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {!appointmentLoaderStatus &&
+                      upcomingAppointments.map((appointment) => {
+                        return (
+                          <Grid
+                            container
+                            item
+                            lg={4}
+                            md={6}
+                            sm={8}
+                            xs={12}
+                            spacing={0.5}
+                            className="appointment-page-cards-upcoming"
+                          >
+                            <DoctorAppointmentsCard
+                              appointment={appointment}
+                              cancelAppointment={cancelAppointment}
+                            />
+                          </Grid>
+                        );
+                      })}
+                  </div>
+                </InfiniteScroll>
+                {!appointmentLoaderStatus && !upcomingAppointments.length && (
                   <div className="empty-list-container">
                     <h4>No appointments found</h4>
                   </div>
-                  }
-                </>
+                )}
+              </>
             ) : (
-                <>
-                  {appointmentLoaderStatus &&
+              <>
+                {appointmentLoaderStatus && (
                   <div className="empty-list-container">
-                    <Spinner showLoader={appointmentLoaderStatus} width={60} height={60}/>
+                    <Spinner
+                      showLoader={appointmentLoaderStatus}
+                      width={60}
+                      height={60}
+                    />
                   </div>
-                  }
-                  {!appointmentLoaderStatus && previousAppointments.map((appointment) => {
-                    return (
-                        <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1} className="appointment-page-cards-previous">
+                )}
+
+                <InfiniteScroll
+                  dataLength={previousAppointments.length}
+                  next={fetchMorePreviousData}
+                  hasMore={true}
+                  className="load-data"
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {previousAppointments.map((appointment) => {
+                      return (
+                        <Grid
+                          container
+                          item
+                          lg={4}
+                          md={6}
+                          sm={6}
+                          xs={12}
+                          spacing={1}
+                          className="appointment-page-cards-previous"
+                        >
                           <DoctorAppointmentsCard appointment={appointment} />
                         </Grid>
-                    )
-                  })}
-                  {!appointmentLoaderStatus && !previousAppointments.length &&
+                      );
+                    })}
+                  </div>
+                </InfiniteScroll>
+                {!appointmentLoaderStatus && !previousAppointments.length && (
                   <div className="empty-list-container">
                     <h4>No appointments found</h4>
                   </div>
-                  }
-                </>
+                )}
+              </>
             )}
           </Row>
         </Col>
