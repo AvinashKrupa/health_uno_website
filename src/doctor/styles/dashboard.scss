@@ -109,6 +109,7 @@
     padding-top: 3%;
 
     .patient-name {
+      width: 120px;
       font-family: Montserrat;
       font-size: 18px;
       font-style: normal;
@@ -120,6 +121,9 @@
     }
 
     .purpose-info {
+      width: 200px;
+      display: flex;
+      flex-direction: row;
       color: #1B1B1B;
       font-family: Montserrat;
       font-size: 14px;

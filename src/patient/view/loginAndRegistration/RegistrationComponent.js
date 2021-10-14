@@ -49,7 +49,7 @@ const RegistrationComponent = ({ history, image }) => {
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
-  const [isDiabetic, setIsDiabetic] = useState("");
+  const [isDiabetic, setIsDiabetic] = useState(false);
   const [diabetics, setDiabetics] = useState([
     { id: "yes", value: "Yes", checked: false },
     { id: "no", value: "No", checked: false },
@@ -60,24 +60,24 @@ const RegistrationComponent = ({ history, image }) => {
     { id: "yes", value: "Yes", checked: false },
     { id: "no", value: "No", checked: false },
   ]);
-  const [isHypertensive, setIsHypertensive] = useState("");
+  const [isHypertensive, setIsHypertensive] = useState(false);
   const [surgerys, setSurgerys] = useState([
     { id: "yes", value: "Yes", checked: false },
     { id: "no", value: "No", checked: false },
   ]);
-  const [isSurgery, setIsSurgery] = useState("");
+  const [isSurgery, setIsSurgery] = useState(false);
   const [surgeryValue, setSurgeryValue] = useState("");
   const [allergieValue, seAllergieValue] = useState("");
   const [allergies, setAllergies] = useState([
     { id: "yes", value: "Yes", checked: false },
     { id: "no", value: "No", checked: false },
   ]);
-  const [isAllergie, setIsAllergie] = useState("");
+  const [isAllergie, setIsAllergie] = useState(false);
   const [covids, setCovids] = useState([
     { id: "yes", value: "Yes", checked: false },
     { id: "no", value: "No", checked: false },
   ]);
-  const [isCovid, setIsCovid] = useState("");
+  const [isCovid, setIsCovid] = useState(false);
   const [otherMedical, setOtherMedical] = useState("");
   const [referalCode, setReferalCode] = useState("");
   const [termsCondition, setTermsCondition] = useState(false);
@@ -90,7 +90,7 @@ const RegistrationComponent = ({ history, image }) => {
     { id: "yes", value: "Yes", checked: false },
     { id: "no", value: "No", checked: false },
   ]);
-  const [isVaccinated, setIsVaccinated] = useState("");
+  const [isVaccinated, setIsVaccinated] = useState(false);
   const [vaccineDate, setVaccineDate] = useState("");
   const [dose, setDose] = useState("");
   const [vaccineName, setVaccineName] = useState("");

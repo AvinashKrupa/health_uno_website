@@ -14,19 +14,27 @@ const Reports = (props) => {
   const [page, setPage] = useState(1);
   const [prescriptionPage, setPrescriptionPage] = useState(0);
 
-  const handleInvestigationsClick = () => {
-    setPrescriptionsSelected(false);
-    setInvestigationsSelected(true);
+  const handleSelection = () => {
+    setPrescriptionsSelected(!prescriptionsSelected);
+    setInvestigationsSelected(!investigationsSelected);
+    handleSetLocalStorage(!investigationsSelected);
   };
 
-  const handlePrescriptionsClick = () => {
-    setPrescriptionsSelected(true);
-    setInvestigationsSelected(false);
+  const handleSetLocalStorage = (value) => {
+    if (value) {
+      localStorage.setItem("doctor-report-selection", 1);
+    } else {
+      localStorage.setItem("doctor-report-selection", 0);
+    }
   };
 
   useEffect(() => {
     getInvestigationsReports(props.match.params.patient_id);
     getPrescriptionsReports(props.match.params.patient_id);
+    var selection = localStorage.getItem("doctor-report-selection");
+    if (selection === "1") {
+      handleSelection();
+    }
     return () => {};
   }, []);
 
@@ -151,7 +159,7 @@ const Reports = (props) => {
                       ? "report-page-text-type-selected"
                       : "report-page-text-type-unselected"
                   }
-                  onClick={handlePrescriptionsClick}
+                  onClick={handleSelection}
                 >
                   Prescriptions
                 </span>
@@ -162,7 +170,7 @@ const Reports = (props) => {
                       : "report-page-text-type-unselected"
                   }
                   style={{ marginLeft: "16px" }}
-                  onClick={handleInvestigationsClick}
+                  onClick={handleSelection}
                 >
                   Investigations
                 </span>

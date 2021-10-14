@@ -16,7 +16,7 @@ const PatientAppointmentCard = (props) => {
         <div className="content-container">
             <div style={{display:"flex", flexDirection:"row", marginBottom: "10px"}}>
                 <div style={{flex:1}}>
-                    <span className="patient-name">{props.name}</span>
+                    <div className="patient-name text-tooltip">{props.name}</div>
                 </div>
                 <div style={{flex:1}}>
                     <div className="status-info">{props.status}</div>
@@ -24,7 +24,7 @@ const PatientAppointmentCard = (props) => {
             </div>
 
             <div style={{marginBottom: "15px"}}>
-                <span className="purpose-info">Purpose: <span className="grey">{props.purpose}</span></span>
+                <div className="purpose-info">Purpose: <span className="grey text-tooltip" style={{marginLeft: "2px"}}>{props.purpose}</span></div>
             </div>
             <div style={{display:"flex", flexDirection:"row",}}>
             <div style={{display:"flex", flexDirection:"row", justifyContent: "space-between", alignItems: "baseline"}}>
