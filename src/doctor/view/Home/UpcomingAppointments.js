@@ -39,10 +39,26 @@ const UpcomingAppointments = (props) => {
     getPreviousAppointments();
   }, [searchText, currentDate]);
 
+  useEffect(() => {
+    var selection = localStorage.getItem("doctor-appointment-selection");
+    if (selection === "1") {
+      handleSelection();
+    }
+  }, [])
+
+
+  const handleSetLocalStorage = (value) => {
+    if (value) {
+      localStorage.setItem("doctor-appointment-selection", 1);
+    } else {
+      localStorage.setItem("doctor-appointment-selection", 0);
+    }
+  };
 
   const handleSelection = () => {
     setUpcoming(!upcoming);
     setPrevious(!previous);
+    handleSetLocalStorage(!previous);
   };
 
   function getUpcomingAppointments(isPagination = false, sortBy = "asc") {

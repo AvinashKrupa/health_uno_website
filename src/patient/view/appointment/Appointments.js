@@ -12,6 +12,10 @@ const Appointments = (props) => {
   useEffect(() => {
     getUpcomingAppointments();
     getPreviousAppointments();
+    var selection = localStorage.getItem("patient-appointment-selection");
+    if (selection === "1") {
+      handleSelection();
+    }
     return () => {};
   }, []);
 
@@ -29,6 +33,15 @@ const Appointments = (props) => {
   const handleSelection = () => {
     setUpcoming(!upcoming);
     setPrevious(!previous);
+    handleSetLocalStorage(!previous);
+  };
+
+  const handleSetLocalStorage = (value) => {
+    if (value) {
+      localStorage.setItem("patient-appointment-selection", 1);
+    } else {
+      localStorage.setItem("patient-appointment-selection", 0);
+    }
   };
 
   function getUpcomingAppointments(sort_order = "asc", isPagination = false) {
