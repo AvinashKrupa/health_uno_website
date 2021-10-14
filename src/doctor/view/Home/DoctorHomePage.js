@@ -12,6 +12,7 @@ import HorizontalCalendarForDoctor from "../../components/HorizontalCalendarForD
 import {getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
 import Spinner from "../../../commonComponent/Spinner";
+import {bell_icon} from "../../../constants/DoctorImages";
 
 const DoctorHomePage = (props) => {
   let timer = null;
@@ -108,13 +109,18 @@ const DoctorHomePage = (props) => {
     <>
       <Row className="doctor-home-container">
         <Col lg="1" sm="1" xs="1" />
-        <Col lg="10" sm="10" xs="10">
-          <Row className="search-container">
-            <SearchInputWithIcon
-              className="patient-homepage-search"
-              placeholder="Search patients"
-              onChange={(e) => debounce(e)}
-            ></SearchInputWithIcon>
+        <Col lg="11" sm="11" xs="11">
+          <Row>
+            <Col lg="12" sm="12" xs="12" className="search-container search-container-doctor">
+                <SearchInputWithIcon
+                  className="patient-homepage-search"
+                  placeholder="Search patients"
+                  onChange={(e) => debounce(e)}
+                ></SearchInputWithIcon>
+                <div className="notification-icon-container">
+                    <img className="notification-icon" src={bell_icon} />
+                </div>
+              </Col>
           </Row>
           <Row style={{ marginTop: "32px" }}>
             <Col>
