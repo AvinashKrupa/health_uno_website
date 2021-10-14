@@ -197,9 +197,6 @@ const AppointmentDetail = (props) => {
                                 >
                                     Initiate Call
                                 </Button>
-                                <div className="cancel-meeting-button">
-                                    Cancel Meeting
-                                </div>
                             </div>}
                         </Col>
                     </Row>
