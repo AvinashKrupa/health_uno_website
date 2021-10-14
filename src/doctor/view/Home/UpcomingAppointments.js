@@ -178,7 +178,7 @@ const UpcomingAppointments = (props) => {
     <div>
       <Row className="top-consultants-container">
         <Col lg="1" sm="1" xs="1" />
-        <Col lg="10" sm="10" xs="10">
+        <Col lg="11" sm="11" xs="11">
           <Row className="back-navigation">
             <div
               style={{
