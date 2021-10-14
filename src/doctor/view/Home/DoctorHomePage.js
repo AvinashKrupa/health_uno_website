@@ -1,4 +1,4 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { API, get, post } from "../../../api/config/APIController";
 import React, { useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
@@ -13,6 +13,7 @@ import {getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
 import Spinner from "../../../commonComponent/Spinner";
 import {bell_icon} from "../../../constants/DoctorImages";
+import NotificationSideBar from "../../../commonComponent/Notification/NotificationSideBar";
 
 const DoctorHomePage = (props) => {
   let timer = null;
@@ -24,11 +25,18 @@ const DoctorHomePage = (props) => {
   let [appointmentLoaderStatus, setAppointmentLoaderStatus] = useState(false);
   const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
   const [selectedDay, setSelectedDay] = useState(moment(currentDate).format('DD'));
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     setSearchText('')
     getHomeContent();
     getDoctorAppointments();
+  }, []);
+
+  useEffect(() => {
+    document.querySelectorAll('[role="navigation"]').forEach(function (el){
+      el.classList.add("filter-list-close");
+    });
   }, []);
 
   useEffect(() => {
@@ -105,8 +113,25 @@ const DoctorHomePage = (props) => {
     setCurrentDate(selectedDate);
     setSelectedDay(moment(date).format('DD'));
   }
+
+  const toggleSidebar = () => {
+    if(sidebarOpen) {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.add("filter-list-close");
+      });
+    } else {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.remove("filter-list-close");
+      });
+    }
+
+    setSidebarOpen(!sidebarOpen);
+  }
+
+
   return (
     <>
+      <NotificationSideBar/>
       <Row className="doctor-home-container">
         <Col lg="1" sm="1" xs="1" />
         <Col lg="11" sm="11" xs="11">
@@ -118,7 +143,9 @@ const DoctorHomePage = (props) => {
                   onChange={(e) => debounce(e)}
                 ></SearchInputWithIcon>
                 <div className="notification-icon-container">
+                  <Button onClick={toggleSidebar} style={{marginTop: '33px', cursor: "pointer"}}>
                     <img className="notification-icon" src={bell_icon} />
+                  </Button>
                 </div>
               </Col>
           </Row>
