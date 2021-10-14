@@ -259,7 +259,6 @@ const PatientEditProfile = (props) => {
 
     // Edit Profile
     function updateUserProfile() {
-        debugger
         let params = {
             first_name: firstName,
             last_name: lastName,
