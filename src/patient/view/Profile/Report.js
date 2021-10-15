@@ -16,6 +16,10 @@ const Report = (props) => {
   useEffect(() => {
     getInvestigationsReports();
     getPrescriptionsReports();
+    var selection = localStorage.getItem("patient-report-selection");
+    if (selection === "1") {
+      handleSelection();
+    }
     return () => {};
   }, []);
 
@@ -26,14 +30,18 @@ const Report = (props) => {
   const [prescriptionsSelected, setPrescriptionsSelected] = useState(true);
   const [investigationsSelected, setInvestigationsSelected] = useState(false);
 
-  const handleInvestigationsClick = () => {
-    setPrescriptionsSelected(false);
-    setInvestigationsSelected(true);
+  const handleSelection = () => {
+    setPrescriptionsSelected(!prescriptionsSelected);
+    setInvestigationsSelected(!investigationsSelected);
+    handleSetLocalStorage(!investigationsSelected);
   };
 
-  const handlePrescriptionsClick = () => {
-    setPrescriptionsSelected(true);
-    setInvestigationsSelected(false);
+  const handleSetLocalStorage = (value) => {
+    if (value) {
+      localStorage.setItem("patient-report-selection", 1);
+    } else {
+      localStorage.setItem("patient-report-selection", 0);
+    }
   };
 
   function getInvestigationsReports(sortBy = "asc", isPagination = false) {
@@ -140,7 +148,7 @@ const Report = (props) => {
                       ? "report-page-text-type-selected"
                       : "report-page-text-type-unselected"
                   }
-                  onClick={handlePrescriptionsClick}
+                  onClick={handleSelection}
                 >
                   Prescriptions
                 </span>
@@ -151,7 +159,7 @@ const Report = (props) => {
                       : "report-page-text-type-unselected"
                   }
                   style={{ marginLeft: "16px" }}
-                  onClick={handleInvestigationsClick}
+                  onClick={handleSelection}
                 >
                   Investigations
                 </span>
