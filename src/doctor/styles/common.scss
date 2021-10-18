@@ -87,3 +87,19 @@ a:hover {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.notification-icon{
+  width: 30px;
+  height: 30px;
+  margin-bottom: 20px;
+}
+.notification-icon-container{
+  align-self: self-end;
+  padding: 10px;
+}
+
+
+@media screen and (max-width: 425px) {
+  .notification-icon{
+    margin-bottom: -6px!important;
+  }
+}

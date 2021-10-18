@@ -46,6 +46,7 @@ import '../../doctor/styles/about-us.scss';
 import '../../common/global.scss';
 import './chat.scss';
 import './PDF_view.scss';
+import '../../doctor/styles/notification.scss';
 
 
 //Media query

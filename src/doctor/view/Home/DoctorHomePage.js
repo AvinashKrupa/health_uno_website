@@ -1,4 +1,4 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { API, get, post } from "../../../api/config/APIController";
 import React, { useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
@@ -9,9 +9,11 @@ import useSearchStore from "../../store/searchStore";
 import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
 import moment from "moment";
 import HorizontalCalendarForDoctor from "../../components/HorizontalCalendarForDoctor";
-import {getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
+import {getData, storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
 import Spinner from "../../../commonComponent/Spinner";
+import {bell_icon} from "../../../constants/DoctorImages";
+import NotificationSideBar from "../../../commonComponent/Notification/NotificationSideBar";
 
 const DoctorHomePage = (props) => {
   let timer = null;
@@ -23,11 +25,20 @@ const DoctorHomePage = (props) => {
   let [appointmentLoaderStatus, setAppointmentLoaderStatus] = useState(false);
   const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
   const [selectedDay, setSelectedDay] = useState(moment(currentDate).format('DD'));
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [profileStatus, setProfileStatus] = useState('');
 
   useEffect(() => {
     setSearchText('')
+    getUserProfile();
     getHomeContent();
     getDoctorAppointments();
+  }, []);
+
+  useEffect(() => {
+    document.querySelectorAll('[role="navigation"]').forEach(function (el){
+      el.classList.add("filter-list-close");
+    });
   }, []);
 
   useEffect(() => {
@@ -48,6 +59,28 @@ const DoctorHomePage = (props) => {
       .catch((error) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
+  }
+
+  function getUserProfile() {
+    get(API.GET_PROFILE)
+        .then(response => {
+          if (response.status === 200) {
+            let user = response.data.data.user;
+            const additional_info = response.data.data['additional_info'];
+            if (user) {
+              storeData('userInfo', JSON.stringify(user));
+            }
+            if(additional_info) {
+              storeData('additional_info', JSON.stringify(additional_info));
+            }
+            setProfileStatus(additional_info.status)
+          } else {
+            addToast(response.data.message, {appearance: 'error'});
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, {appearance: 'error'});
+        });
   }
 
   function getDoctorAppointments() {
@@ -104,24 +137,54 @@ const DoctorHomePage = (props) => {
     setCurrentDate(selectedDate);
     setSelectedDay(moment(date).format('DD'));
   }
+
+  const toggleSidebar = () => {
+    if(sidebarOpen) {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.add("filter-list-close");
+      });
+    } else {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.remove("filter-list-close");
+      });
+    }
+
+    setSidebarOpen(!sidebarOpen);
+  }
+
+
   return (
     <>
+      <NotificationSideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <Row className="doctor-home-container">
         <Col lg="1" sm="1" xs="1" />
-        <Col lg="10" sm="10" xs="10">
-          <Row className="search-container">
-            <SearchInputWithIcon
-              className="patient-homepage-search"
-              placeholder="Search patients"
-              onChange={(e) => debounce(e)}
-            ></SearchInputWithIcon>
+        <Col lg="11" sm="11" xs="11">
+          <Row className="doctor-home-786">
+            <Col lg="12" sm="12" xs="12" className="search-container search-container-doctor">
+                <SearchInputWithIcon
+                  className="patient-homepage-search"
+                  placeholder="Search patients"
+                  onChange={(e) => debounce(e)}
+                ></SearchInputWithIcon>
+                <div className="notification-icon-container">
+                  <Button onClick={toggleSidebar} style={{marginTop: '33px', cursor: "pointer"}}>
+                    <img className="notification-icon" src={bell_icon} />
+                  </Button>
+                </div>
+              </Col>
           </Row>
-          <Row style={{ marginTop: "32px" }}>
+          <Row style={{ marginTop: "32px" }} className="doctor-home-786">
             <Col>
               <div className="welcome-text-container">
                 <span className="text-welcome-header">Welcome,</span>
                 <span className="text-welcome-subheader">{`Dr. ${userInfo?.first_name}`}</span>
               </div>
+              {profileStatus === 'pending' &&<div>
+                <div className="banner-container">
+                  <div className="banner-title">Your profile is under review.</div>
+                  <div className="banner-description">We will notify you shortly, once your profile gets updated.</div>
+                </div>
+              </div>}
               <div className="upcoming-appointment-container">
                 <span className="upcoming-appointment-text">Upcoming Appointments</span>
                 <span className="upcoming-appointment-view_all" style={{cursor: 'pointer'}} onClick={(e) =>
