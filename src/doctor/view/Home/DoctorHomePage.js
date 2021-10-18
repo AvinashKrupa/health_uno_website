@@ -67,7 +67,6 @@ const DoctorHomePage = (props) => {
           if (response.status === 200) {
             let user = response.data.data.user;
             const additional_info = response.data.data['additional_info'];
-            debugger
             if (user) {
               storeData('userInfo', JSON.stringify(user));
             }
@@ -160,7 +159,7 @@ const DoctorHomePage = (props) => {
       <Row className="doctor-home-container">
         <Col lg="1" sm="1" xs="1" />
         <Col lg="11" sm="11" xs="11">
-          <Row>
+          <Row className="doctor-home-786">
             <Col lg="12" sm="12" xs="12" className="search-container search-container-doctor">
                 <SearchInputWithIcon
                   className="patient-homepage-search"
@@ -174,7 +173,7 @@ const DoctorHomePage = (props) => {
                 </div>
               </Col>
           </Row>
-          <Row style={{ marginTop: "32px" }}>
+          <Row style={{ marginTop: "32px" }} className="doctor-home-786">
             <Col>
               <div className="welcome-text-container">
                 <span className="text-welcome-header">Welcome,</span>

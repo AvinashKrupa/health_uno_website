@@ -51,7 +51,7 @@
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
-    line-height: 15px;
+    line-height: 25px;
     letter-spacing: -0.42px;
     color: #28a3da;
   }
@@ -204,4 +204,11 @@
   Media queries
  */
   @media screen and (max-width: 425px) {
+}
+
+
+@media screen and (max-width: 768px) {
+  .doctor-home-786 {
+    margin-left: 10px;
+  }
 }
