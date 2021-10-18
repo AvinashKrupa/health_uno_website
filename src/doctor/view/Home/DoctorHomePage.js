@@ -9,7 +9,7 @@ import useSearchStore from "../../store/searchStore";
 import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
 import moment from "moment";
 import HorizontalCalendarForDoctor from "../../components/HorizontalCalendarForDoctor";
-import {getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
+import {getData, storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import PatientAppointmentCard from "../../components/PatientAppointmentCard";
 import Spinner from "../../../commonComponent/Spinner";
 import {bell_icon} from "../../../constants/DoctorImages";
@@ -26,9 +26,11 @@ const DoctorHomePage = (props) => {
   const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
   const [selectedDay, setSelectedDay] = useState(moment(currentDate).format('DD'));
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [profileStatus, setProfileStatus] = useState('');
 
   useEffect(() => {
     setSearchText('')
+    getUserProfile();
     getHomeContent();
     getDoctorAppointments();
   }, []);
@@ -57,6 +59,29 @@ const DoctorHomePage = (props) => {
       .catch((error) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
+  }
+
+  function getUserProfile() {
+    get(API.GET_PROFILE)
+        .then(response => {
+          if (response.status === 200) {
+            let user = response.data.data.user;
+            const additional_info = response.data.data['additional_info'];
+            debugger
+            if (user) {
+              storeData('userInfo', JSON.stringify(user));
+            }
+            if(additional_info) {
+              storeData('additional_info', JSON.stringify(additional_info));
+            }
+            setProfileStatus(additional_info.status)
+          } else {
+            addToast(response.data.message, {appearance: 'error'});
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, {appearance: 'error'});
+        });
   }
 
   function getDoctorAppointments() {
@@ -155,6 +180,12 @@ const DoctorHomePage = (props) => {
                 <span className="text-welcome-header">Welcome,</span>
                 <span className="text-welcome-subheader">{`Dr. ${userInfo?.first_name}`}</span>
               </div>
+              {profileStatus === 'pending' &&<div>
+                <div className="banner-container">
+                  <div className="banner-title">Your profile is under review.</div>
+                  <div className="banner-description">We will notify you shortly, once your profile gets updated.</div>
+                </div>
+              </div>}
               <div className="upcoming-appointment-container">
                 <span className="upcoming-appointment-text">Upcoming Appointments</span>
                 <span className="upcoming-appointment-view_all" style={{cursor: 'pointer'}} onClick={(e) =>
