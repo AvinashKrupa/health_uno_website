@@ -1,5 +1,5 @@
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import {Col, Row} from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import SpecialityCard from "../../commonComponentPatient/SpecialityCard";
 import {API, get, post} from "../../../api/config/APIController";
 import {useEffect, useState} from "react";
@@ -9,6 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import useSearchStore from "../../store/searchStore";
 import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
 import SimilarDoctorsCard from "./../doctorDetail/SimilarDoctorsCard";
+import NotificationSideBar from "../../../commonComponent/Notification/NotificationSideBar";
+import {bell_icon} from "../../../constants/DoctorImages";
 
 
 const PatientHomePage = (props) => {
@@ -18,12 +20,33 @@ const PatientHomePage = (props) => {
   let [specialities, setSpecialities] = useState([]);
   let [slider, setSlider] = useState([]);
   let [consultants, setConsultant] = useState([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     setSearchText('')
     getHomeContent();
     getTopConsultants();
   }, []);
+
+  useEffect(() => {
+    document.querySelectorAll('[role="navigation"]').forEach(function (el){
+      el.classList.add("filter-list-close");
+    });
+  }, []);
+
+  const toggleSidebar = () => {
+    if(sidebarOpen) {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.add("filter-list-close");
+      });
+    } else {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+        el.classList.remove("filter-list-close");
+      });
+    }
+
+    setSidebarOpen(!sidebarOpen);
+  }
 
   function getHomeContent() {
     get(API.GETHOMECONTENT)
@@ -78,13 +101,21 @@ const PatientHomePage = (props) => {
   }
   return (
       <>
+        <NotificationSideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
         <Col lg="10" sm="10" xs="10" className='screen-768'>
           <Row className="search-container mobileviewSearch">
+            <Col lg="12" sm="12" xs="12" className="search-container search-container-doctor">
             <SearchInputWithIcon
                 className="patient-homepage-search"
                 placeholder="Search doctors"
                 onChange={(e) => debounce(e)}
             ></SearchInputWithIcon>
+            <div className="notification-icon-container">
+              <Button onClick={toggleSidebar} style={{marginTop: '33px', cursor: "pointer"}}>
+                <img className="notification-icon" src={bell_icon} />
+              </Button>
+            </div>
+            </Col>
           </Row>
           <Row style={{marginTop: "32px"}}>
             <Col>
