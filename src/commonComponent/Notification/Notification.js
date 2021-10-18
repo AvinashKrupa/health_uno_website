@@ -6,7 +6,7 @@ const Notification = (props) => {
     <div className="notification-container">
         <div className="notification-title">{props?.item?.message}</div>
         <div className="notification-description">{props?.item?.message}</div>
-        <div className="notification-time">{timeSince(props?.item?.updated_at)}</div>
+        {props?.item?.updated_at && <div className="notification-time">{timeSince(props?.item?.updated_at)}</div>}
     </div>
   );
 };
