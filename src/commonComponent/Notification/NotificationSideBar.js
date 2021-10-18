@@ -18,7 +18,7 @@ const NotificationSideBar = (props) => {
           }
         }}
         pullRight={true}
-        sidebar={<NotificationSidebarComponent toggleSidebar={props.toggleSidebar} />}
+        sidebar={<NotificationSidebarComponent toggleSidebar={props.toggleSidebar}  sidebarOpen={props.sidebarOpen}/>}
         open={props.sidebarOpen}
         onSetOpen={props.toggleSidebar}
       >

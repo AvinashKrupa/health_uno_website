@@ -13,6 +13,14 @@ const NotificationSidebarComponent = (props) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (props.sidebarOpen) {
+            getNotificationsList()
+        }
+        return () => {
+        };
+    }, [props.sidebarOpen]);
+
     const {addToast} = useToasts();
 
     function getNotificationsList() {
@@ -36,17 +44,18 @@ const NotificationSidebarComponent = (props) => {
                     <Row className='notification-close-button-container filter-close'>
                         <Col className="notification-container-header">Notifications</Col>
                         <Col className="notification-container-close-button" onClick={props.toggleSidebar}>
-                          <i class="fas fa-times"></i>
+                            <i class="fas fa-times"></i>
                         </Col>
                     </Row>
-                    <Row style={{marginTop: "16px",
+                    <Row style={{
+                        marginTop: "16px",
                         marginLeft: "10px",
                         marginRight: "10px",
                     }}>
                         {!notifications.length && (
-                        <div className="empty-list-container">
-                            <Notification item={{message:"No notification found"}}/>
-                        </div>
+                            <div className="empty-list-container">
+                                <Notification item={{message: "No notification found"}}/>
+                            </div>
                         )}
                         {notifications.map((notification_item) => <Notification item={notification_item}/>)}
                     </Row>
