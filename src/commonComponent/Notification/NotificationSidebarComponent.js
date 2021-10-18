@@ -3,8 +3,7 @@ import {API, get} from '../../api/config/APIController';
 import React, {useEffect, useState} from "react";
 import {useToasts} from 'react-toast-notifications';
 import "react-input-range/lib/css/index.css";
-
-let isDefaultSet = true;
+import Notification from "./Notification";
 
 const NotificationSidebarComponent = (props) => {
     const [notifications, setNotifications] = useState([]);
@@ -34,21 +33,17 @@ const NotificationSidebarComponent = (props) => {
         <>
             <Row className="filter_menu_continer">
                 <Col style={{paddingLeft: "26px", paddingRight: "26px"}}>
-                    <Row style={{marginTop: "40px"}} className='filter-close'>
-            <span
-                style={{
-                    height: "12px",
-                    width: "12px",
-                    paddingLeft: "290px",
-                    cursor: 'pointer'
-                }}
-                onClick={props.toggleSidebar}
-            >
-              <i class="fas fa-times"></i>
-            </span>
+                    <Row className='notification-close-button-container filter-close'>
+                        <Col className="notification-container-header">Notifications</Col>
+                        <Col className="notification-container-close-button" onClick={props.toggleSidebar}>
+                          <i class="fas fa-times"></i>
+                        </Col>
                     </Row>
-                    <Row style={{marginTop: "16px "}}>
-                        <div>Amit</div>
+                    <Row style={{marginTop: "16px",
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                    }}>
+                        {notifications.map((notification_item) => <Notification item={notification_item}/>)}
                     </Row>
 
                 </Col>

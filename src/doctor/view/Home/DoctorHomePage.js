@@ -131,7 +131,7 @@ const DoctorHomePage = (props) => {
 
   return (
     <>
-      <NotificationSideBar/>
+      <NotificationSideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <Row className="doctor-home-container">
         <Col lg="1" sm="1" xs="1" />
         <Col lg="11" sm="11" xs="11">
