@@ -112,7 +112,7 @@ const PatientLogin = ({history}) => {
                         </Row>
                         <Row className='doctor-image'>
                             <Col lg='1'></Col>
-                             <Col  lg='8'> <Image src={group}></Image></Col> 
+                             <Col  lg='8'> <Image src={process.env.PUBLIC_URL + '/assets/patient.png'}></Image></Col> 
                             <Col lg='2'></Col>
                         </Row>
                     </Col>
