@@ -133,6 +133,7 @@ const AddPrescription = (props) => {
     medicineItem: {
       medicine: "",
       medicineName: "",
+      medicine_name: "",
       medicinetype: "",
       time_slots: [],
       start_date: moment().format("YYYY-MM-DD"),
@@ -211,7 +212,7 @@ const AddPrescription = (props) => {
 
     for (let i = 0; i < templateMedicineArr.length; i++) {
       let prescriptionObj = {
-        selectedType: templateMedicineArr[i].medicine.type || "brand",
+        selectedType: Object.keys(templateMedicineArr[i].medicine).length ? templateMedicineArr[i].medicine.type : "other",
         medicineItem: {
           medicine: templateMedicineArr[i].medicine._id,
           medicineName: templateMedicineArr[i].medicine.name,
