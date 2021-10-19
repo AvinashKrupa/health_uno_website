@@ -229,7 +229,7 @@ const VideoMeeting = (props) => {
                                     Test Video and Audio
                                 </Button>}
                                 {appointmentDetail.status !== "ongoing" &&
-                                <Button disabled={!(enableMeetingButton || appointmentDetail.status === "ongoing")}
+                                <Button style={{ marginLeft: '20px' }} disabled={!(enableMeetingButton || appointmentDetail.status === "ongoing")}
                                         className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
                                     Join Meeting
                                 </Button>}
@@ -241,7 +241,7 @@ const VideoMeeting = (props) => {
                                 </Button>}
                                 {appointmentDetail.status === "ongoing" &&
                                 <Button className="doctor-meeting-join-meeting-button"
-                                        style={{backgroundColor: '#F15D4A'}}
+                                        style={{backgroundColor: '#F15D4A', marginLeft: '20px' }}
                                         onClick={() => endAppointment()}>
                                     End Meeting
                                 </Button>}
