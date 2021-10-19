@@ -79,6 +79,14 @@ export default function PrescriptionComponent({
             type: ACTIONS.CHANGE_COMMENT, payload: {id: index, value: value}
         })
     }
+    function onOtherMedicineChange(value) {
+        dispatch({
+            type: ACTIONS.OTHER_MEDICINE, payload: {id: index, value: value}
+        })
+        dispatch({
+            type: ACTIONS.VALIDATE_MEDICINE_INFO, payload: {id: index}
+        })
+    }
 
     function onPeriodicityTextChange(value) {
         dispatch({
@@ -169,12 +177,24 @@ export default function PrescriptionComponent({
                                 "composition"
                             }
                         />
+                        <Form.Check
+                            label="Other"
+                            name={`Prescription${index}`}
+                            type={'radio'}
+                            onChange={onPrescriptionOptionChange}
+                            value="other"
+                            checked={
+                                prescription.selectedType ===
+                                "other"
+                            }
+                        />
                     </div>
                 </div>
             </Row>
             <Row className="g-4">
                 <Col xs={12} md={4}>
-                    <div className="medicine-autosuggest-container">
+                    {prescription.selectedType !==
+                    "other" && <div className="medicine-autosuggest-container">
                         <div style={{marginBottom: "8px"}}>Medicine</div>
                         <AutoSuggestInput
                             key={`auto-${index}`}
@@ -193,7 +213,17 @@ export default function PrescriptionComponent({
                         {!!prescription.validationInfo.medicine_error &&
                         <span className="error-text">{prescription.validationInfo.medicine_error}</span>
                         }
-                    </div>
+                    </div>}
+                    {prescription.selectedType ===
+                    "other" &&
+                        <Input
+                            type="text"
+                            placeholder="Enter Medicine Name"
+                            label="Medicine"
+                            value={prescription.medicineItem.medicine_name}
+                            onChange={onOtherMedicineChange}
+                        />
+                    }
                     <Row>
                         <div style={{marginTop: 20, marginBottom: 10}}>Time Slots</div>
                     </Row>
@@ -340,7 +370,7 @@ export default function PrescriptionComponent({
                     <br/>
                     <Form.Label>Start Date</Form.Label>
                     <br/>
-                    <Form.Control type="date" 
+                    <Form.Control type="date"
                     onChange={(e) => setStartDate(e.target.value)}
                     placeholder="Start Date"
                     onKeyDown={(e) => e.preventDefault()}
