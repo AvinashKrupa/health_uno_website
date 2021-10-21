@@ -212,12 +212,12 @@ const AddPrescription = (props) => {
 
     for (let i = 0; i < templateMedicineArr.length; i++) {
       let prescriptionObj = {
-        selectedType: Object.keys(templateMedicineArr[i].medicine).length ? templateMedicineArr[i].medicine.type : "other",
+        selectedType: templateMedicineArr[i]["medicine"] !== undefined ? templateMedicineArr[i].medicine.type : "other",
         medicineItem: {
-          medicine: templateMedicineArr[i].medicine._id,
-          medicineName: templateMedicineArr[i].medicine.name,
+          medicine: templateMedicineArr[i].medicine?._id || '',
+          medicineName: templateMedicineArr[i].medicine?.name || '',
           medicinetype: templateMedicineArr[i].medicinetype._id,
-          medicine_name: templateMedicineArr[i].medicine.medicine_name,
+          medicine_name: templateMedicineArr[i].medicine_name,
           time_slots: templateMedicineArr[i].time_slots,
           start_date: templateMedicineArr[i].start_date,
           days: templateMedicineArr[i].days,
@@ -677,9 +677,14 @@ const AddPrescription = (props) => {
 
   const savePrescriptionAsTemplate = () => {
     let allMedicines = [];
-    prescription_list.forEach((prescription) =>
-      allMedicines.push(prescription.medicineItem)
-    );
+    prescription_list.forEach((prescription) => {
+      if(!prescription.medicineItem.medicine){
+        delete prescription.medicineItem.medicine;
+        allMedicines.push(prescription.medicineItem)
+      }else {
+        allMedicines.push(prescription.medicineItem)
+      }
+    })
 
     let params = {
       name: templateTitle,

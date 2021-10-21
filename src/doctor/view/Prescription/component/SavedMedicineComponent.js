@@ -45,7 +45,7 @@ export default function SavedMedicineComponent(props) {
                   <div className="MedList">
                     <p>
                       <div>Medicine Name</div>
-                      <span>{item.medicine.name} </span>
+                      <span>{item?.medicine?.name}</span>
                     </p>
                     <p>
                       <div>Time Slot</div>
