@@ -59,6 +59,7 @@
 
     color: #8F8F8F;
   }
+
   .notification-time{
     align-self: flex-end;
     margin-top: 10px;
@@ -71,4 +72,20 @@
 
     color: #8F8F8F;
   }
+}
+
+.no-notification-container{
+  height: 300px;
+  text-align-last: center;
+  padding-top: 40px;
+}
+.no-notification{
+  margin-top: 10px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  letter-spacing: -0.42px;
+
+  color: #000000;
 }
