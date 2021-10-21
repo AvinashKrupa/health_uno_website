@@ -11,7 +11,8 @@ const TopConsultantsFilter = (props) => {
           sidebar: {
             width: "325px",
             background: "rgba(255, 255, 255, 1)",
-            overflowY: 'auto'
+            overflowY: 'unset',
+            overflowX: 'hidden'
           },
           root:{
             position:'fixed',
