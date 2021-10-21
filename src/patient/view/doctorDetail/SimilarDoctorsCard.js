@@ -12,7 +12,7 @@ const DoctorCard = (props) => {
           </div>
           <div>
             <CardContent>
-                <span className="doctor-card-doctor-name">{props.name}</span>
+                <span className="doctor-card-doctor-name text-tooltip">{props.name}</span>
                 <span className="doctor-card-doctor-details">{props?.details}</span>
                 <span>
                   <span className="doctor-card-fee-label">Fee:</span>
@@ -31,7 +31,7 @@ const DoctorCard = (props) => {
 
                   </span>
                 </span>
-                { props.from !=='doctor' && 
+                { props.from !=='doctor' &&
                     <Link to={`/patient/doctorDetails/${props.id}`}>
                         <button className="doctor-card-details-button">View Details</button>
                     </Link>

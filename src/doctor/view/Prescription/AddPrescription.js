@@ -34,6 +34,7 @@ export const ACTIONS = {
   SET_DAYS: "SET_DAYS",
   SET_PERIODITY: "SET_PERIODITY",
   CHANGE_COMMENT: "CHANGE_COMMENT",
+  OTHER_MEDICINE: "OTHER_MEDICINE",
   CHANGE_SOS: "CHANGE_SOS",
   CHANGE_STAT: "CHANGE_STAT",
   CHANGE_DOSAGE_SLOT: "CHANGE_DOSAGE_SLOT",
@@ -132,6 +133,7 @@ const AddPrescription = (props) => {
     medicineItem: {
       medicine: "",
       medicineName: "",
+      medicine_name: "",
       medicinetype: "",
       time_slots: [],
       start_date: moment().format("YYYY-MM-DD"),
@@ -210,11 +212,12 @@ const AddPrescription = (props) => {
 
     for (let i = 0; i < templateMedicineArr.length; i++) {
       let prescriptionObj = {
-        selectedType: templateMedicineArr[i].medicine.type || "brand",
+        selectedType: templateMedicineArr[i]["medicine"] !== undefined ? templateMedicineArr[i].medicine.type : "other",
         medicineItem: {
-          medicine: templateMedicineArr[i].medicine._id,
-          medicineName: templateMedicineArr[i].medicine.name,
+          medicine: templateMedicineArr[i].medicine?._id || '',
+          medicineName: templateMedicineArr[i].medicine?.name || '',
           medicinetype: templateMedicineArr[i].medicinetype._id,
+          medicine_name: templateMedicineArr[i].medicine_name,
           time_slots: templateMedicineArr[i].time_slots,
           start_date: templateMedicineArr[i].start_date,
           days: templateMedicineArr[i].days,
@@ -311,6 +314,10 @@ const AddPrescription = (props) => {
         return [...prescription_list];
       case ACTIONS.CHANGE_COMMENT:
         prescription_list[action.payload.id].medicineItem.add_comments =
+          action.payload.value;
+        return [...prescription_list];
+      case ACTIONS.OTHER_MEDICINE:
+        prescription_list[action.payload.id].medicineItem.medicine_name =
           action.payload.value;
         return [...prescription_list];
       case ACTIONS.CHANGE_SOS:
@@ -416,12 +423,20 @@ const AddPrescription = (props) => {
             return;
         }
       case ACTIONS.VALIDATE_MEDICINE_INFO:
-        if (prescription_list[action.payload.id].medicineItem.medicine === "") {
-          prescription_list[action.payload.id].validationInfo.medicine_error =
-            "Please choose medicine";
-        } else {
-          prescription_list[action.payload.id].validationInfo.medicine_error =
-            "";
+        if (prescription_list[action.payload.id].selectedType !== "other"){
+          if (prescription_list[action.payload.id].medicineItem.medicine === "") {
+            prescription_list[action.payload.id].validationInfo.medicine_error = "Please choose medicine";
+          } else {
+            prescription_list[action.payload.id].validationInfo.medicine_error =
+                "";
+          }
+        }else{
+          if (prescription_list[action.payload.id].medicineItem.medicine_name === "") {
+            prescription_list[action.payload.id].validationInfo.medicine_error = "Please type medicine name";
+          } else {
+            prescription_list[action.payload.id].validationInfo.medicine_error =
+                "";
+          }
         }
         if (
           prescription_list[action.payload.id].medicineItem.medicinetype ===
@@ -457,42 +472,81 @@ const AddPrescription = (props) => {
             "";
         }
 
-        if (
-          !(
-            prescription_list[action.payload.id].medicineItem.medicine === ""
-          ) &&
-          !(
-            prescription_list[action.payload.id].medicineItem.medicinetype ===
-              "" ||
-            prescription_list[action.payload.id].medicineItem.medicinetype ===
-              "Select"
-          ) &&
-          !(
-            prescription_list[action.payload.id].medicineItem.dosage
-              .dosage_text === ""
-          ) &&
-          prescription_list[action.payload.id].medicineItem.time_slots.length
-        ) {
-          setUserShouldProceed(true);
-        } else {
-          setUserShouldProceed(false);
+        if (prescription_list[action.payload.id].selectedType !== "other"){
+          if (
+              !(
+                  prescription_list[action.payload.id].medicineItem.medicine === ""
+              ) &&
+              !(
+                  prescription_list[action.payload.id].medicineItem.medicinetype ===
+                  "" ||
+                  prescription_list[action.payload.id].medicineItem.medicinetype ===
+                  "Select"
+              ) &&
+              !(
+                  prescription_list[action.payload.id].medicineItem.dosage
+                      .dosage_text === ""
+              ) &&
+              prescription_list[action.payload.id].medicineItem.time_slots.length
+          ) {
+            setUserShouldProceed(true);
+          } else {
+            setUserShouldProceed(false);
+          }
+        }else{
+          if (
+              !(
+                  prescription_list[action.payload.id].medicineItem.medicine_name === ""
+              ) &&
+              !(
+                  prescription_list[action.payload.id].medicineItem.medicinetype ===
+                  "" ||
+                  prescription_list[action.payload.id].medicineItem.medicinetype ===
+                  "Select"
+              ) &&
+              !(
+                  prescription_list[action.payload.id].medicineItem.dosage
+                      .dosage_text === ""
+              ) &&
+              prescription_list[action.payload.id].medicineItem.time_slots.length
+          ) {
+            setUserShouldProceed(true);
+          } else {
+            setUserShouldProceed(false);
+          }
         }
         return [...prescription_list];
       case ACTIONS.VALIDATE_PRESCRIPTION:
         let validationResults = [];
         prescription_list.forEach((eachMedicine) => {
-          if (
-            !(eachMedicine.medicineItem.medicine === "") &&
-            !(
-              eachMedicine.medicineItem.medicinetype === "" ||
-              eachMedicine.medicineItem.medicinetype === "Select"
-            ) &&
-            !(eachMedicine.medicineItem.dosage.dosage_text === "") &&
-            eachMedicine.medicineItem.time_slots.length
-          ) {
-            validationResults.push(true);
-          } else {
-            validationResults.push(false);
+          if (eachMedicine.selectedType !== "other"){
+            if (
+                !(eachMedicine.medicineItem.medicine === "") &&
+                !(
+                    eachMedicine.medicineItem.medicinetype === "" ||
+                    eachMedicine.medicineItem.medicinetype === "Select"
+                ) &&
+                !(eachMedicine.medicineItem.dosage.dosage_text === "") &&
+                eachMedicine.medicineItem.time_slots.length
+            ) {
+              validationResults.push(true);
+            } else {
+              validationResults.push(false);
+            }
+          }else{
+            if (
+                !(eachMedicine.medicineItem.medicine_name === "") &&
+                !(
+                    eachMedicine.medicineItem.medicinetype === "" ||
+                    eachMedicine.medicineItem.medicinetype === "Select"
+                ) &&
+                !(eachMedicine.medicineItem.dosage.dosage_text === "") &&
+                eachMedicine.medicineItem.time_slots.length
+            ) {
+              validationResults.push(true);
+            } else {
+              validationResults.push(false);
+            }
           }
         });
         let checker = _.every(validationResults);
@@ -503,11 +557,19 @@ const AddPrescription = (props) => {
           setUserShouldProceed(false);
         } else {
           prescription_list.forEach((eachMedicine) => {
-            if (eachMedicine.medicineItem.medicine === "") {
-              eachMedicine.validationInfo.medicine_error =
-                "Please choose medicine";
-            } else {
-              eachMedicine.validationInfo.medicine_error = "";
+            if (eachMedicine.selectedType !== "other"){
+              if (eachMedicine.medicineItem.medicine === "") {
+                eachMedicine.validationInfo.medicine_error =
+                    "Please choose medicine";
+              } else {
+                eachMedicine.validationInfo.medicine_error = "";
+              }
+            }else{
+              if (eachMedicine.medicineItem.medicine_name === "") {
+                eachMedicine.validationInfo.medicine_error = "Please type medicine name";
+              } else {
+                eachMedicine.validationInfo.medicine_error = "";
+              }
             }
             if (
               eachMedicine.medicineItem.medicinetype === "" ||
@@ -615,9 +677,14 @@ const AddPrescription = (props) => {
 
   const savePrescriptionAsTemplate = () => {
     let allMedicines = [];
-    prescription_list.forEach((prescription) =>
-      allMedicines.push(prescription.medicineItem)
-    );
+    prescription_list.forEach((prescription) => {
+      if(!prescription.medicineItem.medicine){
+        delete prescription.medicineItem.medicine;
+        allMedicines.push(prescription.medicineItem)
+      }else {
+        allMedicines.push(prescription.medicineItem)
+      }
+    })
 
     let params = {
       name: templateTitle,

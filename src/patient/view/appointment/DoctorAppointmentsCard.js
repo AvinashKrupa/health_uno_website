@@ -47,12 +47,13 @@ const isPrescriptionPresent = props.appointment?.prescription && props.appointme
           </div>
           <div>
             <CardContent>
-                <div className="doctor-card-doctor-name">{`Dr ${props?.appointment.first_name} ${props?.appointment.last_name}`}
-                  <Image
-                    className="card-image-video-camera"
-                    src={camera}
-                    alt="Video Camera"
-                  />
+                <div className="doctor-card-doctor-name text-tooltip">{`Dr ${props?.appointment.first_name} ${props?.appointment.last_name}`}</div>
+                <div className="doctor-card-doctor-name">
+                    <Image
+                        className="card-image-video-camera"
+                        src={camera}
+                        alt="Video Camera"
+                    />
                 </div>
                 <div className="doctor-card-doctor-details"> {`${props?.appointment.address.city}, ${props?.appointment.address.country} | ${props?.appointment.exp} Y Exp`}</div>
                 <div>

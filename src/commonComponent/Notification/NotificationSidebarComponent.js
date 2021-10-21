@@ -53,8 +53,10 @@ const NotificationSidebarComponent = (props) => {
                         marginRight: "10px",
                     }}>
                         {!notifications.length && (
-                            <div className="empty-list-container">
-                                <Notification item={{message: "No notification found"}}/>
+                            <div className="empty-list-container_center">
+                                <div className="no-notification">
+                                    <div>No notification found</div>
+                                </div>
                             </div>
                         )}
                         {notifications.map((notification_item) => <Notification item={notification_item}/>)}

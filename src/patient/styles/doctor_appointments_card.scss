@@ -112,6 +112,7 @@
 
   .doctor-card-doctor-name {
     position: relative;
+    width: 180px;
     .card-image-video-camera {
       position: absolute;
       left: 197px;
@@ -132,23 +133,30 @@
 }
 @media screen and (max-width: 320px) {
   .upcoming-appointment-card-container {
-    min-width: 390px;
+    min-width: 390px!important;
     width: 390px;
+  }
+
+  .doctor-card-doctor-name {
+    .card-image-video-camera {
+      top: -24px;
+
+    }
   }
 }
 
 
 @media only screen and (max-width: 767px) {
-  
+
   .upcoming-appointment-card-container {
     min-width: 106%;
   }
   .card-button-join{
     margin-left: -110px;
   }
-  .doctor-card-doctor-name .card-image-video-camera{
-    left: 148px !important;
-  }
+  //.doctor-card-doctor-name .card-image-video-camera{
+  //  left: 148px !important;
+  //}
     .appointment-page-text-heading {
       width: 100%;
       text-align: center;
