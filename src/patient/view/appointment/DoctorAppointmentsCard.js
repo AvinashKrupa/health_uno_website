@@ -23,7 +23,7 @@ function onSubmit() {
     addToast('Please enter cancel reason', { appearance: 'error' });
   } else {
     setToggleModal(false);
-    props.cancelAppointment(id, reason);
+    props.cancelAppointment(props?.appointment._id, reason);
     setReason('');
   }
 
