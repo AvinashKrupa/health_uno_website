@@ -505,6 +505,7 @@ const RegistrationComponent = ({ history, image }) => {
               placeholder="Enter Your First Name"
               id="firstName"
               label="First Name"
+              maxLength="20"
               value={firstName}
               onChange={setFirstName}
             />
@@ -515,6 +516,7 @@ const RegistrationComponent = ({ history, image }) => {
               placeholder="Enter Your Surname"
               id="lastName"
               label="Last Name"
+              maxLength="20"
               value={lastName}
               onChange={setLastName}
             />
