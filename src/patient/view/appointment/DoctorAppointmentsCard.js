@@ -9,6 +9,7 @@ import { useToasts } from 'react-toast-notifications';
 import {camera} from "../../../constants/PatientImages";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import {convert24hto12h, getTimer} from "../../../utils/utilities";
+import {getColorForAppointmentStatus} from "../../../utils/Colors";
 
 const DoctorAppointmentsCard = (props) => {
 
@@ -58,6 +59,7 @@ const isPrescriptionPresent = props.appointment?.presc_url;
                 <div>
                   <span className="doctor-card-fee-label">Fee:</span>
                   <span className="doctor-card-fee-value">Rs {props?.appointment.fee}</span>{" "}
+                    <span style={{marginLeft:10,fontSize: "14px", color: getColorForAppointmentStatus(props?.appointment.status)}}>{`(${props?.appointment.status})`}</span>
                 </div>
                 <span >
                 <span
