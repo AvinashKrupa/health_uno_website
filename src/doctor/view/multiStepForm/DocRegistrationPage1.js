@@ -147,10 +147,10 @@ function getLanguage() {
         <Col lg='6'>
               <Row>
               <Col className="registration-page-1-column">
-                <Input label="First Name" type="text" placeholder="Enter Your First Name" value={firstName} onChange={setFirstName}/>
+                <Input label="First Name" type="text" placeholder="Enter Your First Name" maxLength="20" value={firstName} onChange={setFirstName}/>
               </Col>
               <Col className="registration-page-1-column">
-                <Input label="Last Name" type="text" placeholder="Enter Your Surname" value={lastName} onChange={setLastName} />
+                <Input label="Last Name" type="text" placeholder="Enter Your Surname" maxLength="20" value={lastName} onChange={setLastName} />
               </Col>
             </Row>
             <Row>

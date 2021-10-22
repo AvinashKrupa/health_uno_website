@@ -192,11 +192,11 @@ const DoctorEditProfile = (props) => {
                      <h2 className="sub-title">Edit Profile</h2>
                 </Row>
                 <Col md className="registration-page-1-column">
-                    <Input label="First Name" type="text" placeholder="eg John" value={firstName}
+                    <Input label="First Name" type="text" placeholder="eg John" maxLength="20" value={firstName}
                             onChange={setFirstName}/>
                 </Col>
                 <Col md className="registration-page-1-column">
-                    <Input label="Last Name" type="text" placeholder="eg Doe" value={lastName}
+                    <Input label="Last Name" type="text" placeholder="eg Doe" maxLength="20" value={lastName}
                             onChange={setLastName}/>
                 </Col>
             </Row>
