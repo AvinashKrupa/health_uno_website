@@ -2,6 +2,8 @@ import SideNav, {NavIcon, NavItem, NavText} from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import {clearSession, getData} from "./storage/LocalStorage/LocalAsyncStorage";
 import { withRouter } from 'react-router-dom'
+import { useToasts } from 'react-toast-notifications';
+import {API, post} from './api/config/APIController';
 
 const sidebar = ['home', 'appointments', 'profile', 'reports']
 
@@ -15,6 +17,25 @@ const Sidebar = (props) => {
             defaultSelection = newRoutes[i];
         }
     }
+    const {addToast} = useToasts();
+
+    const handleLogout = (routeName) => {
+        post(API.LOGOUT)
+        .then(response => {
+          if (response.status === 200) {
+            
+            addToast(response.data.message, {appearance: 'success'});
+            clearSession();
+            props.history.push(`${routeName}`);
+          } else {
+            addToast(response.data.message, {appearance: 'error'});
+          }
+        })
+        .catch(error => {
+          addToast(error.response.data.message, {appearance: "error"});
+        });
+    }
+
     return (
         <div className="sidebarMenu">
             <SideNav onSelect={(selected) => {
@@ -34,8 +55,7 @@ const Sidebar = (props) => {
                 }
 
                 if( selected === 'signOut') {
-                    clearSession();
-                    props.history.push(`${routeName}`);
+                    handleLogout(routeName);
                 }
 
                 sidebar.includes(selected) && props.history.push(`${routeName}${selected}`);
