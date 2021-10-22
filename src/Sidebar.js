@@ -19,12 +19,14 @@ const Sidebar = (props) => {
     }
     const {addToast} = useToasts();
 
-    const handleLogout = () => {
+    const handleLogout = (routeName) => {
         post(API.LOGOUT)
         .then(response => {
           if (response.status === 200) {
             
             addToast(response.data.message, {appearance: 'success'});
+            clearSession();
+            props.history.push(`${routeName}`);
           } else {
             addToast(response.data.message, {appearance: 'error'});
           }
@@ -53,9 +55,7 @@ const Sidebar = (props) => {
                 }
 
                 if( selected === 'signOut') {
-                    clearSession();
-                    handleLogout();
-                    props.history.push(`${routeName}`);
+                    handleLogout(routeName);
                 }
 
                 sidebar.includes(selected) && props.history.push(`${routeName}${selected}`);
