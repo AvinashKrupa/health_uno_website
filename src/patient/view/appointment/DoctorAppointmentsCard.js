@@ -36,8 +36,7 @@ function handleEnableButton() {
 
 const timerEnable = getTimer(`${props?.appointment.time.date} ${props?.appointment.time.slot}`);
 const buttonTitle = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
-const isPrescriptionPresent = props.appointment?.prescription && props.appointment?.prescription[0]?.url;
-
+const isPrescriptionPresent = props.appointment?.presc_url;
   return (
     <>
         <Card className="upcoming-appointment-card-container">

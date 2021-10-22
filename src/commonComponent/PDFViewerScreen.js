@@ -4,7 +4,7 @@ import PDFViewer from 'mgr-pdf-viewer-react';
 import { back_icon } from "../constants/DoctorImages";
 import {getData} from "../storage/LocalStorage/LocalAsyncStorage";
 export const PDFViewerScreen = (props) => {
-  
+
   if(props.location?.state?.url){
     localStorage.setItem('PDF_URL',props.location?.state?.url)
   }
@@ -17,7 +17,7 @@ export const PDFViewerScreen = (props) => {
         <Col lg='1' md='2' sm='1' xs='1'></Col>
         <Col lg='10' md='9' sm='10' xs='11'>
         <button className="back-nav-container back-navigation">
-                    <img src={back_icon} alt='back_icon-img' onClick={() => (userType === 1? props.history.push('/patient/reports'): props.history.goBack())}></img>
+                    <img src={back_icon} alt='back_icon-img' onClick={() => props.history.goBack()}></img>
                     <span>Report Preview</span>
                  </button>
             <div style={{marginTop: window.screen.availWidth > 415 ? '20px' : '80px'}} className='pdf-view'>
