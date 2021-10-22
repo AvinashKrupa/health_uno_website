@@ -170,3 +170,15 @@
   }
 
 }
+
+@media only screen and (max-width: 1375px) and (min-width: 1275px) {
+  .upcoming-appointment-card-container {
+    min-width: 365px !important;
+  }
+  .card-text-time {
+    margin-left: 70px;
+  }
+  .card-image-video-camera {
+    left: 180px !important;
+  }
+}

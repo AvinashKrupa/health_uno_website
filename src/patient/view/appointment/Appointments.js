@@ -224,7 +224,7 @@ const Appointments = (props) => {
                             item
                             lg={4}
                             md={6}
-                            sm={8}
+                            sm={12}
                             xs={12}
                             spacing={0.5}
                             className="appointment-page-cards-upcoming"
@@ -276,7 +276,7 @@ const Appointments = (props) => {
                           item
                           lg={4}
                           md={6}
-                          sm={6}
+                          sm={12}
                           xs={12}
                           spacing={1}
                           className="appointment-page-cards-previous"
