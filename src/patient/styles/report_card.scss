@@ -5,7 +5,7 @@
     background: rgba(255, 255, 255, 1);
     box-shadow: 4px 4px 35px 0px rgba(0, 0, 0, 0.1);
     padding: 0px 0px 0px 0px !important;
-    margin: 0px 0px 0px 16px !important;
+    margin: 15px !important;
   }
   
   .report-card-button {
@@ -71,4 +71,11 @@
   
   .padding-0 {
     padding: 0px 0px 0px 0px !important;
+  }
+
+  @media only screen and (min-width: 1280px) and (max-width: 1290px) {
+    .report-card-container {
+      margin: 15px !important;
+      width: 350px !important;
+    }
   }
