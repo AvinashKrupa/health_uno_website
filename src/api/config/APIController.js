@@ -4,6 +4,7 @@ import qs from 'qs';
 export const API = {
   GET_NOTIFICATIONS: 'notification',
   SENDOTP: 'auth/sendOtp',
+  LOGOUT: 'auth/logout',
   VERIFYOTP: 'auth/verifyOtp',
   REGISTERPATIENT: 'auth/registerPatient',
   GETCOUNTRY: 'country',
@@ -62,7 +63,7 @@ export const API = {
 export function post(endPoint, params, isStringfy = true) {
   return instance.post(
       endPoint,
-      isStringfy ? JSON.stringify(params) : qs.stringify(params),
+      params && (isStringfy ? JSON.stringify(params) : qs.stringify(params)),
   );
 }
 
