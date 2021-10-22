@@ -445,11 +445,11 @@ const PatientEditProfile = (props) => {
                     {/* <h2 className="sub-title"></h2> */}
                 </Row>
                 <Col className="registration-page-1-column" md>
-                    <Input label="First Name" type="text" placeholder="eg John" value={firstName}
+                    <Input label="First Name" type="text" placeholder="eg John" maxLength="20" value={firstName}
                             onChange={setFirstName}/>
                 </Col>
                 <Col className="registration-page-1-column" md>
-                    <Input label="Last Name" type="text" placeholder="eg Doe" value={lastName}
+                    <Input label="Last Name" type="text" placeholder="eg Doe" maxLength="20" value={lastName}
                             onChange={setLastName}/>
                 </Col>
             </Row>

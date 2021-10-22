@@ -14,7 +14,7 @@ const Input = (props) => {
         disabled={props.disabled || false}
         onChange={(e) => props.onChange(e.target.value)}
         min={props.min}
-        max={props.max}
+        maxLength={props.maxLength}
         onBlur={(e) => props.onBlur? props.onBlur(e.target.value) : null}
       ></Form.Control>
     </Form.Group>
