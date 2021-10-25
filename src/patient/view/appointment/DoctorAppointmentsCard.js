@@ -8,7 +8,7 @@ import TextArea from '../../../commonComponent/TextArea';
 import { useToasts } from 'react-toast-notifications';
 import {camera} from "../../../constants/PatientImages";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
-import {convert24hto12h, getTimer} from "../../../utils/utilities";
+import {capitalizeFirstLetter, convert24hto12h, getTimer} from "../../../utils/utilities";
 import {getColorForAppointmentStatus} from "../../../utils/Colors";
 
 const DoctorAppointmentsCard = (props) => {
@@ -38,6 +38,8 @@ function handleEnableButton() {
 const timerEnable = getTimer(`${props?.appointment.time.date} ${props?.appointment.time.slot}`);
 const buttonTitle = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
 const isPrescriptionPresent = props.appointment?.presc_url;
+const appointmentStatus = capitalizeFirstLetter(props?.appointment.status);
+
   return (
     <>
         <Card className="upcoming-appointment-card-container">
@@ -59,7 +61,7 @@ const isPrescriptionPresent = props.appointment?.presc_url;
                 <div>
                   <span className="doctor-card-fee-label">Fee:</span>
                   <span className="doctor-card-fee-value">Rs {props?.appointment.fee}</span>{" "}
-                    <span style={{marginLeft:10,fontSize: "14px", color: getColorForAppointmentStatus(props?.appointment.status)}}>{`(${props?.appointment.status})`}</span>
+                    <span className="doctor-card-app-status" style={{ color: getColorForAppointmentStatus(props?.appointment.status)}}>{`(${appointmentStatus})`}</span>
                 </div>
                 <span >
                 <span

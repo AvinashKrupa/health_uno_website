@@ -97,7 +97,7 @@ const Appointments = (props) => {
       sort_order: sort_order,
       sort_key: "time.utc_time",
       date: "",
-      status: ["pending", "cancelled", "rejected", "ongoing", "completed"],
+      status: [ "cancelled", "rejected", "ongoing", "completed"],
     };
     setAppointmentLoaderStatus(true);
     post(API.GETAPPOINTMENTS, params)
