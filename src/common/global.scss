@@ -11,6 +11,11 @@ body {
     word-break: break-all;
   }
 
+  .card-hover-effect:hover{
+    cursor: pointer;
+    border: #28A3DA 2px solid;
+  }
+
   .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
     background-color: #27a3da;

@@ -1,10 +1,8 @@
-import DoctorCard from "../../commonComponentPatient/DoctorCard";
 import { Row, Col} from "react-bootstrap";
 import {API, get, post} from '../../../api/config/APIController';
 import { useEffect } from "react";
 import {useToasts} from 'react-toast-notifications';
 import { useState } from "react";
-import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import useSearchStore from '../../store/searchStore';
 import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
