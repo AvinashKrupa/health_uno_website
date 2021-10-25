@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 const PatientAppointmentCard = (props) => {
   return (
     <>
-    <Card className="patient-appointment-container" onClick={() =>  props.history.push(`/doctor/appointmentDetail/${props.id}`)}>
+    <Card className="patient-appointment-container card-hover-effect" onClick={() =>  props.history.push(`/doctor/appointmentDetail/${props.id}`)}>
         <div className="image-container">
             <img src={props?.image} style={{
                 maxWidth:"100%",
