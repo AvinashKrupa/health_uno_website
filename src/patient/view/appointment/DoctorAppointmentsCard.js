@@ -61,7 +61,6 @@ const appointmentStatus = capitalizeFirstLetter(props?.appointment.status);
                 <div>
                   <span className="doctor-card-fee-label">Fee:</span>
                   <span className="doctor-card-fee-value">Rs {props?.appointment.fee}</span>{" "}
-                    <span className="doctor-card-app-status" style={{ color: getColorForAppointmentStatus(props?.appointment.status)}}>{`(${appointmentStatus})`}</span>
                 </div>
                 <span >
                 <span
@@ -77,10 +76,11 @@ const appointmentStatus = capitalizeFirstLetter(props?.appointment.status);
                   </span>
                 </span>
                 <div style={{position: 'relative'}}>
-                    <spam className="card-text-date-and-time">
+                    <span className="card-text-date-and-time">
                         {`${props?.appointment.time.date}, ${convert24hto12h(props?.appointment.time.slot)}`}
                         <span className="card-text-time">{ timerEnable && <Timer time={props?.appointment.time.utc_time} handleEnableButton={handleEnableButton}></Timer> }</span>
-                    </spam>
+                        <span className="doctor-card-app-status" style={{ color: getColorForAppointmentStatus(props?.appointment.status)}}>{`(${appointmentStatus})`}</span>
+                    </span>
                 </div>
                 <Row className="card-buttons-row">
                   <Col>
