@@ -37,7 +37,7 @@ const HorizontalCalendarForDoctor = (props) => {
 
         return (
             <>
-                <Button className={'doctor-days-button'}
+                <Button className={'doctor-days-button card-hover-effect'}
                         style={{backgroundColor: active ? '#28A3DA' : '#FFFFFF', color: active ? '#FFFFFF' : '#28A3DA'}}
                         onClick={(e) => handleDaysClick(dateNumber, info)}
                 >
