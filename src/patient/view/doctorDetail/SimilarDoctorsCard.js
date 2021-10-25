@@ -1,11 +1,12 @@
 import { Card, CardContent, CardMedia } from "@material-ui/core";
 import {Link} from 'react-router-dom';
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
-const DoctorCard = (props) => {
-    const similarDoctorContainer = props.from ==='doctor' ? 'doctor-card-container select-doctor' : 'doctor-card-container';
+const SimilarDoctorsCard = (props) => {
+    const similarDoctorContainer = props.from ==='doctor' ? 'doctor-card-container select-doctor' : 'doctor-card-container card-hover-effect';
   return (
     <>
-    <Card className={similarDoctorContainer} onClick={()=>props.from ==='doctor' ? props.onDoctorSelect(props) : null}>
+    <Card className={similarDoctorContainer} onClick={()=>props.from ==='doctor' ? props.onDoctorSelect(props) : props.history.push(`/patient/doctorDetails/${props.id}`)}>
         <div style={{display: 'flex', flexDirection: 'row'}}>
           <div>
           <CardMedia className="doctor-card-image" image={props?.image}></CardMedia>
@@ -43,4 +44,4 @@ const DoctorCard = (props) => {
     </>
   );
 };
-export default DoctorCard;
+export default withRouter(SimilarDoctorsCard);
