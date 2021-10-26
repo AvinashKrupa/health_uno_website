@@ -6,13 +6,14 @@ import Invite from "../../../patient/view/invite/Invite";
 import Chat from "../../../chat/Chat";
 import UpdateSchedule from "./UpdateSchedule";
 import AboutUs from "../../../commonComponent/AboutUs";
+import FAQ from "../../../FAQ";
 
 const DoctorProfile = (props) => {
     const type = props.match.params.type
     const [profilePic,setProfilePic]=useState("");
     const [reloadSideColumn, setReloadSideColumn] = useState(false);
 
-
+    
     return (
         <Col lg="11" sm="11" xs="11" >
             <Row>
@@ -33,6 +34,11 @@ const DoctorProfile = (props) => {
                     {
                         type === 'invite' && (
                             <Invite></Invite>
+                        )
+                    }
+                    {
+                        type === 'faq' && (
+                            <FAQ path={props.location.pathname}></FAQ>
                         )
                     }
                     {

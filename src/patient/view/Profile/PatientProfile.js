@@ -7,6 +7,7 @@ import PatientEditProfile from "./PatientEditProfile";
 import Invite from "../invite/Invite";
 import UploadReport from "./UploadReport";
 import Chat from "../../../chat/Chat";
+import FAQ from '../../../FAQ'
 import AboutUs from "../../../commonComponent/AboutUs";
 
 
@@ -43,6 +44,11 @@ const PatientProfile = (props) => {
                     {
                         type === 'support' && (
                             <Chat></Chat>
+                        )
+                    }
+                    {
+                        type === 'faq' && (
+                            <FAQ path={props.location.pathname}></FAQ>
                         )
                     }
                     {

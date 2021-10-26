@@ -127,6 +127,18 @@ const EditProfilePictureColumn = (props) => {
                             <AnchorLink href='#second-page'>
                                 <ProfileButton
                                     active={props.match.params.type}
+                                    route={'faq'}
+                                    fontText={'fa-info-circle'}
+                                    btnText={'FAQ'}
+                                    onClick={() => {
+                                        props.history.push('/patient/profile/faq')
+                                    }}
+                                >
+                                </ProfileButton>
+                            </AnchorLink>
+                            <AnchorLink href='#second-page'>
+                                <ProfileButton
+                                    active={props.match.params.type}
                                     route={'invite'}
                                     fontText={'fa-share-alt'}
                                     btnText={'Refer and Invite'}
