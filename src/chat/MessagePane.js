@@ -29,9 +29,9 @@ class MessagePane extends Component {
     getRoomId = () => {
         const compare = this.state.user_id.localeCompare(this.props.receiver_id)
         if (compare < 0) {
-            return this.state.user_id + "_" + this.props.receiver_id;
+            return `${this.state.user_id + "_" + this.props.receiver_id}`;
         } else if (compare > 0) {
-            return this.state.receiver_id + "_" + this.props.user_id;
+            return `${this.props.receiver_id + "_" + this.state.user_id}`;
         }
     }
 
