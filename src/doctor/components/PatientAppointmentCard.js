@@ -2,8 +2,11 @@ import { Card } from "@material-ui/core";
 import {calendar,clock} from "../../constants/DoctorImages";
 import {Image} from "react-bootstrap";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+import {capitalizeFirstLetter} from "../../utils/utilities";
+import {getColorForAppointmentStatus} from "../../utils/Colors";
 
 const PatientAppointmentCard = (props) => {
+    const appointmentStatus = capitalizeFirstLetter(props.status);
   return (
     <>
     <Card className="patient-appointment-container card-hover-effect" onClick={() =>  props.history.push(`/doctor/appointmentDetail/${props.id}`)}>
@@ -19,7 +22,7 @@ const PatientAppointmentCard = (props) => {
                     <div className="patient-name text-tooltip">{props.name}</div>
                 </div>
                 <div style={{flex:1}}>
-                    <div className="status-info">{props.status}</div>
+                    <div className="status-info" style={{ color: getColorForAppointmentStatus(props?.status)}}>{`(${appointmentStatus})`}</div>
                 </div>
             </div>
 
