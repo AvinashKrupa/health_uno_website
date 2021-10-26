@@ -13,11 +13,11 @@ const DoctorProfile = (props) => {
     const [profilePic,setProfilePic]=useState("");
     const [reloadSideColumn, setReloadSideColumn] = useState(false);
 
-    
+
     return (
         <Col lg="11" sm="11" xs="11" >
             <Row>
-                <Col lg="3">
+                <Col lg="2" style={{ marginRight: '20px' }}>
                     <ProfilePictureColumn setProfilePic ={setProfilePic} setReloadSideColumn={setReloadSideColumn} reloadSideColumn={reloadSideColumn}/>
                 </Col>
                 <Col lg='9' id="second-page">
@@ -38,7 +38,7 @@ const DoctorProfile = (props) => {
                     }
                     {
                         type === 'faq' && (
-                            <FAQ path={props.location.pathname}></FAQ>
+                            <FAQ isProfile={true}></FAQ>
                         )
                     }
                     {

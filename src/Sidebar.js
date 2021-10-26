@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications';
 import {API, post} from './api/config/APIController';
 
-const sidebar = ['home', 'appointments', 'profile', 'reports']
+const sidebar = ['home', 'appointments', 'profile', 'faq', 'reports']
 
 const Sidebar = (props) => {
     const userType = JSON.parse(getData('USER_TYPE'));
@@ -51,6 +51,10 @@ const Sidebar = (props) => {
 
                 if( selected === 'profile') {
                     selected = 'profile/editProfile';
+                    props.history.push(`${routeName}${selected}`);
+                }
+                if( selected === 'faq') {
+                    selected = 'faq';
                     props.history.push(`${routeName}${selected}`);
                 }
 
@@ -102,6 +106,14 @@ const Sidebar = (props) => {
                         </NavIcon>
                         <NavText>
                             Profile
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="faq">
+                        <NavIcon>
+                            <i className="fa fa-fw fa-question-circle" style={{fontSize: '1.75em'}}/>
+                        </NavIcon>
+                        <NavText>
+                            FAQ
                         </NavText>
                     </NavItem>
                     <NavItem eventKey="signOut">

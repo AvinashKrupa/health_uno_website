@@ -33,6 +33,7 @@ import MainView from "./MainView";
 import PrePage from "./patient/view/PrePage";
 import {storeData} from "./storage/LocalStorage/LocalAsyncStorage";
 import {useToasts} from "react-toast-notifications";
+import FAQ from './FAQ';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
       <MainView>
         <Switch>
         <PrivateRoute exact path="/doctor/home" component={DoctorHomePage}/>
+        <PrivateRoute exact path='/doctor/faq' component={FAQ}/>
         <PrivateRoute exact path='/doctor/appointments' component={UpcomingAppointments}/>
         <PrivateRoute exact path='/doctor/search' component={UpcomingAppointments}/>
         <PrivateRoute exact path='/doctor/appointmentDetail/:appointment_id' component={AppointmentDetail}/>
@@ -76,6 +78,7 @@ function App() {
         <PrivateRoute exact path='/doctor/select/:appointment_id' component={AddDoctor}/>
         <PrivateRoute exact path='/doctor/profile/:type' component={DoctorProfile}/>
         <PrivateRoute exact path='/patient/home' component={PatientHomePage}/>
+        <PrivateRoute exact path='/patient/faq' component={FAQ} />
         <PrivateRoute exact path='/patient/topConsultants' component={TopConsultants}/>
         <PrivateRoute exact path='/patient/specialities' component={Specialities}/>
         <PrivateRoute exact path='/patient/doctorDetails/:doctor_id' component={DoctorDetails}/>

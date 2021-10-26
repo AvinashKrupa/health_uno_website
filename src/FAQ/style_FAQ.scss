@@ -1,6 +1,6 @@
 .FAQ_container {
   text-align: center;
-  width: 65vw;
+  width: 85%;
 }
 .FAQ_accordion_content {
   text-align: left;
@@ -28,6 +28,9 @@
   margin-top: 1%;
   margin-bottom: 1%;
 }
-.FAQ_accordion_space{
-    margin-bottom: 3%;
+.FAQ_accordion_space {
+  margin-bottom: 3%;
+}
+.FAQ_accordion_width {
+  width: 100%;
 }
