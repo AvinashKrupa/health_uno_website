@@ -9,6 +9,7 @@ import UploadReport from "./UploadReport";
 import Chat from "../../../chat/Chat";
 import FAQ from '../../../FAQ'
 import AboutUs from "../../../commonComponent/AboutUs";
+import TermsAndCondition from "../../../commonComponent/TermsandConditions";
 
 
 const PatientProfile = (props) => {
@@ -44,6 +45,11 @@ const PatientProfile = (props) => {
                     {
                         type === 'support' && (
                             <Chat></Chat>
+                        )
+                    }
+                    {
+                        type === 'terms' && (
+                            <TermsAndCondition></TermsAndCondition>
                         )
                     }
                     {

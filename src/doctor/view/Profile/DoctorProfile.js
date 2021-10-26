@@ -7,6 +7,7 @@ import Chat from "../../../chat/Chat";
 import UpdateSchedule from "./UpdateSchedule";
 import AboutUs from "../../../commonComponent/AboutUs";
 import FAQ from "../../../FAQ";
+import TermsAndCondition from "../../../commonComponent/TermsandConditions";
 
 const DoctorProfile = (props) => {
     const type = props.match.params.type
@@ -39,6 +40,11 @@ const DoctorProfile = (props) => {
                     {
                         type === 'faq' && (
                             <FAQ isProfile={true}></FAQ>
+                        )
+                    }
+                    {
+                        type === 'terms' && (
+                            <TermsAndCondition />
                         )
                     }
                     {
