@@ -1,4 +1,4 @@
-  
+
   .appointment-page-text-heading-column {
     max-width: 172px;
   }
@@ -13,12 +13,13 @@
     text-align: left;
     padding: 0px 0px 0px 0px;
   }
-  
+
   .appointment-page-content-column {
     margin-top: 21px;
   }
-  
+
   .appointment-page-text-unselected {
+    cursor: pointer;
     height: 16px;
     width: 76px;
     font-size: 14px;
@@ -31,8 +32,9 @@
     padding: 0px 0px 0px 0px;
     margin-top: 50px;
   }
-  
+
   .appointment-page-text-selected {
+    cursor: pointer;
     height: 16px;
     width: 76px;
     color: rgba(40, 163, 218, 1);
@@ -46,15 +48,15 @@
     margin-top: 50px;
     border-bottom: 2px solid #28a3da;
   }
-  
+
   .appointment-page-text-margin-left-41 {
     margin-left: 41px;
   }
-  
+
   .appointment-page-cards-row {
     margin-top: 32px;
   }
-  
+
   .appointment-page-location {
     margin-left: 990px;
     margin-top: 10px;
@@ -62,14 +64,14 @@
     width: 129px;
     padding: 0px 0px 24px 0px;
   }
-  
+
   .appointment-page-map-pin-icon {
     height: 24px;
     width: 24px;
     padding: 0px 0px 0px 0px;
     margin-right: 8px;
   }
-  
+
   .appointment-page-location-text {
     font-size: 14px;
     font-style: normal;
