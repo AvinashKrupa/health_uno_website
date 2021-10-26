@@ -98,7 +98,7 @@
 .doctor-card-app-status {
   position: absolute;
   left: 152px;
-  top: -57px;
+  top: -38px;
   font-size: 14px;
 }
 
@@ -117,3 +117,13 @@
 }
 
 
+@media screen and (max-width: 425px) {
+  .doctor-card-app-status {
+    left: 136px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .doctor-card-app-status {
+    left: 112px;
+  }
+}
