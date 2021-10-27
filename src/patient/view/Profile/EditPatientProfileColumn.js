@@ -7,10 +7,17 @@ import ProfileButton from "../../../commonComponent/ProfileButton";
 import { withRouter } from 'react-router-dom'
 import UploadImage from "../../../commonComponent/Upload"
 import {API, get, post} from "../../../api/config/APIController";
-import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
+import {storeData, getData} from "../../../storage/LocalStorage/LocalAsyncStorage";
 import {useToasts} from "react-toast-notifications";
 
 const EditProfilePictureColumn = (props) => {
+    useEffect( () => {
+        const accessToken = getData('ACCESS_TOKEN');
+        if (!accessToken) {
+            props.history.push(`/`);
+            return;
+        }
+    }, []);
     const[ image, setImage ]= useState(props.img);
     const {addToast} = useToasts();
     function updateUserProfile(file) {
@@ -30,7 +37,7 @@ const EditProfilePictureColumn = (props) => {
             addToast(error.response.data.message, { appearance: "error" });
           });
       }
-    
+
       const handleImage = (file) => {
         setImage(file);
         updateUserProfile(file);

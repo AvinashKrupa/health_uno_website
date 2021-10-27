@@ -1,6 +1,6 @@
 
 import { Col, Row } from "react-bootstrap";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import ProfilePictureColumn from "./EditPatientProfileColumn";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import PatientEditProfile from "./PatientEditProfile";
@@ -11,6 +11,13 @@ import AboutUs from "../../../commonComponent/AboutUs";
 
 
 const PatientProfile = (props) => {
+    useEffect( () => {
+        const accessToken = getData('ACCESS_TOKEN');
+        if (!accessToken) {
+            props.history.push(`/`);
+            return;
+        }
+    }, []);
     const type = props.match.params.type;
     const [reloadSideColumn, setReloadSideColumn] = useState(false);
 
@@ -19,7 +26,7 @@ const PatientProfile = (props) => {
         <Col lg="10" sm="10" xs="10" >
             <Row>
                 <Col lg="2">
-                    <ProfilePictureColumn img={userInfo.dp}  doctorName={`${userInfo.first_name} ${userInfo.last_name}`} doctorId={'22'} doctorMobile={userInfo.mobile_number}
+                    <ProfilePictureColumn img={userInfo?.dp}  doctorName={`${userInfo?.first_name} ${userInfo?.last_name}`} doctorId={'22'} doctorMobile={userInfo?.mobile_number}
                                           setReloadSideColumn={setReloadSideColumn} reloadSideColumn={reloadSideColumn}/>
                 </Col>
                 <Col lg="9" id="second-page">
