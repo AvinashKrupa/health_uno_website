@@ -6,6 +6,8 @@ import Invite from "../../../patient/view/invite/Invite";
 import Chat from "../../../chat/Chat";
 import UpdateSchedule from "./UpdateSchedule";
 import AboutUs from "../../../commonComponent/AboutUs";
+import FAQ from "../../../FAQ";
+import TermsAndCondition from "../../../commonComponent/TermsandConditions";
 
 const DoctorProfile = (props) => {
     const type = props.match.params.type
@@ -16,7 +18,7 @@ const DoctorProfile = (props) => {
     return (
         <Col lg="11" sm="11" xs="11" >
             <Row>
-                <Col lg="3">
+                <Col lg="2" style={{ marginRight: '20px' }}>
                     <ProfilePictureColumn setProfilePic ={setProfilePic} setReloadSideColumn={setReloadSideColumn} reloadSideColumn={reloadSideColumn}/>
                 </Col>
                 <Col lg='9' id="second-page">
@@ -33,6 +35,16 @@ const DoctorProfile = (props) => {
                     {
                         type === 'invite' && (
                             <Invite></Invite>
+                        )
+                    }
+                    {
+                        type === 'faq' && (
+                            <FAQ isProfile={true}></FAQ>
+                        )
+                    }
+                    {
+                        type === 'terms' && (
+                            <TermsAndCondition />
                         )
                     }
                     {

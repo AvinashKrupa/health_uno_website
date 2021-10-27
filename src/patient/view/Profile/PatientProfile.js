@@ -7,7 +7,9 @@ import PatientEditProfile from "./PatientEditProfile";
 import Invite from "../invite/Invite";
 import UploadReport from "./UploadReport";
 import Chat from "../../../chat/Chat";
+import FAQ from '../../../FAQ/PatientFAQ'
 import AboutUs from "../../../commonComponent/AboutUs";
+import TermsAndCondition from "../../../commonComponent/TermsandConditions";
 
 
 const PatientProfile = (props) => {
@@ -23,7 +25,7 @@ const PatientProfile = (props) => {
 
     const userInfo = JSON.parse(getData('userInfo'));
     return (
-        <Col lg="10" sm="10" xs="10" >
+        <Col lg="11" sm="11" xs="11" >
             <Row>
                 <Col lg="2">
                     <ProfilePictureColumn img={userInfo?.dp}  doctorName={`${userInfo?.first_name} ${userInfo?.last_name}`} doctorId={'22'} doctorMobile={userInfo?.mobile_number}
@@ -43,6 +45,16 @@ const PatientProfile = (props) => {
                     {
                         type === 'support' && (
                             <Chat></Chat>
+                        )
+                    }
+                    {
+                        type === 'terms' && (
+                            <TermsAndCondition></TermsAndCondition>
+                        )
+                    }
+                    {
+                        type === 'faq' && (
+                            <FAQ isProfile={true}></FAQ>
                         )
                     }
                     {
