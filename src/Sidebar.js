@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications';
 import {API, post} from './api/config/APIController';
 
-const sidebar = ['home', 'appointments', 'profile', 'faq', 'reports']
+const sidebar = ['home', 'appointments', 'profile', 'terms', 'faq', 'reports']
 
 const Sidebar = (props) => {
     const userType = JSON.parse(getData('USER_TYPE'));
@@ -106,6 +106,14 @@ const Sidebar = (props) => {
                         </NavIcon>
                         <NavText>
                             Profile
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="terms">
+                        <NavIcon>
+                            <i className="fa fa-fw fa-file-contract" style={{fontSize: '1.75em'}}/>
+                        </NavIcon>
+                        <NavText>
+                            Terms and Conditions
                         </NavText>
                     </NavItem>
                     <NavItem eventKey="faq">

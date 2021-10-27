@@ -108,11 +108,7 @@ const FAQ = ({ isProfile }) => {
   return (
     <div
       style={{ width: isProfile && "100%" }}
-      className={`${
-        location.pathname.includes("patient") && isProfile
-          ? "edit-patient-container"
-          : "edit-doctor-container"
-      } FAQ_container `}
+      className="edit-doctor-container FAQ_container"
     >
       <Row />
       <Row className="FAQ_heading">

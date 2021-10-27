@@ -7,7 +7,7 @@ import PatientEditProfile from "./PatientEditProfile";
 import Invite from "../invite/Invite";
 import UploadReport from "./UploadReport";
 import Chat from "../../../chat/Chat";
-import FAQ from '../../../FAQ'
+import FAQ from '../../../FAQ/PatientFAQ'
 import AboutUs from "../../../commonComponent/AboutUs";
 import TermsAndCondition from "../../../commonComponent/TermsandConditions";
 
