@@ -50,7 +50,7 @@ const data = [
     description: "",
   },
   {
-    title: "How can I cancel &amp; reschedule my appointment?",
+    title: "How can I cancel & reschedule my appointment?",
     description:
       "You can cancel or reschedule your appointment as per the cancelation policy mentioned below through the app/website or the customer care as applicable.",
   },
@@ -65,11 +65,11 @@ const data = [
       "After a successful cancelation, your money will be returned back to the original payment source within 7-10 business days as mentioned in the cancelation policy.",
   },
   {
-    title: "How do referral scheme works? &amp; the benefits of it?",
+    title: "How do referral scheme works? & the benefits of it?",
     description: "",
   },
   {
-    title: "What is loyalty program? &amp; how it works?",
+    title: "What is loyalty program? & how it works?",
     description: "",
   },
   {
