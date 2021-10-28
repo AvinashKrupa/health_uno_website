@@ -37,7 +37,6 @@
   .doctor-image {
     img {
       margin-top: 45px;
-      max-height: "300px";
     }
   }
 
@@ -181,4 +180,13 @@ div[role="navigation"] {
 }
 .LoginPageDoctor {
   height: 100vh;
+}
+
+@media (min-resolution: 120dpi) {
+  .doctor-image {
+    img {
+      margin-top: 15px !important;
+      max-height: 220px !important;
+    }
+  }
 }
