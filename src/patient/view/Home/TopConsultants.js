@@ -110,7 +110,7 @@ const TopConsultants = (props) => {
   }
   const fetchMoreData = () => {
     if(totalConsultants > consultants.length){
-      getTopConsultants('asc','',  '' , '', true)
+      getTopConsultants('asc','',  '', '' , '', true)
     }
   };
   return (
