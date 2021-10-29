@@ -1,8 +1,14 @@
+import { Row } from 'react-bootstrap';
 import "../doctor/styles/termsandcondition.scss";
 
 const TermsAndCondition = (props) => {
   return (
     <div className="term_container">
+      <Row className="terms_heading">
+        <h2>Terms and Conditions</h2>
+      </Row>
+      <br />
+      <br />
       <div>
         <p>Terms for Users:</p>
         <br />
