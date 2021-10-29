@@ -21,6 +21,14 @@
         margin-bottom: 15px;
         padding: 5px;
     }
+    cursor: pointer;
+}
+
+.upload-file:hover{
+    border: #28A3DA 2px solid;
+}
+.upload-text p:hover{
+    color: #28A3DA!important;
 }
 .upload-report {
     padding: 40px;
