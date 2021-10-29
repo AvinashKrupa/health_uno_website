@@ -1,13 +1,9 @@
-import {API, get, post} from '../../api/config/APIController';
 import {Card, CardContent, CardMedia} from "@material-ui/core";
-// import {RiDeleteBinLine} from 'react-icons/ri'
-import addDoctorStore from "../store/addDoctorStore";
-import {useToasts} from "react-toast-notifications";
 import {delete_icon} from "../../constants/DoctorImages";
+import {getData} from "../../storage/LocalStorage/LocalAsyncStorage";
 
 const SelectedDoctorCard = (props) => {
-
-    const {addToast} = useToasts();
+    const doctor_id = JSON.parse(getData('additional_info'))._id;
 
     return (
         <>
@@ -36,9 +32,10 @@ const SelectedDoctorCard = (props) => {
                                 </span>
                                     </div>
                                 </div>
-                                <div>
-                                    <img className="delete-button" src={delete_icon} onClick={()=>props.removeSelectedDoctor()}/>
-                                </div>
+                                {props.id !== doctor_id && <div>
+                                    <img className="delete-button" src={delete_icon}
+                                         onClick={() => props.removeSelectedDoctor()}/>
+                                </div>}
                             </div>
                         </CardContent>
                     </div>

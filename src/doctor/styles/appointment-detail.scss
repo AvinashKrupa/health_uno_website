@@ -275,8 +275,7 @@
   }
 
   .delete-button {
-    position: relative;
-    left: 30px;
+    margin-top: 10px;
   }
 
   .specialities-text {
@@ -378,11 +377,6 @@
     min-width: 300px !important;
     width: 300px !important;
     max-width: 300px !important;
-
-    .delete-button {
-      position: relative;
-      left: 24px;
-    }
   }
 }
 
