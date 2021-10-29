@@ -1,8 +1,12 @@
+import { Row } from 'react-bootstrap';
 import "../doctor/styles/generalTermsAndCondition.scss";
 
 const GeneralTermsAndConditions = (props) => {
   return (
-    <div className="term_container">
+    <div className="general_term_container ">
+      <Row className="terms_heading">
+        <h2>Terms and Conditions</h2>
+      </Row>
       <div>
         <br />
         <br />
