@@ -32,7 +32,7 @@ const SelectedDoctorCard = (props) => {
                                 </span>
                                     </div>
                                 </div>
-                                {props.id !== doctor_id && <div>
+                                {(!["cancelled", "completed"].includes(props.appointmentStatus) && props.id !== doctor_id) && <div>
                                     <img className="delete-button" src={delete_icon}
                                          onClick={() => props.removeSelectedDoctor()}/>
                                 </div>}

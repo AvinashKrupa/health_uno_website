@@ -6,8 +6,9 @@ import moment from "moment";
 import {back_icon, calendar, clock, plus_icon} from "../../../constants/DoctorImages";
 import addDoctorStore from "../../store/addDoctorStore";
 import SelectedDoctorCard from "../../components/SelectedDoctorCard";
-import {getTimer} from "../../../utils/utilities";
+import {capitalizeFirstLetter, getTimer} from "../../../utils/utilities";
 import Timer from "../../../commonComponent/Timer";
+import {getColorForAppointmentStatus} from "../../../utils/Colors";
 
 const AppointmentDetail = (props) => {
     const {addToast} = useToasts();
@@ -101,6 +102,12 @@ const AppointmentDetail = (props) => {
                                     </div>
 
                                     <div className="field-container">
+                                        <div className="field-title">Status:</div>
+                                        {appointmentDetail?.status && <div style={{color: getColorForAppointmentStatus(appointmentDetail.status)}}
+                                              className="field-description">{capitalizeFirstLetter(appointmentDetail?.status)}</div>}
+                                    </div>
+
+                                    <div className="field-container">
                                         <div className="field-title">Age:</div>
                                         <div
                                             className="field-description">{`${moment().diff(appointmentDetail?.patient?.user?.dob, 'years', false)} years`}</div>
@@ -162,6 +169,7 @@ const AppointmentDetail = (props) => {
                                         qualifications={additional_doc[0].specialities}
                                         appointmentId={appointmentDetail._id}
                                         removeSelectedDoctor={removeSelectedDoctor}
+                                        appointmentStatus={appointmentDetail.status}
                                     />
                                 </div>
                             }
