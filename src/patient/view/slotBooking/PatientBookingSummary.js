@@ -142,6 +142,7 @@ const PatientBookingSummary = (props) => {
           theme: {color: '#28A3DA'},
           redirect: false,
           order_id: transaction_id,
+          modal: { escape: false, ondismiss: function(){ setShowLoader(false)} },
           handler: async function (response) {
             const data = {
                 razorpay_payment_id: response.razorpay_payment_id,

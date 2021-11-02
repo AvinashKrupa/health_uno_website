@@ -94,6 +94,25 @@ const DoctorDetails = (props) => {
                                 </Row>
                                 <Row>
                                     <span
+                                        className="doctor_details_h4"
+                                        style={{ marginBottom: "10px" }}
+                                    >
+                                    Language
+                                    </span>
+                                </Row>
+                                <Row>
+                                    <span
+                                        className="doctor_details_h5"
+                                        style={{
+                                            marginBottom: "32px",
+                                            color: "rgba(143, 143, 143, 1)",
+                                        }}
+                                    >
+                                        {doctorDetails.language || 'No language found'}
+                                    </span>
+                                </Row>
+                                <Row>
+                                    <span
                                     className="doctor_details_h4"
                                     style={{ marginBottom: "10px" }}
                                     >

@@ -816,7 +816,7 @@ const AddPrescription = (props) => {
         </DialogContent>
         <DialogActions dividers>
           <Button
-            disabled={!savedPrescription.length}
+            disabled={chosenTemplate ===''}
             className="chooseTempBtn"
             onClick={() => handleChooseTempProceed()}
             color="info"
@@ -826,7 +826,7 @@ const AddPrescription = (props) => {
         </DialogActions>
         <DialogActions>
           <Button
-            disabled={!savedPrescription.length}
+            disabled={chosenTemplate ===''}
             className="chooseDeleteBtn"
             onClick={() => handleChooseTempDeleteClickClose()}
             color="secondary"
