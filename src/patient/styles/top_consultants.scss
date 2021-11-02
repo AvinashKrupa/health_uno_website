@@ -14,8 +14,6 @@
     border: none;
     background: none;
     text-align: left;
-
-
     span {
         font-size: 24px;
     }
@@ -31,4 +29,39 @@
 }
 .load-data{
     overflow: inherit !important;
+}
+
+.react-datepicker__navigation--previous {
+    top: 3px !important;
+}
+.react-datepicker__navigation-icon {
+    top: 7px !important;
+}
+
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after {
+    left: 30px!important;
+}
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before {
+    left: 30px!important;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after {
+        left: 10px!important;
+    }
+    .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before {
+        left: 10px!important;
+    }
+    .slot-timings-button {
+        height: 80px!important;
+    }
+    .patient-slot-booking {
+        margin-top: 50px;
+    }
+    .days-button {
+        min-height: 55px;
+    }
+
+
 }
