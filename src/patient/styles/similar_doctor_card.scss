@@ -20,7 +20,8 @@
   }
 
   .doctor-card-container {
-    height: 155px !important;
+    min-height: 155px !important;
+    height: 168px !important;
     width: 400px !important;
     margin-bottom: 27px;
     border-radius: 12px !important;

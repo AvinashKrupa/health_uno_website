@@ -19,6 +19,10 @@ const SimilarDoctorsCard = (props) => {
                   <span className="doctor-card-fee-label">Fee:</span>
                   <span className="doctor-card-fee-value">Rs {props.fees}</span>{" "}
                 </span>
+                {props.language && <span>
+                    <span className="doctor-card-fee-label">Language:</span>
+                    <span className="doctor-card-fee-value">{props.language || 'Not mention'}</span>{" "}
+                </span>}
                 <span style={{marginTop: "5px" }}>
                 <span
                     className="doctor-card-specialization-text"

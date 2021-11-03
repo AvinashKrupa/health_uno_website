@@ -125,6 +125,7 @@ const AddDoctor = (props) => {
                         qualifications={doctor.specialities}
                         from={'doctor'}
                         onDoctorSelect={onDoctorSelect}
+                        language={doctor.language}
                   />
                 </Grid>
               )
