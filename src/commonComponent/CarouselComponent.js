@@ -34,6 +34,56 @@ const CarouselComponent = ({sliders}) => {
     );
   };
 
+  const renderFullImageSlider = (slider) => {
+    return(
+        <Col lg="12">
+            <div className="carousel_image_full_container">
+          <Image
+              src={slider.image}
+              alt="carousel_image_1"
+              className="carousel_image_full"
+          />
+            </div>
+        </Col>
+    )
+  }
+  const renderImageWithTitleSlider = (slider) => {
+    return(
+        <>
+          <Col lg="3">
+            <Image
+                src={slider.image}
+                alt="carousel_image_1"
+                className="carousel_image"
+                style={{ marginLeft: "80px",  width: "100%" }}
+            />
+          </Col>
+          <Col lg="9">
+            <Row>
+              <span
+                  className="carousel_h3"
+                  style={{
+                    marginBottom: "50px",
+                    marginTop: "40px",
+                    paddingLeft: "130px",
+                  }}
+              >
+                {slider.title}
+              </span>
+            </Row>
+            <Row>
+              <span
+                  className="carousel_h5"
+                  style={{ paddingLeft: "130px" }}
+              >
+                {slider.desc}
+              </span>
+            </Row>
+          </Col>
+        </>
+    )
+  }
+
   return (
     <>
       <Row>
@@ -69,36 +119,12 @@ const CarouselComponent = ({sliders}) => {
                       "linear-gradient(92.07deg, #28A3DA 0.26%, #3085AB 99.17%)",
                   }}
                 >
-                  <Col lg="3">
-                    <Image
-                      src={slider.image}
-                      alt="carousel_image_1"
-                      className="carousel_image"
-                      style={{ marginLeft: "80px",  width: "100%" }}
-                    />
-                  </Col>
-                  <Col lg="9">
-                    <Row>
-                      <span
-                        className="carousel_h3"
-                        style={{
-                          marginBottom: "50px",
-                          marginTop: "40px",
-                          paddingLeft: "130px",
-                        }}
-                      >
-                        {slider.title}
-                      </span>
-                    </Row>
-                    <Row>
-                      <span
-                        className="carousel_h5"
-                        style={{ paddingLeft: "130px" }}
-                      >
-                        {slider.desc}
-                      </span>
-                    </Row>
-                  </Col>
+                  {
+                    slider.desc==='' && renderFullImageSlider(slider)
+                  }
+                  {
+                    slider.desc!=='' && renderImageWithTitleSlider(slider)
+                  }
                 </Row>
               </div>
               )
