@@ -24,11 +24,12 @@ const PatientProfile = (props) => {
     const [reloadSideColumn, setReloadSideColumn] = useState(false);
 
     const userInfo = JSON.parse(getData('userInfo'));
+    const additionalInfo = JSON.parse(getData('additional_info'));
     return (
         <Col lg="11" sm="11" xs="11" >
             <Row>
                 <Col lg="2">
-                    <ProfilePictureColumn img={userInfo?.dp}  doctorName={`${userInfo?.first_name} ${userInfo?.last_name}`} doctorId={'22'} doctorMobile={userInfo?.mobile_number}
+                    <ProfilePictureColumn img={userInfo?.dp}  doctorName={`${userInfo?.first_name} ${userInfo?.last_name}`} userId={additionalInfo?.huno_id} doctorMobile={userInfo?.mobile_number}
                                           setReloadSideColumn={setReloadSideColumn} reloadSideColumn={reloadSideColumn}/>
                 </Col>
                 <Col lg="9" id="second-page">

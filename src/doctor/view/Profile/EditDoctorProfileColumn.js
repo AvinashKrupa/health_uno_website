@@ -44,7 +44,7 @@ const EditDoctorProfileColumn = (props) => {
                     if (user) {
                         storeData('userInfo', JSON.stringify(user));
                     }
-                    setDoctorMedId(additionalInfo.qualif.med_reg_num);
+                    setDoctorMedId(additionalInfo.huno_id);
                     setFirstName(user.first_name);
                     setLastName(user.last_name);
                     setMobile(user.mobile_number);
