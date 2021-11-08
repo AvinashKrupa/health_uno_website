@@ -8,7 +8,7 @@ import TextArea from '../../../commonComponent/TextArea';
 import { useToasts } from 'react-toast-notifications';
 import {camera} from "../../../constants/PatientImages";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
-import {capitalizeFirstLetter, convert24hto12h, getTimer} from "../../../utils/utilities";
+import {capitalizeFirstLetter, convert24hto12h, getTimer, replaceUnderscore} from "../../../utils/utilities";
 import {getColorForAppointmentStatus} from "../../../utils/Colors";
 
 const DoctorAppointmentsCard = (props) => {
@@ -39,10 +39,10 @@ const timerEnable = getTimer(`${props?.appointment.time.date} ${props?.appointme
 const buttonTitle = props.appointment.status === 'scheduled' ? 'Cancel': 'Prescription';
 const isPrescriptionPresent = props.appointment?.presc_url;
 const appointmentStatus = capitalizeFirstLetter(props?.appointment.status);
-
+const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appointment.transaction_status
   return (
     <>
-        <Card className="upcoming-appointment-card-container">
+        <Card style={{height: canShowTransactionStatus? '200px' : '180px' }} className="upcoming-appointment-card-container">
         <div style={{display: 'flex', flexDirection: 'row'}}>
           <div>
               <CardMedia className="upcoming-appointment-card-image" image={props?.appointment.dp}></CardMedia>
@@ -74,6 +74,10 @@ const appointmentStatus = capitalizeFirstLetter(props?.appointment.status);
                     }
 
                   </span>
+                    {canShowTransactionStatus && <div>
+                        <span className="doctor-card-fee-label">Refund Status:</span>
+                        <span className="doctor-card-fee-value" style={{color: '#6a655f'}}>{replaceUnderscore(props?.appointment?.transaction_status)}</span>{" "}
+                    </div>}
                 </span>
                 <div style={{position: 'relative'}}>
                     <span className="card-text-date-and-time">

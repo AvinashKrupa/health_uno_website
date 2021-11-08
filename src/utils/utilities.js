@@ -59,3 +59,7 @@ export function timeSince(date) {
 export function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function replaceUnderscore(string) {
+    return string.replace(/_/g, " ");
+}
