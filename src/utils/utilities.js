@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export function getTimer(timeString) {
     const dateOneObj = new Date(timeString);
     const dateTwoObj = new Date();
@@ -61,5 +63,6 @@ export function capitalizeFirstLetter(string) {
 }
 
 export function replaceUnderscore(string) {
-    return string.replace(/_/g, " ");
+    const stringFormatted = _.startCase(_.toLower(string));
+    return stringFormatted.replace(/_/g, " ");
 }

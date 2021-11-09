@@ -58,10 +58,15 @@ const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appo
                     />
                 </div>
                 <div className="doctor-card-doctor-details"> {`${props?.appointment.address.city}, ${props?.appointment.address.country} | ${props?.appointment.exp} Y Exp`}</div>
-                <div>
+                <div style={{position: 'relative', width:'100%'}}>
                   <span className="doctor-card-fee-label">Fee:</span>
                   <span className="doctor-card-fee-value">Rs {props?.appointment.fee}</span>{" "}
+                  <span className="doctor-card-app-status" style={{color: getColorForAppointmentStatus(props?.appointment.status)}}>{`(${appointmentStatus})`}</span>
                 </div>
+                {canShowTransactionStatus && <div>
+                    <span className="doctor-card-fee-label">Refund Status:</span>
+                    <span className="doctor-card-refund-status">{replaceUnderscore(props?.appointment?.transaction_status)}</span>{" "}
+                </div>}
                 <span >
                 <span
                     className="doctor-card-specialization-text"
@@ -74,16 +79,11 @@ const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appo
                     }
 
                   </span>
-                    {canShowTransactionStatus && <div>
-                        <span className="doctor-card-fee-label">Refund Status:</span>
-                        <span className="doctor-card-fee-value" style={{color: '#6a655f'}}>{replaceUnderscore(props?.appointment?.transaction_status)}</span>{" "}
-                    </div>}
                 </span>
                 <div style={{position: 'relative'}}>
                     <span className="card-text-date-and-time">
                         {`${props?.appointment.time.date}, ${convert24hto12h(props?.appointment.time.slot)}`}
                         <span className="card-text-time">{ timerEnable && <Timer time={props?.appointment.time.utc_time} handleEnableButton={handleEnableButton}></Timer> }</span>
-                        <span className="doctor-card-app-status" style={{ color: getColorForAppointmentStatus(props?.appointment.status)}}>{`(${appointmentStatus})`}</span>
                     </span>
                 </div>
                 <Row className="card-buttons-row">
