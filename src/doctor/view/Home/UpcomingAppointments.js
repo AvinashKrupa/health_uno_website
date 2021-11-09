@@ -89,7 +89,7 @@ const UpcomingAppointments = (props) => {
               setUpcomingAppointments(response.data.data.docs);
             }
           } else {
-            setUpcomingPage(upcomingPage + 1);
+            setUpcomingPage(2);
             setUpcomingAppointments(response.data.data.docs);
           }
         } else {
@@ -105,7 +105,7 @@ const UpcomingAppointments = (props) => {
 
   const fetchMoreUpcomingData = () => {
     if (totalUpcomingAppointments > upcomingAppointments.length) {
-      getUpcomingAppointments("asc", true);
+      getUpcomingAppointments(true,"asc");
     }
   };
   function getPreviousAppointments(isPagination = false, sortBy = "desc") {
@@ -134,7 +134,7 @@ const UpcomingAppointments = (props) => {
               setPreviousAppointments(response.data.data.docs);
             }
           } else {
-            setPreviousPage(previousPage + 1);
+            setPreviousPage(2);
             setPreviousAppointments(response.data.data.docs);
           }
         } else {
@@ -147,7 +147,7 @@ const UpcomingAppointments = (props) => {
   }
   const fetchMorePreviousData = () => {
     if (totalPreviousAppointments > previousAppointments.length) {
-      getPreviousAppointments("desc", true);
+      getPreviousAppointments(true,"desc");
     }
   };
 
