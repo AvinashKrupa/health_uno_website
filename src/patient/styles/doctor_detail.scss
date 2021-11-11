@@ -103,6 +103,7 @@
 }
 .coupon-detail {
   display: flex;
+  margin-top: 4px;
 }
 .coupon-detail-item {
   flex: 1;
@@ -111,7 +112,7 @@
 }
 .coupon-detail-item-last {
   flex: 1;
-  text-align-last: end;
+  //text-align-last: end;
   font-size: 16px;
   font-weight: 500;
 }
@@ -120,9 +121,10 @@
   font-weight: 500;
 }
 .coupon-description{
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: rgb(246,146,30,1);
+  margin-left: 4px;
 }
 
 
@@ -139,6 +141,30 @@
 
 
     }
+@media only screen and (max-width: 425px) {
+  .coupon-label-container{
+    .container{
+      flex-direction: column;
+      .form-group{
+        #coupon{
+          width: 140px;
+        }
+      }
+    }
+  }
+
+  .coupon-label-container{
+    .container{
+      .remove-coupon{
+        button{
+          margin-top: 10px;
+          width: 100px!important;
+        }
+      }
+    }
+  }
+
+}
   @media only screen and (max-width: 376px) {
       .carousel_container {
           height: 207px !important;
