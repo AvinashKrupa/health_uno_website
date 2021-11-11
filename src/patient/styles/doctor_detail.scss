@@ -94,6 +94,37 @@
   flex: 1;
   margin-left: 10px;
 }
+.coupon-detail-container {
+  margin-top: 10px;
+  padding: 35px;
+  border: 2px solid rgba(27, 27, 27, 0.15);
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+.coupon-detail {
+  display: flex;
+}
+.coupon-detail-item {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 700;
+}
+.coupon-detail-item-last {
+  flex: 1;
+  text-align-last: end;
+  font-size: 16px;
+  font-weight: 500;
+}
+.coupon-summary{
+  font-size: 20px;
+  font-weight: 500;
+}
+.coupon-description{
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(246,146,30,1);
+}
+
 
   @media only screen and (max-width: 480px) {
     .doctor_details_h3 {

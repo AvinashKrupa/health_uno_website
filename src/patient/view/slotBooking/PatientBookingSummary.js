@@ -202,12 +202,13 @@ const PatientBookingSummary = (props) => {
     }
     let amount;
     if(couponDetails?.data?.final_amount=== 0) {
-        amount = 'Book for free'
+        amount = '0'
     }else if( couponDetails?.data?.final_amount){
         amount =couponDetails?.data?.final_amount;
     }else {
         amount = doctorDetails.fee
     }
+    const discountAmount = couponDetails?.data?.discount ? couponDetails?.data?.discount : '0';
     return (
         <>
             <Row>
@@ -309,6 +310,27 @@ const PatientBookingSummary = (props) => {
                                         </Container>
                                         </Col>
                                     </Row>
+                                    <Col lg="6" md>
+                                        <Container className='slot-appointment-container'>
+                                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                                <span className='coupon-summary'>Appointment Summary</span>
+                                            </div>
+                                            <div className='coupon-detail-container'>
+                                                <div className='coupon-detail'>
+                                                    <div className="coupon-detail-item">Consultation Fees :</div>
+                                                    <div className="coupon-detail-item-last">₹{doctorDetails.fee}</div>
+                                                </div>
+                                                <div className='coupon-detail'>
+                                                    <div className="coupon-detail-item">Discount :</div>
+                                                    <div className="coupon-detail-item-last">₹{discountAmount}</div>
+                                                </div>
+                                                <div className='coupon-detail'>
+                                                    <div className="coupon-detail-item">Total Amount :</div>
+                                                    <div className="coupon-detail-item-last">₹{amount}</div>
+                                                </div>
+                                            </div>
+                                        </Container>
+                                    </Col>
                                     {!couponDetails && <Row className='patient-booking-detail'>
                                         <Col lg="9" md style={{paddingTop: '5px'}}>
                                             <div style={{marginLeft:"22px"}}>
@@ -376,6 +398,7 @@ const PatientBookingSummary = (props) => {
                                                     </Container>
                                                 </div>
                                             </div>
+                                            <div className="coupon-description">{couponDetails.data.desc}</div>
                                         </Col>
                                     </Row>}
 
@@ -399,7 +422,7 @@ const PatientBookingSummary = (props) => {
                         {!showLoader && <CustomButton
                             className={'patient-order-booking-btn'}
                             onClick={bookSlots}
-                            text={amount === 'Book for free'? amount : `Pay ₹${amount}`}
+                            text={amount === '0'? 'Book Appointment' : `Pay & Book`}
                         ></CustomButton>}
                     </div>
                 </Col>
