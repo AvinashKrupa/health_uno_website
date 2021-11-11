@@ -10,7 +10,7 @@
     line-height: 29px;
     letter-spacing: -0.30000001192092896px;
   }
-  
+
   .doctor_details_h4 {
     font-size: 20px;
     font-style: normal;
@@ -19,7 +19,7 @@
     letter-spacing: 0.30034899711608887px;
     text-align: left;
   }
-  
+
   .doctor_details_h5 {
     font-size: 16px;
     font-style: normal;
@@ -28,7 +28,7 @@
     letter-spacing: 0.2336047738790512px;
     text-align: left;
   }
-  
+
   .doctor_details_color_h5 {
     margin-top: 10px;
     font-size: 14px;
@@ -38,7 +38,7 @@
     letter-spacing: -0.30000001192092896px;
     color: rgba(27, 27, 27, 0.5)
   }
-  
+
   .doctor_details_button {
     height: 50px !important;
     width: 270px !important;
@@ -57,31 +57,76 @@
    }
   }
 
+.coupon-label-container{
+  .container{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    margin-left: -20px;
+  }
+  .form-group{
+    display: flex;
+    align-items: center;
+    width: 90%;
 
-  @media only screen and (max-width: 480px) { 
+    input{
+      //width: 250px;
+      width: 100%;
+    }
+  }
+
+}
+.coupon-image{
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  margin-left: 0px!important;
+}
+.coupon-applied{
+  font-weight: 700;
+  color: rgb(55, 125, 34);
+  flex: 0!important;
+  margin-right: 10px;
+}
+.remove-coupon{
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin-left: 10px;
+}
+
+  @media only screen and (max-width: 480px) {
     .doctor_details_h3 {
-      margin-top: 50px;
-    }
-
-    .doctor-detail-container {
-      img {
-        margin-left: 70px !important;
+        margin-top: 50px;
       }
+
+      .doctor-detail-container {
+          .back-button {
+              margin-left: 70px !important;
+            }
+        }
+
+
     }
-    
-    
-  }
-  @media only screen and (max-width: 376px) { 
-    .carousel_container {
-      height: 207px !important;
-      width: 330px !important;
+  @media only screen and (max-width: 376px) {
+      .carousel_container {
+          height: 207px !important;
+          width: 330px !important;
+        }
+
+      .doctor-detail-container {
+          .back-button {
+              margin-left: 80px !important;
+            }
+        }
     }
 
-    .doctor-detail-container {
-      img {
-        margin-left: 80px !important;
-      }
+@media only screen and (max-width: 320px) {
+  .coupon-label-container{
+    .form-group{
+      width: 100%;
     }
-  }
 
+  }
+}
 

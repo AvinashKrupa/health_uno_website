@@ -1,4 +1,4 @@
-import { Row, Col, Image, Container } from "react-bootstrap";
+import { Row, Col, Image, Container, Form } from "react-bootstrap";
 import {Link} from "react-router-dom";
 import ColorCard from "../doctorDetail/ColorCard";
 import { useEffect, useState } from "react";
@@ -12,6 +12,7 @@ import moment from "moment";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import { isEmpty } from "../../../utils/Validators";
 import { back_icon } from "../../../constants/DoctorImages";
+import {discount} from '../../../constants/PatientImages';
 
 const PatientBookingSummary = (props) => {
     useEffect(() => {
@@ -21,11 +22,14 @@ const PatientBookingSummary = (props) => {
 
     const { addToast } = useToasts();
     const [showLoader, setShowLoader] = useState(false);
+    const [showCouponLoader, setShowCouponLoader] = useState(false);
     const date = patientSlotBookingStore((state) => state.date);
     const startTime = patientSlotBookingStore((state) => state.startTime);
     const [doctorDetails, setDoctorDetails] = useState('');
+    const [couponDetails, setCouponDetails] = useState('');
     const [complaints, setComplaints] = useState('');
     const [purpose, setPurpose] = useState('');
+    const [couponCode, setCouponCode] = useState('');
     let transactionID = '';
     const slot_id =  patientSlotBookingStore((state) => state.slot_id);
 
@@ -48,6 +52,34 @@ const PatientBookingSummary = (props) => {
         .catch(error => {
             addToast(error.response.data.message, { appearance: 'error' });
         });
+    }
+
+    function applyCoupon() {
+        setShowCouponLoader(true);
+        post(API.APPLY_COUPON, {code: couponCode, fee: doctorDetails.fee })
+        .then(response => {
+            if (response.status === 200) {
+            setCouponDetails(response.data);
+            setShowCouponLoader(false);
+            addToast(response.data.message, { appearance: 'success' });
+            } else {
+            addToast(response.data.message, { appearance: 'error' });
+                setShowCouponLoader(false);
+            }
+        })
+        .catch(error => {
+            addToast(error.response.data.message, { appearance: 'error' });
+            setShowCouponLoader(false);
+        });
+    }
+
+    function removeCoupon() {
+        setCouponDetails('');
+        addToast('Coupon removed successfully', { appearance: 'success' });
+    }
+
+    const setCoupon=(value)=>{
+        setCouponCode(value.toUpperCase());
     }
 
     function validation() {
@@ -168,7 +200,14 @@ const PatientBookingSummary = (props) => {
         },
         };
     }
-
+    let amount;
+    if(couponDetails?.data?.final_amount=== 0) {
+        amount = 'Book for free'
+    }else if( couponDetails?.data?.final_amount){
+        amount =couponDetails?.data?.final_amount;
+    }else {
+        amount = doctorDetails.fee
+    }
     return (
         <>
             <Row>
@@ -182,7 +221,7 @@ const PatientBookingSummary = (props) => {
                                     <Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Summary</span></Link>
                                 </Row> */}
                                 <button className="back-nav-container back-navigation">
-                                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
+                                    <img src={back_icon} className="back-button" alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
                                     <span>Summary</span>
                                 </button>
                             </Row>
@@ -270,6 +309,81 @@ const PatientBookingSummary = (props) => {
                                         </Container>
                                         </Col>
                                     </Row>
+                                    {!couponDetails && <Row className='patient-booking-detail'>
+                                        <Col lg="9" md style={{paddingTop: '5px'}}>
+                                            <div style={{marginLeft:"22px"}}>
+                                            <Form.Label>
+                                                <div>
+                                                    <img src={discount} className="coupon-image" alt='discount-img'/>
+                                                    <span>Coupon Code</span></div>
+                                            </Form.Label>
+                                            <div className="coupon-label-container">
+                                                <Container>
+                                                    <Input
+                                                        type="text"
+                                                        placeholder="Apply coupon here"
+                                                        id="coupon"
+                                                        label=""
+                                                        value={couponCode}
+                                                        onChange={setCoupon}
+                                                    />
+                                                    <div className="remove-coupon">
+                                                        {showCouponLoader && <CustomButton
+                                                            type="submit"
+                                                            className={'login-btn'}
+                                                            disabled
+                                                            onClick={() => applyCoupon()}
+                                                            importantStyle={{backgroundColor: "#e2e9e9"}}
+                                                            showLoader={showCouponLoader}
+                                                        ></CustomButton>}
+                                                        {!showCouponLoader && <CustomButton
+                                                            type="submit"
+                                                            className={'login-btn'}
+                                                            onClick={() => applyCoupon()}
+                                                            text={'Apply'}
+                                                        ></CustomButton>}
+                                                    </div>
+                                                </Container>
+                                            </div>
+                                            </div>
+                                        </Col>
+                                    </Row>}
+                                    {couponDetails && <Row className='patient-booking-detail'>
+                                        <Col lg="9" md style={{paddingTop: '5px'}}>
+                                            <div style={{marginLeft: "22px"}}>
+                                                <Form.Label>
+                                                    <div>
+                                                        <img src={discount} className="coupon-image"
+                                                             alt='discount-img'></img>
+                                                        <span>Coupon Code</span></div>
+                                                </Form.Label>
+                                                <div className="coupon-label-container">
+                                                    <Container>
+                                                        <Input
+                                                            disabled
+                                                            type="text"
+                                                            placeholder="Apply coupon here"
+                                                            id="coupon"
+                                                            label=""
+                                                            value={couponCode}
+                                                            onChange={setCouponCode}
+                                                        />
+                                                        <div className="remove-coupon">
+                                                            <div className="coupon-applied">Applied</div>
+                                                            <i className="fas fa-times-circle"
+                                                               style={{fontSize: '1.75em', color: "red", cursor: 'pointer'}} onClick={()=>removeCoupon()}></i>
+                                                        </div>
+                                                    </Container>
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    </Row>}
+
+                                {/*    <div className='slot-appointment-detail'>
+                                                    <div>Date : {date}</div>
+                                                    <div>Time : {startTime}</div>
+                                                    <div>Type : Video</div>
+                                                </div>*/}
                                 </Col>
                             </Row>
                         </>
@@ -285,7 +399,7 @@ const PatientBookingSummary = (props) => {
                         {!showLoader && <CustomButton
                             className={'patient-order-booking-btn'}
                             onClick={bookSlots}
-                            text={`Pay ₹${doctorDetails.fee}`}
+                            text={amount === 'Book for free'? amount : `Pay ₹${amount}`}
                         ></CustomButton>}
                     </div>
                 </Col>
