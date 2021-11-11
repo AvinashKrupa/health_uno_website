@@ -25,6 +25,7 @@
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-autosuggest": "^10.1.0",
     "react-bootstrap": "^1.6.1",
+    "react-click-outside": "github:tj/react-click-outside",
     "react-copy-to-clipboard": "^5.0.4",
     "react-countdown": "^2.3.2",
     "react-datepicker": "^4.2.0",

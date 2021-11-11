@@ -1,13 +1,16 @@
-import SideNav, {NavIcon, NavItem, NavText} from '@trendmicro/react-sidenav';
+import SideNav, {NavIcon, NavItem, NavText } from '@trendmicro/react-sidenav';
+import  ClickOutside  from 'react-click-outside';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import {clearSession, getData} from "./storage/LocalStorage/LocalAsyncStorage";
 import { withRouter } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications';
 import {API, post} from './api/config/APIController';
+import React, { useState } from "react";
 
 const sidebar = ['home', 'appointments', 'profile', 'terms', 'faq', 'reports']
 
 const Sidebar = (props) => {
+    const [expanded,setExpanded] = useState(false);
     const userType = JSON.parse(getData('USER_TYPE'));
     const newRoutes = props.location.pathname.split("/") || [];
     let defaultSelection = "home"
@@ -38,6 +41,13 @@ const Sidebar = (props) => {
 
     return (
         <div className="sidebarMenu">
+
+           <ClickOutside
+            onClickOutside={() => {
+                setExpanded(false)
+                }}
+            >
+
             <SideNav onSelect={(selected) => {
                 const userType = JSON.parse(getData('USER_TYPE'));
                 let routeName = '/patient/';
@@ -61,9 +71,14 @@ const Sidebar = (props) => {
                 if( selected === 'signOut') {
                     handleLogout(routeName);
                 }
-
+                setExpanded(false)
                 sidebar.includes(selected) && props.history.push(`${routeName}${selected}`);
-            }}>
+            }}
+            expanded={expanded}
+            onToggle={(expanded) => {
+                setExpanded(expanded)
+            }}
+            >
                 <SideNav.Toggle/>
                 <SideNav.Nav defaultSelected={defaultSelection}>
                     <NavItem className="setLogo">
@@ -134,6 +149,7 @@ const Sidebar = (props) => {
                     </NavItem>
                 </SideNav.Nav>
             </SideNav>
+         </ClickOutside>
         </div>
     );
 };
