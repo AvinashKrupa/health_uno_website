@@ -160,7 +160,7 @@ const PatientBookingSummary = (props) => {
 
         const userInfo1 = JSON.parse(getData('userInfo'));
         const options = {
-            description: 'Video Consulation',
+            description: 'Video Consultation',
             image:
                 'https://healthuno-dev-public.s3.ap-south-1.amazonaws.com/images/logo/patient.png',
             currency: 'INR',
