@@ -28,6 +28,7 @@ export const API = {
   UPLOADREPORT: 'patient/uploadReport',
   GETREPORTS: 'patient/getReports',
   GET_PRESCRIPTIONS: 'patient/getPrescriptions',
+  APPLY_COUPON: 'coupon/checkDiscount',
   /**
    * Doctor related APIS
    */
