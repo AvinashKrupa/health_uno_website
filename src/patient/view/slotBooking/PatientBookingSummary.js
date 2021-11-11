@@ -1,4 +1,4 @@
-import { Row, Col, Image, Container } from "react-bootstrap";
+import { Row, Col, Image, Container, Form } from "react-bootstrap";
 import {Link} from "react-router-dom";
 import ColorCard from "../doctorDetail/ColorCard";
 import { useEffect, useState } from "react";
@@ -12,6 +12,7 @@ import moment from "moment";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import { isEmpty } from "../../../utils/Validators";
 import { back_icon } from "../../../constants/DoctorImages";
+import {discount} from '../../../constants/PatientImages';
 
 const PatientBookingSummary = (props) => {
     useEffect(() => {
@@ -26,6 +27,7 @@ const PatientBookingSummary = (props) => {
     const [doctorDetails, setDoctorDetails] = useState('');
     const [complaints, setComplaints] = useState('');
     const [purpose, setPurpose] = useState('');
+    const [couponCode, setCouponCode] = useState('');
     let transactionID = '';
     const slot_id =  patientSlotBookingStore((state) => state.slot_id);
 
@@ -182,7 +184,7 @@ const PatientBookingSummary = (props) => {
                                     <Link to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i class="fas fa-arrow-left"></i><span>Summary</span></Link>
                                 </Row> */}
                                 <button className="back-nav-container back-navigation">
-                                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
+                                    <img src={back_icon} className="back-button" alt='back_icon-img' onClick={() =>  props.history.goBack()}></img>
                                     <span>Summary</span>
                                 </button>
                             </Row>
@@ -268,6 +270,29 @@ const PatientBookingSummary = (props) => {
                                                     <div>Type : Video</div>
                                                 </div>
                                         </Container>
+                                        </Col>
+                                    </Row>
+                                    <Row className='patient-booking-detail'>
+                                        <Col lg="9" style={{paddingTop: '5px'}}>
+                                            <div style={{marginLeft:"22px"}}>
+                                                <Form.Label>
+                                                    <div>
+                                                        <img src={discount} className="coupon-image" alt='discount-img'></img>
+                                                        <span>Coupon Code</span></div>
+                                                </Form.Label>
+                                                <div className="coupon-label-container">
+                                                    <Container>
+                                                        <Input
+                                                            type="text"
+                                                            placeholder="Apply coupon here"
+                                                            id="coupon"
+                                                            label=""
+                                                            value={couponCode}
+                                                            onChange={setCouponCode}
+                                                        />
+                                                    </Container>
+                                                </div>
+                                            </div>
                                         </Col>
                                     </Row>
                                 </Col>

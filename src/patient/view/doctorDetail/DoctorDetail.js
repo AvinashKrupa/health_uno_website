@@ -46,7 +46,7 @@ const DoctorDetails = (props) => {
                             <Link to='/patient/topConsultants'><i class="fas fa-arrow-left"></i><span>Doctor Details</span></Link>
                         </Row> */}
                          <button className="back-nav-container back-navigation">
-                         <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.push(`/patient/topConsultants`)}></img>
+                         <img src={back_icon} alt='back_icon-img' className="back-button" onClick={() =>  props.history.push(`/patient/topConsultants`)}></img>
                             <span>Doctor Details</span>
                         </button>
                         </Row>
