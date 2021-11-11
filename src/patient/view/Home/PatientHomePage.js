@@ -182,5 +182,4 @@ const PatientHomePage = (props) => {
       </>
   );
 };
-
 export default PatientHomePage;
