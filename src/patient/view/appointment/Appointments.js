@@ -51,7 +51,7 @@ const Appointments = (props) => {
       sort_order: sort_order,
       sort_key: "time.utc_time",
       date: "",
-      status: ["scheduled"],
+      status: ["scheduled", "ongoing"],
     };
     setAppointmentLoaderStatus(true);
     post(API.GETAPPOINTMENTS, params)
@@ -97,7 +97,7 @@ const Appointments = (props) => {
       sort_order: sort_order,
       sort_key: "time.utc_time",
       date: "",
-      status: [ "cancelled", "rejected", "ongoing", "completed"],
+      status: [ "cancelled", "rejected", "completed"],
     };
     setAppointmentLoaderStatus(true);
     post(API.GETAPPOINTMENTS, params)
