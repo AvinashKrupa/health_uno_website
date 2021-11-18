@@ -83,7 +83,7 @@ const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appo
                 <div style={{position: 'relative'}}>
                     <span className="card-text-date-and-time">
                         {`${props?.appointment.time.date}, ${convert24hto12h(props?.appointment.time.slot)}`}
-                        <span className="card-text-time">{ timerEnable && <Timer time={props?.appointment.time.utc_time} handleEnableButton={handleEnableButton}></Timer> }</span>
+                        <span className="card-text-time">{ ["scheduled","ongoing"].includes(props.appointment.status) && timerEnable && <Timer time={props?.appointment.time.utc_time} handleEnableButton={handleEnableButton}></Timer> }</span>
                     </span>
                 </div>
                 <Row className="card-buttons-row">
