@@ -10,6 +10,8 @@ import {camera} from "../../../constants/PatientImages";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import {capitalizeFirstLetter, convert24hto12h, getTimer, replaceUnderscore} from "../../../utils/utilities";
 import {getColorForAppointmentStatus} from "../../../utils/Colors";
+import TermsAndCondition from "../TermsAndConditions";
+import Checkbox from "../../../commonComponent/Checkbox";
 
 const DoctorAppointmentsCard = (props) => {
 
@@ -18,10 +20,14 @@ const DoctorAppointmentsCard = (props) => {
   const [reason, setReason] = useState('');
   const { addToast } = useToasts();
   const [id, setId] = useState(props?.appointment._id);
+  const [modalShow, setModalShow] = useState(false);
+  const [termsCondition, setTermsCondition] = useState(false);
 
 function onSubmit() {
   if(reason === '') {
     addToast('Please enter cancel reason', { appearance: 'error' });
+  } else if(termsCondition === false) {
+      addToast("Please accept terms and condition", { appearance: "error" });
   } else {
     setToggleModal(false);
     props.cancelAppointment(props?.appointment._id, reason);
@@ -126,7 +132,9 @@ const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appo
       </Card>
       <ModalDialog btnText={'Confirm'} onSubmit={onSubmit} show={toggleModal} title={'Cancel Appointment'} closeDialog={() =>{
         setReason('');
-        setToggleModal(!toggleModal)}
+        setToggleModal(!toggleModal);
+        setTermsCondition(false);
+      }
       }>
           <TextArea
                 id={'reason'}
@@ -136,7 +144,38 @@ const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appo
                 rows={4}
                 cols={35}
           ></TextArea>
+          <Col md>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                  <Checkbox
+                      id="term"
+                      checked={termsCondition}
+                      handleSelect={setTermsCondition}
+                  />
+                  <span>
+                I accept{" "}
+                      <a
+                          style={{ color: "blue", lineHeight: "65px" }}
+                          onClick={() => setModalShow(true)}
+                      >
+                  <span style={{ textDecoration: "underline" }}>
+                    Terms and Conditions
+                  </span>
+                </a>
+              </span>
+              </div>
+          </Col>
       </ModalDialog>
+        <ModalDialog
+            modalClassName={"terms-content"}
+            isConfirm={true}
+            show={modalShow}
+            title={"Terms and conditions"}
+            closeDialog={() => {
+                setModalShow(false);
+            }}
+        >
+            <TermsAndCondition />
+        </ModalDialog>
     </>
   );
 };
