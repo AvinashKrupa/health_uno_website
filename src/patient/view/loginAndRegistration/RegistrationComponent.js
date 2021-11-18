@@ -553,7 +553,7 @@ const RegistrationComponent = ({ history, image }) => {
               type="date"
               onKeyDown={(e) => e.preventDefault()}
               onChange={(e) => setBirthDate(e.target.value)}
-              min={moment(new Date()).subtract(90, 'years').format('YYYY-MM-DD')}
+              min={moment(new Date()).subtract(100, 'years').format('YYYY-MM-DD')}
               max={moment(new Date()).format('YYYY-MM-DD')}
             />
           </Col>
@@ -691,7 +691,7 @@ const RegistrationComponent = ({ history, image }) => {
                   <Form.Control
                     type="date"
                     onKeyDown={(e) => e.preventDefault()}
-                    min={moment(new Date()).subtract(30, 'years').format('YYYY-MM-DD')}
+                    min={moment(new Date()).subtract(50, 'years').format('YYYY-MM-DD')}
                     max={moment(new Date()).format("YYYY-MM-DD")}
                     onChange={(e) => setDiabeticValue(e.target.value)}
                   />
@@ -716,7 +716,7 @@ const RegistrationComponent = ({ history, image }) => {
                   <Form.Control
                     type="date"
                     onKeyDown={(e) => e.preventDefault()}
-                    min={moment(new Date()).subtract(30, 'years').format('YYYY-MM-DD')}
+                    min={moment(new Date()).subtract(50, 'years').format('YYYY-MM-DD')}
                     max={moment(new Date()).format("YYYY-MM-DD")}
                     onChange={(e) => setHypertensiveValue(e.target.value)}
                   />
@@ -811,7 +811,7 @@ const RegistrationComponent = ({ history, image }) => {
                   <Form.Control
                     type="date"
                     onKeyDown={(e) => e.preventDefault()}
-                    min={moment(new Date()).subtract(30, 'years').format('YYYY-MM-DD')}
+                    min={moment(new Date()).subtract(50, 'years').format('YYYY-MM-DD')}
                     max={moment(new Date()).format("YYYY-MM-DD")}
                     onChange={(e) => setVaccineDate(e.target.value)}
                   />

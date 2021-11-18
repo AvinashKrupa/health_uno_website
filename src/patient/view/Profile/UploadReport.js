@@ -150,7 +150,8 @@ const UploadReport = (props) => {
                   value={uploadDate}
                   onKeyDown={(e) => e.preventDefault()}
                   onChange={(e) => setUploadDate(e.target.value)}
-
+                              min={moment(new Date()).subtract(10, 'years').format('YYYY-MM-DDThh:mm:ss.ms')}
+                              max={moment(new Date()).format('YYYY-MM-DDThh:mm:ss.ms')}
                 />
               </Col>
             </Row>
