@@ -111,6 +111,7 @@ const PatientBookingSummary = (props) => {
                 slot_id: slot_id,
                 slot: startTime,
                 date: moment(date).format('YYYY-MM-DD'),
+                code: couponCode,
             };
             setShowLoader(true);
             post(API.BOOKAPPOINTMENT, params)
