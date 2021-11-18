@@ -166,7 +166,9 @@ function getLanguage() {
                 <br />
                 <Form.Label>Date of Birth</Form.Label>
                 <br />
-                <Form.Control type="date" value={birthDate} onKeyDown={(e) => e.preventDefault()} onChange={(e) => setBirthDate(e.target.value)} max={moment(new Date()).format('YYYY-MM-DD')}/>
+                <Form.Control type="date" value={birthDate} onKeyDown={(e) => e.preventDefault()} onChange={(e) => setBirthDate(e.target.value)}
+                              min={moment(new Date()).subtract(90, 'years').format('YYYY-MM-DD')}
+                              max={moment(new Date()).format('YYYY-MM-DD')}/>
               </Col>
               <Col>
                 <Select

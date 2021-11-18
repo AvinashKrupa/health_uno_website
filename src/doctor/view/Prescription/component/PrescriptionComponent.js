@@ -375,6 +375,7 @@ export default function PrescriptionComponent({
                     placeholder="Start Date"
                     onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date()).format('YYYY-MM-DD')}
+                    max={moment(new Date()).add(30, 'days').format('YYYY-MM-DD')}
                     value={prescription.medicineItem.start_date}/>
                     <Input
                         type="text"
