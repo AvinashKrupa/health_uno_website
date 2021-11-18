@@ -26,7 +26,7 @@ function ModalDialog(props) {
             <>
               <button className={"card-text-close"} onClick={closeDialog}>
                 {" "}
-                cancel
+                Cancel
               </button>
               <CustomButton onClick={onSubmit} text={"Confirm"}></CustomButton>
             </>
