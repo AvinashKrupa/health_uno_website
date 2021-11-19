@@ -86,7 +86,8 @@ const AppointmentDetail = (props) => {
                                 <div className="image-container">
                                     <img src={appointmentDetail?.patient?.user?.dp} style={{
                                         maxWidth: "100%",
-                                        maxHeight: "100%"
+                                        maxHeight: "100%",
+                                        borderRadius: "50%"
                                     }}/>
                                 </div>
                                 <div className="detail-container">

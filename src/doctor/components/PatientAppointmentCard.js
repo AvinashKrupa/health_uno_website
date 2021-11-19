@@ -13,7 +13,8 @@ const PatientAppointmentCard = (props) => {
         <div className="image-container">
             <img src={props?.image} style={{
                 maxWidth:"100%",
-                maxHeight:"100%"
+                maxHeight:"100%",
+                borderRadius: "50%"
             }}/>
         </div>
         <div className="content-container">
