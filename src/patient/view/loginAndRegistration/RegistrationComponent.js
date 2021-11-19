@@ -402,14 +402,14 @@ const RegistrationComponent = ({ history, image }) => {
       med_cond: [
         {
           name: "diabetic",
-          selected: isDiabetic,
-          diag_at: isDiabetic ? diabeticValue : "",
+          selected: isDiabetic  && diabeticValue !=='Invalid date',
+          diag_at: isDiabetic && diabeticValue !=='Invalid date'? diabeticValue : '',
           desc: "",
         },
         {
           name: "hypertensive",
-          selected: isHypertensive,
-          diag_at: isHypertensive ? hypertensiveValue : "",
+          selected: isHypertensive && hypertensiveValue !=='Invalid date',
+          diag_at: isHypertensive && hypertensiveValue !=='Invalid date' ? hypertensiveValue : '',
           desc: "",
         },
         {
@@ -432,8 +432,8 @@ const RegistrationComponent = ({ history, image }) => {
         },
         {
           name: "covid_vaccinated",
-          selected: isVaccinated,
-          diag_at: isVaccinated ? vaccineDate : "",
+          selected: isVaccinated  && vaccineDate !=='Invalid date' ,
+          diag_at: isVaccinated  && vaccineDate !=='Invalid date' ? vaccineDate : '',
           desc: "",
           meta: isVaccinated
             ? [
