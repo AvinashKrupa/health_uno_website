@@ -39,6 +39,10 @@ const MultiStepFormRegistration = ({history}) => {
   }
 
   useEffect(() => {
+    if (history.action === "POP") {
+      history.replace(`/doctor`);
+      return;
+    }
     if (!mobile) {
       history.push(`/doctor`);
       return;

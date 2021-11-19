@@ -10,7 +10,7 @@ const Registration = () => {
     const[ image, setImage ]= useState();
     const handleImage = (file)=>{
     setImage(file)
-}
+    }
 
   return (
     <Container className='registration-container'>
@@ -25,7 +25,7 @@ const Registration = () => {
             alt="Icon"
           ></Image>
           <UploadImage getImage={handleImage}/>
-         
+
           <div className="text-center">
             <p>Upload your profile picture.</p>
             <p style={{ fontSize: "10px" }}>Dimensions 120px x 120px</p>

@@ -22,16 +22,6 @@ import TermsAndCondition from "../TermsAndConditions";
 
 const RegistrationComponent = ({ history, image }) => {
   // Get state and language from server
-  useEffect(() => {
-    getState();
-    getLanguage();
-    if (!mobile) {
-      history.push(`/patient`);
-      return;
-    }
-    return () => {};
-  }, []);
-
   const { addToast } = useToasts();
   const setUserInfo = useUserStore((state) => state.setUserInfo);
   const authContext = useContext(AuthContext);
@@ -96,6 +86,20 @@ const RegistrationComponent = ({ history, image }) => {
   const [vaccineName, setVaccineName] = useState("");
   const [covidDetails, handleCovidDetails] = useState("");
   const [modalShow, setModalShow] = useState(false);
+
+  useEffect(() => {
+    getState();
+    getLanguage();
+    if (history.action === "POP") {
+      history.replace(`/patient`);
+      return;
+    }
+    if (!mobile) {
+      history.push(`/patient`);
+      return;
+    }
+    return () => {};
+  }, []);
 
   const setLanguageValue = (value) => {
     const lanInfo = value.split("|");
