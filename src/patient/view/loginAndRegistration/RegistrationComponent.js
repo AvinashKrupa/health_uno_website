@@ -555,7 +555,6 @@ const RegistrationComponent = ({ history, image }) => {
             <br />
             <Form.Control
               type="date"
-              onKeyDown={(e) => e.preventDefault()}
               onChange={(e) => setBirthDate(e.target.value)}
               min={moment(new Date()).subtract(100, 'years').format('YYYY-MM-DD')}
               max={moment(new Date()).format('YYYY-MM-DD')}
