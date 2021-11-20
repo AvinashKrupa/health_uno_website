@@ -19,6 +19,7 @@ import Spinner from "../../../commonComponent/Spinner";
 import moment from "moment";
 import { getPushToken } from "../../../notification/utilities";
 import TermsAndCondition from "../TermsAndConditions";
+import { capitalizeFirstLetter } from "../../../utils/utilities";
 
 const RegistrationComponent = ({ history, image }) => {
   // Get state and language from server
@@ -223,7 +224,7 @@ const RegistrationComponent = ({ history, image }) => {
       .then((response) => {
         if (response.status === 200) {
           let data = response.data.data.map((info) => {
-            return { value: info.name, id: info.id };
+            return { value: capitalizeFirstLetter(info.name), id: info.id };
           });
           setLoader(false);
           setDataCity(data);
