@@ -740,7 +740,7 @@ const AddPrescription = (props) => {
   function renderDialogComponent() {
     return (
       <div>
-        <Dialog
+        <Dialog className="resetPopup"
           open={openDialog}
           TransitionComponent={Transition}
           keepMounted
