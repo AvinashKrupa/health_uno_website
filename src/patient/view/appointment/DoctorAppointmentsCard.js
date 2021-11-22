@@ -10,7 +10,7 @@ import {camera} from "../../../constants/PatientImages";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import {capitalizeFirstLetter, convert24hto12h, getTimer, replaceUnderscore} from "../../../utils/utilities";
 import {getColorForAppointmentStatus} from "../../../utils/Colors";
-import TermsAndCondition from "../TermsAndConditions";
+import IframeModal from "../IframeModal";
 import Checkbox from "../../../commonComponent/Checkbox";
 
 const DoctorAppointmentsCard = (props) => {
@@ -158,7 +158,7 @@ const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appo
                           onClick={() => setModalShow(true)}
                       >
                   <span style={{ textDecoration: "underline" }}>
-                    Terms and Conditions
+                    Cancellation policy
                   </span>
                 </a>
               </span>
@@ -169,12 +169,12 @@ const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appo
             modalClassName={"terms-content"}
             isConfirm={true}
             show={modalShow}
-            title={"Terms and conditions"}
+            title={"Cancellation Policy"}
             closeDialog={() => {
                 setModalShow(false);
             }}
         >
-            <TermsAndCondition />
+            <IframeModal url={'https://dev.healthuno.com:6002/v1/cancellation_policy'}/>
         </ModalDialog>
     </>
   );
