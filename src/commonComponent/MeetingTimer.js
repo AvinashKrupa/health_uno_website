@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Countdown from 'react-countdown';
+import Countdown,{ zeroPad } from 'react-countdown';
 
 const MeetingTimer = ({date, handleEnableButton}) => {
     const [showTimerCountdown, setShowTimerCountdown] = useState(true);
@@ -13,7 +13,7 @@ const MeetingTimer = ({date, handleEnableButton}) => {
         // handleEnableButton()
         return null;
       } else {
-        return (showTimerCountdown && <div className="meeting-timer-container">{`Meeting starts in ${hours}:${minutes}:${seconds}`}</div>);
+        return (showTimerCountdown && <div className="meeting-timer-container">{`Meeting starts in ${zeroPad(minutes)}:${zeroPad(seconds)}`}</div>);
       }
     };
 

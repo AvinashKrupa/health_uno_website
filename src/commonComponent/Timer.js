@@ -1,5 +1,5 @@
 import React from 'react';
-import Countdown from 'react-countdown';
+import Countdown,{ zeroPad } from 'react-countdown';
 
 const Timer = ({time, handleEnableButton}) => {
     const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -10,7 +10,7 @@ const Timer = ({time, handleEnableButton}) => {
       if (completed) {
         return null;
       } else {
-        return <span>{hours}:{minutes}:{seconds}</span>;
+        return <span>{`${zeroPad(minutes)}:${zeroPad(seconds)}`}</span>;
       }
     };
 
