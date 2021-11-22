@@ -221,7 +221,7 @@ const AppointmentDetail = (props) => {
                                             props.history.push(`/doctor/videoMeeting/${appointmentDetail?._id}`)
                                         }}
                                 >
-                                    Initiate Call
+                                    {additional_doc?.length && additional_doc[0]?._id !== doctor_id ?'Initiate Call':'Join Call'}
                                 </Button>
                             </div>}
                         </Col>
