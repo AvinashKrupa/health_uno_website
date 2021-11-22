@@ -24,7 +24,7 @@ const SelectedDoctorCard = (props) => {
                                         style={{marginTop: "10px"}}
                                     >
                                     {
-                                        props?.qualifications.map((s) => {
+                                        props?.qualifications?.map((s) => {
                                             return (<span key={s} style={{padding: '5px', marginRight: '10px'}}
                                                           className='specialities-text'>{s}</span>)
                                         })
@@ -32,7 +32,7 @@ const SelectedDoctorCard = (props) => {
                                 </span>
                                     </div>
                                 </div>
-                                {(!["cancelled", "completed"].includes(props.appointmentStatus) && props.id !== doctor_id) && <div>
+                                {props.showRemoveAction && <div>
                                     <img className="delete-button" src={delete_icon}
                                          onClick={() => props.removeSelectedDoctor()}/>
                                 </div>}
