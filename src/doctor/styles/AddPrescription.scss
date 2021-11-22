@@ -331,3 +331,11 @@ button.chooseDeleteBtn.btn.btn-primary {
         color: #1B1B1B;
     }
 }
+
+.resetPopup .MuiDialogActions-spacing {
+  margin: auto;
+  padding: 50px !important;
+}
+.MuiDialog-root.resetPopup {
+    text-align: center;
+}
