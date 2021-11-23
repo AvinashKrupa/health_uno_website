@@ -2,10 +2,21 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Row, Col, Image } from "react-bootstrap";
 import {arrowRight} from "../constants/PatientImages";
-import React from "react";
+import React,{ useState,useEffect }  from "react";
 
 const CarouselComponent = ({sliders}) => {
-  const responsive = {
+    const [size, setSize] = useState({
+        x: window.innerWidth-200,
+        y: window.innerHeight
+    });
+    const updateSize = () =>
+        setSize({
+            x: window.innerWidth-200,
+            y: window.innerHeight
+        });
+    useEffect(() => (window.onresize = updateSize), []);
+
+    const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 1,
@@ -36,13 +47,32 @@ const CarouselComponent = ({sliders}) => {
 
   const renderFullImageSlider = (slider) => {
     return(
-        <Col lg="12">
-            <div className="carousel_image_full_container">
-          <Image
-              src={slider.image}
-              alt="carousel_image_1"
-              className="carousel_image_full"
-          />
+        <Col lg="12" md="12" sm="12" xs="12">
+            <div>
+            {
+                size.x >500 && <Image
+                    src={slider.image}
+                    alt="carousel_image_1"
+                    style={{
+                        width:(size.x/1200 * 1200),
+                        height:(size.x/300 * 300)/4
+                    }}
+                    fluid
+
+                />
+            }
+            {
+                size.x <500 && <Image
+                    src={slider.mob_image}
+                    alt="carousel_image_1"
+                    style={{
+                        width:(size.x/1200 * 1200),
+                        height:(size.x/600 * 600)/2
+                    }}
+                    fluid
+
+                />
+            }
             </div>
         </Col>
     )
@@ -87,7 +117,7 @@ const CarouselComponent = ({sliders}) => {
   return (
     <>
       <Row>
-        <Col lg="12">
+          <Col lg="12" md="12" sm="12" xs="12" className="carouselMainContainer">
           <Carousel
             autoPlay={true}
             customLeftArrow={<></>}
@@ -102,29 +132,22 @@ const CarouselComponent = ({sliders}) => {
             keyBoardControl={true}
             customTransition="all .5"
             transitionDuration={500}
-            containerClass="carousel-container"
             removeArrowOnDeviceType={["tablet", "mobile"]}
             dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px"
-            className="carousel_container"
+            containerClass='react-multi-carousel-list'
           >
 
             {sliders.map((slider) => {
               return(
                 <div className="carousel_container">
-                <Row
-                  className='g-0'
-                  style={{
-                    background:
-                      "linear-gradient(92.07deg, #28A3DA 0.26%, #3085AB 99.17%)",
-                  }}
-                >
-                  {
-                    slider.desc==='' && renderFullImageSlider(slider)
-                  }
-                  {
-                    slider.desc!=='' && renderImageWithTitleSlider(slider)
-                  }
+                <Row className='g-0'>
+                    {renderFullImageSlider(slider)}
+                  {/*{*/}
+                  {/*  slider.desc==='' && renderFullImageSlider(slider)*/}
+                  {/*}*/}
+                  {/*{*/}
+                  {/*  slider.desc!=='' && renderImageWithTitleSlider(slider)*/}
+                  {/*}*/}
                 </Row>
               </div>
               )
