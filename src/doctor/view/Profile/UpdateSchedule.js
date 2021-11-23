@@ -115,6 +115,7 @@ const UpdateSchedule = (props) => {
             };
         } else {
             addToast('This slot already have an appointment', {appearance: 'error'});
+            return
         }
 
         post(API.UPDATE_SCHEDULE_BY_DATE, params)
