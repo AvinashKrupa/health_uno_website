@@ -10,7 +10,7 @@ const NotificationSideBar = (props) => {
           sidebar: {
             width: "325px",
             background: "rgba(255, 255, 255, 1)",
-            overflowY: 'auto'
+            overflowY: 'none'
           },
           root:{
             position:'fixed',
