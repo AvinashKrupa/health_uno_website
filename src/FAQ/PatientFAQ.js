@@ -4,6 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import ModalDialog from '../commonComponent/ModalDialog'
+import IframeModal from "../patient/view/IframeModal";
 
 const data = [
   {
@@ -47,7 +49,8 @@ const data = [
   },
   {
     title: "What is our cancellation policy?",
-    description: "",
+    type: "URL",
+    description: "Checkout our cancelation policy",
   },
   {
     title: "How can I cancel & reschedule my appointment?",
@@ -132,6 +135,7 @@ const data = [
 const FAQ = ({ isProfile }) => {
   const location = useLocation();
   const [selectedAccordian, setSelectedAccordian] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
 
   const handleSelectAccordion = (key) => {
     if (selectedAccordian.includes(key)) {
@@ -200,7 +204,18 @@ const FAQ = ({ isProfile }) => {
                   </Accordion.Toggle>
                   <Accordion.Collapse eventKey={i + 1}>
                     <Card.Body className="FAQ_accordion_content">
-                      {value.description}
+                      {value.type ? (
+                        <a
+                          style={{ color: "blue", lineHeight: "65px" }}
+                          onClick={() => setModalShow(true)}
+                        >
+                          <span style={{ textDecoration: "underline" }}>
+                            {value.description}
+                          </span>
+                        </a>
+                      ) : (
+                        value.description
+                      )}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -209,6 +224,17 @@ const FAQ = ({ isProfile }) => {
           ))}
         </Grid>
       </Row>
+      <ModalDialog
+            modalClassName={"terms-content"}
+            isConfirm={true}
+            show={modalShow}
+            title={"Cancellation Policy"}
+            closeDialog={() => {
+                setModalShow(false);
+            }}
+        >
+            <IframeModal url={'https://dev.healthuno.com:6002/v1/cancellation_policy'}/>
+        </ModalDialog>
     </div>
   );
 };
