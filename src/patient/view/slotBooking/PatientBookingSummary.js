@@ -345,10 +345,10 @@ const PatientBookingSummary = (props) => {
                                                     <div className="coupon-detail-item">Consultation Fees :</div>
                                                     <div className="coupon-detail-item-last">₹{doctorDetails.fee}</div>
                                                 </div>
-                                                <div className='coupon-detail'>
+                                                {!!couponDetails && <div className='coupon-detail'>
                                                     <div className="coupon-detail-item">Discount :</div>
                                                     <div className="coupon-detail-item-last">₹{discountAmount}</div>
-                                                </div>
+                                                </div>}
                                                 <div className='coupon-detail'>
                                                     <div className="coupon-detail-item">Total Amount :</div>
                                                     <div className="coupon-detail-item-last">₹{amount}</div>
