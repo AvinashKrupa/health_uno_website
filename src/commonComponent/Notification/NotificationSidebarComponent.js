@@ -1,5 +1,6 @@
 import {Col, Row} from "react-bootstrap";
-import {API, get} from '../../api/config/APIController';
+import {API, post} from '../../api/config/APIController';
+import InfiniteScroll from "react-infinite-scroll-component";
 import React, {useEffect, useState} from "react";
 import {useToasts} from 'react-toast-notifications';
 import "react-input-range/lib/css/index.css";
@@ -7,6 +8,8 @@ import Notification from "./Notification";
 
 const NotificationSidebarComponent = (props) => {
     const [notifications, setNotifications] = useState([]);
+    const [totalNotifications, setTotalNotifications] = useState(0);
+    const [page, setPage] = useState(1);
     useEffect(() => {
         getNotificationsList()
         return () => {
@@ -15,7 +18,9 @@ const NotificationSidebarComponent = (props) => {
 
     useEffect(() => {
         if (props.sidebarOpen) {
-            getNotificationsList()
+            setPage(1)
+            setTimeout(()=>getNotificationsList(), 0)
+
         }
         return () => {
         };
@@ -23,19 +28,41 @@ const NotificationSidebarComponent = (props) => {
 
     const {addToast} = useToasts();
 
-    function getNotificationsList() {
-        get(API.GET_NOTIFICATIONS)
+    function getNotificationsList(isPagination = false) {
+        let params = {
+            limit: 10,
+            page: isPagination ? page : 1,
+        };
+        console.log('amit getNotificationsList params :', params);
+        post(API.GET_NOTIFICATIONS, params)
             .then(response => {
-                if (response.status === 200) {
-                    setNotifications(response?.data?.data?.docs);
+                setTotalNotifications(response.data.data.total);
+
+                if (isPagination) {
+                    setPage(page + 1);
+                    if (page > 1) {
+                        setNotifications([
+                            ...notifications,
+                            ...response?.data?.data?.docs,
+                        ]);
+                    } else {
+                        setNotifications(response?.data?.data?.docs);
+                    }
                 } else {
-                    addToast(response?.data?.message, {appearance: 'error'});
+                    setPage(page + 1);
+                    setNotifications(response?.data?.data?.docs);
                 }
             })
             .catch(error => {
                 addToast(error?.data?.message, {appearance: 'error'});
             });
     }
+
+    const fetchMoreData = () => {
+        if (totalNotifications > notifications.length) {
+            getNotificationsList(true);
+        }
+    };
 
     return (
         <>
@@ -52,6 +79,19 @@ const NotificationSidebarComponent = (props) => {
                         marginLeft: "10px",
                         marginRight: "10px",
                     }}>
+                        <div id="notification-sidebar" >
+                        <InfiniteScroll
+                            dataLength={notifications.length}
+                            next={fetchMoreData}
+                            hasMore={totalNotifications > notifications.length}
+                            className="load-data"
+                            // children="notification-sidebar"
+                            scrollableTarget="notification-sidebar"
+                            onScroll={(event,abc)=>{console.log('amit debug :', event,abc);}}
+                        >
+                            {notifications.map((notification_item) => <Notification item={notification_item}/>)}
+                        </InfiniteScroll>
+                        </div>
                         {!notifications.length && (
                             <div className="empty-list-container_center">
                                 <div className="no-notification">
@@ -59,7 +99,7 @@ const NotificationSidebarComponent = (props) => {
                                 </div>
                             </div>
                         )}
-                        {notifications.map((notification_item) => <Notification item={notification_item}/>)}
+
                     </Row>
 
                 </Col>
