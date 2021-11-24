@@ -7,8 +7,18 @@ import "react-datepicker/dist/react-datepicker.css";
 const HorizontalCalendarForDoctor = (props) => {
     const {slot_id, date, selectedDay, setDateValue, setSelectedDay} = props;
     const [dates, setDate] = useState([]);
-    const size = window.screen.availWidth > 414 ? 7 : 4
+    const [size, setSize] = useState(7);
     const [lastIndex, setLastIndex] = useState(size);
+
+    useEffect(() => {
+        if(window.screen.availWidth > 1024){
+            setSize(7)
+        } else if(window.screen.availWidth > 414){
+            setSize(5)
+        }else {
+            setSize(4)
+        }
+    }, [window.screen.availWidth]);
 
     useEffect(() => {
         let datesArr = [];
