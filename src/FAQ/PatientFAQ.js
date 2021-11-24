@@ -69,11 +69,11 @@ const data = [
   },
   {
     title: "How do referral scheme works? & the benefits of it?",
-    description: "",
+    description: "Enjoying the Healthuno app? Now you can share the goodness and benefits of being a Healthuno customer with your friends and family. Share the Healthuno app to receive exciting discounts and an exclusive Invite only preview to the Healthuno Premium Circle Membership plan.",
   },
   {
     title: "What is loyalty program? & how it works?",
-    description: "",
+    description: "Enjoying the Healthuno app? Now you can share the goodness and benefits of being a Healthuno customer with your friends and family. Share the Healthuno app to receive exciting discounts and an exclusive Invite only preview to the Healthuno Premium Circle Membership plan.",
   },
   {
     title: "Why do I choose Healthuno?",
