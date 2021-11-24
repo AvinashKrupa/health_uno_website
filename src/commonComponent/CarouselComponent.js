@@ -6,12 +6,12 @@ import React,{ useState,useEffect }  from "react";
 
 const CarouselComponent = ({sliders}) => {
     const [size, setSize] = useState({
-        x: window.innerWidth-200,
+        x: window.innerWidth-40,
         y: window.innerHeight
     });
     const updateSize = () =>
         setSize({
-            x: window.innerWidth-200,
+            x: window.innerWidth-40,
             y: window.innerHeight
         });
     useEffect(() => (window.onresize = updateSize), []);
@@ -54,8 +54,8 @@ const CarouselComponent = ({sliders}) => {
                     src={slider.image}
                     alt="carousel_image_1"
                     style={{
-                        width:(size.x/1200 * 1200),
-                        height:(size.x/300 * 300)/4
+                        width:size.x,
+                        height:size.x/4
                     }}
                     fluid
 
@@ -66,8 +66,8 @@ const CarouselComponent = ({sliders}) => {
                     src={slider.mob_image}
                     alt="carousel_image_1"
                     style={{
-                        width:(size.x/1200 * 1200),
-                        height:(size.x/600 * 600)/2
+                        width:(size.x),
+                        height:(size.x)/2
                     }}
                     fluid
 
