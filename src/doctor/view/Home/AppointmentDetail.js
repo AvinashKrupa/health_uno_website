@@ -71,6 +71,57 @@ const AppointmentDetail = (props) => {
     }
     const timerEnable = appointmentDetail && getTimer(`${appointmentDetail?.time?.date} ${appointmentDetail?.time?.slot}`);
     const {additional_doc} = appointmentDetail || []
+
+    function renderDoctorInfoTitle(){
+        debugger
+        if(!!additional_doc?.length && ["cancelled", "completed"].includes(appointmentDetail.status)){
+            if(additional_doc[0]?._id !== doctor_id){
+                return 'Invited Doctor'
+            }else {
+                return'Primary Doctor'
+            }
+        }else {
+            return null
+        }
+    }
+    function renderDoctorInfo(){
+        if(!!additional_doc?.length){
+            if(additional_doc[0]?._id !== doctor_id){
+                return (<div className='selected-doctor-main-container'>
+                    <SelectedDoctorCard
+                        id={additional_doc[0]._id}
+                        image={additional_doc[0].dp}
+                        name={`${additional_doc[0].first_name} ${additional_doc[0].last_name}`}
+                        fees={appointmentDetail.fee}
+                        details={`${additional_doc[0].address.city}, ${additional_doc[0].address.country} | ${additional_doc[0].exp} Y Exp`}
+                        qualifications={additional_doc[0].specialities}
+                        appointmentId={appointmentDetail._id}
+                        removeSelectedDoctor={removeSelectedDoctor}
+                        appointmentStatus={appointmentDetail.status}
+                        showRemoveAction={(!["cancelled", "completed"].includes(appointmentDetail.status) && additional_doc[0]?._id !== doctor_id)}
+                    />
+                </div>)
+            }else {
+                return(<div className='selected-doctor-main-container'>
+                    <SelectedDoctorCard
+                        id={appointmentDetail?.doctor?._id}
+                        image={appointmentDetail?.doctor?.dp}
+                        name={`${appointmentDetail?.doctor?.first_name} ${appointmentDetail?.doctor?.last_name}`}
+                        fees={appointmentDetail.fee}
+                        details={`${appointmentDetail?.doctor?.address.city}, ${appointmentDetail?.doctor?.address.country} | ${appointmentDetail?.doctor?.exp} Y Exp`}
+                        qualifications={appointmentDetail?.doctor?.specialities}
+                        appointmentId={appointmentDetail._id}
+                        removeSelectedDoctor={removeSelectedDoctor}
+                        appointmentStatus={appointmentDetail.status}
+                        showRemoveAction={false}
+                    />
+                </div>)
+            }
+        }else {
+            return null
+        }
+    }
+
     return (
         <div>
             <Row>
@@ -151,46 +202,16 @@ const AppointmentDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <h2 className="sub-title">{(!["cancelled", "completed"].includes(appointmentDetail.status) && additional_doc?.length && additional_doc[0]?._id !== doctor_id) ?'Additional Doctor':'Primary Doctor'}</h2>
+                            <h2 className="sub-title">{renderDoctorInfoTitle()}</h2>
                             {["scheduled","ongoing"].includes(appointmentDetail.status) && !additional_doc?.length && <div className="row-add-doctor"
                                                              onClick={() => props.history.push(`/doctor/select/${appointmentDetail?._id}`)}>
                                 <div className="row-add-doctor-text">Add Doctor</div>
                                 <div><Image src={plus_icon}/></div>
                             </div>}
-                            {["completed"].includes(appointmentDetail.status) && !additional_doc?.length && <div className="no-doctor-found">
-                                <div className="row-add-doctor-text">No additional doctor was present</div>
-                            </div>}
-                            {
-                                !!additional_doc?.length && additional_doc[0]?._id !== doctor_id ?
-                                    (<div className='selected-doctor-main-container'>
-                                        <SelectedDoctorCard
-                                            id={additional_doc[0]._id}
-                                            image={additional_doc[0].dp}
-                                            name={`${additional_doc[0].first_name} ${additional_doc[0].last_name}`}
-                                            fees={appointmentDetail.fee}
-                                            details={`${additional_doc[0].address.city}, ${additional_doc[0].address.country} | ${additional_doc[0].exp} Y Exp`}
-                                            qualifications={additional_doc[0].specialities}
-                                            appointmentId={appointmentDetail._id}
-                                            removeSelectedDoctor={removeSelectedDoctor}
-                                            appointmentStatus={appointmentDetail.status}
-                                            showRemoveAction={(!["cancelled", "completed"].includes(appointmentDetail.status) && additional_doc[0]?._id !== doctor_id)}
-                                        />
-                                    </div>):
-                                    <div className='selected-doctor-main-container'>
-                                        <SelectedDoctorCard
-                                            id={appointmentDetail?.doctor?._id}
-                                            image={appointmentDetail?.doctor?.dp}
-                                            name={`${appointmentDetail?.doctor?.first_name} ${appointmentDetail?.doctor?.last_name}`}
-                                            fees={appointmentDetail.fee}
-                                            details={`${appointmentDetail?.doctor?.address.city}, ${appointmentDetail?.doctor?.address.country} | ${appointmentDetail?.doctor?.exp} Y Exp`}
-                                            qualifications={appointmentDetail?.doctor?.specialities}
-                                            appointmentId={appointmentDetail._id}
-                                            removeSelectedDoctor={removeSelectedDoctor}
-                                            appointmentStatus={appointmentDetail.status}
-                                            showRemoveAction={false}
-                                        />
-                                    </div>
-                            }
+                            {renderDoctorInfo()}
+                            {/*{["completed"].includes(appointmentDetail.status) && !additional_doc?.length && <div className="no-doctor-found">*/}
+                            {/*    <div className="row-add-doctor-text">No additional doctor was present</div>*/}
+                            {/*</div>}*/}
                             {["completed"].includes(appointmentDetail.status) && !appointmentDetail.prescription?.length &&
                             <div className="row-add-doctor" onClick={() =>
                                 props.history.push({
