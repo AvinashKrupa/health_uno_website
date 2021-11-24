@@ -216,8 +216,7 @@ const Appointments = (props) => {
                       flexWrap: "wrap",
                     }}
                   >
-                    {!appointmentLoaderStatus &&
-                      upcomingAppointments.map((appointment) => {
+                    {upcomingAppointments.map((appointment) => {
                         return (
                           <Grid
                             container
