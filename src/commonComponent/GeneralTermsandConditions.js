@@ -3,10 +3,10 @@ import "../doctor/styles/generalTermsAndCondition.scss";
 
 const GeneralTermsAndConditions = (props) => {
   return (
-    <div className="general_term_container ">
-      <Row className="terms_heading">
-        <h2>Terms and Conditions</h2>
-      </Row>
+    // <div className="general_term_container ">
+    //   <Row className="terms_heading">
+    //     <h2>Terms and Conditions</h2>
+    //   </Row>
       <div>
         <br />
         <br />
@@ -1093,7 +1093,7 @@ const GeneralTermsAndConditions = (props) => {
           access.
         </p>
       </div>
-    </div>
+    // </div>
   );
 };
 
