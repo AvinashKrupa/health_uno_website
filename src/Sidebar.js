@@ -6,11 +6,14 @@ import { withRouter } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications';
 import {API, post} from './api/config/APIController';
 import React, { useState } from "react";
+import GeneralTermsAndConditions from './commonComponent/GeneralTermsandConditions';
+import ModalDialog from './commonComponent/ModalDialog';
 
-const sidebar = ['home', 'appointments', 'profile', 'terms', 'faq', 'reports']
+const sidebar = ['home', 'appointments', 'profile', 'faq', 'reports']
 
 const Sidebar = (props) => {
     const [expanded,setExpanded] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
     const userType = JSON.parse(getData('USER_TYPE'));
     const newRoutes = props.location.pathname.split("/") || [];
     let defaultSelection = "home"
@@ -89,7 +92,7 @@ const Sidebar = (props) => {
                             HealthUno
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="home">
+                    <NavItem active={defaultSelection === 'home'} eventKey="home">
                         <NavIcon>
                             <i className="fa fa-fw fa-home" style={{fontSize: '1.65em'}}/>
                         </NavIcon>
@@ -97,7 +100,7 @@ const Sidebar = (props) => {
                             Home
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="appointments">
+                    <NavItem active={defaultSelection === 'appointments'} eventKey="appointments">
                         <NavIcon>
                             <i className="fa fa-fw fa-calendar" style={{fontSize: '1.75em'}}/>
                         </NavIcon>
@@ -106,7 +109,7 @@ const Sidebar = (props) => {
                         </NavText>
                     </NavItem>
 
-                    {userType === 1 && <NavItem eventKey="reports">
+                    {userType === 1 && <NavItem active={defaultSelection === 'reports'} eventKey="reports">
                         <NavIcon>
                             <i className="fa fa-fw fa-briefcase" style={{fontSize: '1.75em'}}/>
                         </NavIcon>
@@ -115,7 +118,7 @@ const Sidebar = (props) => {
                         </NavText>
                     </NavItem>}
 
-                    <NavItem eventKey="profile">
+                    <NavItem active={defaultSelection === 'profile'} eventKey="profile">
                         <NavIcon>
                             <i className="fa fa-fw fa-user" style={{fontSize: '1.75em'}}/>
                         </NavIcon>
@@ -123,7 +126,7 @@ const Sidebar = (props) => {
                             Profile
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="terms">
+                    <NavItem active={false} onSelect={() => setModalShow(true)}>
                         <NavIcon>
                             <i className="fa fa-fw fa-file-contract" style={{fontSize: '1.75em'}}/>
                         </NavIcon>
@@ -131,7 +134,7 @@ const Sidebar = (props) => {
                             Terms and Conditions
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="faq">
+                    <NavItem active={defaultSelection === 'faq'} eventKey="faq">
                         <NavIcon>
                             <i className="fa fa-fw fa-question-circle" style={{fontSize: '1.75em'}}/>
                         </NavIcon>
@@ -139,7 +142,7 @@ const Sidebar = (props) => {
                             FAQ
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="signOut">
+                    <NavItem active={defaultSelection === 'signOut'} eventKey="signOut">
                         <NavIcon>
                             <i className="fa fa-fw fas fa-sign-out-alt" style={{fontSize: '1.75em'}}/>
                         </NavIcon>
@@ -150,6 +153,17 @@ const Sidebar = (props) => {
                 </SideNav.Nav>
             </SideNav>
          </ClickOutside>
+         <ModalDialog
+          modalClassName={"terms-content"}
+          isConfirm={true}
+          show={modalShow}
+          title={"Terms and conditions"}
+          closeDialog={() => {
+            setModalShow(false);
+          }}
+        >
+          <GeneralTermsAndConditions />
+        </ModalDialog>
         </div>
     );
 };
