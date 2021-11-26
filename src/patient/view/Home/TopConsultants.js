@@ -23,6 +23,8 @@ const TopConsultants = (props) => {
   const [searchClear, setSearchClear] = useState(false);
   const [page, setPage] = useState(1);
   const [totalConsultants, setTotalConsultants] = useState(0);
+  const [filters, setFilters] = useState("");
+  const [isFiltered, setIsFiltered] = useState(false);
   useEffect(() => {
     const searchInput = document.getElementById('top-const-search')
     searchInput.focus();
@@ -37,6 +39,8 @@ const TopConsultants = (props) => {
   }, []);
 
   function callBackFilter(data) {
+    setFilters(data);
+    setIsFiltered(true);
     getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages, data.experience, data.selectedSpecialities, data.gender);
   }
 
@@ -112,6 +116,7 @@ const TopConsultants = (props) => {
   }
   const fetchMoreData = () => {
     if(totalConsultants > consultants.length){
+      isFiltered ? getTopConsultants(filters.sortBy, filters.min, filters.max, filters.selectedLanguages, filters.experience, filters.gender, true) : 
       getTopConsultants('asc','',  '', '' , '', '', true)
     }
   };
