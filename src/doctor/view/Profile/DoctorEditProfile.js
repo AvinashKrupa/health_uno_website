@@ -96,6 +96,7 @@ const DoctorEditProfile = (props) => {
           if (additional_info) {
             storeData("additional_info", JSON.stringify(additional_info));
           }
+          const selectedLanguage = user.language.map(language => language._id)
           let additionalInfo = response.data.data.additional_info;
           setFirstName(user.first_name);
           setLastName(user.last_name);
@@ -110,6 +111,7 @@ const DoctorEditProfile = (props) => {
           setCity(additionalInfo.address.city);
           setCountry(additionalInfo.address.country);
           setExperience(additionalInfo.qualif.exp);
+          setLanguage(selectedLanguage);
         } else {
           addToast(response.data.message, { appearance: "error" });
         }

@@ -22,14 +22,16 @@ const MultiSelect = ({ label, options, selected, handleChange, className }) => {
         className={classes.select}
         value={selected}
         onChange={handleChange}
-        renderValue={(selected) => selected.join(", ")}
+        renderValue={(selected) =>{
+          return selected.map((obj) => options.find(option=>option.id == obj).value).join(", ")
+        }}
         MenuProps={MenuProps}
         disableUnderline
       >
         {options.map((option) => (
-          <MenuItem key={option.id} value={option.value}>
+          <MenuItem key={option.id} value={option.id}>
             <ListItemIcon>
-              <Checkbox checked={selected.indexOf(option.value) > -1} />
+              <Checkbox checked={selected.indexOf(option.id) > -1} />
             </ListItemIcon>
             <ListItemText primary={option.value} />
           </MenuItem>

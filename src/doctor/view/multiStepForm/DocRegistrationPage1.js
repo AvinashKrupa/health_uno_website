@@ -154,7 +154,7 @@ const DocRegistrationPage1 = (props) => {
       .then((response) => {
         if (response.status === 200) {
           let data = response.data.data.map((info) => {
-            return { value: info.name, id: info._id };
+            return { value: info.name, id: info._id, name:info.name };
           });
           setDataLanguage(data);
         } else {
@@ -326,20 +326,12 @@ const DocRegistrationPage1 = (props) => {
           </Row>
           <Row className="g-2">
             <Col md>
-              {/* <KeyValueSelector
-                   value={getLanguageValue(language)}
-                    label="Language"
-                    defaultValue="Select language"
-                    id="Language"
-                    options={dataLanguage}
-                    handleSelect={setLanguageValue}
-                  /> */}
               <MultiSelect
                 className="languageSelection"
                 label="Language"
                 selected={language}
                 options={dataLanguage}
-                handleChange={setLanguageValue}
+                handleChange={setLanguageValue}            
               />
             </Col>
 
