@@ -327,7 +327,7 @@ const DocRegistrationPage1 = (props) => {
           <Row className="g-2">
             <Col md>
               <MultiSelect
-                className="languageSelection"
+                className="languageRegistration"
                 label="Language"
                 selected={language}
                 options={dataLanguage}
