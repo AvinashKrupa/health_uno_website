@@ -75,7 +75,7 @@ const RegistrationComponent = ({ history, image }) => {
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);
   const [dataLanguage, setDataLanguage] = useState([]);
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState([]);
   let [loader, setLoader] = useState(false);
   const [vaccinated, setVaccinated] = useState([
     { id: "yes", value: "Yes", checked: false },
@@ -104,7 +104,7 @@ const RegistrationComponent = ({ history, image }) => {
 
   const setLanguageValue = (value) => {
     const lanInfo = value.split("|");
-    setLanguage(lanInfo[0]);
+    setLanguage([lanInfo[0]]);
   };
 
   // Need state id to get city API call
@@ -667,7 +667,7 @@ const RegistrationComponent = ({ history, image }) => {
         <Row className="g-2">
           <Col md>
             <KeyValueSelector
-              value={getLanguageValue(language)}
+              value={getLanguageValue(language[0])}
               label="Language"
               defaultValue="Select language"
               id="Language"
