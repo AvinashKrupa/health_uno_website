@@ -23,7 +23,7 @@ class AuthContextProvider extends Component {
 
   render() { 
     return (
-      <AuthContext.Provider value={{...this.state, setAuth: this.setAuth, setPhone: this.setPhone}}>
+      <AuthContext.Provider value={{...this.state, setType:this.setType, setAuth: this.setAuth, setPhone: this.setPhone}}>
         {this.props.children}
       </AuthContext.Provider>
     );
