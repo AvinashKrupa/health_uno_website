@@ -71,7 +71,7 @@ const DoctorEditProfile = (props) => {
         }
       })
       .catch((error) => {
-        // addToast(error.data.message, { appearance: 'error' });
+        addToast(error.data.message, { appearance: 'error' });
       });
   }
 
