@@ -301,6 +301,7 @@ const PatientEditProfile = (props) => {
         let params = {
             first_name: firstName,
             last_name: lastName,
+            language: language,
             address: {
                 line1: addressLine1,
                 line2: addressLine2,
@@ -576,7 +577,8 @@ const PatientEditProfile = (props) => {
                             />
                         </Col>
                     </Row>
-                    <Row>
+                </Col>
+                    <Row className="g-2">
                         <Col>
                             <KeyValueSelector
                                 value={getLanguageValue(language[0])}
@@ -588,7 +590,6 @@ const PatientEditProfile = (props) => {
                             />
                         </Col>
                     </Row>
-                </Col>
                 <Row className="g-2">
                     <Col md>
                         <Row>
