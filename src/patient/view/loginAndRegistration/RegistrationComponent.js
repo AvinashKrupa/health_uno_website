@@ -74,7 +74,7 @@ const RegistrationComponent = ({ history, image }) => {
   const [termsCondition, setTermsCondition] = useState(false);
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);
-  const [dataLanguage, setDataLanguage] = useState([]);
+  // const [dataLanguage, setDataLanguage] = useState([]);
   const [language, setLanguage] = useState([]);
   let [loader, setLoader] = useState(false);
   const [vaccinated, setVaccinated] = useState([
@@ -90,7 +90,7 @@ const RegistrationComponent = ({ history, image }) => {
 
   useEffect(() => {
     getState();
-    getLanguage();
+    // getLanguage();
     if (history.action === "POP") {
       history.replace(`/patient`);
       return;
@@ -102,10 +102,10 @@ const RegistrationComponent = ({ history, image }) => {
     return () => {};
   }, []);
 
-  const setLanguageValue = (value) => {
-    const lanInfo = value.split("|");
-    setLanguage([lanInfo[0]]);
-  };
+  // const setLanguageValue = (value) => {
+  //   const lanInfo = value.split("|");
+  //   setLanguage([lanInfo[0]]);
+  // };
 
   // Need state id to get city API call
   // so KeyValueGenerator option has value like {`${item.id}|${item.value}`}
@@ -182,22 +182,22 @@ const RegistrationComponent = ({ history, image }) => {
   };
 
   // Get language from server
-  function getLanguage() {
-    get(API.GETLANGUAGE)
-      .then((response) => {
-        if (response.status === 200) {
-          let data = response.data.data.map((info) => {
-            return { value: info.name, id: info._id };
-          });
-          setDataLanguage(data);
-        } else {
-          addToast(response.data.message, { appearance: "error" });
-        }
-      })
-      .catch((error) => {
-        addToast(error.data.message, { appearance: "error" });
-      });
-  }
+  // function getLanguage() {
+  //   get(API.GETLANGUAGE)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         let data = response.data.data.map((info) => {
+  //           return { value: info.name, id: info._id };
+  //         });
+  //         setDataLanguage(data);
+  //       } else {
+  //         addToast(response.data.message, { appearance: "error" });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       addToast(error.data.message, { appearance: "error" });
+  //     });
+  // }
 
   // Get state from server
   function getState() {
@@ -370,18 +370,18 @@ const RegistrationComponent = ({ history, image }) => {
     }
   };
 
-  const getLanguageValue = (value) => {
-    if (value) {
-      const selectedLanguage = dataLanguage.find(
-        (language) => language.id === value
-      );
-      return selectedLanguage
-        ? `${selectedLanguage.id}|${selectedLanguage.value}`
-        : "";
-    } else {
-      return "";
-    }
-  };
+  // const getLanguageValue = (value) => {
+  //   if (value) {
+  //     const selectedLanguage = dataLanguage.find(
+  //       (language) => language.id === value
+  //     );
+  //     return selectedLanguage
+  //       ? `${selectedLanguage.id}|${selectedLanguage.value}`
+  //       : "";
+  //   } else {
+  //     return "";
+  //   }
+  // };
 
   async function registerUserAPICalling() {
     const foundPushToken = await getPushToken();
@@ -664,7 +664,7 @@ const RegistrationComponent = ({ history, image }) => {
             </Row>
           </Col>
         </Row>
-        <Row className="g-2">
+        {/* <Row className="g-2">
           <Col md>
             <KeyValueSelector
               value={getLanguageValue(language[0])}
@@ -676,7 +676,7 @@ const RegistrationComponent = ({ history, image }) => {
             />
           </Col>
           <Col md></Col>
-        </Row>
+        </Row> */}
         <Row className="g-2">
           <Col md>
             <Row>

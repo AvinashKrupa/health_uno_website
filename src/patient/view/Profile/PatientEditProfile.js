@@ -59,12 +59,12 @@ const PatientEditProfile = (props) => {
     const [dose, setDose] = useState('');
     const [vaccineName, setVaccineName] = useState('');
     const [covidDetails, handleCovidDetails] = useState('');
-    const [dataLanguage, setDataLanguage] = useState([]);
+    // const [dataLanguage, setDataLanguage] = useState([]);
     const [language, setLanguage] = useState([]);
 
     useEffect(() => {
         getUserProfile();
-        getLanguage();
+        // getLanguage();
         return () => {
         };
     }, []);
@@ -79,39 +79,39 @@ const PatientEditProfile = (props) => {
     const { addToast } = useToasts();
 
 
-    const setLanguageValue = (value) => {
-        const lanInfo = value.split("|");
-        setLanguage([lanInfo[0]]);
-      };
-    // Get language from server
-    function getLanguage() {
-        get(API.GETLANGUAGE)
-            .then((response) => {
-                if (response.status === 200) {
-                    let data = response.data.data.map((info) => {
-                        return { value: info.name, id: info._id };
-                    });
-                    setDataLanguage(data);
-                } else {
-                    addToast(response.data.message, { appearance: "error" });
-                }
-            })
-            .catch((error) => {
-                addToast(error.data.message, { appearance: "error" });
-            });
-    }
-    const getLanguageValue = (value) => {
-        if (value) {
-            const selectedLanguage = dataLanguage.find(
-                (language) => language.id === value
-            );
-            return selectedLanguage
-                ? `${selectedLanguage.id}|${selectedLanguage.value}`
-                : "";
-        } else {
-            return "";
-        }
-    };
+    // const setLanguageValue = (value) => {
+    //     const lanInfo = value.split("|");
+    //     setLanguage([lanInfo[0]]);
+    //   };
+    // // Get language from server
+    // function getLanguage() {
+    //     get(API.GETLANGUAGE)
+    //         .then((response) => {
+    //             if (response.status === 200) {
+    //                 let data = response.data.data.map((info) => {
+    //                     return { value: info.name, id: info._id };
+    //                 });
+    //                 setDataLanguage(data);
+    //             } else {
+    //                 addToast(response.data.message, { appearance: "error" });
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             addToast(error.data.message, { appearance: "error" });
+    //         });
+    // }
+    // const getLanguageValue = (value) => {
+    //     if (value) {
+    //         const selectedLanguage = dataLanguage.find(
+    //             (language) => language.id === value
+    //         );
+    //         return selectedLanguage
+    //             ? `${selectedLanguage.id}|${selectedLanguage.value}`
+    //             : "";
+    //     } else {
+    //         return "";
+    //     }
+    // };
 
     const handleDiabetic = (id) => {
         setIsDiabetic(id === 'yes');
@@ -285,7 +285,7 @@ const PatientEditProfile = (props) => {
                     setCountry(additionalInfo.address.country);
                     setAppointmentStats(additionalInfo.appointment_stats);
                     getState(additionalInfo.address.state);
-                    setLanguage([user.language[0]._id])
+                    // setLanguage([user.language[0]._id])
                 } else {
                     addToast(response.data.message, { appearance: 'error' });
                 }
@@ -578,7 +578,7 @@ const PatientEditProfile = (props) => {
                         </Col>
                     </Row>
                 </Col>
-                    <Row className="g-2">
+                    {/* <Row className="g-2">
                         <Col>
                             <KeyValueSelector
                                 value={getLanguageValue(language[0])}
@@ -589,7 +589,7 @@ const PatientEditProfile = (props) => {
                                 handleSelect={setLanguageValue}
                             />
                         </Col>
-                    </Row>
+                    </Row> */}
                 <Row className="g-2">
                     <Col md>
                         <Row>
