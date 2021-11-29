@@ -163,9 +163,9 @@ const PatientBookingSummary = (props) => {
         const options = {
             description: 'Video Consultation',
             image:
-                'https://healthuno-dev-public.s3.ap-south-1.amazonaws.com/images/logo/patient.png',
+                process.env.REACT_APP_RAZOR_PAY_IMAGE_URL,
             currency: 'INR',
-            key: 'rzp_test_B0gfA1BIUTnr5L', // Your api key
+            key: process.env.REACT_APP_RAZOR_PAY_API_KEY, // Your api key
             amount: `${doctorDetails.fee}00`,
             name: `${doctorDetails.first_name} ${doctorDetails.last_name}`,
             prefill: {

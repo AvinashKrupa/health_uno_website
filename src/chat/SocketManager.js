@@ -1,5 +1,5 @@
 const io = require("socket.io-client");
-const URL = "https://dev.healthuno.com:6003";
+const URL = process.env.REACT_APP_SOCKET_MANAGER_URL;
 // const URL = "http://localhost:3007";
 const options = {
     reconnection: true,
