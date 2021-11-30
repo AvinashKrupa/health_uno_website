@@ -108,7 +108,10 @@ const DoctorDetails = (props) => {
                                             color: "rgba(143, 143, 143, 1)",
                                         }}
                                     >
-                                        {doctorDetails.language || 'No language found'}
+                                        {doctorDetails.language.map(function (item, index) {
+                                                        return (
+                                                            <span>{(index ? ", " : "") + item}</span>
+                                                        ) || "No Language Found" })}
                                     </span>
                                 </Row>
                                 <Row>

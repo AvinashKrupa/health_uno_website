@@ -3,6 +3,9 @@ import {Link} from 'react-router-dom';
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 const SimilarDoctorsCard = (props) => {
+  const language = props.language.map(function (item, index) {
+    return <span style={{ marginLeft: "0px" }} className="doctor-card-fee-value">{(index ? ', ' : '') + item}</span> || <span className="doctor-card-fee-value">Not Mentioned</span>
+  })
     const similarDoctorContainer = props.from ==='doctor' ? 'doctor-card-container select-doctor' : 'doctor-card-container card-hover-effect';
   return (
     <>
@@ -21,7 +24,7 @@ const SimilarDoctorsCard = (props) => {
                 </span>
                 {props.language && <span>
                     <span className="doctor-card-fee-label">Language:</span>
-                    <span className="doctor-card-fee-value">{props.language || 'Not mention'}</span>{" "}
+                    <span className="doctor-card-fee-value">{language}</span>{" "}
                 </span>}
                 <span style={{marginTop: "5px" }}>
                 <span
