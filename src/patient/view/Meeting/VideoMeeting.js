@@ -220,7 +220,7 @@ const VideoMeeting = (props) => {
               <Col className="meeting-page-column-image">
                 {!renderTestButtons && (
                   <Image
-                    src={meeting}
+                    src={doctorDetails.dp}
                     alt="Patient Image"
                     className="meeting-video"
                   />
