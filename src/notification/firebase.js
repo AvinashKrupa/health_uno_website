@@ -1,15 +1,16 @@
 import { initializeApp } from "firebase/app";
+require('dotenv')
 
-export const FIREBASE_VAPID_KEY ='BIIHJL4Qsyyu3RLn4x6DiKR8A1IxKjw_qNL4rVerpW6fwP-k72XPhaFiV_Gpps0X1ZsWzeCKthXec4xCckDW4RY'
+export const FIREBASE_VAPID_KEY = process.env.REACT_APP_FIREBASE_VAPID_KEY
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC13l6rYFIL_bhA4hRrnspnN10GyJ3nsTQ",
-    authDomain: "healthuno-df503.firebaseapp.com",
-    projectId: "healthuno-df503",
-    storageBucket: "healthuno-df503.appspot.com",
-    messagingSenderId: "591978792926",
-    appId: "1:591978792926:web:1370ed45774e70f2107f4f",
-    measurementId: "G-XQB6WT9DBL"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 const firebase = initializeApp(firebaseConfig);
