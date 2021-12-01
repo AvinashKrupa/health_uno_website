@@ -169,7 +169,7 @@ const VideoMeeting = (props) => {
                         <div className="doctor-meeting-page-video-container">
                             {!renderTestButtons &&
                             <Image
-                                src={meeting}
+                                src={appointmentDetail?.patient?.user?.dp}
                                 alt="Patient Image"
                                 className="meeting-video"
                             />
