@@ -76,7 +76,7 @@ class MessageList extends Component {
                                         <ul className="chat-msg-info">
                                             <li>
                                                 <div className="chat-time">
-                                                    <span>{moment(message.created_at).format('LT')}</span>
+                                                <span>{moment(message.created_at).format('DD/MM/YYYY')}&nbsp;</span><span>{moment(message.created_at).format('LT')}</span>
                                                 </div>
                                             </li>
                                         </ul>

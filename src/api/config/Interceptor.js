@@ -86,6 +86,7 @@ instance.interceptors.response.use(
             // return axios(originalRequest);
           }
         }).catch(function (error) {
+          localStorage.clear();
           window.location.href="/";
         })
     }
