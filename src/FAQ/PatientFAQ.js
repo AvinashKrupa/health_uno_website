@@ -50,7 +50,7 @@ const data = [
   {
     title: "What is our cancellation policy?",
     type: "URL",
-    description: "Checkout our cancelation policy",
+    description: "Checkout our cancellation policy",
   },
   {
     title: "How can I cancel & reschedule my appointment?",

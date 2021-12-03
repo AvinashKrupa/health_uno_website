@@ -73,7 +73,8 @@ const EditDoctorProfileColumn = (props) => {
                     <span className="doctor-name">{`Dr ${firstName} ${lastName}`}</span>
                 </Col>
                 <Col lg="12">
-                    <span className="doctor-detail">+91 - {mobile} | Id: #{doctorMedId}</span>
+                <div><span className="doctor-detail">+91 - {mobile} </span></div>
+                    <div><span className="doctor-detail"> Id: &nbsp; <span style={{color:  "#28a3da"}}>#{doctorMedId}</span></span></div>
                 </Col>
                 <Col lg="12">
                     <div style={{

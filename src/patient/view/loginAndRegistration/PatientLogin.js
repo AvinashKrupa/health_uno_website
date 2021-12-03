@@ -87,9 +87,11 @@ const PatientLogin = ({ history }) => {
       onClick();
     }, 1000);
   }
-
+  const token = localStorage.getItem("ACCESS_TOKEN");
+  const userType = localStorage.getItem("USER_TYPE");
   return (
     <>
+    {token && userType == 1 ?history.push("/patient/home"):
       <Container fluid>
         <Row className="login-container LoginPageDoctor">
           <Col className="left-nav">
@@ -233,6 +235,7 @@ const PatientLogin = ({ history }) => {
           </Col>
         </Row>
       </Container>
+}
     </>
   );
 };

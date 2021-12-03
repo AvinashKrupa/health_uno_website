@@ -1,6 +1,7 @@
 import { Row, Col, Button, InputGroup, Image } from "react-bootstrap";
 import CheckboxList from "../../../commonComponent/CheckboxList";
 import InputRange from "react-input-range";
+import Input from "../../../commonComponent/Input"
 import {API, get} from '../../../api/config/APIController';
 import { useEffect, useState } from "react";
 import { useToasts } from 'react-toast-notifications';
@@ -78,7 +79,8 @@ const FilterConsultants = (props) => {
         props.toggleSidebar()
     }
 
-    function onExperienceSelect(value) {
+    function onExperienceSelect() {
+      let value = document.getElementById("experience").value;
         setExperience(value)
     }
 
@@ -195,12 +197,7 @@ const FilterConsultants = (props) => {
               Min Experience (In years)
             </div>
                   <Col>
-                      <SelectWithoutDefault
-                          value={experience}
-                          id="experience"
-                          options={EXPERIENCE_LIST}
-                          handleSelect={onExperienceSelect}
-                      />
+                      <Input type="number" id="experience" onChange={onExperienceSelect} />
                   </Col>
               </Col>
           </Row>

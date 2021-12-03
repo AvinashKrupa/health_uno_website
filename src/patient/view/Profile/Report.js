@@ -128,17 +128,16 @@ const Report = (props) => {
   return (
     <>
       <Row>
-        <Col className="report-page-left-navbar" />
         <Col className="report-page-content-container">
-          <Row style={{ marginTop: "32px" }}>
+          <Row style={{ marginTop: "25px" }}>
             <span className="report-page-text-heading">Reports</span>
           </Row>
           <Row
             className="report-page-card-container"
-            style={{ marginTop: "43px" }}
+            style={{ marginTop: "15px" }}
           >
             <Row
-              style={{ marginTop: "28px", marginLeft: "32px" }}
+              style={{ marginTop: "28px", marginLeft: "4px" }}
               className="padding-0"
             >
               <Col className="padding-0">
@@ -158,7 +157,7 @@ const Report = (props) => {
                       ? "report-page-text-type-selected"
                       : "report-page-text-type-unselected"
                   }
-                  style={{ marginLeft: "16px" }}
+                  style={{ marginLeft: "50px" }}
                   onClick={handleSelection}
                 >
                   Investigations
@@ -167,7 +166,7 @@ const Report = (props) => {
               <Col className="padding-0"></Col>
             </Row>
             {prescriptionsSelected ? (
-              <Row>
+              <Row style={{marginLeft: "-40px"}}>
                 <InputGroup>
                   <InfiniteScroll
                     dataLength={prescriptionReports.length}
@@ -203,7 +202,7 @@ const Report = (props) => {
             ) : null}
             {investigationsSelected ? (
               <Row>
-                <InputGroup>
+                <InputGroup style={{marginLeft: "-23px"}}>
                   <InfiniteScroll
                     dataLength={investigationsReports.length}
                     next={fetchMoreData}

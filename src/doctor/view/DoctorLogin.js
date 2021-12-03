@@ -86,9 +86,11 @@ const DoctorLogin = ({ history }) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
   };
-
+  const token = localStorage.getItem("ACCESS_TOKEN");
+  const userType = localStorage.getItem("USER_TYPE");
   return (
     <>
+    {token && userType == 2 ? history.push("/doctor/home") :
       <Container fluid>
         <Row className="login-container LoginPageDoctor">
           <Col className="left-nav">
@@ -230,6 +232,7 @@ const DoctorLogin = ({ history }) => {
           </Col>
         </Row>
       </Container>
+}
     </>
   );
 };

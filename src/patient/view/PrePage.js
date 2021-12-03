@@ -3,7 +3,16 @@ import {Button, Col, Container, Row,} from "react-bootstrap";
 
 
 const PrePage = ({history}) => {
-
+    const userType = localStorage.getItem("USER_TYPE");
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    if(token){
+        if(userType && userType == 1 ){
+            history.push("/patient/home");
+        }
+        else if (userType && userType ==2){
+            history.push ("/doctor/home");
+        }
+    }
 
     return (
         <div className="landingPrePage">

@@ -82,7 +82,9 @@ const EditProfilePictureColumn = (props) => {
                     <span className="doctor-name">{props.doctorName}</span>
                 </Col>
                 <Col lg="12">
-                    <span className="doctor-detail">+91 - {props.doctorMobile} | HealthUno Id: {props.userId}</span>
+                    <div >
+                    <span className="doctor-detail">+91 - {props.doctorMobile} </span></div>
+                    <div><span className="doctor-detail">HealthUno Id: <span style={{color: "#28a3da"}}>&nbsp;{props.userId}</span></span></div> 
                 </Col>
                 <Col>
                     <Row style={{cursor: 'pointer'}}>
