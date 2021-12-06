@@ -1,4 +1,4 @@
-const io = require("socket.io-client");
+const { io } = require("socket.io-client");
 const URL = process.env.REACT_APP_SOCKET_MANAGER_URL;
 // const URL = "http://localhost:3007";
 const options = {

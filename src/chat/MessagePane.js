@@ -134,7 +134,7 @@ class MessagePane extends Component {
             this.state.socketObj.emit("sendMessage", finalMessage);
             let messages = this.state.messages;
             messages.push(finalMessage);
-            this.setState({text: "", messages: messages})
+            this.setState({text: "", messages: messages}, () => this.refs.messageList.scrollToBottom())
         }
 
     }
@@ -169,7 +169,7 @@ class MessagePane extends Component {
                         </div>
                     </div>
                 </div>
-                <MessageList messages={this.state.messages} user_id={this.state.user_id}
+                <MessageList ref="messageList" messages={this.state.messages} user_id={this.state.user_id}
                              loadMessagesForUser={this.loadMessagesForUser} pageId={this.state.pageId} shouldScrollMore={this.state.shouldScrollMore} loadingChatIndicator={this.state.loading}/>
                 <div className="chat-footer">
                     <div className="message-type">
