@@ -33,8 +33,14 @@ const Appointments = (props) => {
   const handleSelection = () => {
     setUpcoming(!upcoming);
     setPrevious(!previous);
+    if(upcoming){
+      getUpcomingAppointments();
+    }else if(previous){
+      getPreviousAppointments();
+    }
     handleSetLocalStorage(!previous);
   };
+  
 
   const handleSetLocalStorage = (value) => {
     if (value) {
