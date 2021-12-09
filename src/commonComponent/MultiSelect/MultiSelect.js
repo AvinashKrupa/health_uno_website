@@ -10,12 +10,12 @@ import Select from "@material-ui/core/Select";
 
 import { MenuProps, useStyles } from "./utils";
 
-const MultiSelect = ({ label, options, selected, handleChange, className }) => {
+const MultiSelect = ({ label, options, selected, handleChange, className, labelBold }) => {
   const classes = useStyles();
 
   return (
     <FormControl className={`${className} ${classes.formControl}`}>
-      <Form.Label className={classes.label}>{label}</Form.Label>
+      <Form.Label className={`${classes.label} ${labelBold ? labelBold : ''}`}>{label}</Form.Label>
       <Select
         labelId="mutiple-select-label"
         multiple
@@ -23,15 +23,15 @@ const MultiSelect = ({ label, options, selected, handleChange, className }) => {
         value={selected}
         onChange={handleChange}
         renderValue={(selected) =>{
-          return selected.map((obj) => options.find(option=>option.id == obj).value).join(", ")
+          return selected.map((obj) => options && options.find(option=>option.id == obj).value).join(", ")
         }}
         MenuProps={MenuProps}
         disableUnderline
       >
-        {options.map((option) => (
+        {options && options.map((option) => (
           <MenuItem key={option.id} value={option.id}>
             <ListItemIcon>
-              <Checkbox checked={selected.indexOf(option.id) > -1} />
+              <Checkbox checked={selected && selected.indexOf(option.id) > -1} />
             </ListItemIcon>
             <ListItemText primary={option.value} />
           </MenuItem>
