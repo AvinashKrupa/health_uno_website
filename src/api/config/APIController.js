@@ -27,6 +27,7 @@ export const API = {
   GETMESSAGES: 'chat/getMessages',
   UPLOADREPORT: 'patient/uploadReport',
   GETREPORTS: 'patient/getReports',
+  DELETEREPORT: 'patient/deleteReport',
   GET_PRESCRIPTIONS: 'patient/getPrescriptions',
   APPLY_COUPON: 'coupon/checkDiscount',
   /**

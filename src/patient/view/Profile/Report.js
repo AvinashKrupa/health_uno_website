@@ -12,6 +12,7 @@ const Report = (props) => {
   const [totalPrescription, setTotalPrescription] = useState(0);
   const [page, setPage] = useState(1);
   const [prescriptionPage, setPrescriptionPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getInvestigationsReports();
@@ -120,6 +121,32 @@ const Report = (props) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
   }
+
+  const handleDeleteReport = (id) => {
+    setIsLoading(true);
+    let params = {
+      report_id: id,
+    };
+
+    if (id && !isLoading) {
+      post(API.DELETEREPORT, params)
+        .then((response) => {
+          if (response.status == 200) {
+            setIsLoading(false);
+            addToast(response.data.message, { appearance: "success" });
+            getInvestigationsReports();
+          } else {
+            setIsLoading(false);
+            addToast(response.data.message, { appearance: "error" });
+          }
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          addToast(error.message, { appearance: "error" });
+        });
+    }
+  };
+
   const fetchMorePrescriptionData = () => {
     if (totalPrescription > prescriptionReports.length) {
       getPrescriptionsReports("asc", true);
@@ -166,7 +193,7 @@ const Report = (props) => {
               <Col className="padding-0"></Col>
             </Row>
             {prescriptionsSelected ? (
-              <Row style={{marginLeft: "-40px"}}>
+              <Row style={{ marginLeft: "-40px" }}>
                 <InputGroup>
                   <InfiniteScroll
                     dataLength={prescriptionReports.length}
@@ -202,7 +229,7 @@ const Report = (props) => {
             ) : null}
             {investigationsSelected ? (
               <Row>
-                <InputGroup style={{marginLeft: "-23px"}}>
+                <InputGroup style={{ marginLeft: "-23px" }}>
                   <InfiniteScroll
                     dataLength={investigationsReports.length}
                     next={fetchMoreData}
@@ -222,6 +249,9 @@ const Report = (props) => {
                             <ReportCard
                               report={report}
                               history={props.history}
+                              handleDelete={handleDeleteReport}
+                              isDeleted={true}
+                              isLoading={isLoading}
                             />
                           );
                         })}
