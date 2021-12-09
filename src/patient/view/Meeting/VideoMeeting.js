@@ -232,7 +232,9 @@ const VideoMeeting = (props) => {
                     ))}
                   </div>
                 )}
-                <p className="meeting-page-text-below-image">
+                <a href="javascript:void(0)" className="meeting-page-text-below-image" onClick={() => {
+                  props.history.push('/patient/profile/support')
+                }}>
                   <Image
                     src={help}
                     alt="Help Circle"
@@ -240,7 +242,7 @@ const VideoMeeting = (props) => {
                     style={{ marginRight: "16px" }}
                   />
                   Need Help?
-                </p>
+                </a>
               </Col>
               <Col className="meeting-page-column-content">
                 <Row className="doctor-meeting-patient-info-container">
