@@ -23,6 +23,8 @@ const TopConsultants = (props) => {
   const [searchClear, setSearchClear] = useState(false);
   const [page, setPage] = useState(1);
   const [totalConsultants, setTotalConsultants] = useState(0);
+  const [filters, setFilters] = useState("");
+  const [isFiltered, setIsFiltered] = useState(false);
   useEffect(() => {
     const searchInput = document.getElementById('top-const-search')
     searchInput.focus();
@@ -37,10 +39,12 @@ const TopConsultants = (props) => {
   }, []);
 
   function callBackFilter(data) {
-    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages, data.experience, data.selectedSpecialities);
+    setFilters(data);
+    setIsFiltered(true);
+    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages, data.experience, data.selectedSpecialities, data.gender);
   }
 
-  function getTopConsultants(sortBy = 'asc', min = '100', max = '5000' , lang = [], exp, specialities,  isPagination = false,) {
+  function getTopConsultants(sortBy = 'asc', min = '100', max = '5000' , lang = [], exp, specialities = [], gen='',  isPagination = false,) {
     let params = {
       limit: 40,
       page: isPagination ? page : 1,
@@ -51,6 +55,7 @@ const TopConsultants = (props) => {
         ...exp && {exp: Number(exp)},
         language: lang,
         specialities: specialities,
+        gender: gen,
       },
       sort_order: sortBy,
       sort_key: 'first_name',
@@ -111,6 +116,7 @@ const TopConsultants = (props) => {
   }
   const fetchMoreData = () => {
     if(totalConsultants > consultants.length){
+      isFiltered ? getTopConsultants(filters.sortBy, filters.min, filters.max, filters.selectedLanguages, filters.experience, filters.gender, true) : 
       getTopConsultants('asc','',  '', '' , '', '', true)
     }
   };

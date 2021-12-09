@@ -6,10 +6,14 @@ import { API, get } from "../../../api/config/APIController";
 import { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import "react-input-range/lib/css/index.css";
-import CustomButton from "../../../commonComponent/Button";
+import CustomButton from '../../../commonComponent/Button'
 import MultiSelect from "../../../commonComponent/MultiSelect/MultiSelect";
+import Select from '../../../commonComponent/Select'
+import {EXPERIENCE_LIST} from "./constants";
+import SelectWithoutDefault from "../../../commonComponent/SelectWithoutDefault";
 
 let isDefaultSet = true;
+let genderOptions = ["Male", "Female", "Other"];
 
 const FilterConsultants = (props) => {
   useEffect(() => {
@@ -27,6 +31,7 @@ const FilterConsultants = (props) => {
   const [selectedSpecialities, setSelectedSpecialities] = useState([]);
   const [sortBy, setSortBy] = useState("asc");
   const [experience, setExperience] = useState(10);
+  const [gender, setGender] = useState("");
 
   function getLanguage() {
     get(API.GETLANGUAGE)
@@ -105,6 +110,7 @@ const FilterConsultants = (props) => {
       sortBy,
       experience,
       selectedSpecialities,
+      gender
     });
     props.toggleSidebar();
   }
@@ -213,6 +219,17 @@ const FilterConsultants = (props) => {
               formatLabel={(value) => `₹ ${value}`}
               onChangeComplete={null}
             />
+          </Row>
+          <Row style={{ marginTop: "33px" }}>
+            <span className="filter_menu_h4">Gender</span>
+            <Select
+                  // label="Gender"
+                  placeholder="Select gender"
+                  id="gender"
+                  value={gender}
+                  options={genderOptions}
+                  handleSelect={setGender}
+                />
           </Row>
           <Row style={{ marginTop: "33px" }}>
             <span
