@@ -37,10 +37,10 @@ const TopConsultants = (props) => {
   }, []);
 
   function callBackFilter(data) {
-    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages, data.experience);
+    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages, data.experience, data.selectedSpecialities);
   }
 
-  function getTopConsultants(sortBy = 'asc', min = '100', max = '5000' , lang = [],exp, isPagination = false,) {
+  function getTopConsultants(sortBy = 'asc', min = '100', max = '5000' , lang = [], exp, specialities,  isPagination = false,) {
     let params = {
       limit: 40,
       page: isPagination ? page : 1,
@@ -50,6 +50,7 @@ const TopConsultants = (props) => {
         fee_max: Number(max),
         ...exp && {exp: Number(exp)},
         language: lang,
+        specialities: specialities,
       },
       sort_order: sortBy,
       sort_key: 'first_name',
@@ -110,7 +111,7 @@ const TopConsultants = (props) => {
   }
   const fetchMoreData = () => {
     if(totalConsultants > consultants.length){
-      getTopConsultants('asc','',  '', '' , '', true)
+      getTopConsultants('asc','',  '', '' , '', '', true)
     }
   };
   return (
