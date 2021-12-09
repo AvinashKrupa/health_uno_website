@@ -36,6 +36,7 @@ import {useToasts} from "react-toast-notifications";
 import FAQ from './FAQ';
 import PatientFAQ from './FAQ/PatientFAQ';
 import GeneralTermsAndConditions from './commonComponent/GeneralTermsandConditions';
+import ReferInvite from './commonComponent/ReferInvite';
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
     <BrowserRouter>
     <Switch>
       <Route exact path="/" component={PrePage}/>
+      <Route exact path="/refer_invite" component={ReferInvite}/>
       <Route exact path="/patient" component={PatientLogin}/>
       <Route exact path="/doctor" component={DoctorLogin}/>
       <PrivateRoute exact path='/doctor/otp' component={DoctorOTP}/>
