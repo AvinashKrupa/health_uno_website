@@ -123,12 +123,12 @@ const Report = (props) => {
   }
 
   const handleDeleteReport = (id) => {
-    setIsLoading(true);
     let params = {
       report_id: id,
     };
-
+    
     if (id && !isLoading) {
+      setIsLoading(true);
       post(API.DELETEREPORT, params)
         .then((response) => {
           if (response.status == 200) {
