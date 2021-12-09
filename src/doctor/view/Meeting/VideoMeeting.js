@@ -179,15 +179,17 @@ const VideoMeeting = (props) => {
                                     streams.map(s => <Video stream={s}/>)
                                 }
                             </div>}
-                            <div className="doctor-meeting-page-help">
+                            <a href="javascript:void(0)" className="meeting-page-text-below-image" onClick={() => {
+                                props.history.push('/doctor/profile/support')
+                            }}>
                                 <Image
                                     src={help}
                                     alt="Help Circle"
-                                    className="doctor-meeting-need-help-button"
-                                    style={{marginRight: "16px"}}
+                                    calssName="meeting-page-help-circle"
+                                    style={{ marginRight: "16px" }}
                                 />
                                 Need Help?
-                            </div>
+                            </a>
                         </div>
                         <div className="doctor-meeting-page-column-content">
                             <div className='doctor-meeting-patient-info-container'>
