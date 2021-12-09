@@ -6,6 +6,7 @@
   flex-wrap: wrap;
 
   .doctor-meeting-page-video-container {
+    height: 10%;
     min-width: 400px;
     display: flex;
     flex-direction: column;
@@ -27,7 +28,7 @@
       line-height: 20px !important;
       letter-spacing: -0.30000001192092896px;
       text-align: center;
-      //margin-top: 146px;
+      margin-top: 146px;
     }
     .doctor-meeting-need-help-button {
       height: 24px;
@@ -37,7 +38,7 @@
 
   .doctor-meeting-page-column-content {
     margin-top: 40px;
-    //margin-left: 160px;
+    max-width: 40%;
     .meeting-testing-button-container {
       display: flex;
       flex-direction: column;
@@ -224,5 +225,10 @@
     .meeting-testing-button-container
     .testing-button {
     width: auto !important;
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .doctor-meeting-page-column-content {
+    max-width: 100% !important;
   }
 }

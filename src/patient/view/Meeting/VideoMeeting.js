@@ -325,6 +325,7 @@ const VideoMeeting = (props) => {
                   <Row className="meeting-button" xs="2">
                       {appointmentDetail.status === 'scheduled' && !renderTestButtons && (
                         <Button
+                          style={{marginRight: "1%"}}
                           className="meeting-page-button-white"
                           onClick={() => checkPermissions()}
                         >
