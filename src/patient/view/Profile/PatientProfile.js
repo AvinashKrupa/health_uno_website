@@ -40,7 +40,7 @@ const PatientProfile = (props) => {
                     }
                     {
                         type === 'invite' && (
-                            <Invite></Invite>
+                            <Invite huno_id={additionalInfo?.huno_id}></Invite>
                         )
                     }
                     {

@@ -158,7 +158,7 @@ const VideoMeeting = (props) => {
             {appointmentDetail &&
             <Row>
                 <Col lg='1' sm='1' xs='1'/>
-                <Col lg="10" sm="10" xs='10'>
+                <Col lg="10" sm="10" xs='10' style={{marginTop: "32px", marginLeft: "30px"}}>
                     <Row className='back-navigation'>
                         <div className="back-nav-container-dr">
                             <img src={back_icon} alt='back_icon-img' onClick={() => props.history.goBack()}></img>
@@ -231,7 +231,7 @@ const VideoMeeting = (props) => {
                                     Test Video and Audio
                                 </Button>}
                                 {appointmentDetail.status !== "ongoing" &&
-                                <Button style={{ marginLeft: '20px' }} disabled={!(enableMeetingButton || appointmentDetail.status === "ongoing")}
+                                <Button style={{ marginLeft: '10px' }} disabled={!(enableMeetingButton || appointmentDetail.status === "ongoing")}
                                         className="doctor-meeting-join-meeting-button" onClick={() => openMeeting()}>
                                     Join Meeting
                                 </Button>}
@@ -243,7 +243,7 @@ const VideoMeeting = (props) => {
                                 </Button>}
                                 {appointmentDetail.status === "ongoing" &&
                                 <Button className="doctor-meeting-join-meeting-button"
-                                        style={{backgroundColor: '#F15D4A', marginLeft: '20px' }}
+                                        style={{backgroundColor: '#F15D4A', marginLeft: '10px' }}
                                         onClick={() => endAppointment()}>
                                     End Meeting
                                 </Button>}

@@ -97,6 +97,7 @@ const FilterConsultants = (props) => {
     setMinMax({ min: 100, max: 5000 });
     setSortBy("asc");
     setExperience(10);
+    setGender('')
     setSelectedSpecialities([]);
   }
 
@@ -117,6 +118,9 @@ const FilterConsultants = (props) => {
 
   function onExperienceSelect() {
     let value = document.getElementById("experience").value;
+    if(value < 0){
+      value= value * -1
+    }
     setExperience(value);
   }
 
@@ -270,6 +274,8 @@ const FilterConsultants = (props) => {
               <Col>
                 <Input
                   type="number"
+                  min="0"
+                  value={experience}
                   id="experience"
                   onChange={onExperienceSelect}
                 />
@@ -279,6 +285,7 @@ const FilterConsultants = (props) => {
           <Row>
             <Col md>
               <MultiSelect
+                isPositionTop={true}
                 label="Specialities"
                 className="languageSelection"
                 labelBold="filter_menu_h4"
