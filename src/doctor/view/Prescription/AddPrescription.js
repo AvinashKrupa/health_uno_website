@@ -938,6 +938,7 @@ const AddPrescription = (props) => {
                       key={`select-height`}
                       label="Height"
                       defaultValue="Select"
+                      disabled={true}
                       value={props.location?.state?.patientHeight}
                       options={patientHeight}
                       handleSelect={() => null}
@@ -948,6 +949,7 @@ const AddPrescription = (props) => {
                       key={`select-weight`}
                       label="Weight"
                       defaultValue="Select"
+                      disabled={true}
                       value={props.location?.state?.patientWeight}
                       options={patientWeight}
                       handleSelect={() => null}

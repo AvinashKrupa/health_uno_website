@@ -5,7 +5,7 @@ const SelectorForMedicine = (props) => {
     <Form.Group>
       <br />
       <Form.Label>{props.label}</Form.Label>
-      <select className="form-select" name={props.name} value={props.value} onChange={(e) => {
+      <select disabled={props.disabled} className="form-select" name={props.name} value={props.value} onChange={(e) => {
           props.handleSelect(e.target.value)
       }}>
         <option defaultValue={props.defaultValue}>{props.defaultValue}</option>
