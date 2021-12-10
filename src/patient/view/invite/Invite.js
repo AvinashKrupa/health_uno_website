@@ -20,12 +20,16 @@ import ModalDialog from "../../../commonComponent/ModalDialog";
 const Invite = (props) => {
   const [showShare, setShowShare] = useState(false);
 
-  const [copyContent, setCopyContent] = useState("https://healthunoapp/invite");
+  const [copyContent, setCopyContent] = useState("http://onelink.to/jaysu6");
 
   const handleCopy = (e) => {
     e.preventDefault();
     setCopyContent(e.target.value)
   }
+
+  const shareURL = 'http://onelink.to/jaysu6'
+
+  const shareMessage = `I'm inviting you to use the Healthuno app. Use the Healthuno app to receive new rewards for each referral and exclusive access to the Healthuno Health Club Membership plan (Launching soon) Here's my code: ${props.huno_id}- Just enter it during registration.\nT&C apply!! \n ${process.env.REACT_APP_BASE_URL}refer_invite\nDownload the application now to get benefits: `
 
 
   return (
@@ -43,9 +47,9 @@ const Invite = (props) => {
               </div>
               <div className="invite-link">
                 <form>
-                  <input type="text" value="https://healthunoapp/invite" readOnly onChange={(e) => handleCopy(e)} />
+                  <input type="text" value={shareURL} readOnly onChange={(e) => handleCopy(e)} />
 
-                  <CopyToClipboard text={'https://healthunoapp/invite'}
+                  <CopyToClipboard text={shareURL}
                   >
                     <button className="copy-button" >
                       Copy Code
@@ -64,21 +68,21 @@ const Invite = (props) => {
           </Col>
         </Row>
       </Row>
-      <ModalDialog onSubmit={()=>setShowShare(!showShare)} title="Send Invitation" show={showShare} closeDialog={() => setShowShare(!showShare)}>
+      <ModalDialog onSubmit={()=>setShowShare(!showShare)} title="Send Invitation" isConfirm={true} show={showShare} closeDialog={() => setShowShare(!showShare)}>
         <div className="share-buttons">
-          <WhatsappShareButton url="https://healthunoapp/invite">
+          <WhatsappShareButton title={shareMessage} url={shareURL} >
             <WhatsappIcon  size={50} round={true} />
           </WhatsappShareButton>
-          <EmailShareButton url="https://healthunoapp/invite" >
+          <EmailShareButton title={shareMessage} url={shareURL}>
             <EmailIcon size={50} round={true} />
           </EmailShareButton>
-          <TwitterShareButton url="https://healthunoapp/invite">
+          <TwitterShareButton title={shareMessage} url={shareURL} >
             <TwitterIcon  size={50} round={true}/>
           </TwitterShareButton>
-          <FacebookShareButton url="https://healthunoapp/invite">
+          <FacebookShareButton title={shareMessage} url={shareURL} >
             <FacebookIcon size={50} round={true} />
           </FacebookShareButton>
-          <LinkedinShareButton url="https://healthunoapp/invite">
+          <LinkedinShareButton title={shareMessage} url={shareURL}>
             <LinkedinIcon size={50} round={true} />
           </LinkedinShareButton>
         </div>

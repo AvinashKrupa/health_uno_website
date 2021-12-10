@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
   selectAllText: {
     fontWeight: 500,
   },
+  root: {
+    whiteSpace: "unset",
+    wordBreak: "break-all"
+  }
 }));
 
 const ITEM_HEIGHT = 48;
@@ -43,4 +47,23 @@ const MenuProps = {
   variant: "menu",
 };
 
-export { useStyles, MenuProps };
+const TopMenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+  getContentAnchorEl: null,
+  anchorOrigin: {
+    vertical: "bottom",
+    horizontal: "center",
+  },
+  transformOrigin: {
+    vertical: "bottom",
+    horizontal: "center",
+  },
+  variant: "menu",
+};
+
+export { useStyles, MenuProps, TopMenuProps };

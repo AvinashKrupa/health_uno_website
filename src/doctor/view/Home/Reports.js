@@ -132,7 +132,7 @@ const Reports = (props) => {
   return (
     <>
       <Row>
-        <Col className="report-page-left-navbar" />
+        {/* <Col lg={1} className="report-page-left-navbar" /> */}
         <Col className="report-page-content-container">
           <Row className="back-navigation">
             <div className="back-nav-container-dr">

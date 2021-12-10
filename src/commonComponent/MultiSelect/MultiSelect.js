@@ -8,9 +8,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import { MenuProps, useStyles } from "./utils";
+import { MenuProps, TopMenuProps, useStyles } from "./utils";
 
-const MultiSelect = ({ label, options, selected, handleChange, className, labelBold }) => {
+const MultiSelect = ({ label, options, selected, handleChange, className, labelBold, isPositionTop }) => {
   const classes = useStyles();
 
   return (
@@ -25,11 +25,11 @@ const MultiSelect = ({ label, options, selected, handleChange, className, labelB
         renderValue={(selected) =>{
           return selected.map((obj) => options && options.find(option=>option.id == obj).value).join(", ")
         }}
-        MenuProps={MenuProps}
+        MenuProps={isPositionTop ? TopMenuProps : MenuProps}
         disableUnderline
       >
         {options && options.map((option) => (
-          <MenuItem key={option.id} value={option.id}>
+          <MenuItem key={option.id} className={classes.root} value={option.id}>
             <ListItemIcon>
               <Checkbox checked={selected && selected.indexOf(option.id) > -1} />
             </ListItemIcon>

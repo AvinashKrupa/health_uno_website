@@ -8,9 +8,11 @@ import UpdateSchedule from "./UpdateSchedule";
 import AboutUs from "../../../commonComponent/AboutUs";
 import FAQ from "../../../FAQ";
 import TermsAndCondition from "../../../commonComponent/TermsandConditions";
+import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const DoctorProfile = (props) => {
     const type = props.match.params.type
+    const additional_info = JSON.parse(getData("additional_info"))
     const [profilePic,setProfilePic]=useState("");
     const [reloadSideColumn, setReloadSideColumn] = useState(false);
 
@@ -34,7 +36,7 @@ const DoctorProfile = (props) => {
                     }
                     {
                         type === 'invite' && (
-                            <Invite></Invite>
+                            <Invite huno_id={additional_info?.huno_id}></Invite>
                         )
                     }
                     {
