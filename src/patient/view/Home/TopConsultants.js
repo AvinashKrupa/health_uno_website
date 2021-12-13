@@ -1,50 +1,95 @@
-import { Row, Col} from "react-bootstrap";
-import {API, get, post} from '../../../api/config/APIController';
+import { Row, Col } from "react-bootstrap";
+import { API, get, post } from "../../../api/config/APIController";
 import { useEffect } from "react";
-import {useToasts} from 'react-toast-notifications';
+import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
-import Grid from '@material-ui/core/Grid';
-import useSearchStore from '../../store/searchStore';
-import SearchInputWithIcon from '../../../commonComponent/SearchInputWithIcon';
-import TopConsultantsFilter from '../../commonComponentPatient/TopConsultantsFilter'
+import Grid from "@material-ui/core/Grid";
+import useSearchStore from "../../store/searchStore";
+import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
+import TopConsultantsFilter from "../../commonComponentPatient/TopConsultantsFilter";
 import { Button } from "react-bootstrap";
 import { filter } from "../../../constants/PatientImages";
-import SimilarDoctorsCard  from '../doctorDetail/SimilarDoctorsCard'
+import SimilarDoctorsCard from "../doctorDetail/SimilarDoctorsCard";
 import { back_icon } from "../../../constants/DoctorImages";
-import InfiniteScroll from"react-infinite-scroll-component";
+import InfiniteScroll from "react-infinite-scroll-component";
 import Label from "../../../commonComponent/Label";
 
 const TopConsultants = (props) => {
   let timer = null;
   const { addToast } = useToasts();
-  let [searchText, setSearchText] = useState(useSearchStore(state => state.searchText));
+  let [searchText, setSearchText] = useState(
+    useSearchStore((state) => state.searchText)
+  );
+  let [searchSpeciality, setSearchSpeciality] = useState(
+    useSearchStore((state) => state.searchSpeciality)
+  );
   let [consultants, setConsultant] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchClear, setSearchClear] = useState(false);
   const [page, setPage] = useState(1);
   const [totalConsultants, setTotalConsultants] = useState(0);
-  const [filters, setFilters] = useState("");
-  const [isFiltered, setIsFiltered] = useState(false);
+  const [filters, setFilters] = useState({
+    sortBy: "asc",
+    min: "100",
+    max: "5000",
+    lang: [],
+    exp: "",
+    specialities: searchSpeciality ? [searchSpeciality] : [],
+    gen: "",
+  });
+  const [isFiltered, setIsFiltered] = useState(true);
   useEffect(() => {
-    const searchInput = document.getElementById('top-const-search')
+    const searchInput = document.getElementById("top-const-search");
     searchInput.focus();
-      getTopConsultants();
+    setTimeout(() => {
+      getTopConsultants(
+        filter.sortBy,
+        filter.min,
+        filter.max,
+        filter.lang,
+        filter.exp,
+        filters.specialities,
+        filter.gen
+      );
+    }, 500);
   }, [searchText]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      filters.specialities = searchSpeciality ? [searchSpeciality] : [];
+    }, 300);
+  }, []);
 
   useEffect(() => {
-      document.querySelectorAll('[role="navigation"]').forEach(function (el){
-        el.classList.add("filter-list-close");
-        });
+    document.querySelectorAll('[role="navigation"]').forEach(function (el) {
+      el.classList.add("filter-list-close");
+    });
   }, []);
 
   function callBackFilter(data) {
     setFilters(data);
     setIsFiltered(true);
-    getTopConsultants(data.sortBy, data.min, data.max, data.selectedLanguages, data.experience, data.selectedSpecialities, data.gender);
+    getTopConsultants(
+      data.sortBy,
+      data.min,
+      data.max,
+      data.selectedLanguages,
+      data.experience,
+      data.selectedSpecialities,
+      data.gender
+    );
   }
 
-  function getTopConsultants(sortBy = 'asc', min = '100', max = '5000' , lang = [], exp, specialities = [], gen='',  isPagination = false,) {
+  function getTopConsultants(
+    sortBy = "asc",
+    min = "100",
+    max = "5000",
+    lang = [],
+    exp,
+    specialities = [],
+    gen = "",
+    isPagination = false
+  ) {
     let params = {
       limit: 40,
       page: isPagination ? page : 1,
@@ -52,99 +97,132 @@ const TopConsultants = (props) => {
         text: searchText,
         fee_min: Number(min),
         fee_max: Number(max),
-        ...exp && {exp: Number(exp)},
+        ...(exp && { exp: Number(exp) }),
         language: lang,
         specialities: specialities,
         gender: gen,
       },
       sort_order: sortBy,
-      sort_key: 'first_name',
+      sort_key: "first_name",
     };
     post(API.GETTOPCONSULTANT, params)
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
-          setTotalConsultants(response.data.data.total)
-          if(isPagination) {
-            setPage(page + 1)
-            if(page > 1){
+          setTotalConsultants(response.data.data.total);
+          if (isPagination) {
+            setPage(page + 1);
+            if (page > 1) {
               setConsultant([...consultants, ...response.data.data.docs]);
-            }else{
+            } else {
               setConsultant(response.data.data.docs);
             }
-            } else {
-              if(!searchClear){
-                setPage(page + 1)
-              }
-              setConsultant(response.data.data.docs);
+          } else {
+            if (!searchClear) {
+              setPage(page + 1);
+            }
+            setConsultant(response.data.data.docs);
           }
-
         } else {
           addToast(response.data.message, { appearance: "error" });
         }
       })
-      .catch(error => {
-        addToast(error && error.response && error.response.data && error.response.data.message, { appearance: "error" });
+      .catch((error) => {
+        addToast(
+          error &&
+            error.response &&
+            error.response.data &&
+            error.response.data.message,
+          { appearance: "error" }
+        );
       });
   }
 
-
   function debounce(txt) {
     clearTimeout(timer);
-    timer = setTimeout(function() {
-      if(!txt){
-        setSearchClear(true)
-      }else{
-        setPage(1)
-        setSearchClear(false)
+    timer = setTimeout(function () {
+      if (!txt) {
+        setSearchClear(true);
+      } else {
+        setPage(1);
+        setSearchClear(false);
       }
       setSearchText(txt);
     }, 1000);
   }
 
   const toggleSidebar = () => {
-    if(sidebarOpen) {
-      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+    if (sidebarOpen) {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el) {
         el.classList.add("filter-list-close");
-        });
+      });
     } else {
-      document.querySelectorAll('[role="navigation"]').forEach(function (el){
+      document.querySelectorAll('[role="navigation"]').forEach(function (el) {
         el.classList.remove("filter-list-close");
-        });
+      });
     }
 
     setSidebarOpen(!sidebarOpen);
-  }
+  };
   const fetchMoreData = () => {
-    if(totalConsultants > consultants.length){
-      isFiltered ? getTopConsultants(filters.sortBy, filters.min, filters.max, filters.selectedLanguages, filters.experience, filters.gender, true) : 
-      getTopConsultants('asc','',  '', '' , '', '', true)
+    if (totalConsultants > consultants.length) {
+      isFiltered
+        ? getTopConsultants(
+            filters.sortBy,
+            filters.min,
+            filters.max,
+            filters.selectedLanguages,
+            filters.experience,
+            filter.specialities,
+            filters.gender,
+            true
+          )
+        : getTopConsultants("asc", "", "", "", "", "", "", true);
     }
   };
   return (
     <div>
-      <TopConsultantsFilter sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} callBackFilter={callBackFilter}/>
-      <Row className='top-consultants-container'>
-        <Col lg="1"  sm="1" xs='1' />
-        <Col lg="10" sm="10" xs='10' className='screen-768'>
+      <TopConsultantsFilter
+        sidebarOpen={sidebarOpen}
+        toggleSidebar={toggleSidebar}
+        callBackFilter={callBackFilter}
+        initialSelectedSpecialities={filters.specialities}
+      />
+      <Row className="top-consultants-container">
+        <Col lg="1" sm="1" xs="1" />
+        <Col lg="10" sm="10" xs="10" className="screen-768">
           {/* <div className='back-navigation'>
             <button><i class="fas fa-arrow-left" style={{cursor: 'pointer', paddingRight: '27px'}} onClick={() =>  props.history.push('/patient/home')}></i><span>Top Consultants</span></button>
           </div> */}
           <button className="back-nav-container back-navigation">
-                    <img src={back_icon} alt='back_icon-img' onClick={() =>  props.history.push('/patient/home')}></img>
-                    <span>Top Consultants</span>
+            <img
+              src={back_icon}
+              alt="back_icon-img"
+              onClick={() => props.history.push("/patient/home")}
+            ></img>
+            <span>Top Consultants</span>
           </button>
-          <div className='search-container' style={{display: "flex", justifyContent:'space-between,',marginTop:'20px'}}>
+          <div
+            className="search-container"
+            style={{
+              display: "flex",
+              justifyContent: "space-between,",
+              marginTop: "20px",
+            }}
+          >
             <SearchInputWithIcon
-              col='12'
+              col="12"
               placeholder="Search doctors"
               defaultValue={searchText}
-              className='patient-homepage-search'
+              className="patient-homepage-search"
               onChange={(e) => debounce(e)}
-              id='top-const-search'
-            >
-            </SearchInputWithIcon>
-            <Button onClick={toggleSidebar} style={{marginTop: '33px'}}>
-              <img src={filter} alt='filter-img' style={{height: '26px', width: '24px', zIndex: -1}}></img>
+              id="top-const-search"
+            ></SearchInputWithIcon>
+            <Button onClick={toggleSidebar} style={{ marginTop: "33px" }}>
+              <img
+                src={filter}
+                alt="filter-img"
+                style={{ height: "26px", width: "24px", zIndex: -1 }}
+              ></img>
             </Button>
           </div>
           <div>
@@ -154,10 +232,21 @@ const TopConsultants = (props) => {
               hasMore={true}
               className="load-data"
             >
-              <Row style={{ display: 'flex', flexDirection: 'row' }} className='top-consultants-card-container'>
+              <Row
+                style={{ display: "flex", flexDirection: "row" }}
+                className="top-consultants-card-container"
+              >
                 {consultants.map((doctor) => {
-                  return(
-                    <Grid container item lg={4}  md={6} sm={7} xs={12} spacing={1}>
+                  return (
+                    <Grid
+                      container
+                      item
+                      lg={4}
+                      md={6}
+                      sm={7}
+                      xs={12}
+                      spacing={1}
+                    >
                       <SimilarDoctorsCard
                         id={doctor._id}
                         image={doctor.dp}
@@ -168,21 +257,18 @@ const TopConsultants = (props) => {
                         language={doctor.language}
                       />
                     </Grid>
-                  )
+                  );
                 })}
               </Row>
             </InfiniteScroll>
-            {consultants.length === 0 &&
-               <div className='empty-text'>
-                <Label
-                    title={'No results found'}
-                />
+            {consultants.length === 0 && (
+              <div className="empty-text">
+                <Label title={"No results found"} />
               </div>
-            }
+            )}
           </div>
-
         </Col>
-        <Col lg="1" sm="1" xs='1' />
+        <Col lg="1" sm="1" xs="1" />
       </Row>
     </div>
   );
