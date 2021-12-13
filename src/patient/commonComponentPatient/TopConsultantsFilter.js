@@ -3,7 +3,6 @@ import Sidebar from "react-sidebar";
 import FilterConsultants from "../view/Home/FilterConsultants";
 
 const TopConsultantsFilter = (props) => {
-
   return (
     <>
       <Sidebar
@@ -11,16 +10,23 @@ const TopConsultantsFilter = (props) => {
           sidebar: {
             width: "325px",
             background: "rgba(255, 255, 255, 1)",
-            overflowY: 'unset',
-            overflowX: 'hidden'
+            overflowY: "unset",
+            overflowX: "hidden",
           },
-          root:{
-            position:'fixed',
-            zIndex: 99
-          }
+          root: {
+            position: "fixed",
+            zIndex: 99,
+          },
         }}
         pullRight={true}
-        sidebar={<FilterConsultants toggleSidebar={props.toggleSidebar}toggle={props.toggleSidebar} callBackFilter={props.callBackFilter} />}
+        sidebar={
+          <FilterConsultants
+            toggleSidebar={props.toggleSidebar}
+            initialSelectedSpecialities={props.initialSelectedSpecialities}
+            toggle={props.toggleSidebar}
+            callBackFilter={props.callBackFilter}
+          />
+        }
         open={props.sidebarOpen}
         onSetOpen={props.toggleSidebar}
       >

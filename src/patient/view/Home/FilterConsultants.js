@@ -21,14 +21,13 @@ const FilterConsultants = (props) => {
     getSpecialities();
     return () => {};
   }, []);
-
   const { addToast } = useToasts();
   let [minMax, setMinMax] = useState({ min: 100, max: 5000 });
   const [showLanguages, setShowLanguages] = useState(true);
   const [languages, setLanguages] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [Specialities, setSpecialities] = useState([]);
-  const [selectedSpecialities, setSelectedSpecialities] = useState([]);
+  const [selectedSpecialities, setSelectedSpecialities] = useState(props.initialSelectedSpecialities || []);
   const [sortBy, setSortBy] = useState("asc");
   const [experience, setExperience] = useState(10);
   const [gender, setGender] = useState("");
@@ -284,7 +283,7 @@ const FilterConsultants = (props) => {
           </Row>
           <Row>
             <Col md>
-              <MultiSelect
+              {Specialities.length>0 && <MultiSelect
                 isPositionTop={true}
                 label="Specialities"
                 className="languageSelection"
@@ -292,7 +291,7 @@ const FilterConsultants = (props) => {
                 selected={selectedSpecialities}
                 options={Specialities}
                 handleChange={setSpecialitiesValue}
-              />
+              />}
             </Col>
           </Row>
 

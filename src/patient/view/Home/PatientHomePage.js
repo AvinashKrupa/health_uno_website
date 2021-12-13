@@ -17,6 +17,7 @@ const PatientHomePage = (props) => {
   let timer = null;
   const {addToast} = useToasts();
   const setSearchText = useSearchStore((state) => state.setSearchText);
+  const setSearchSpeciality = useSearchStore((state) => state.setSearchSpeciality);
   let [specialities, setSpecialities] = useState([]);
   let [slider, setSlider] = useState([]);
   let [consultants, setConsultant] = useState([]);
@@ -82,6 +83,11 @@ const PatientHomePage = (props) => {
         });
   }
 
+  function specialityClickAction(id) {
+    setSearchSpeciality(id);
+      props.history.push("/patient/topConsultants");
+  }
+
   function debounce(txt) {
     clearTimeout(timer);
     timer = setTimeout(function () {
@@ -127,7 +133,7 @@ const PatientHomePage = (props) => {
               <span className="patient-homepage-text-h4">Specialities</span>
             </Col>
             <Col style={{textAlign: "right"}}>
-              {specialities.length > getNumberOfSpecialityToShow() && <span className="patient-homepage-link-text " style={{cursor: 'pointer'}}
+              {specialities.length < getNumberOfSpecialityToShow() && <span className="patient-homepage-link-text " style={{cursor: 'pointer'}}
                     onClick={(e) => props.history.push("/patient/specialities")}>View All</span>}
             </Col>
           </Row>
@@ -137,7 +143,10 @@ const PatientHomePage = (props) => {
                   <SpecialityCard
                       icon={specialitie.image}
                       label={specialitie.title}
-                      setSearchText={debounce}
+                      setSearchText={specialityClickAction}
+                      onPress={() => {
+                        specialityClickAction(specialitie._id)
+                      }}
                   />
               );
             })}
