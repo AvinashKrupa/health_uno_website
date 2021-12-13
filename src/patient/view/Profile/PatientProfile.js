@@ -45,7 +45,7 @@ const PatientProfile = (props) => {
                     }
                     {
                         type === 'support' && (
-                            <Chat></Chat>
+                            <Chat appointment_id={props.location?.state?.appointment_id }></Chat>
                         )
                     }
                     {
