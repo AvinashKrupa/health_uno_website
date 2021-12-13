@@ -41,6 +41,10 @@ class MessagePane extends Component {
         this.initializeChatWithUser()
         await this.loadMessagesForUser(this.state.pageId)
 
+        if(this.props.appointment_id){
+            this.setState({text:`Hi, This is my appointment id ${this.props.appointment_id}. I need help! `})
+        }
+
     }
 
     loadMessagesForUser = async (pageId) => {

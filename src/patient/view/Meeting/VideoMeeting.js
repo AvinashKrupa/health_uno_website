@@ -233,7 +233,10 @@ const VideoMeeting = (props) => {
                   </div>
                 )}
                 <a href="javascript:void(0)" className="meeting-page-text-below-image" onClick={() => {
-                  props.history.push('/patient/profile/support')
+                  props.history.push({
+                    pathname: `/patient/profile/support`,
+                    state: { appointment_id: props.location?.state?.appointment_id }
+                  });
                 }}>
                   <Image
                     src={help}
