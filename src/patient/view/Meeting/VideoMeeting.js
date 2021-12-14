@@ -21,7 +21,7 @@ const Video = ({ stream }) => {
 
   return (
     <div>
-      <video className="meeting-video" ref={localVideo} autoPlay />
+      <video className="meeting-window" ref={localVideo} autoPlay />
     </div>
   );
 };
@@ -38,101 +38,114 @@ const VideoMeeting = (props) => {
   let [videoStatus, setVideoStatus] = useState(false);
   const [streams, setStreams] = useState([]);
   const [tracks, setTracks] = useState([]);
-  let [meetingError, setMeetingError] = useState('');
+  let [meetingError, setMeetingError] = useState("");
   let [timerSeconds, setTimerSeconds] = useState(0);
   const [enableMeetingButton, setEnableMeetingButton] = useState(false);
-
-    useEffect(() => {
-        canJoinAppointmentDetails()
-    }, []);
-
-  useEffect(() => {
-        getAppointmentDetail();
-        return () => {
-        };
-    }, [props.location?.state?.appointment_id]);
-
   const { addToast } = useToasts();
   const [doctorDetails, setDoctorDetails] = useState();
+
+  useEffect(() => {
+    canJoinAppointmentDetails();
+  }, []);
+
+  useEffect(() => {
+    getAppointmentDetail();
+    return () => {};
+  }, [props.location?.state?.appointment_id]);
 
   function getAppointmentDetail() {
     let params = {
       appointment_id: props.location?.state?.appointment_id,
     };
     post(API.APPOINTMENT_DETAIL_API, params)
-        .then(response => {
-          if (response.status === 200) {
-            setAppointmentDetail(response.data.data);
-          } else {
-            addToast(response.data.message, {appearance: "error"});
-          }
-        })
-        .catch(error => {
-          addToast(error.response.data.message, {appearance: "error"});
-        });
+      .then((response) => {
+        if (response.status === 200) {
+          setAppointmentDetail(response.data.data);
+        } else {
+          addToast(response.data.message, { appearance: "error" });
+        }
+      })
+      .catch((error) => {
+        addToast(error.response.data.message, { appearance: "error" });
+      });
   }
 
   function joinAppointment() {
-    post(API.JOIN_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
-        .then((response) => {
-          if (response.status === 200) {
-              window.open(response.data.data.meeting_url);
-              setTimeout(()=> getAppointmentDetail(), 5000)
-          } else {
-            setMeetingError(response.data.message);
-            addToast(response.data.message, { appearance: "error" });
-          }
-        })
-        .catch((error) => {
-          addToast(error.response.data.message, { appearance: "error" });
-        });
+    post(
+      API.JOIN_APPOINTMENT,
+      { appointment_id: props.location?.state?.appointment_id },
+      true
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          window.open(response.data.data.meeting_url);
+          setTimeout(() => getAppointmentDetail(), 5000);
+        } else {
+          setMeetingError(response.data.message);
+          addToast(response.data.message, { appearance: "error" });
+        }
+      })
+      .catch((error) => {
+        addToast(error.response.data.message, { appearance: "error" });
+      });
   }
-    function canJoinAppointmentDetails() {
-        post(API.CAN_JOIN_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
-            .then((response) => {
-                if (response.status === 200) {
-                    setTimerSeconds(response.data.data.seconds * 1000);
-                    addToast(response.data.message, { appearance: "info" });
-                } else {
-                    setMeetingError(response.data.message);
-                    addToast(response.data.message, { appearance: "error" });
-                }
-            })
-            .catch((error) => {
-                addToast(error.response.data.message, { appearance: "error" });
-            });
-    }
+
+  function canJoinAppointmentDetails() {
+    post(
+      API.CAN_JOIN_APPOINTMENT,
+      { appointment_id: props.location?.state?.appointment_id },
+      true
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          setTimerSeconds(response.data.data.seconds * 1000);
+          addToast(response.data.message, { appearance: "info" });
+        } else {
+          setMeetingError(response.data.message);
+          addToast(response.data.message, { appearance: "error" });
+        }
+      })
+      .catch((error) => {
+        addToast(error.response.data.message, { appearance: "error" });
+      });
+  }
 
   function endAppointment() {
-    post(API.END_APPOINTMENT, {appointment_id:props.location?.state?.appointment_id}, true)
-        .then((response) => {
-          if (response.status === 200) {
-            addToast(response.data.message, { appearance: "success" });
-          } else {
-            setMeetingError(response.data.message);
-            addToast(response.data.message, { appearance: "error" });
-          }
-        })
-        .catch((error) => {
-          addToast(error.response.data.message, { appearance: "error" });
-        });
-    props.history.goBack()
-
+    post(
+      API.END_APPOINTMENT,
+      { appointment_id: props.location?.state?.appointment_id },
+      true
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          addToast(response.data.message, { appearance: "success" });
+        } else {
+          setMeetingError(response.data.message);
+          addToast(response.data.message, { appearance: "error" });
+        }
+      })
+      .catch((error) => {
+        addToast(error.response.data.message, { appearance: "error" });
+      });
+    props.history.goBack();
   }
 
-  function openMeeting(){
-      if(!props.location?.state?.appointment_id) {
-        addToast("Please go back on appointment page and again join the meeting ", {
+  function openMeeting() {
+    if (!props.location?.state?.appointment_id) {
+      addToast(
+        "Please go back on appointment page and again join the meeting ",
+        {
           appearance: "error",
-        });
-        return;
-      }
-      joinAppointment();
+        }
+      );
+      return;
+    }
+    joinAppointment();
   }
 
-    function handleEnableButton() {
-        setEnableMeetingButton(true)
-    }
+  function handleEnableButton() {
+    setEnableMeetingButton(true);
+  }
 
   useEffect(() => {
     stopVideo();
@@ -152,6 +165,7 @@ const VideoMeeting = (props) => {
       tracks[0].enabled = !micStatus;
     }
   }
+
   function stopVideo() {
     if (tracks.length) {
       tracks[1].enabled = !videoStatus;
@@ -203,173 +217,205 @@ const VideoMeeting = (props) => {
     <>
       {doctorDetails && (
         <Row>
-          <Col lg="1" sm="1" xs="1" />
-          <Col className="meeting-page-column-content-container">
-            {/* <Row className='back-navigation'>
-                  <Link to='/patient/appointments'><i class="fas fa-arrow-left"></i><span>Appointment Details</span></Link>
-                </Row> */}
-            <button className="back-nav-container back-navigation">
-              <img
+          <Row>
+            <button className="video-meeting-back-button-text">
+              <Image
                 src={back_icon}
-                alt="back_icon-img"
+                alt="back_icon-Image"
                 onClick={() => props.history.goBack()}
-              ></img>
-              <span>Appointments Details</span>
+              ></Image>
+              <span>&nbsp;&nbsp;Appointments Details</span>
             </button>
-            <Row className="meeting-page-content-wrapper-container">
-              <Col className="meeting-page-column-image">
+          </Row>
+          <Row className="video-meeting-content">
+            <Col md={10} sm={10} xs={10} lg={5}>
+              <Row>
                 {!renderTestButtons && (
-                  <Image
-                    src={doctorDetails.dp}
-                    alt="Patient Image"
-                    className="meeting-video"
-                  />
-                )}
-                {renderTestButtons && (
-                  <div className="meeting-video">
-                    {streams.map((s) => (
-                      <Video stream={s} />
-                    ))}
+                  <div className="meeting-image">
+                    <Image
+                      src={doctorDetails.dp}
+                      alt="Patient Image"
+                      className="meeting-window"
+                    />
                   </div>
                 )}
-                <a href="javascript:void(0)" className="meeting-page-text-below-image" onClick={() => {
-                  props.history.push({
-                    pathname: `/patient/profile/support`,
-                    state: { appointment_id: props.location?.state?.appointment_id }
-                  });
-                }}>
-                  <Image
-                    src={help}
-                    alt="Help Circle"
-                    calssName="meeting-page-help-circle"
-                    style={{ marginRight: "16px" }}
-                  />
-                  Need Help?
+                {renderTestButtons && (
+                  <div className="meeting-test-window">
+                    <div className="meeting-window">
+                      {streams.map((s) => (
+                        <Video stream={s} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </Row>
+              <Row>
+                <a
+                  href="javascript:void(0)"
+                  className="meeting-help-text"
+                  onClick={() => {
+                    props.history.push({
+                      pathname: `/patient/profile/support`,
+                      state: {
+                        appointment_id: props.location?.state?.appointment_id,
+                      },
+                    });
+                  }}
+                >
+                  <Image src={help} alt="help circle" />
+                  &nbsp; &nbsp;Need Help?
                 </a>
-              </Col>
-              <Col className="meeting-page-column-content">
-                <Row className="doctor-meeting-patient-info-container">
-                  {renderTestButtons && (
-                    <div className="meeting-testing-button-container">
-                      <Button
-                        className="testing-button"
-                        onClick={() => setMicStatus(!micStatus)}
-                      >
-                        {!micStatus && (
-                          <>
-                            <img className="testing-icon" src={mic_on_icon} />
-                            <span>Mic is On</span>
-                          </>
-                        )}
-                        {micStatus && (
-                          <>
-                            <img className="testing-icon" src={mic_off_icon} />
-                            <span>Mic is Off</span>
-                          </>
-                        )}
-                      </Button>
-                      <Button
-                        className="testing-button"
-                        onClick={() => setVideoStatus(!videoStatus)}
-                        style={{ marginTop: "16px" }}
-                      >
-                        {videoStatus && (
-                          <>
-                            <img
-                              className="testing-icon"
-                              src={camera_off_icon}
-                            />
-                            <span>Camera is Off</span>
-                          </>
-                        )}
-                        {!videoStatus && (
-                          <>
-                            <img
-                              className="testing-icon"
-                              src={camera_on_icon}
-                            />
-                            <span>Camera is On</span>
-                          </>
-                        )}
-                      </Button>
-                    </div>
-                  )}
-                </Row>
-                <Row style={{ marginTop: "13px" }}>
-                  {!renderTestButtons && (
-                    <div className="meeting-detail-text">
-                      <Row>
-                        <span className="meeting-page-text-grey">
-                          Meeting with
-                        </span>
-                      </Row>
-                      <Row>
-                        <span className="meeting-page-text-speciality">
-                          {doctorDetails.specialities[0]}
-                        </span>
-                      </Row>
-                      <Row>
-                        <span className="meeting-page-text-doctor-name">
-                          {`Dr ${doctorDetails.first_name} ${doctorDetails.last_name}`}
-                        </span>
-                      </Row>
-                      <Row>
-                        <span className="meeting-page-text-doctor-info">
-                          {`${doctorDetails.city}, ${doctorDetails.country} | ${doctorDetails.exp} Y Exp`}
-                        </span>
-                      </Row>
-                        <Row>
-                            <div>
-                                {appointmentDetail.status !== "completed" && (
-                                    <div className="video-meeting-timer-container">{ timerSeconds && <MeetingTimer date={Date.now() + timerSeconds} handleEnableButton={handleEnableButton}></MeetingTimer> }</div>)
-                                }
-                            </div>
-                        </Row>
-                    </div>
-                  )}
-                  <Row className="meeting-button" xs="2">
-                      {appointmentDetail.status === 'scheduled' && !renderTestButtons && (
-                        <Button
-                          style={{marginRight: "1%"}}
-                          className="meeting-page-button-white"
-                          onClick={() => checkPermissions()}
-                        >
-                          Test Video and Audio
-                        </Button>
+              </Row>
+            </Col>
+            <Col md={12} sm={12} xs={10} lg={5}>
+              {renderTestButtons && (
+                <div className="meeting-details">
+                  <Row style={{marginTop: "5%"}}>
+                    <button
+                      className="meeting-mic-btn"
+                      onClick={() => setMicStatus(!micStatus)}
+                    >
+                      {!micStatus && (
+                        <>
+                          <img src={mic_on_icon} />
+                          <span>Mic is On</span>
+                        </>
                       )}
-                      {appointmentDetail.status === 'scheduled' && renderTestButtons && (
-                        <Button
-                          className="meeting-page-button-white"
-                          onClick={() => {
-                            setStreams([]);
-                            setRenderTestButtons(false);
-                          }}
-                        >
-                          Cancel
-                        </Button>
+                      {micStatus && (
+                        <>
+                          <img src={mic_off_icon} />
+                          <span>Mic is Off</span>
+                        </>
                       )}
-                      {appointmentDetail.status !=="ongoing" &&  <Button disabled={!(enableMeetingButton || appointmentDetail.status ==="ongoing")}  className="meeting-page-button meeting-page-button-blue"
-                        onClick={() => openMeeting()}
-                      >
-                        Join Meeting
-                      </Button>}
-                      {appointmentDetail.status ==="ongoing" &&  <Button className="meeting-page-button meeting-page-button-blue"
-                        onClick={() => openMeeting()}
-                      >
-                        Rejoin Meeting
-                      </Button>}
-                      {appointmentDetail.status ==="ongoing" && <Button className="meeting-page-button-red meeting-page-button"
-                                                                        onClick={() => endAppointment()}>
-                        End Meeting
-                      </Button>}
+                    </button>
                   </Row>
                   <Row>
-                    {!!meetingError && <div style={{textAlign: "center"}} className="error-text">{meetingError}</div>}
+                    <button
+                      className="meeting-camera-btn"
+                      onClick={() => setVideoStatus(!videoStatus)}
+                    >
+                      {videoStatus && (
+                        <>
+                          <img src={camera_off_icon} />
+                          <span>Camera is Off</span>
+                        </>
+                      )}
+                      {!videoStatus && (
+                        <>
+                          <img src={camera_on_icon} />
+                          <span>Camera is On</span>
+                        </>
+                      )}
+                    </button>
                   </Row>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
+                  <Row style={{marginTop: "20%"}}>
+                    <Col>
+                      <button
+                        className="meeting-btn-white"
+                        onClick={() => {
+                          setStreams([]);
+                          setRenderTestButtons(false);
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </Col>
+                    <Col>
+                      <button
+                        className="meeting-btn-blue"
+                        disabled={
+                          !(
+                            enableMeetingButton ||
+                            appointmentDetail.status === "ongoing"
+                          )
+                        }
+                        onClick={() => openMeeting()}
+                      >
+                        Join meeting
+                      </button>
+                    </Col>
+                  </Row>
+                </div>
+              )}
+              {!renderTestButtons && (
+                <div className="meeting-details">
+                  <Row>
+                    <span className="meeting-text">Meeting with</span>
+                  </Row>
+                  <Row>
+                    <span className="meeting-doctor-speciality">
+                      {doctorDetails.specialities[0]}
+                    </span>
+                  </Row>
+                  <Row>
+                    <span className="meeting-doctor-name">{`Dr ${doctorDetails.first_name} ${doctorDetails.last_name}`}</span>
+                  </Row>
+                  <Row>
+                    <span className="meeting-doctor-information">{`${doctorDetails.city}, ${doctorDetails.country} | ${doctorDetails.exp} Y Exp`}</span>
+                  </Row>
+                  <Row>
+                    <div className="meeting-timer">
+                      {appointmentDetail.status !== "completed" && (
+                        <div>
+                          {timerSeconds && (
+                            <MeetingTimer
+                              date={Date.now() + timerSeconds}
+                              handleEnableButton={handleEnableButton}
+                            ></MeetingTimer>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </Row>
+                  <Row>
+                    <Col>
+                      {console.log("status", appointmentDetail.status)}
+                      {appointmentDetail.status === "scheduled" && (
+                        <button
+                          className="meeting-btn-white"
+                          onClick={() => checkPermissions()}
+                        >
+                          Test audio and video
+                        </button>
+                      )}
+                      {appointmentDetail.status === "ongoing" && (
+                        <button
+                          className="meeting-btn-blue"
+                          onClick={() => openMeeting()}
+                        >
+                          Rejoin meeting
+                        </button>
+                      )}
+                    </Col>
+                    <Col>
+                      {appointmentDetail.status !== "ongoing" && (
+                        <button
+                          className="meeting-btn-blue"
+                          disabled={
+                            !(
+                              enableMeetingButton ||
+                              appointmentDetail.status === "ongoing"
+                            )
+                          }
+                          onClick={() => openMeeting()}
+                        >
+                          Join meeting
+                        </button>
+                      )}
+                      {appointmentDetail.status === "ongoing" && (
+                        <button
+                          className="meeting-btn-red"
+                          onClick={() => endAppointment()}
+                        >
+                          End meeting
+                        </button>
+                      )}
+                    </Col>
+                  </Row>
+                </div>
+              )}
+            </Col>
+          </Row>
         </Row>
       )}
     </>

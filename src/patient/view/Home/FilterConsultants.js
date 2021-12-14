@@ -31,7 +31,7 @@ const FilterConsultants = (props) => {
     props.initialSelectedSpecialities || []
   );
   const [sortBy, setSortBy] = useState("asc");
-  const [experience, setExperience] = useState(10);
+  const [experience, setExperience] = useState(null);
   const [gender, setGender] = useState("");
 
   function getLanguage() {
@@ -97,7 +97,7 @@ const FilterConsultants = (props) => {
     setShowLanguages(true);
     setMinMax({ min: 100, max: 5000 });
     setSortBy("asc");
-    setExperience(10);
+    setExperience(null);
     setGender("");
     setSelectedSpecialities([]);
   }
@@ -230,8 +230,23 @@ const FilterConsultants = (props) => {
               onChangeComplete={null}
             />
           </Row>
-          <Row style={{ marginTop: "33px" }}>
-            <span className="filter_menu_h4">Gender</span>
+          <Row>
+            <Col md>
+              {Specialities.length > 0 && (
+                <MultiSelect
+                  isPositionTop={true}
+                  label="Specialities"
+                  className="languageSelection"
+                  labelBold="filter_menu_h4"
+                  selected={selectedSpecialities}
+                  options={Specialities}
+                  handleChange={setSpecialitiesValue}
+                />
+              )}
+            </Col>
+          </Row>
+          <Row style={{ marginTop: "23px" }}>
+            <span className="filter_menu_h4" style={{ marginBottom: "-20px" }}>Gender</span>
             <Select
               // label="Gender"
               placeholder="Select gender"
@@ -241,7 +256,23 @@ const FilterConsultants = (props) => {
               handleSelect={setGender}
             />
           </Row>
-          <Row style={{ marginTop: "33px" }}>
+          <Row>
+          <Col md>
+              <div
+                className="filter_menu_h4"
+                style={{ paddingLeft: "5px", paddingTop: "20px" }}
+              >
+                Min Experience (In years)
+              </div>
+              <Col>
+                <Input
+                  type="text"
+                  value={experience}
+                  id="experience"
+                  onChange={onExperienceSelect}
+                />
+              </Col>
+            </Col>
             <span
               className="filter_menu_h4"
               style={{ paddingLeft: "16px", paddingTop: "25px" }}
@@ -270,37 +301,7 @@ const FilterConsultants = (props) => {
                 />
               </div>
             ) : null}
-            <Col md>
-              <div
-                className="filter_menu_h4"
-                style={{ paddingLeft: "5px", paddingTop: "20px" }}
-              >
-                Min Experience (In years)
-              </div>
-              <Col>
-                <Input
-                  type="text"
-                  value={experience}
-                  id="experience"
-                  onChange={onExperienceSelect}
-                />
-              </Col>
-            </Col>
-          </Row>
-          <Row>
-            <Col md>
-              {Specialities.length > 0 && (
-                <MultiSelect
-                  isPositionTop={true}
-                  label="Specialities"
-                  className="languageSelection"
-                  labelBold="filter_menu_h4"
-                  selected={selectedSpecialities}
-                  options={Specialities}
-                  handleChange={setSpecialitiesValue}
-                />
-              )}
-            </Col>
+            
           </Row>
 
           <div>
