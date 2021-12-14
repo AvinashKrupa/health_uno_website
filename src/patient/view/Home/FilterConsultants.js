@@ -6,10 +6,10 @@ import { API, get } from "../../../api/config/APIController";
 import { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import "react-input-range/lib/css/index.css";
-import CustomButton from '../../../commonComponent/Button'
+import CustomButton from "../../../commonComponent/Button";
 import MultiSelect from "../../../commonComponent/MultiSelect/MultiSelect";
-import Select from '../../../commonComponent/Select'
-import {EXPERIENCE_LIST} from "./constants";
+import Select from "../../../commonComponent/Select";
+import { EXPERIENCE_LIST } from "./constants";
 import SelectWithoutDefault from "../../../commonComponent/SelectWithoutDefault";
 
 let isDefaultSet = true;
@@ -27,7 +27,9 @@ const FilterConsultants = (props) => {
   const [languages, setLanguages] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [Specialities, setSpecialities] = useState([]);
-  const [selectedSpecialities, setSelectedSpecialities] = useState(props.initialSelectedSpecialities || []);
+  const [selectedSpecialities, setSelectedSpecialities] = useState(
+    props.initialSelectedSpecialities || []
+  );
   const [sortBy, setSortBy] = useState("asc");
   const [experience, setExperience] = useState(10);
   const [gender, setGender] = useState("");
@@ -96,7 +98,7 @@ const FilterConsultants = (props) => {
     setMinMax({ min: 100, max: 5000 });
     setSortBy("asc");
     setExperience(10);
-    setGender('')
+    setGender("");
     setSelectedSpecialities([]);
   }
 
@@ -110,17 +112,22 @@ const FilterConsultants = (props) => {
       sortBy,
       experience,
       selectedSpecialities,
-      gender
+      gender,
     });
     props.toggleSidebar();
   }
 
-  function onExperienceSelect() {
+  function onExperienceSelect(e) {
     let value = document.getElementById("experience").value;
-    if(value < 0){
-      value= value * -1
+    var numbers = /^[0-9]+$/;
+    if (value.match(numbers) || !value) {
+      if (value < 0) {
+        value = value * -1;
+      }
+      if (value) {
+      }
+      setExperience(value);
     }
-    setExperience(value);
   }
 
   return (
@@ -226,13 +233,13 @@ const FilterConsultants = (props) => {
           <Row style={{ marginTop: "33px" }}>
             <span className="filter_menu_h4">Gender</span>
             <Select
-                  // label="Gender"
-                  placeholder="Select gender"
-                  id="gender"
-                  value={gender}
-                  options={genderOptions}
-                  handleSelect={setGender}
-                />
+              // label="Gender"
+              placeholder="Select gender"
+              id="gender"
+              value={gender}
+              options={genderOptions}
+              handleSelect={setGender}
+            />
           </Row>
           <Row style={{ marginTop: "33px" }}>
             <span
@@ -272,8 +279,7 @@ const FilterConsultants = (props) => {
               </div>
               <Col>
                 <Input
-                  type="number"
-                  min="0"
+                  type="text"
                   value={experience}
                   id="experience"
                   onChange={onExperienceSelect}
@@ -283,15 +289,17 @@ const FilterConsultants = (props) => {
           </Row>
           <Row>
             <Col md>
-              {Specialities.length>0 && <MultiSelect
-                isPositionTop={true}
-                label="Specialities"
-                className="languageSelection"
-                labelBold="filter_menu_h4"
-                selected={selectedSpecialities}
-                options={Specialities}
-                handleChange={setSpecialitiesValue}
-              />}
+              {Specialities.length > 0 && (
+                <MultiSelect
+                  isPositionTop={true}
+                  label="Specialities"
+                  className="languageSelection"
+                  labelBold="filter_menu_h4"
+                  selected={selectedSpecialities}
+                  options={Specialities}
+                  handleChange={setSpecialitiesValue}
+                />
+              )}
             </Col>
           </Row>
 
