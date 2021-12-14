@@ -133,7 +133,7 @@ const PatientHomePage = (props) => {
               <span className="patient-homepage-text-h4">Specialities</span>
             </Col>
             <Col style={{textAlign: "right"}}>
-              {specialities.length < getNumberOfSpecialityToShow() && <span className="patient-homepage-link-text " style={{cursor: 'pointer'}}
+              {specialities.length > getNumberOfSpecialityToShow() && <span className="patient-homepage-link-text " style={{cursor: 'pointer'}}
                     onClick={(e) => props.history.push("/patient/specialities")}>View All</span>}
             </Col>
           </Row>
