@@ -288,3 +288,180 @@
       margin-left: 10px !important;
     }
   }
+
+  /*  New Scss File */
+
+  .video-meeting-back-button-text {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 29px;
+    letter-spacing: -0.30000001192092896px;
+    color: black;
+    background-color: white;
+    border: none;
+    text-align: left;
+    margin-left: 10%;
+    margin-top: 3%;
+    font-size: 24px;
+    span {
+        font-size: 24px;
+        text-align: left;
+    }
+}
+
+.video-meeting-content {
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+
+    .meeting-details {
+        margin-left: 5%;
+        margin-top: 5%;
+    }
+
+    .meeting-window {
+        width: 100%;
+        height: 100%;
+    }
+
+    .meeting-text {
+        font-family: Montserrat;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: -0.8941941261291504px;
+        color: #8d8d8d;
+    }
+
+    .meeting-doctor-speciality {
+        font-family: Montserrat;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 31px;
+        letter-spacing: -0.8941941261291504px;
+        color: #f6921e;
+        margin-top: 5%;
+    }
+
+    .meeting-doctor-name {
+        font-family: Montserrat;
+        font-size: 38px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 47px;
+        letter-spacing: -0.8941941261291504px;
+        margin-top: 4%;
+    }
+
+    .meeting-doctor-information {
+        font-family: Montserrat;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 31px;
+        letter-spacing: -0.8941941261291504px;
+        color: rgba(27, 27, 27, 0.5);
+        margin-top: 3%;
+    }
+
+    .meeting-help-text {
+        font-family: Montserrat;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: -0.30000001192092896px;
+        text-align: center;
+        margin-top: 13%;
+    }
+
+    .meeting-btn-white {
+        border: 1px solid #28a3da;
+        box-sizing: border-box;
+        border-radius: 6px;
+        width: 75%;
+        height: 60px;
+        color: #28a3da;
+        background-color: white;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        margin-top: 15%;
+    }
+
+    .meeting-btn-blue {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        background: #28a3da;
+        border-color: #28a3da;
+        border-radius: 6px;
+        color: #ffffff;
+        width: 75%;
+        height: 60px;
+        margin-top: 15%;
+    }
+
+    .meeting-btn-red {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        background: red;
+        border-radius: 6px;
+        color: #ffffff;
+        width: 75%;
+        height: 60px;
+        margin-top: 15%;
+    }
+
+    .meeting-timer {
+        div {
+            text-align: left;
+        }
+    }
+
+    .meeting-image {
+        width: 65%;
+        margin: auto;
+    }
+
+    .meeting-test-image {
+        width: 85%;
+        margin: auto;
+    }
+
+    .meeting-mic-btn {
+        width: 87%;
+        height: 60px;
+        background-color: white;
+        text-align: left;
+        border-radius: 6px;
+
+        span {
+            margin-left: 5%;
+        }
+    }
+
+    .meeting-camera-btn {
+        width: 87%;
+        height: 60px;
+        background-color: white;
+        text-align: left;
+        margin-top: 5%;
+        border-radius: 6px;
+
+        span {
+            margin-left: 5%;
+        }
+    }
+}
+
