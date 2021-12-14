@@ -20,6 +20,7 @@ const TopConsultants = (props) => {
   let [searchText, setSearchText] = useState(
     useSearchStore((state) => state.searchText)
   );
+  const setStoreSearchSpeciality = useSearchStore((state) => state.setSearchSpeciality);
   let [searchSpeciality, setSearchSpeciality] = useState(
     useSearchStore((state) => state.searchSpeciality)
   );
@@ -197,7 +198,10 @@ const TopConsultants = (props) => {
             <img
               src={back_icon}
               alt="back_icon-img"
-              onClick={() => props.history.push("/patient/home")}
+              onClick={() => {
+                setStoreSearchSpeciality('');
+                props.history.push("/patient/home")
+              }}
             ></img>
             <span>Top Consultants</span>
           </button>
