@@ -11,7 +11,7 @@ const ReferInvite = (props) => {
           programme for the patients who are using the Healthuno app with the
           below mentioned offers and discounts for each appointment booked on
           the Healthuno app on the Android/IoS apps as well as on the website
-          <a href="www.healthuno.com" target="_blank">
+          <a href="https://www.healthuno.com" target="_blank">
             &nbsp;www.healthuno.com
           </a>
         </li>
