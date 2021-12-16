@@ -73,7 +73,6 @@ const AppointmentDetail = (props) => {
     const {additional_doc} = appointmentDetail || []
 
     function renderDoctorInfoTitle(){
-        debugger
         if(!!additional_doc?.length && ["cancelled", "completed"].includes(appointmentDetail.status)){
             if(additional_doc[0]?._id !== doctor_id){
                 return 'Invited Doctor'
