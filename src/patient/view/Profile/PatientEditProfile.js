@@ -472,6 +472,15 @@ const PatientEditProfile = (props) => {
         } else if (isEmpty(city) || city === 'Select city') {
             addToast('Please select city', { appearance: 'error' });
             return false;
+        }else if (isVaccinated && isEmpty(vaccineDate)) {
+            addToast('Please Select Vaccine Date', { appearance: 'error' });
+            return false;
+        }else if (isVaccinated && isEmpty(dose)) {
+            addToast('Please Select Dose Type', { appearance: 'error' });
+            return false;
+        }else if (isVaccinated && isEmpty(vaccineName)) {
+            addToast('Please Select Vaccine Name', { appearance: 'error' });
+            return false;
         } else {
             return true;
         }
