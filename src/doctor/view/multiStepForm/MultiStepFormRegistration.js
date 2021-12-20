@@ -529,7 +529,7 @@ const MultiStepFormRegistration = ({ history }) => {
                   className="multistepform-button"
                   type="submit"
                   onClick={handleNext}
-                  text={"Submit"}
+                  text={activeStep === "3" ? "Submit" : "Continue"}
                 ></CustomButton>
               )}
             </Col>

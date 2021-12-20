@@ -59,13 +59,14 @@
   .days-selection-container{
     display: flex;
     flex-flow: row nowrap;
+    margin-right: 10%;
   }
 
   .days-selection-button{
     height: 55px;
-    width: auto;
+    width: 15%;
     max-width: 110px;
-    min-width: 110px;
+    // min-width: 110px;
     border-radius: 12px;
     border: 2px solid rgba(27, 27, 27, 0.2);
     margin-right: 10px;
@@ -175,12 +176,12 @@
 
 @media screen and (max-width: 1024px) {
   .update-schedule-container {
-    .days-selection-button{
-      height: 40px;
-      width: auto;
-      max-width: 20%;
-      min-width: 10%;
-    }
+    // .days-selection-button{
+    //   height: 40px;
+    //   width: auto;
+    //   max-width: 20%;
+    //   min-width: 10%;
+    // }
   }
   .slot-schedule-calender-container {
     .slot-booking-calendar {

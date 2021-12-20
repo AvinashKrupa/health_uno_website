@@ -73,16 +73,16 @@ const Invite = (props) => {
           <WhatsappShareButton title={shareMessage} url={shareURL} >
             <WhatsappIcon  size={50} round={true} />
           </WhatsappShareButton>
-          <EmailShareButton title={shareMessage} url={shareURL}>
+          <EmailShareButton title={shareMessage} body={shareMessage} url={shareURL}>
             <EmailIcon size={50} round={true} />
           </EmailShareButton>
           <TwitterShareButton title={shareMessage} url={shareURL} >
             <TwitterIcon  size={50} round={true}/>
           </TwitterShareButton>
-          <FacebookShareButton title={shareMessage} url={shareURL} >
+          <FacebookShareButton quote={shareMessage} title={shareMessage} url={shareURL} >
             <FacebookIcon size={50} round={true} />
           </FacebookShareButton>
-          <LinkedinShareButton title={shareMessage} url={shareURL}>
+          <LinkedinShareButton  url={shareURL} source={shareMessage} summary={shareMessage} title={shareMessage} >
             <LinkedinIcon size={50} round={true} />
           </LinkedinShareButton>
         </div>

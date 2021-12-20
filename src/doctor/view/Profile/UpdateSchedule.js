@@ -415,6 +415,7 @@ const UpdateSchedule = (props) => {
 
     return (
         <>
+        <div className="edit-doctor-container">
             <Row className="update-schedule-container">
                 <Col lg='12' md='12' sm='6' xs='6'>
                     <Row>
@@ -424,6 +425,7 @@ const UpdateSchedule = (props) => {
                     {renderUpdateByDate()}
                 </Col>
             </Row>
+            </div>
         </>
     );
 };
