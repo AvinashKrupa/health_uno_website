@@ -36,3 +36,23 @@
   }
 
 }
+
+.profile-picture{
+  @media only screen and (max-width: 414px) {
+    margin: 35px auto;
+  }
+
+}
+
+@media only screen and (max-width: 767px) {
+  .rc-thumbnail-preview{
+    position: relative !important;
+    width: 100% !important;
+    z-index: 9;
+
+    padding: 10px 15px!important;
+  }
+  .rc-cropper-wrapper{
+    padding-right: 0px!important;
+  }
+}
