@@ -140,7 +140,7 @@ const DocRegistrationPage2 = (props) => {
               <Input
                 label="Medical Council Registration Number"
                 placeholder="Type your registration Number"
-                type="number"
+                type="text"
                 value={councilRegistrationNo}
                 onChange={setCouncilRegistrationNo}
               />

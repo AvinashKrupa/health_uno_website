@@ -358,7 +358,7 @@ font-size: 30px;
   margin-top: 0px !important;
   top: 4px;
   right: 15px;
-  position: fixed;
+  position: absolute;
   z-index: 2;
 
 }
@@ -440,7 +440,7 @@ and (max-device-width : 736px) {
     margin-top: 0px !important;
     top: 4px;
     right: 10px;
-    position: fixed;
+    position: absolute;
     z-index: 2;
 
   }

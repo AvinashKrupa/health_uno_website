@@ -55,7 +55,7 @@ const CarouselComponent = ({sliders}) => {
                     alt="carousel_image_1"
                     style={{
                         width:size.x,
-                        height:size.x/4
+                        height:size.x/4.5
                     }}
                     fluid
 

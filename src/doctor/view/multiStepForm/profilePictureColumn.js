@@ -14,10 +14,9 @@ const ProfilePictureColumn = (props) => {
 
   return (
     <Container>
-      <Row>
+      <Row className="profile-picture">
         <Image src={image? image :doctor} className="profile-picture-image" />
         <UploadImage getImage={handleImage}/>
-
       </Row>
       <Row>
         <span className="profile-picture-text">
