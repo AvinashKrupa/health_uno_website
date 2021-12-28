@@ -114,21 +114,27 @@ const DocRegistrationPage3 = (props) => {
                         return info;
                     });
 
+                    let slotIds = data.map(slot => slot.slot_id)
+
+
                     let group = data.reduce((r, a) => {
                         r[a.time] = [...r[a.time] || [], a];
                         return r;
                     }, {});
                     if (type === 1) {
                         setDataMorningShift(group);
+                        setDaySlots([...slotIds])
                     } else {
                         setDataEveningShift(group);
+                        setEveningSlots([...slotIds])
                     }
                 } else {
-                    addToast(response.data.message, {appearance: 'error'});
+                    addToast(response.data.message, { appearance: 'error' });
                 }
             })
             .catch(error => {
-                addToast(error.response.data.message, {appearance: 'error'});
+
+                addToast(error.response.data.message, { appearance: 'error' });
             });
     }
 
