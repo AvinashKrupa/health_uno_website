@@ -267,6 +267,9 @@ const RegistrationComponent = ({ history, image }) => {
         appearance: "error",
       });
       return false;
+    } else if ((new Date(birthDate)).getFullYear() < (currentDate.getFullYear() - 100)) {
+      addToast("Please select valid date", {appearance: "error"})
+      return false;
     } else if (isEmpty(gender) || gender === "Select Gender") {
       addToast("Please select gender", { appearance: "error" });
       return false;
