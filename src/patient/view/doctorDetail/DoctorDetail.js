@@ -202,7 +202,7 @@ const DoctorDetails = (props) => {
                                                     id={doctor._id}
                                                     image={doctor.dp}
                                                     name={`${doctor.first_name} ${doctor.last_name}`}
-                                                    fees="2000"
+                                                    fees={doctor.fee}
                                                     details={`${doctor.city}, ${doctor.country} | ${doctor.exp} Y Exp`}
                                                     qualifications={doctor.specialities}
                                                     language={doctor.language}
