@@ -173,7 +173,7 @@ const TopConsultants = (props) => {
             filters.max,
             filters.selectedLanguages,
             filters.experience,
-            filter.specialities,
+            filters.specialities,
             filters.gender,
             true
           )
