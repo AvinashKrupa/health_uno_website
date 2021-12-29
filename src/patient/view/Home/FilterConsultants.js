@@ -31,7 +31,7 @@ const FilterConsultants = (props) => {
     props.initialSelectedSpecialities || []
   );
   const [sortBy, setSortBy] = useState("asc");
-  const [experience, setExperience] = useState(null);
+  const [experience, setExperience] = useState('');
   const [gender, setGender] = useState("");
 
   function getLanguage() {
@@ -97,7 +97,7 @@ const FilterConsultants = (props) => {
     setShowLanguages(true);
     setMinMax({ min: 100, max: 5000 });
     setSortBy("asc");
-    setExperience(null);
+    setExperience('');
     setGender("");
     setSelectedSpecialities([]);
   }

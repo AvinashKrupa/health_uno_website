@@ -24,7 +24,7 @@ const DocRegistrationPage3 = (props) => {
             getSlots(1, dayShiftFrom, dayShiftTo);
         return () => {
         };
-    }, [dayShiftFrom, dayShiftTo]);
+    }, [dayShiftFrom, dayShiftTo, isDayShift]);
 
     useEffect(() => {
 
@@ -33,7 +33,7 @@ const DocRegistrationPage3 = (props) => {
 
         return () => {
         };
-    }, [eveningShiftFrom, eveningShiftTo]);
+    }, [eveningShiftFrom, eveningShiftTo, isEveningShift]);
 
     function validateSlots(type) {
         let momentShift1From, momentShift1To;
@@ -167,7 +167,7 @@ const DocRegistrationPage3 = (props) => {
     const dayShiftSlot = () => {
         return Object.entries(dataMorningShift).sort().map((timeSlot) => {
             return (
-                <SlotGenerator selectedSlots={daySlots} handleSlotClick={handleDaySlotClick} label={`${timeSlot[0]} AM`}
+                <SlotGenerator selectedSlots={daySlots} handleSlotClick={handleDaySlotClick} label={`${timeSlot[0]}`}
                                slots={timeSlot[1]}/>
             )
         })
@@ -177,7 +177,7 @@ const DocRegistrationPage3 = (props) => {
         return Object.entries(dataEveningShift).map((timeSlot) => {
             return (
                 <SlotGenerator selectedSlots={eveningSlots} handleSlotClick={handleEveningSlotClick}
-                               label={`${timeSlot[0]} PM`} slots={timeSlot[1]}/>
+                               label={`${timeSlot[0]}`} slots={timeSlot[1]}/>
             )
         })
     }
@@ -188,7 +188,7 @@ const DocRegistrationPage3 = (props) => {
                 <Col lg='2'></Col>
                 <Col lg='10'>
                     <Row>
-                        <span className="H3">Select available timings</span>
+                        <span style={{marginBottom: "10px"}} className="H3">Select available timings</span>
                     </Row>
                     <Row style={{display: "flex", flexDirection: "row"}}>
                         {days.map((day) => {
@@ -203,7 +203,7 @@ const DocRegistrationPage3 = (props) => {
                         })}
                     </Row>
                     <Row>
-                        <span style={{marginTop: "10px", marginBottom: "20px"}} className="H3">Select available timings</span>
+                        <span style={{marginTop: "40px", marginBottom: "-15px"}} className="H3">Select available timings</span>
                     </Row>
                     <Row>
                         <Col lg='3'>
@@ -217,6 +217,7 @@ const DocRegistrationPage3 = (props) => {
                             <Form.Control
                                 type="time"
                                 placeholder="From"
+                                disabled={!isDayShift}
                                 className="shift-timings-input"
                                 onChange={(e) => setDayShiftFrom(e.target.value)}
                             />
@@ -224,12 +225,13 @@ const DocRegistrationPage3 = (props) => {
                             <Form.Control
                                 type="time"
                                 placeholder="To"
+                                disabled={!isDayShift}
                                 className="shift-timings-input"
                                 onChange={(e) => setDayShiftTo(e.target.value)}
                             />
                         </Col>
                     </Row>
-                    {dayShiftSlot()}
+                    {isDayShift && dayShiftSlot()}
                     <div className='slot-evening'>
                         <Row>
                             <Col lg='3'>
@@ -243,18 +245,20 @@ const DocRegistrationPage3 = (props) => {
                                 <Form.Control
                                     type="time"
                                     placeholder="From"
+                                    disabled={!isEveningShift}
                                     className="shift-timings-input"
                                     onChange={(e) => setEveningShiftFrom(e.target.value)}
                                 />
                                 <Form.Control
                                     type="time"
                                     placeholder="To"
+                                    disabled={!isEveningShift}
                                     className="shift-timings-input"
                                     onChange={(e) => setEveningShiftTo(e.target.value)}
                                 />
                             </Col>
                         </Row>
-                        {EveningShiftSlot()}
+                        {isEveningShift && EveningShiftSlot()}
                     </div>
                 </Col>
                 <Col lg='2'></Col>

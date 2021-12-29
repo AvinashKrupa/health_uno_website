@@ -76,7 +76,7 @@ const MultiStepFormRegistration = ({ history }) => {
 
   const { addToast } = useToasts();
   const setUserInfo = useUserStore((state) => state.setUserInfo);
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(3);
   const [nextDisabled, setNextDisabled] = useState(false);
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [image, setImage] = useState("");
@@ -418,7 +418,7 @@ const MultiStepFormRegistration = ({ history }) => {
     <div className="form-wizard">
       <Row>
         {" "}
-        <span className="multistepform-h3">
+        <span style={{marginBottom: "0px"}} className="multistepform-h3">
           {" "}
           <Row className="heading">
             <div onClick={handlePrev} style={{ cursor: "pointer" }}>
