@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 const MainView = (props) => {
   return (
     <>
-      <Row>
+      <Row style={{marginRight:"0px"}}>
         <Col lg="1" md='1' sm="1" xs="1"> 
             <Sidebar></Sidebar>
         </Col>
