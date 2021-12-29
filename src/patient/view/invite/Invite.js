@@ -29,7 +29,7 @@ const Invite = (props) => {
 
   const shareURL = 'http://onelink.to/jaysu6'
 
-  const shareMessage = `I'm inviting you to use the Healthuno app. Use the Healthuno app to receive new rewards for each referral and exclusive access to the Healthuno Health Club Membership plan (Launching soon) Here's my code: ${props.huno_id}- Just enter it during registration.\nT&C apply!! \n ${process.env.REACT_APP_BASE_URL}refer_invite\nDownload the application now to get benefits: `
+  const shareMessage = `I'm inviting you to use the Healthuno app. Use the Healthuno app to receive new rewards for each referral and exclusive access to the Healthuno Health Club Membership plan (Launching soon) Here's my code: ${props.huno_id}- Just enter it during registration.\nT&C apply!! \n ${window.location.origin}/refer_invite\nDownload the application now to get benefits: `
 
 
   return (
