@@ -8,7 +8,7 @@ const SlotGenerator = (props) => {
   return (
     <Row style={{ display: "flex", flexDirection: "row", marginBottom: "5px" }}>
       <Col xs="1" sm="1" className="slot-timings-title">
-        {props.label}
+      {convert24hto12h(props.label)}
       </Col>
       <Col>
         {props.selectedSlots &&
