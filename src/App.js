@@ -37,6 +37,7 @@ import FAQ from './FAQ';
 import PatientFAQ from './FAQ/PatientFAQ';
 import GeneralTermsAndConditions from './commonComponent/GeneralTermsandConditions';
 import ReferInvite from './commonComponent/ReferInvite';
+import PhysicianReferralPage from './commonComponent/PhysicianReferralPage';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
     <Switch>
       <Route exact path="/" component={PrePage}/>
       <Route exact path="/refer_invite" component={ReferInvite}/>
+      <Route exact path="/physicianReferralProgram" component={PhysicianReferralPage}/>
       <Route exact path="/patient" component={PatientLogin}/>
       <Route exact path="/doctor" component={DoctorLogin}/>
       <PrivateRoute exact path='/doctor/otp' component={DoctorOTP}/>
