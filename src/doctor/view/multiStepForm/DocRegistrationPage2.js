@@ -151,7 +151,7 @@ const DocRegistrationPage2 = (props) => {
                <br />
                 <Form.Label>Date of Registration</Form.Label>
                 <br />
-                <Form.Control type="date" value={dateOfRegistration} onKeyDown={(e) => e.preventDefault()} onChange={(e) => setDateOfRegistration(e.target.value)}
+                <Form.Control type="date" value={dateOfRegistration} onChange={(e) => setDateOfRegistration(e.target.value)}
                               min={moment(new Date()).subtract(100, 'years').format('YYYY-MM-DD')}
                               max={moment(new Date()).format('YYYY-MM-DD')}/>
             </Col>
@@ -159,7 +159,7 @@ const DocRegistrationPage2 = (props) => {
             <br />
                 <Form.Label>Date of Renewal</Form.Label>
                 <br />
-                <Form.Control type="date" value={dateOfRenewal} onKeyDown={(e) => e.preventDefault()} onChange={(e) => setDateOfRenewal(e.target.value)}
+                <Form.Control type="date" value={dateOfRenewal} onChange={(e) => setDateOfRenewal(e.target.value)}
                               min={moment(new Date()).format('YYYY-MM-DD')}
                               max={moment(new Date()).add(100, 'years').format('YYYY-MM-DD')}
                 />
