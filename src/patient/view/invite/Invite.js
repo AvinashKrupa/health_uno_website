@@ -29,8 +29,11 @@ const Invite = (props) => {
 
   const shareURL = 'http://onelink.to/jaysu6'
 
-  const shareMessage = `I'm inviting you to use the Healthuno app. Use the Healthuno app to receive new rewards for each referral and exclusive access to the Healthuno Health Club Membership plan (Launching soon) Here's my code: ${props.huno_id}- Just enter it during registration.\nT&C apply!! \n ${window.location.origin}/refer_invite\nDownload the application now to get benefits: `
+  const patientShareMessage = `I'm inviting you to use the Healthuno app. Use the Healthuno app to receive new rewards for each referral and exclusive access to the Healthuno Health Club Membership plan (Launching soon) Here's my code: ${props.huno_id}- Just enter it during registration.\nT&C apply!! \n ${window.location.origin}/refer_invite\nDownload the application now to get benefits: `
 
+  const docShareMessage = `Now Share the benefits of digitizing your practice with your peers. Share the Healthuno app with your colleagues and get exclusive Lifetime Free Access to Healthuno and Healthuno Prime for Physicians! Limited period Offer! Download Now! T&C Apply!! \n ${window.location.origin}/physicianReferralProgram \n`;
+  
+  const shareMessage = window.location.pathname && window.location.pathname.includes('doctor') ? docShareMessage : patientShareMessage;
 
   return (
     <>
