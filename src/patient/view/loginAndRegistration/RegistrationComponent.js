@@ -697,7 +697,6 @@ const RegistrationComponent = ({ history, image }) => {
                   <br />{" "}
                   <Form.Control
                     type="date"
-                    onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date()).subtract(50, 'years').format('YYYY-MM-DD')}
                     max={moment(new Date()).format("YYYY-MM-DD")}
                     onChange={(e) => setDiabeticValue(e.target.value)}
@@ -722,7 +721,6 @@ const RegistrationComponent = ({ history, image }) => {
                   <br />{" "}
                   <Form.Control
                     type="date"
-                    onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date()).subtract(50, 'years').format('YYYY-MM-DD')}
                     max={moment(new Date()).format("YYYY-MM-DD")}
                     onChange={(e) => setHypertensiveValue(e.target.value)}
@@ -817,7 +815,6 @@ const RegistrationComponent = ({ history, image }) => {
                   <br />{" "}
                   <Form.Control
                     type="date"
-                    onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date()).subtract(50, 'years').format('YYYY-MM-DD')}
                     max={moment(new Date()).format("YYYY-MM-DD")}
                     onChange={(e) => setVaccineDate(e.target.value)}

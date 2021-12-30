@@ -721,7 +721,6 @@ const PatientEditProfile = (props) => {
                   <Form.Control
                     type="date"
                     value={diabeticValue}
-                    onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date())
                       .subtract(50, "years")
                       .format("YYYY-MM-DD")}
@@ -749,7 +748,6 @@ const PatientEditProfile = (props) => {
                   <Form.Control
                     type="date"
                     value={hypertensiveValue}
-                    onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date())
                       .subtract(50, "years")
                       .format("YYYY-MM-DD")}
@@ -847,7 +845,6 @@ const PatientEditProfile = (props) => {
                   <Form.Control
                     type="date"
                     value={vaccineDate}
-                    onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date())
                       .subtract(50, "years")
                       .format("YYYY-MM-DD")}

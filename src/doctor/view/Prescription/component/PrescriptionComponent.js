@@ -373,7 +373,6 @@ export default function PrescriptionComponent({
                     <Form.Control type="date"
                     onChange={(e) => setStartDate(e.target.value)}
                     placeholder="Start Date"
-                    onKeyDown={(e) => e.preventDefault()}
                     min={moment(new Date()).format('YYYY-MM-DD')}
                     max={moment(new Date()).add(90, 'days').format('YYYY-MM-DD')}
                     value={prescription.medicineItem.start_date}/>

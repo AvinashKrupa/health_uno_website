@@ -148,7 +148,6 @@ const UploadReport = (props) => {
                 <br />
                 <Form.Control type="datetime-local"
                   value={uploadDate}
-                  onKeyDown={(e) => e.preventDefault()}
                   onChange={(e) => setUploadDate(e.target.value)}
                               min={moment(new Date()).subtract(10, 'years').format('YYYY-MM-DDThh:mm')}
                               max={moment(new Date()).format('YYYY-MM-DDThh:mm')}
