@@ -13,7 +13,7 @@ import useUserStore from "../store/userStore";
 import {getPushToken} from "../../notification/utilities";
 import Spinner from "../../commonComponent/Spinner";
 
-const timeOut = 60;
+const timeOut = 59;
 const DoctorOTP = ({history}) => {
     const {addToast} = useToasts();
     const authContext = useContext(AuthContext);
