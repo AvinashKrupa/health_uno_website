@@ -44,13 +44,13 @@ const TopConsultants = (props) => {
     searchInput.focus();
     setTimeout(() => {
       getTopConsultants(
-        filter.sortBy,
-        filter.min,
-        filter.max,
-        filter.lang,
-        filter.exp,
+        filters.sortBy,
+        filters.min,
+        filters.max,
+        filters.lang,
+        filters.exp,
         filters.specialities,
-        filter.gen
+        filters.gen
       );
     }, 500);
   }, [searchText]);
@@ -173,7 +173,7 @@ const TopConsultants = (props) => {
             filters.max,
             filters.selectedLanguages,
             filters.experience,
-            filters.specialities,
+            filters.hasOwnProperty('specialities') ? filters.specialities : filters.selectedSpecialities,
             filters.gender,
             true
           )
