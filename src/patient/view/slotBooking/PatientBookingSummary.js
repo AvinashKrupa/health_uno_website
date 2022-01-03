@@ -76,6 +76,7 @@ const PatientBookingSummary = (props) => {
 
     function removeCoupon() {
         setCouponDetails('');
+        setCouponCode('')
         addToast('Coupon removed successfully', {appearance: 'success'});
     }
 
