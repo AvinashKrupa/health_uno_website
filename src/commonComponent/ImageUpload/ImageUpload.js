@@ -42,7 +42,7 @@ const ImageUpload = ({ getImage, classname }) => {
     }
     const props = {
         name: 'file',
-        action: "https://dev.healthuno.com:6002/v1/fileUpload",
+        action: `${process.env.REACT_APP_BASE_URL}fileUpload`,
         data: { type: "profile" },
         headers: {
             authorization: 'authorization-text',
