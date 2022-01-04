@@ -194,7 +194,7 @@ const DocRegistrationPage3 = (props) => {
                         {days.map((day) => {
                             let active = selectedDays.includes(day);
                             return (
-                                <Button className={'days-button'} onClick={(e) => handleDaysClick(day)}
+                                <Button className={'reg-days-button'} onClick={(e) => handleDaysClick(day)}
                                         style={{backgroundColor: active ? '#28A3DA' : 'white'}}>
                                     <span className="days-button-text"
                                           style={{color: active ? "white" : ""}}>{day}</span>

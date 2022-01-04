@@ -85,7 +85,7 @@ const PatientEditProfile = (props) => {
   useEffect(() => {
     getUserProfile();
     // getLanguage();
-    return () => {};
+    return () => { };
   }, []);
 
   useEffect(() => {
@@ -136,12 +136,18 @@ const PatientEditProfile = (props) => {
     const newDiabetic = diabetics.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
     });
+    if (id === "no") {
+      setDiabeticValue("")
+    }
 
     setDiabetics(newDiabetic);
   };
 
   const handleHypertensive = (id) => {
     setIsHypertensive(id === "yes");
+    if (id === "no") {
+      setHypertensiveValue("")
+    }
     const newHypertensives = hypertensives.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
     });
@@ -151,7 +157,9 @@ const PatientEditProfile = (props) => {
 
   const handleSurgerys = (id) => {
     setIsSurgery(id === "yes");
-
+    if (id === "no") {
+      setSurgeryValue("")
+    }
     const newSurgerys = hypertensives.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
     });
@@ -161,7 +169,10 @@ const PatientEditProfile = (props) => {
 
   const handleAllergies = (id) => {
     setIsAllergie(id === "yes");
+    if (id === "no") {
+      seAllergieValue("")
 
+    }
     const newAllergies = allergies.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
     });
@@ -171,7 +182,9 @@ const PatientEditProfile = (props) => {
 
   const handleCovids = (id) => {
     setIsCovid(id === "yes");
-
+    if (id === "no") {
+      handleCovidDetails("")
+    }
     const newCovids = covids.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
     });
@@ -181,7 +194,11 @@ const PatientEditProfile = (props) => {
 
   const handleVaccinated = (id) => {
     setIsVaccinated(id === "yes");
-
+    if (id === "no") {
+      setVaccineDate("")
+      setDose("")
+      setVaccineName("")
+    }
     const newVaccinatedList = vaccinated.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
     });
@@ -375,19 +392,19 @@ const PatientEditProfile = (props) => {
           desc: "",
           meta: isVaccinated
             ? [
-                {
-                  name: "dose_type",
-                  selected: true,
-                  diag_at: "",
-                  desc: dose,
-                },
-                {
-                  name: "vaccine_name",
-                  selected: true,
-                  diag_at: "",
-                  desc: vaccineName,
-                },
-              ]
+              {
+                name: "dose_type",
+                selected: true,
+                diag_at: "",
+                desc: dose,
+              },
+              {
+                name: "vaccine_name",
+                selected: true,
+                diag_at: "",
+                desc: vaccineName,
+              },
+            ]
             : [],
         },
       ],
@@ -526,13 +543,13 @@ const PatientEditProfile = (props) => {
     } else if (isEmpty(isSurgery)) {
       addToast("Please select surgeries", { appearance: "error" });
       return false;
-    } else if (isSurgery === true && isEmpty(surgeryValue)) {
+    } else if (isSurgery === true && isEmpty(surgeryValue.trim())) {
       addToast("Please mention about your surgeries", { appearance: "error" });
       return false;
     } else if (isEmpty(isAllergie)) {
       addToast("Please select allergies", { appearance: "error" });
       return false;
-    } else if (isAllergie === true && isEmpty(allergieValue)) {
+    } else if (isAllergie === true && isEmpty(allergieValue.trim())) {
       addToast("Please mention allergies", { appearance: "error" });
       return false;
     } else if (isEmpty(isCovid)) {
@@ -540,7 +557,7 @@ const PatientEditProfile = (props) => {
         appearance: "error",
       });
       return false;
-    } else if (isCovid === true && isEmpty(covidDetails)) {
+    } else if (isCovid === true && isEmpty(covidDetails.trim())) {
       addToast("Please add covid details", { appearance: "error" });
       return false;
     } else if (isEmpty(isVaccinated)) {

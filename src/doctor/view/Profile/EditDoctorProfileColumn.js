@@ -2,13 +2,13 @@ import AnchorLink from 'react-anchor-link-smooth-scroll';
 import {doctor} from "../../../constants/DoctorImages";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
-import {API, get} from "../../../api/config/APIController";
+import {API, get,post} from "../../../api/config/APIController";
 import {useToasts} from "react-toast-notifications";
 import {withRouter} from 'react-router-dom'
 import ProfileButton from "../../../commonComponent/ProfileButton";
 import {Card} from "@material-ui/core";
-import UploadImage from '../../../commonComponent/Upload';
 import {storeData} from "../../../storage/LocalStorage/LocalAsyncStorage";
+import ImageUpload from '../../../commonComponent/ImageUpload/ImageUpload';
 
 const EditDoctorProfileColumn = (props) => {
     const [firstName, setFirstName] = useState('');
@@ -22,7 +22,7 @@ const EditDoctorProfileColumn = (props) => {
 
   const handleImage = (file)=> {
      setImage(file)
-     props.setProfilePic(file)
+     updateUserProfile(file)
   }
     useEffect(() => {
         getUserProfile()
@@ -58,16 +58,34 @@ const EditDoctorProfileColumn = (props) => {
                 addToast(error.response.data.message, {appearance: 'error'});
             });
     }
+    function updateUserProfile(image) {
+        let params = {
+          dp: image ,
+        };
+        post(API.UPDATE_PROFILE, params, true)
+          .then((response) => {
+            if (response.status === 200) {
+              addToast(response.data.message, { appearance: "success" });
+            } else {
+              addToast(response.data.message, { appearance: "error" });
+            }
+            props.setReloadSideColumn(true);
+          })
+          .catch((error) => {
+            addToast(error.response.data.message, { appearance: "error" });
+          });
+      }
 
     return (
         <Container className="profile-left-Column">
             <Row>
                 <h2 className="profile-tile-text">Profile</h2>
             </Row>
-            <Row>
+            <div className="profile-picture">
+                <ImageUpload classname="upload-image" getImage={handleImage} />
                 <Image src={image ? image :doctor} className="profile-picture-image"/>
-                <UploadImage getImage={handleImage}  className='edit-fa-camera'/>
-            </Row>
+                {/* <UploadImage getImage={handleImage}  className='edit-fa-camera'/> */}
+            </div>
             <Row className="profile-container">
                 <Col lg="12">
                     <span className="doctor-name">{`Dr ${firstName} ${lastName}`}</span>

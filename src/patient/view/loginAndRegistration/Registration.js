@@ -5,6 +5,7 @@ import RegistrationComponent from "./RegistrationComponent";
 import {Link} from 'react-router-dom';
 import UploadImage from "../../../commonComponent/Upload"
 import { useState } from "react";
+import ImageUpload from "../../../commonComponent/ImageUpload/ImageUpload";
 
 const Registration = () => {
     const[ image, setImage ]= useState();
@@ -19,12 +20,15 @@ const Registration = () => {
       </Row>
       <Row>
         <Col className="col-md-3">
+          <div className="profile-picture">
+          <ImageUpload  classname="upload-image" getImage={handleImage}/>
           <Image
-            style={{ display: "block", margin: "0 auto", position: 'relative', height: '208px', width: '160px' }}
+          className="profile-picture-image"
+            style={{ display: "block", margin: "50px auto ", position: 'relative', height: '160px', width: '160px' }}
             src={ image ? image : patientIcon }
             alt="Icon"
           ></Image>
-          <UploadImage getImage={handleImage}/>
+          </div>
 
           <div className="text-center">
             <p>Upload your profile picture.</p>
