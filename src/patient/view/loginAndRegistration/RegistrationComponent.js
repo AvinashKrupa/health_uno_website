@@ -310,13 +310,13 @@ const RegistrationComponent = ({ history, image }) => {
     } else if (isEmpty(isSurgery)) {
       addToast("Please select surgeries", { appearance: "error" });
       return false;
-    } else if (isSurgery === true && isEmpty(surgeryValue)) {
+    } else if (isSurgery === true && isEmpty(surgeryValue.trim())) {
       addToast("Please mention about your surgeries", { appearance: "error" });
       return false;
     } else if (isEmpty(isAllergie)) {
       addToast("Please select allergies", { appearance: "error" });
       return false;
-    } else if (isAllergie === true && isEmpty(allergieValue)) {
+    } else if (isAllergie === true && isEmpty(allergieValue.trim())) {
       addToast("Please mention allergies", { appearance: "error" });
       return false;
     } else if (isEmpty(isCovid)) {
@@ -324,7 +324,7 @@ const RegistrationComponent = ({ history, image }) => {
         appearance: "error",
       });
       return false;
-    } else if (isCovid === true && isEmpty(covidDetails)) {
+    } else if (isCovid === true && isEmpty(covidDetails.trim())) {
       addToast("Please add covid details", { appearance: "error" });
       return false;
     } else if (isEmpty(isVaccinated)) {

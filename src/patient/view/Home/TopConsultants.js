@@ -27,6 +27,7 @@ const TopConsultants = (props) => {
   let [consultants, setConsultant] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchClear, setSearchClear] = useState(false);
+  const [forceApiCall, setForceApiCall] = useState(false);
   const [page, setPage] = useState(1);
   const [totalConsultants, setTotalConsultants] = useState(0);
   const [filters, setFilters] = useState({
@@ -42,18 +43,22 @@ const TopConsultants = (props) => {
   useEffect(() => {
     const searchInput = document.getElementById("top-const-search");
     searchInput.focus();
-    setTimeout(() => {
+    setForceApiCall(true)
+  }, [searchText]);
+
+  useEffect(() => {
+    if(forceApiCall){
       getTopConsultants(
         filters.sortBy,
         filters.min,
         filters.max,
-        filters.lang,
-        filters.exp,
-        filters.specialities,
-        filters.gen
+        filters.hasOwnProperty('lang') ? filters.lang : filters.selectedLanguages,
+        filters.hasOwnProperty('exp') ? filters.exp : filters.experience,
+        filters.hasOwnProperty('specialities') ? filters.specialities : filters.selectedSpecialities,
+        filters.hasOwnProperty('gender') ? filters.gender : filters.gen
       );
-    }, 500);
-  }, [searchText]);
+    }
+  }, [forceApiCall])
 
   useEffect(() => {
     setTimeout(() => {
@@ -69,16 +74,9 @@ const TopConsultants = (props) => {
 
   function callBackFilter(data) {
     setFilters(data);
+    setPage(1)
     setIsFiltered(true);
-    getTopConsultants(
-      data.sortBy,
-      data.min,
-      data.max,
-      data.selectedLanguages,
-      data.experience,
-      data.selectedSpecialities,
-      data.gender
-    );
+    setForceApiCall(true)
   }
 
   function getTopConsultants(
@@ -108,6 +106,7 @@ const TopConsultants = (props) => {
     };
     post(API.GETTOPCONSULTANT, params)
       .then((response) => {
+        setForceApiCall(false)
         if (response.status === 200) {
           setTotalConsultants(response.data.data.total);
           if (isPagination) {
@@ -128,6 +127,7 @@ const TopConsultants = (props) => {
         }
       })
       .catch((error) => {
+        setForceApiCall(false);
         addToast(
           error &&
             error.response &&
