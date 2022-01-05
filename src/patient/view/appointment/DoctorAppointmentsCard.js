@@ -174,7 +174,7 @@ const canShowTransactionStatus = appointmentStatus === 'Cancelled' && props.appo
                 setModalShow(false);
             }}
         >
-            <IframeModal url={'https://dev.healthuno.com:6002/v1/cancellation_policy'}/>
+            <IframeModal url={`${process.env.REACT_APP_BASE_URL}cancellation_policy`}/>
         </ModalDialog>
     </>
   );

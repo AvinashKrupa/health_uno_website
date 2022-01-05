@@ -1,5 +1,5 @@
 import 'firebase/messaging';
-import {getMessaging, getToken, onMessage} from "firebase/messaging";
+import {getMessaging, getToken, onMessage, isSupported} from "firebase/messaging";
 import firebase, {FIREBASE_VAPID_KEY} from "./notification/firebase";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import OTP from "./patient/view/loginAndRegistration/PatientOTP";
@@ -42,7 +42,8 @@ import PhysicianReferralPage from './commonComponent/PhysicianReferralPage';
 
 function App() {
   const {addToast} = useToasts();
-  const messaging = getMessaging(firebase);
+  if (isSupported()){
+    const messaging = getMessaging(firebase);
   getToken(messaging, {vapidKey: FIREBASE_VAPID_KEY}).then((currentToken) => {
     if (currentToken) {
       storeData('PUSH_TOKEN', currentToken);
@@ -56,6 +57,7 @@ function App() {
   onMessage(messaging, (payload) => {
     addToast(<p><b>{payload.notification.title}</b><br/>{payload.notification.body}</p>, {appearance: "info"});
   });
+}
   return (
     <div className="App">
     <BrowserRouter>
