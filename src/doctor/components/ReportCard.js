@@ -8,7 +8,7 @@ const ReportCard = (props) => {
             <div className="report-container">
                 <div style={{flexDirection: "row"}}>
                     <div className="report-name">{props.report.title || props.report.name}</div>
-                    <div className="report-date-info">{moment(props.report?.updated_at || props.report?.created_at).format('llll')}</div>
+                    <div className="report-date-info">{moment(props.report?.updated_at || props.report?.created_at).format('DD MMM YY, hh:mm a')}</div>
                 </div>
                 <div style={{flexDirection: "column"}}>
                     <Button className="report-view-button"
