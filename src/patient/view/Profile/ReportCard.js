@@ -24,7 +24,7 @@ const ReportCard = (props) => {
             </Row>
             <Row>
               <span className="report-card-text-date-and-time">
-                {moment(props.report.updated_at || props.report?.created_at).format('lll')}
+                {moment(props.report.updated_at || props.report?.created_at).format('DD MMM YY, hh:mm a')}
               </span>
             </Row>
           </Col>
