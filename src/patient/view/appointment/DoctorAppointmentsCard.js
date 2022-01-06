@@ -296,7 +296,7 @@ const DoctorAppointmentsCard = (props) => {
         }}
       >
         <IframeModal
-          url={"https://dev.healthuno.com:6002/v1/cancellation_policy"}
+          url={`${process.env.REACT_APP_BASE_URL}cancellation_policy`}
         />
       </ModalDialog>
       {show && (
