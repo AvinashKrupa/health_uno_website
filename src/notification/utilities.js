@@ -1,10 +1,11 @@
 import {getData, storeData} from "../storage/LocalStorage/LocalAsyncStorage";
 import firebase, {FIREBASE_VAPID_KEY} from "./firebase";
-import {getMessaging, getToken} from "firebase/messaging";
+import {getMessaging, getToken, isSupported} from "firebase/messaging";
 
-const messaging = getMessaging(firebase);
+const messaging = isSupported() && getMessaging(firebase);
 export const getPushToken = async () => {
-    const pushToken = getData('PUSH_TOKEN');
+    if(isSupported()){
+        const pushToken = getData('PUSH_TOKEN');
     if (pushToken) {
         return pushToken
     } else {
@@ -17,5 +18,5 @@ export const getPushToken = async () => {
         }).catch((err) => {
             return '';
         });
-    }
+    }}
 }

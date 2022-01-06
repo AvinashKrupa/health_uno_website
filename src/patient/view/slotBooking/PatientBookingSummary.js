@@ -193,7 +193,7 @@ const PatientBookingSummary = (props) => {
                     .then(result => {
                         if (result.status === 200) {
                             setShowLoader(false);
-                            addToast('Slot is successfully booked', {appearance: 'success'});
+                            addToast(`Payment Confirmed. You'll receive SMS/Notification once the appointment is confirmed.`, {appearance: 'success'});
                             props.history.push('/patient/appointments')
                         } else {
                             setShowLoader(false);
