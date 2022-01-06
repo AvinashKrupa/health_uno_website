@@ -23,6 +23,7 @@ export const API = {
   BOOKAPPOINTMENT: 'patient/bookAppointment',
   CONFIRMPAYENT: 'transaction/confirmPayment',
   GETAPPOINTMENTS: 'patient/getAppointments',
+  GETCOUNTOFCANCELAPPOINTMENT: 'patient/getCountOfCancelAppointment',
   CANCELAPPOINTMENT: 'patient/cancelAppointment',
   GETMESSAGES: 'chat/getMessages',
   UPLOADREPORT: 'patient/uploadReport',

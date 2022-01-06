@@ -4,20 +4,20 @@ import "../patient/styles/model.scss";
 import CustomButton from "../commonComponent/Button";
 
 function ModalDialog(props) {
-  const { show, closeDialog, title, children, onSubmit, btnText, isConfirm, modalClassName} =
+  const { show, closeDialog, title, children, onSubmit,cancelBtnText, btnText, isConfirm, modalClassName } =
     props;
 
   return (
     <>
       <Modal className={modalClassName} onHide={isConfirm && closeDialog} show={show}>
-        <Modal.Header>
+        {title && <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
           <i
             class="far fa-times-circle"
             style={{ fontSize: "24px", color: "white" }}
             onClick={closeDialog}
           ></i>
-        </Modal.Header>
+        </Modal.Header>}
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
           {isConfirm ? (
@@ -26,9 +26,9 @@ function ModalDialog(props) {
             <>
               <button className={"card-text-close"} onClick={closeDialog}>
                 {" "}
-                Cancel
+               {cancelBtnText?cancelBtnText:"Cancel"} 
               </button>
-              <CustomButton onClick={onSubmit} text={"Confirm"}></CustomButton>
+              <CustomButton onClick={onSubmit} text={btnText}></CustomButton>
             </>
           )}
         </Modal.Footer>
