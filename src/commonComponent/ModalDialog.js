@@ -4,7 +4,7 @@ import "../patient/styles/model.scss";
 import CustomButton from "../commonComponent/Button";
 
 function ModalDialog(props) {
-  const { show, closeDialog, title, children, onSubmit,cancelBtnText, btnText, isConfirm, modalClassName } =
+  const { show, closeDialog, title, children, onSubmit,cancelBtnText, btnText, isConfirm, modalClassName, isCancelButton=true } =
     props;
 
   return (
@@ -24,10 +24,10 @@ function ModalDialog(props) {
             <CustomButton onClick={closeDialog} text={"Ok"}></CustomButton>
           ) : (
             <>
-              <button className={"card-text-close"} onClick={closeDialog}>
+              {isCancelButton && <button className={"card-text-close"} onClick={closeDialog}>
                 {" "}
                {cancelBtnText?cancelBtnText:"Cancel"} 
-              </button>
+              </button>}
               <CustomButton onClick={onSubmit} text={btnText}></CustomButton>
             </>
           )}

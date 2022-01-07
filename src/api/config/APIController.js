@@ -31,6 +31,7 @@ export const API = {
   DELETEREPORT: 'patient/deleteReport',
   GET_PRESCRIPTIONS: 'patient/getPrescriptions',
   APPLY_COUPON: 'coupon/checkDiscount',
+  GETPUBLICLINKFILE: 'getPublicLinkFile',
   /**
    * Doctor related APIS
    */

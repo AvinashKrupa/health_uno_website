@@ -3,15 +3,53 @@ import { Col, Image, Row } from "react-bootstrap";
 import PDFViewer from 'mgr-pdf-viewer-react';
 import { back_icon } from "../constants/DoctorImages";
 import {getData} from "../storage/LocalStorage/LocalAsyncStorage";
-export const PDFViewerScreen = (props) => {
+import { API, post } from "../api/config/APIController";
+import { useToasts } from "react-toast-notifications";
 
+export const PDFViewerScreen = (props) => {
+  const { addToast } = useToasts();
   if(props.location?.state?.url){
     localStorage.setItem('PDF_URL',props.location?.state?.url)
   }
-  const [viewPdf, setViewPdf] = useState(props.location?.state?.url ? props.location?.state?.url : localStorage.getItem('PDF_URL'));
-  console.info('PDF Link: ', viewPdf);
-  const number = viewPdf && viewPdf.toLowerCase().search('pdf');
+  const [viewPdf, setViewPdf] = useState('');
+  const [source, setSource] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [number, setNumber] = useState(0);
   const userType = JSON.parse(getData('USER_TYPE'));
+
+  useEffect(() => {
+    getPublicLink();
+  },[])
+
+  function getPublicLink() {
+    let params = {
+      file_url: props.location?.state?.url ? props.location?.state?.url : localStorage.getItem('PDF_URL'),
+    };
+    setLoading(true);
+
+    post(API.GETPUBLICLINKFILE, params)
+      .then(response => {
+        setLoading(false);
+        if (response.status == 200) {
+          setViewPdf(response.data.data.url);
+          setNumber(viewPdf && viewPdf.toLowerCase().search('pdf'))
+          setSource({
+            uri: response.data.data.url,
+            cache: true,
+          });
+        } else {
+          addToast(response.data.message, {
+            appearance: "error",
+          });
+        }
+      })
+      .catch(error => {
+        setLoading(false);
+        addToast(error.response.data.message, {
+          appearance: "error",
+        });
+      });
+  }
   return (
     <Row>
         <Col lg='1' md='2' sm='1' xs='1'></Col>

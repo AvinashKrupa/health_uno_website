@@ -341,6 +341,7 @@ const DoctorAppointmentsCard = (props) => {
           }}
           btnText={"Okay"}
           show={showLastAttempt}
+          isCancelButton={false}
           closeDialog={() => {
             setShowLastAttempt(false);
           }}
