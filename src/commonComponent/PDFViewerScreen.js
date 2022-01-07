@@ -32,7 +32,7 @@ export const PDFViewerScreen = (props) => {
         setLoading(false);
         if (response.status == 200) {
           setViewPdf(response.data.data.url);
-          setNumber(viewPdf && viewPdf.toLowerCase().search('pdf'))
+          setNumber(response.data.data.url && response.data.data.url.toLowerCase().search('pdf'))
           setSource({
             uri: response.data.data.url,
             cache: true,
