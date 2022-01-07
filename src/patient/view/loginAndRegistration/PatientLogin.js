@@ -24,6 +24,7 @@ import CustomButton from "../../../commonComponent/Button";
 import { useToasts } from "react-toast-notifications";
 import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import Spinner from "../../../commonComponent/Spinner";
+import ModalDialog from "../../../commonComponent/ModalDialog";
 
 const PatientLogin = ({ history }) => {
   let timer = null;
@@ -34,6 +35,9 @@ const PatientLogin = ({ history }) => {
   );
   const [mobileNumberError, setMobileNumberError] = useState("");
   const [showLoader, setShowLoader] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [suspendResponse, setSuspendResponse] = useState({});
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   const handleOnChange = (e) => {
     if (isNaN(Number(e.target.value))) {
@@ -76,10 +80,24 @@ const PatientLogin = ({ history }) => {
         }
       })
       .catch((error) => {
+        if(error.response.data.data){
+          setShowPopUp(true)
+          setSuspendResponse(error.response)
+        }
         addToast(error.response.data.message, { appearance: "error" });
         setShowLoader(false);
       });
   };
+
+  const renderSuspendResponse = () => {
+    let SuspendResponseText = ''
+    if(isMobile){
+      SuspendResponseText = `${suspendResponse && suspendResponse.data && suspendResponse.data.message}`
+    }else{
+      SuspendResponseText = `${suspendResponse && suspendResponse.data && suspendResponse.data.message} \n For more information call on : <a href="tel:${suspendResponse && suspendResponse.data && suspendResponse.data.data && suspendResponse.data.data.call}">${suspendResponse && suspendResponse.data && suspendResponse.data.data && suspendResponse.data.data.call}</a>`
+    }
+    return { __html: SuspendResponseText };
+  }
 
   function debounce() {
     clearTimeout(timer);
@@ -234,6 +252,26 @@ const PatientLogin = ({ history }) => {
             </div>
           </Col>
         </Row>
+        {showPopUp && (
+        <ModalDialog
+          onSubmit={() => {
+            // window.location.href = 'tel:' + suspendResponse && suspendResponse.data && suspendResponse.data.data && suspendResponse.data.data.call
+            window.open(`tel:${suspendResponse && suspendResponse.data && suspendResponse.data.data && suspendResponse.data.data.call}`);
+          }}
+          btnText={"Call"}
+          show={showPopUp}
+          isConfirm={!isMobile}
+          closeDialog={() => {
+            setShowPopUp(false);
+            setSuspendResponse({});
+          }}
+        >
+          <h6 className="title">Account</h6>
+          <p className="text">
+            <span dangerouslySetInnerHTML={renderSuspendResponse()} /> 
+          </p>
+        </ModalDialog>
+      )}
       </Container>
 }
     </>
