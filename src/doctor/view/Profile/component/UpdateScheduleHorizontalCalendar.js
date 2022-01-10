@@ -62,7 +62,7 @@ const UpdateScheduleHorizontalCalendar = (props) => {
     const ExampleCustomInput = forwardRef(({value, onClick}, ref) => (
         <>
   <span className="date-text-icon" onClick={onClick} ref={ref}>
-    {moment(value).format("MMM YYYY")}<Image className='fa-calendar-alt-slot' src={calendar_blue}></Image>
+    {moment(value).format("MMM YYYY")}<Image style={{marginBottom: "4px"}} className='fa-calendar-alt-slot' src={calendar_blue}></Image>
   </span>
 
         </>

@@ -221,6 +221,7 @@ const DoctorOTP = ({history}) => {
                                         <OtpInput
                                             className="OTP"
                                             numInputs="4"
+                                            isInputNum={true}
                                             separator={<span> </span>}
                                             value={otp}
                                             onChange={handleChange}
