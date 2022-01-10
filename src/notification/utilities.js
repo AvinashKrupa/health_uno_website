@@ -18,5 +18,6 @@ export const getPushToken = async () => {
         }).catch((err) => {
             return '';
         });
-    }}
+    }
+ }
 }

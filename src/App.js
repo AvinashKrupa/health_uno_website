@@ -38,26 +38,37 @@ import PatientFAQ from './FAQ/PatientFAQ';
 import GeneralTermsAndConditions from './commonComponent/GeneralTermsandConditions';
 import ReferInvite from './commonComponent/ReferInvite';
 import PhysicianReferralPage from './commonComponent/PhysicianReferralPage';
+import { useEffect } from 'react';
 
 
 function App() {
-  const {addToast} = useToasts();
-  if (isSupported()){
-    const messaging = getMessaging(firebase);
-  getToken(messaging, {vapidKey: FIREBASE_VAPID_KEY}).then((currentToken) => {
-    if (currentToken) {
-      storeData('PUSH_TOKEN', currentToken);
-    } else {
-      addToast('No registration token available. Request permission to generate one.', {appearance: "error"});
-    }
-  }).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
-  });
 
-  onMessage(messaging, (payload) => {
-    addToast(<p><b>{payload.notification.title}</b><br/>{payload.notification.body}</p>, {appearance: "info"});
-  });
-}
+  useEffect(() => {
+    try {
+      if (isSupported()){
+        const messaging = getMessaging(firebase);
+      getToken(messaging, {vapidKey: FIREBASE_VAPID_KEY}).then((currentToken) => {
+        if (currentToken) {
+          storeData('PUSH_TOKEN', currentToken);
+        } else {
+          addToast('No registration token available. Request permission to generate one.', {appearance: "error"});
+        }
+      }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+      });
+    
+      onMessage(messaging, (payload) => {
+        addToast(<p><b>{payload.notification.title}</b><br/>{payload.notification.body}</p>, {appearance: "info"});
+      });
+    }
+    } catch (error) {
+      console.log('error :>> ', error);
+    }
+   
+  },[])
+
+  const {addToast} = useToasts();
+  
   return (
     <div className="App">
     <BrowserRouter>
