@@ -396,7 +396,8 @@ const VideoMeeting = (props) => {
                         >
                           Test audio and video
                         </button>
-                      
+                      </Col>
+                      <Col>
                       {appointmentDetail.status === "ongoing" ? (
                         <button
                           className="meeting-btn-blue"
