@@ -7,6 +7,8 @@ import DoctorAppointmentsCard from "./DoctorAppointmentsCard";
 import Grid from "@material-ui/core/Grid";
 import Spinner from "../../../commonComponent/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { clearSession } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import ModalDialog from "../../../commonComponent/ModalDialog";
 
 const Appointments = (props) => {
   useEffect(() => {
@@ -29,6 +31,8 @@ const Appointments = (props) => {
   const [previousAppointments, setPreviousAppointments] = useState([]);
   const [totalPreviousAppointments, setTotalPreviousAppointments] = useState(0);
   const [previousPage, setPreviousPage] = useState(1);
+  const [showLastAttempt, setShowLastAttempt] = useState(false);
+  const [lastMessage, setLastMessage] = useState("");
 
   const handleSelection = () => {
     setUpcoming(!upcoming);
@@ -37,13 +41,12 @@ const Appointments = (props) => {
   };
 
   useEffect(() => {
-    if(upcoming){
+    if (upcoming) {
       getUpcomingAppointments();
-    }else if(previous){
+    } else if (previous) {
       getPreviousAppointments();
     }
-  }, [upcoming, previous])
-  
+  }, [upcoming, previous]);
 
   const handleSetLocalStorage = (value) => {
     if (value) {
@@ -106,7 +109,7 @@ const Appointments = (props) => {
       sort_order: sort_order,
       sort_key: "time.utc_time",
       date: "",
-      status: [ "cancelled", "rejected", "completed"],
+      status: ["cancelled", "rejected", "completed"],
     };
     setAppointmentLoaderStatus(true);
     post(API.GETAPPOINTMENTS, params)
@@ -144,7 +147,23 @@ const Appointments = (props) => {
     }
   };
 
-  function cancelAppointment(id, reason) {
+  const handleLogout = (routeName) => {
+    post(API.LOGOUT)
+      .then((response) => {
+        if (response.status === 200) {
+          addToast(response.data.message, { appearance: "success" });
+          clearSession();
+          props.history.push(`${routeName}`);
+        } else {
+          addToast(response.data.message, { appearance: "error" });
+        }
+      })
+      .catch((error) => {
+        addToast(error.response.data.message, { appearance: "error" });
+      });
+  };
+
+  function cancelAppointment(id, reason, number_of_attempts = 0) {
     let params = {
       appointment_id: id,
       cancel_reason: reason,
@@ -158,9 +177,25 @@ const Appointments = (props) => {
         } else {
           addToast(response.data.message, { appearance: "error" });
         }
+        if (number_of_attempts >= 3) {
+          setShowLastAttempt(true);
+          setLastMessage(response.data.message);
+        }
       })
       .catch((error) => {
-        addToast(error.response.data.message, { appearance: "error" });
+        if (number_of_attempts >= 3) {
+          if (
+            error.response.data.message !=
+            "Sorry you are not allowed to cancel appointment 2 hours before the scheduled time."
+          ) {
+            setShowLastAttempt(true);
+            setLastMessage(error.response.data.message);
+          } else {
+            addToast(error.response.data.message, { appearance: "error" });
+          }
+        } else {
+          addToast(error.response.data.message, { appearance: "error" });
+        }
       });
   }
 
@@ -226,24 +261,24 @@ const Appointments = (props) => {
                     }}
                   >
                     {upcomingAppointments.map((appointment) => {
-                        return (
-                          <Grid
-                            container
-                            item
-                            lg={4}
-                            md={6}
-                            sm={12}
-                            xs={12}
-                            spacing={0.5}
-                            className="appointment-page-cards-upcoming"
-                          >
-                            <DoctorAppointmentsCard
-                              appointment={appointment}
-                              cancelAppointment={cancelAppointment}
-                            />
-                          </Grid>
-                        );
-                      })}
+                      return (
+                        <Grid
+                          container
+                          item
+                          lg={4}
+                          md={6}
+                          sm={12}
+                          xs={12}
+                          spacing={0.5}
+                          className="appointment-page-cards-upcoming"
+                        >
+                          <DoctorAppointmentsCard
+                            appointment={appointment}
+                            cancelAppointment={cancelAppointment}
+                          />
+                        </Grid>
+                      );
+                    })}
                   </div>
                 </InfiniteScroll>
                 {!appointmentLoaderStatus && !upcomingAppointments.length && (
@@ -304,6 +339,23 @@ const Appointments = (props) => {
             )}
           </Row>
         </Col>
+        {showLastAttempt && (
+          <ModalDialog
+            onSubmit={() => {
+              handleLogout("/patient/");
+              setShowLastAttempt(false);
+            }}
+            btnText={"Okay"}
+            show={showLastAttempt}
+            isCancelButton={false}
+            closeDialog={() => {
+              setShowLastAttempt(false);
+            }}
+          >
+            <h6 className="title">Account</h6>
+            <p className="text">{lastMessage}</p>
+          </ModalDialog>
+        )}
         {/* <Col lg='1' sm='1' xs='1'>
 
         </Col> */}
