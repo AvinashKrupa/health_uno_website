@@ -18,7 +18,6 @@ import { getColorForAppointmentStatus } from "../../../utils/Colors";
 import IframeModal from "../IframeModal";
 import Checkbox from "../../../commonComponent/Checkbox";
 import { API, get, post } from "../../../api/config/APIController";
-import { clearSession } from "../../../storage/LocalStorage/LocalAsyncStorage";
 
 const DoctorAppointmentsCard = (props) => {
   const [toggleModal, setToggleModal] = useState(false);
@@ -43,10 +42,14 @@ const DoctorAppointmentsCard = (props) => {
             setMessage(message);
             setTitle(title);
             setShow(true);
-          } else if (number_of_attempts >= 3) {
-            setShowLastAttempt(true);
-          } else {
+          } else if (number_of_attempts === 0) {
             props.cancelAppointment(props?.appointment._id, reason);
+          } else {
+            props.cancelAppointment(
+              props?.appointment._id,
+              reason,
+              number_of_attempts
+            );
           }
         }
       })
@@ -54,21 +57,7 @@ const DoctorAppointmentsCard = (props) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
   }
-  const handleLogout = (routeName) => {
-    post(API.LOGOUT)
-      .then((response) => {
-        if (response.status === 200) {
-          addToast(response.data.message, { appearance: "success" });
-          clearSession();
-          props.history.push(`${routeName}`);
-        } else {
-          addToast(response.data.message, { appearance: "error" });
-        }
-      })
-      .catch((error) => {
-        addToast(error.response.data.message, { appearance: "error" });
-      });
-  };
+
   function onSubmit() {
     if (reason === "") {
       addToast("Please enter cancel reason", { appearance: "error" });
@@ -323,34 +312,6 @@ const DoctorAppointmentsCard = (props) => {
         >
           <h6 className="title">{title}</h6>
           <p className="text">{message}</p>
-        </ModalDialog>
-      )}
-      {showLastAttempt && (
-        <ModalDialog
-          onSubmit={() => {
-            if (reason == "") {
-              addToast("Please enter cancel reason", { appearance: "error" });
-            } else if (termsCondition === false) {
-              addToast("Please accept terms and condition", {
-                appearance: "error",
-              });
-            } else {
-              handleLogout("/patient/");
-              setShowLastAttempt(false);
-            }
-          }}
-          btnText={"Okay"}
-          show={showLastAttempt}
-          isCancelButton={false}
-          closeDialog={() => {
-            setShowLastAttempt(false);
-          }}
-        >
-          <h6 className="title">Account</h6>
-          <p className="text">
-            You've reached your maximum cancellation limit, cannot cancel
-            appointment. Please contact support
-          </p>
         </ModalDialog>
       )}
     </>
