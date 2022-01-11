@@ -49,6 +49,14 @@ const VideoMeeting = (props) => {
   }, []);
 
   useEffect(() => {
+    return () => {
+      if (streams.length) {
+        handleBack();
+      }
+    };
+  }, [streams]);
+
+  useEffect(() => {
     getAppointmentDetail();
     return () => {};
   }, [props.location?.state?.appointment_id]);
@@ -196,6 +204,18 @@ const VideoMeeting = (props) => {
       });
   }
 
+  const handleBack = () => {
+    if (streams.length) {
+      streams[0].getTracks().forEach(function (track) {
+        track.stop();
+      });
+      setTracks([]);
+      setStreams([]);
+      setRenderTestButtons(false);
+    }
+    props.history.push('/patient/appointments');
+  };
+
   function getDoctorDetails() {
     post(API.GET_DOCTOR_DETAILS, {
       doctor_id: props.match.params.doctor_id,
@@ -222,7 +242,7 @@ const VideoMeeting = (props) => {
               <Image
                 src={back_icon}
                 alt="back_icon-Image"
-                onClick={() => props.history.goBack()}
+                onClick={() => handleBack()}
               ></Image>
               <span>&nbsp;&nbsp;Appointments Details</span>
             </button>
@@ -270,7 +290,7 @@ const VideoMeeting = (props) => {
             <Col md={12} sm={12} xs={10} lg={5}>
               {renderTestButtons && (
                 <div className="meeting-details">
-                  <Row style={{marginTop: "5%"}}>
+                  <Row style={{ marginTop: "5%" }}>
                     <button
                       className="meeting-mic-btn"
                       onClick={() => setMicStatus(!micStatus)}
@@ -308,13 +328,12 @@ const VideoMeeting = (props) => {
                       )}
                     </button>
                   </Row>
-                  <Row style={{marginTop: "20%"}}>
+                  <Row style={{ marginTop: "20%" }}>
                     <Col>
                       <button
                         className="meeting-btn-white"
                         onClick={() => {
-                          setStreams([]);
-                          setRenderTestButtons(false);
+                          handleBack();
                         }}
                       >
                         Cancel
@@ -370,26 +389,22 @@ const VideoMeeting = (props) => {
                   <Row>
                     <Col>
                       {console.log("status", appointmentDetail.status)}
-                      {appointmentDetail.status === "scheduled" && (
+                      
                         <button
                           className="meeting-btn-white"
                           onClick={() => checkPermissions()}
                         >
                           Test audio and video
                         </button>
-                      )}
-                      {appointmentDetail.status === "ongoing" && (
+                      
+                      {appointmentDetail.status === "ongoing" ? (
                         <button
                           className="meeting-btn-blue"
                           onClick={() => openMeeting()}
                         >
-                          Rejoin meeting
-                        </button>
-                      )}
-                    </Col>
-                    <Col>
-                      {appointmentDetail.status !== "ongoing" && (
-                        <button
+                          Join meeting
+                        </button>) : (
+                          <button
                           className="meeting-btn-blue"
                           disabled={
                             !(
@@ -400,14 +415,6 @@ const VideoMeeting = (props) => {
                           onClick={() => openMeeting()}
                         >
                           Join meeting
-                        </button>
-                      )}
-                      {appointmentDetail.status === "ongoing" && (
-                        <button
-                          className="meeting-btn-red"
-                          onClick={() => endAppointment()}
-                        >
-                          End meeting
                         </button>
                       )}
                     </Col>
