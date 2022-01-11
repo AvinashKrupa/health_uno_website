@@ -17,7 +17,7 @@ const Video = ({ stream }) => {
   useEffect(() => {
     if (localVideo.current) localVideo.current.srcObject = stream;
   }, [stream, localVideo]);
-
+  
   return (
     <div>
       <video className="meeting-window" ref={localVideo} autoPlay />
@@ -44,6 +44,14 @@ const VideoMeeting = (props) => {
   useEffect(() => {
     stopVideo();
   }, [videoStatus]);
+
+  useEffect(() => {
+    return () => {
+      if (streams.length) {
+        handleBack();
+      }
+    };
+  }, [streams]);
 
   useEffect(() => {
     stopMic();
@@ -173,6 +181,18 @@ const VideoMeeting = (props) => {
       });
   }
 
+  const handleBack = () => {
+    if (streams.length) {
+      streams[0].getTracks().forEach(function (track) {
+        track.stop();
+      });
+      setTracks([]);
+      setStreams([]);
+      setRenderTestButtons(false);
+    }
+    props.history.push(`/doctor/appointmentDetail/${props.match.params.appointment_id}`);
+  };
+
   function handleEnableButton() {
     setEnableMeetingButton(true);
   }
@@ -186,7 +206,7 @@ const VideoMeeting = (props) => {
               <Image
                 src={back_icon}
                 alt="back_icon-Image"
-                onClick={() => props.history.goBack()}
+                onClick={() => handleBack()}
               ></Image>
               <span>&nbsp;&nbsp;Appointments Details</span>
             </button>
@@ -277,8 +297,7 @@ const VideoMeeting = (props) => {
                       <button
                         className="meeting-btn-white"
                         onClick={() => {
-                          setStreams([]);
-                          setRenderTestButtons(false);
+                          handleBack();
                         }}
                       >
                         Cancel
@@ -333,25 +352,20 @@ const VideoMeeting = (props) => {
                   </Row>
                   <Row>
                     <Col>
-                      {appointmentDetail.status === "scheduled" && (
                         <button
                           className="meeting-btn-white"
                           onClick={() => checkPermissions()}
                         >
                           Test audio and video
                         </button>
-                      )}
-                      {appointmentDetail.status === "ongoing" && (
+                      {appointmentDetail.status === "ongoing" ? (
                         <button
                           className="meeting-btn-blue"
                           onClick={() => openMeeting()}
                         >
-                          Rejoin meeting
+                          Join meeting
                         </button>
-                      )}
-                    </Col>
-                    <Col>
-                      {appointmentDetail.status !== "ongoing" && (
+                      ) : (
                         <button
                           className="meeting-btn-blue"
                           disabled={
@@ -363,14 +377,6 @@ const VideoMeeting = (props) => {
                           onClick={() => openMeeting()}
                         >
                           Join meeting
-                        </button>
-                      )}
-                      {appointmentDetail.status === "ongoing" && (
-                        <button
-                          className="meeting-btn-red"
-                          onClick={() => endAppointment()}
-                        >
-                          End meeting
                         </button>
                       )}
                     </Col>
