@@ -20,6 +20,7 @@
     "lodash": "^4.17.21",
     "mgr-pdf-viewer-react": "^1.0.3",
     "moment": "^2.29.1",
+    "qs": "^6.10.3",
     "rc-cropping": "^1.0.1",
     "rc-dialog": "^8.6.0",
     "rc-upload": "^4.3.1",
