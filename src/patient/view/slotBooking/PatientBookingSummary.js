@@ -85,10 +85,7 @@ const PatientBookingSummary = (props) => {
     }
 
     function validation() {
-        if (isEmpty(purpose)) {
-            addToast('Please enter the purpose', {appearance: 'error'});
-            return false;
-        } else if (isEmpty(slot_id)) {
+        if (isEmpty(slot_id)) {
             addToast('Please go back and select the time', {appearance: 'error'});
             return false;
         } else if (isEmpty(date)) {
