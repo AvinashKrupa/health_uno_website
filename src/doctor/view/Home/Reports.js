@@ -186,12 +186,23 @@ const Reports = (props) => {
                     hasMore={true}
                     className="load-data"
                   >
-                    {prescriptionReports &&
-                      prescriptionReports.map((report) => {
-                        return (
-                          <ReportCard report={report} history={props.history} />
-                        );
-                      })}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {prescriptionReports &&
+                        prescriptionReports.map((report) => {
+                          return (
+                            <ReportCard
+                              report={report}
+                              history={props.history}
+                            />
+                          );
+                        })}
+                    </div>
                   </InfiniteScroll>
                   {!prescriptionReports.length && (
                     <div className="empty-list-container_center">
@@ -210,12 +221,23 @@ const Reports = (props) => {
                     hasMore={true}
                     className="load-data"
                   >
-                    {investigationsReports &&
-                      investigationsReports.map((report) => {
-                        return (
-                          <ReportCard report={report} history={props.history} />
-                        );
-                      })}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {investigationsReports &&
+                        investigationsReports.map((report) => {
+                          return (
+                            <ReportCard
+                              report={report}
+                              history={props.history}
+                            />
+                          );
+                        })}
+                    </div>
                   </InfiniteScroll>
                   {!investigationsReports.length && (
                     <div className="empty-list-container_center">
