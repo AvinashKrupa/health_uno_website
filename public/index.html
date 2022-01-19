@@ -43,6 +43,7 @@
 
     <!-- Facebook Pixel Code -->
     <script>
+      if(typeof fbq === 'undefined'){
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
@@ -66,8 +67,13 @@
         "script",
         "https://connect.facebook.net/en_US/fbevents.js"
       );
-      fbq("init", "353910128935468");
-      fbq("track", "PageView");
+      
+
+        fbq("init", "353910128935468");
+        fbq("track", "PageView");
+      }else{
+        fbq("track", "PageView");
+      }
     </script>
     <noscript
       ><img
