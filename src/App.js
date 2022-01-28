@@ -39,6 +39,7 @@ import GeneralTermsAndConditions from './commonComponent/GeneralTermsandConditio
 import ReferInvite from './commonComponent/ReferInvite';
 import PhysicianReferralPage from './commonComponent/PhysicianReferralPage';
 import { useEffect } from 'react';
+import ThankYou from './patient/view/thankYou';
 
 
 function App() {
@@ -111,6 +112,7 @@ function App() {
         <PrivateRoute exact path='/patient/profile/:type' component={PatientProfile}/>
         <PrivateRoute exact path='/patient/AddPrescription' component={AddPrescription}/>
         <PrivateRoute exact path='/patient/reports/view' component={PDFViewer}/>
+        <PrivateRoute exact path='/patient/thankyou/' component={ThankYou}/>
         {/* <PrivateRoute exact path='/patient/profile/upload' component={UploadReport} /> */}
         <Route component={NotFoundPage} isNotFound={true} />
         </Switch>
