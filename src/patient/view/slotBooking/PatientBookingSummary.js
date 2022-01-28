@@ -121,7 +121,7 @@ const PatientBookingSummary = (props) => {
                         } else {
                             setShowLoader(false);
                             addToast('Slot is successfully booked', {appearance: 'success'});
-                            props.history.push('/patient/appointments')
+                            props.history.push('/patient/thankyou')
                         }
                     } else {
                         setShowLoader(false);
@@ -191,7 +191,7 @@ const PatientBookingSummary = (props) => {
                         if (result.status === 200) {
                             setShowLoader(false);
                             addToast(`Payment Confirmed. You'll receive SMS/Notification once the appointment is confirmed.`, {appearance: 'success'});
-                            props.history.push('/patient/appointments')
+                            props.history.push('/patient/thankyou')
                         } else {
                             setShowLoader(false);
                             addToast(result.data.message, {appearance: 'error'});
