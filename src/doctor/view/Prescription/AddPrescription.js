@@ -1040,7 +1040,7 @@ const AddPrescription = (props) => {
                   {investigationRequiredCheck &&
                     investigations.map((text, index) => {
                       return (
-                        <Col lg="6" md sm="12" xs="12">
+                        <Col key={index} lg="6" md sm="12" xs="12">
                           <div
                             style={{ display: "flex", flexDirection: "row" }}
                           >

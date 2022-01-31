@@ -210,7 +210,7 @@ const DoctorHomePage = (props) => {
             }
             {!appointmentLoaderStatus && appointments && appointments.map((doctor) => {
               return (
-                <Grid container item lg={4} md={6} sm={6} xs={12} spacing={1}>
+                <Grid key={doctor._id} container item lg={4} md={6} sm={6} xs={12} spacing={1}>
                     <PatientAppointmentCard
                         id={doctor._id}
                         image={doctor.dp}

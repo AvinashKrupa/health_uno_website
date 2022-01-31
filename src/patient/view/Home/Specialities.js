@@ -55,6 +55,7 @@ const Specialities = (props) => {
     return filteredList.map((specialitie) => {
       return (
         <SpecialityCard
+          key={specialitie._id}
           icon={specialitie.image}
           label={specialitie.title}
           setSearchText={specialityClickAction}

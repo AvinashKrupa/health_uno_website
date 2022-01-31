@@ -282,6 +282,7 @@ const UpcomingAppointments = (props) => {
                       upcomingAppointments.map((doctor) => {
                         return (
                           <Grid
+                          key={doctor._id}
                             container
                             item
                             lg={4}
@@ -340,6 +341,7 @@ const UpcomingAppointments = (props) => {
                       previousAppointments.map((doctor) => {
                         return (
                           <Grid
+                          key={doctor._id}
                             container
                             item
                             lg={4}

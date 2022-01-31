@@ -137,9 +137,9 @@ const CarouselComponent = ({sliders}) => {
             containerClass='react-multi-carousel-list'
           >
 
-            {sliders.map((slider) => {
+            {sliders.map((slider, key) => {
               return(
-                <div className="carousel_container">
+                <div key={key} className="carousel_container">
                 <Row className='g-0'>
                     {renderFullImageSlider(slider)}
                   {/*{*/}

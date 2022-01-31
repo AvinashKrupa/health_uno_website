@@ -168,7 +168,7 @@ const FAQ = ({ isProfile }) => {
       <Row className="FAQ_accordion_container">
         <Grid container spacing={2}>
           {data.map((value, i) => (
-            <Grid item lg={6} md={6} sm={12} xs={12}>
+            <Grid key={i} item lg={6} md={6} sm={12} xs={12}>
               <Accordion className="FAQ_accordion_width">
                 <Card className="FAQ_accordion_space">
                   <Accordion.Toggle

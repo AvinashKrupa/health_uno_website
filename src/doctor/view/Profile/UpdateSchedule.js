@@ -345,7 +345,7 @@ const UpdateSchedule = (props) => {
                     {selectedDays.map((item, index) => {
                         let active = item.isChecked;
                         return (
-                            <Button className={'days-selection-button'} onClick={(e) => handleDaysClick(index)}
+                            <Button key={index} className={'days-selection-button'} onClick={(e) => handleDaysClick(index)}
                                     style={{backgroundColor: active ? '#28A3DA' : 'white'}}>
                                     <span className="days-button-text"
                                           style={{color: active ? "white" : ""}}>{item.day}</span>
