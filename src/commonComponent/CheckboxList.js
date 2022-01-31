@@ -3,8 +3,8 @@ import { Form } from "react-bootstrap";
 const CheckboxList = (props) => {
   return (
     <>
-        {props.list.map((value) => (
-          <div style={{display: 'flex', flexDirection: 'row'}}>
+        {props.list.map((value, key) => (
+          <div key={key} style={{display: 'flex', flexDirection: 'row'}}>
             <Form.Check
               type="checkbox"
               label={value}

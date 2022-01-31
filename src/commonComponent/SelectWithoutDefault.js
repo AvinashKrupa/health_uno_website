@@ -6,8 +6,8 @@ const Selector = (props) => {
       <br />
       <Form.Label>{props.label}</Form.Label>
       <select className="form-select" id={props.id} value={props.value} onChange={(e) => props.handleSelect(e.target.value)}>
-        {props.options.map((item) => (
-          <option value={item}>{item}</option>
+        {props.options.map((item, key) => (
+          <option key={key} value={item}>{item}</option>
         ))}
       </select>
     </Form.Group>

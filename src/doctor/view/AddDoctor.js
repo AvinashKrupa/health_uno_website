@@ -115,7 +115,7 @@ const AddDoctor = (props) => {
           <Row style={{display: 'flex', flexDirection: 'row'}} className='top-consultants-card-container'>
           {consultants.map((doctor) => {
               return(
-                <Grid container item lg={4}  md={6} sm={6} xs={12} spacing={1}>
+                <Grid key={doctor._id} container item lg={4}  md={6} sm={6} xs={12} spacing={1}>
                    <SimilarDoctorsCard
                         id={doctor._id}
                         image={doctor.dp}

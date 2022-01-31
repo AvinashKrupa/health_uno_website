@@ -194,9 +194,10 @@ const Reports = (props) => {
                       }}
                     >
                       {prescriptionReports &&
-                        prescriptionReports.map((report) => {
+                        prescriptionReports.map((report, i) => {
                           return (
                             <ReportCard
+                              key={i}
                               report={report}
                               history={props.history}
                             />
@@ -229,9 +230,10 @@ const Reports = (props) => {
                       }}
                     >
                       {investigationsReports &&
-                        investigationsReports.map((report) => {
+                        investigationsReports.map((report, i) => {
                           return (
                             <ReportCard
+                            key={i}
                               report={report}
                               history={props.history}
                             />

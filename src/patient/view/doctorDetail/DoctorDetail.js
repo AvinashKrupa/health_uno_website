@@ -199,6 +199,7 @@ const DoctorDetails = (props) => {
                                         doctorDetails.similar_doctors.map((doctor) => {
                                             return (
                                                 <SimilarDoctorsCard
+                                                    key={doctor._id}
                                                     id={doctor._id}
                                                     image={doctor.dp}
                                                     name={`${doctor.first_name} ${doctor.last_name}`}

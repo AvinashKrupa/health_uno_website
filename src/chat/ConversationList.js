@@ -29,9 +29,9 @@ class ConversationList extends Component {
             <div className="chat-users-list">
                 <div className="chat-scroll">
 
-                    {this.state.conversations.map(conversation => {
+                    {this.state.conversations.map((conversation, key) => {
                         return (
-                            <a href="#0" className="media">
+                            <a key={key} href="#0" className="media">
                                 <div className="media-img-wrap">
                                     <div className="avatar avatar-online">
                                         <img src={conversation.dp ? conversation.dp : patientIcon} alt="User"
