@@ -9,11 +9,11 @@ function ModalDialog(props) {
 
   return (
     <>
-      <Modal className={modalClassName} onHide={isConfirm && closeDialog} show={show}>
+      <Modal animation={false} className={modalClassName} onHide={isConfirm && closeDialog} show={show}>
         {title && <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
           <i
-            class="far fa-times-circle"
+            className="far fa-times-circle"
             style={{ fontSize: "24px", color: "white" }}
             onClick={closeDialog}
           ></i>

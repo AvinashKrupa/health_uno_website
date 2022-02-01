@@ -71,7 +71,7 @@ const NotificationSidebarComponent = (props) => {
               className="notification-container-close-button"
               onClick={props.toggleSidebar}
             >
-              <i class="fas fa-times"></i>
+              <i className="fas fa-times"></i>
             </Col>
           </Row>
           <Row
@@ -93,8 +93,8 @@ const NotificationSidebarComponent = (props) => {
                   console.log("amit debug :", event, abc);
                 }}
               >
-                {notifications.map((notification_item) => (
-                  <Notification item={notification_item} />
+                {notifications.map((notification_item, key) => (
+                  <Notification key={key} item={notification_item} />
                 ))}
               </InfiniteScroll>
             </div>

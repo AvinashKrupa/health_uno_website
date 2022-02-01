@@ -422,7 +422,7 @@ const MultiStepFormRegistration = ({ history }) => {
           {" "}
           <Row className="heading">
             <div onClick={handlePrev} style={{ cursor: "pointer" }}>
-              <i class="fas fa-arrow-left"></i>
+              <i className="fas fa-arrow-left"></i>
               <span>Complete Profile</span>
             </div>
           </Row>

@@ -59,9 +59,9 @@ function ColorlibStepIcon(props) {
   const { active, completed } = props;
 
   const icons = {
-    1:  <i class="fas fa-bars"></i>,
-    2: <i class="fas fa-award"></i>  ,
-    3:  <i class="fas fa-calendar-alt"></i>,
+    1:  <i className="fas fa-bars"></i>,
+    2: <i className="fas fa-award"></i>  ,
+    3:  <i className="fas fa-calendar-alt"></i>,
   };
 
   return (

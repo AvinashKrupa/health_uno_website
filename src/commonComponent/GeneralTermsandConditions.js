@@ -1,4 +1,3 @@
-import { Row } from 'react-bootstrap';
 import "../doctor/styles/generalTermsAndCondition.scss";
 
 const GeneralTermsAndConditions = (props) => {
