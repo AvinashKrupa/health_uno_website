@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Image, Button, Row, Col } from "react-bootstrap";
 import Error404 from "../assets/404 Error.png";
 

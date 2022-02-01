@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Row, Col, Image } from "react-bootstrap";
 import Timer from "../../../commonComponent/Timer";
 import ModalDialog from "../../../commonComponent/ModalDialog";
@@ -17,28 +18,26 @@ import {
 import { getColorForAppointmentStatus } from "../../../utils/Colors";
 import IframeModal from "../IframeModal";
 import Checkbox from "../../../commonComponent/Checkbox";
-import { API, get, post } from "../../../api/config/APIController";
+import { API, get } from "../../../api/config/APIController";
 
 const DoctorAppointmentsCard = (props) => {
   const [toggleModal, setToggleModal] = useState(false);
   const [enableMeetingButton, setEnableMeetingButton] = useState(false);
   const [reason, setReason] = useState("");
   const { addToast } = useToasts();
-  const [id, setId] = useState(props?.appointment._id);
   const [modalShow, setModalShow] = useState(false);
   const [termsCondition, setTermsCondition] = useState(false);
   const [show, setShow] = useState(false);
-  const [showLastAttempt, setShowLastAttempt] = useState(false);
   const [message, setMessage] = useState("");
   const [title, setTitle] = useState("");
 
   function getCancelCountOfAppointment(id, reason) {
     get(API.GETCOUNTOFCANCELAPPOINTMENT)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           const { number_of_attempts, title, message } = response.data.data;
 
-          if (number_of_attempts == 1 || number_of_attempts == 2) {
+          if (number_of_attempts === 1 || number_of_attempts === 2) {
             setMessage(message);
             setTitle(title);
             setShow(true);
@@ -291,7 +290,7 @@ const DoctorAppointmentsCard = (props) => {
       {show && (
         <ModalDialog
           onSubmit={() => {
-            if (reason == "") {
+            if (reason === "") {
               addToast("Please enter cancel reason", { appearance: "error" });
             } else if (termsCondition === false) {
               addToast("Please accept terms and condition", {

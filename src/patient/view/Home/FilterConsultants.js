@@ -20,7 +20,7 @@ const FilterConsultants = (props) => {
     getLanguage();
     getSpecialities();
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const { addToast } = useToasts();
   let [minMax, setMinMax] = useState({ min: 100, max: 5000 });
   const [showLanguages, setShowLanguages] = useState(true);

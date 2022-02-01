@@ -17,7 +17,7 @@ const Specialities = (props) => {
 
   useEffect(() => {
     getSpecialization();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function getSpecialization() {
     get(API.GETSPECIALITIES)

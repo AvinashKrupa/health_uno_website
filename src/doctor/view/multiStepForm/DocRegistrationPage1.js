@@ -17,7 +17,7 @@ const DocRegistrationPage1 = (props) => {
     getState();
     getLanguage();
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const {
     firstName,
@@ -63,7 +63,7 @@ const DocRegistrationPage1 = (props) => {
       }
     }
     return () => {};
-  }, [dataState]);
+  }, [dataState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getStateValue = (value) => {
     if (value) {

@@ -33,19 +33,19 @@ const DoctorHomePage = (props) => {
     getUserProfile();
     getHomeContent();
     getDoctorAppointments();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     document.querySelectorAll('[role="navigation"]').forEach(function (el){
       el.classList.add("filter-list-close");
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setTimeout(function () {
       getDoctorAppointments()
     }, 500);
-  }, [currentDate]);
+  }, [currentDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function getHomeContent() {
     get(API.DOCTOR_HOME_CONTENT_API)

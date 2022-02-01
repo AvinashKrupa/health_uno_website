@@ -5,7 +5,6 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 import React from "react";
 import ProfileButton from "../../../commonComponent/ProfileButton";
 import { withRouter } from 'react-router-dom'
-import UploadImage from "../../../commonComponent/Upload"
 import { API, get, post } from "../../../api/config/APIController";
 import { storeData, getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import { useToasts } from "react-toast-notifications";
@@ -18,7 +17,7 @@ const EditProfilePictureColumn = (props) => {
             props.history.push(`/`);
             return;
         }
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
     const [image, setImage] = useState(props.img);
     const { addToast } = useToasts();
     function updateUserProfile(file) {
@@ -46,7 +45,7 @@ const EditProfilePictureColumn = (props) => {
     useEffect(() => {
         getUserProfile()
         setTimeout(() => props.setReloadSideColumn(false), 1000)
-    }, [props.reloadSideColumn]);
+    }, [props.reloadSideColumn]); // eslint-disable-line react-hooks/exhaustive-deps
 
     function getUserProfile() {
         get(API.GET_PROFILE)

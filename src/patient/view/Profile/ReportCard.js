@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Grid } from "@material-ui/core";
 import moment from "moment";
 import {RiDeleteBinLine} from 'react-icons/ri'
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Spinner from "../../../commonComponent/Spinner";
 
 const ReportCard = (props) => {

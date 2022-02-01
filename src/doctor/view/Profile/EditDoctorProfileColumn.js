@@ -28,12 +28,12 @@ const EditDoctorProfileColumn = (props) => {
         getUserProfile()
         return () => {
         };
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
         getUserProfile()
         setTimeout(()=>props.setReloadSideColumn(false),1000)
-    }, [props.reloadSideColumn]);
+    }, [props.reloadSideColumn]); // eslint-disable-line react-hooks/exhaustive-deps
 
     function getUserProfile() {
         get(API.GET_PROFILE)

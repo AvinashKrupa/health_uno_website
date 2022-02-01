@@ -85,7 +85,7 @@ const AddPrescription = (props) => {
       props.history.goBack();
       return;
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (investigationRequiredCheck) {
@@ -93,7 +93,7 @@ const AddPrescription = (props) => {
     } else {
       setInvestigations([]);
     }
-  }, [investigationRequiredCheck]);
+  }, [investigationRequiredCheck]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const defaultValue = (selectedType) => {
     return {
@@ -605,7 +605,7 @@ const AddPrescription = (props) => {
   useEffect(() => {
     getMedicineTypes();
     getSavedPrescriptions();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChooseTempClickOpen = () => {
     setChosenTemplate("");

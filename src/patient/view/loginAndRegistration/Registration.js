@@ -3,7 +3,6 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import patientIcon from "../../assets/patient-form-icon.png";
 import RegistrationComponent from "./RegistrationComponent";
 import {Link} from 'react-router-dom';
-import UploadImage from "../../../commonComponent/Upload"
 import { useState } from "react";
 import ImageUpload from "../../../commonComponent/ImageUpload/ImageUpload";
 

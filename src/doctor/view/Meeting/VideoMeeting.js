@@ -1,5 +1,5 @@
-import { help, meeting } from "../../../constants/PatientImages";
-import { Button, Col, Image, Row } from "react-bootstrap";
+import { help } from "../../../constants/PatientImages";
+import { Col, Image, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
@@ -16,7 +16,7 @@ const Video = ({ stream }) => {
   const localVideo = React.createRef();
   useEffect(() => {
     if (localVideo.current) localVideo.current.srcObject = stream;
-  }, [stream, localVideo]);
+  }, [stream, localVideo]); // eslint-disable-line react-hooks/exhaustive-deps
   
   return (
     <div>
@@ -39,11 +39,11 @@ const VideoMeeting = (props) => {
 
   useEffect(() => {
     canJoinAppointmentDetails();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     stopVideo();
-  }, [videoStatus]);
+  }, [videoStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     return () => {
@@ -51,16 +51,16 @@ const VideoMeeting = (props) => {
         handleBack();
       }
     };
-  }, [streams]);
+  }, [streams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     stopMic();
-  }, [micStatus]);
+  }, [micStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getAppointmentDetail();
     return () => {};
-  }, [props.match.params.appointment_id]);
+  }, [props.match.params.appointment_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { addToast } = useToasts();
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line react-hooks/exhaustive-deps
 import 'firebase/messaging';
 import {getMessaging, getToken, onMessage, isSupported} from "firebase/messaging";
 import firebase, {FIREBASE_VAPID_KEY} from "./notification/firebase";
@@ -35,7 +36,6 @@ import {storeData} from "./storage/LocalStorage/LocalAsyncStorage";
 import {useToasts} from "react-toast-notifications";
 import FAQ from './FAQ';
 import PatientFAQ from './FAQ/PatientFAQ';
-import GeneralTermsAndConditions from './commonComponent/GeneralTermsandConditions';
 import ReferInvite from './commonComponent/ReferInvite';
 import PhysicianReferralPage from './commonComponent/PhysicianReferralPage';
 import { useEffect } from 'react';
@@ -66,7 +66,7 @@ function App() {
       console.log('error :>> ', error);
     }
    
-  },[])
+  },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const {addToast} = useToasts();
   

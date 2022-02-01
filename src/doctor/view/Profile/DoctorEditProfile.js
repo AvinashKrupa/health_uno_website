@@ -35,7 +35,7 @@ const DoctorEditProfile = (props) => {
     getState();
     getLanguage();
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);

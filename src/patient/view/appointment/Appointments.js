@@ -19,7 +19,7 @@ const Appointments = (props) => {
       handleSelection();
     }
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { addToast } = useToasts();
   const [upcoming, setUpcoming] = useState(true);
@@ -46,7 +46,7 @@ const Appointments = (props) => {
     } else if (previous) {
       getPreviousAppointments();
     }
-  }, [upcoming, previous]);
+  }, [upcoming, previous]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSetLocalStorage = (value) => {
     if (value) {
@@ -185,7 +185,7 @@ const Appointments = (props) => {
       .catch((error) => {
         if (number_of_attempts >= 3) {
           if (
-            error.response.data.message !=
+            error.response.data.message !==
             "Sorry you are not allowed to cancel appointment 2 hours before the scheduled time."
           ) {
             setShowLastAttempt(true);

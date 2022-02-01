@@ -22,7 +22,7 @@ const AddDoctor = (props) => {
 
   useEffect(() => {
     getTopConsultants();
-  }, [searchText]);
+  }, [searchText]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onDoctorSelect = (doctor) => {
     let params = {

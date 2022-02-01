@@ -31,7 +31,7 @@ const DoctorOTP = ({history}) => {
             history.push(`/doctor`);
             return;
         }
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
     const verifyOTP = async (e) => {
         e.preventDefault();
         const foundPushToken = await getPushToken();
@@ -114,7 +114,7 @@ const DoctorOTP = ({history}) => {
         setMobileNumber(authContext.phone);
         return () => {
         };
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     function useInterval(callback, delay) {
         const savedCallback = useRef();
@@ -122,7 +122,7 @@ const DoctorOTP = ({history}) => {
         // Remember the latest callback.
         useEffect(() => {
             savedCallback.current = callback;
-        }, [callback]);
+        }, [callback]); // eslint-disable-line react-hooks/exhaustive-deps
 
         // Set up the interval.
         useEffect(() => {
@@ -135,7 +135,7 @@ const DoctorOTP = ({history}) => {
                 savedCallback.current();
             }, delay);
             return () => clearInterval(id);
-        }, [delay, restart]);
+        }, [delay, restart]); // eslint-disable-line react-hooks/exhaustive-deps
     }
 
     useInterval(() => {

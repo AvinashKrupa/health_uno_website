@@ -23,7 +23,7 @@ const UpdateScheduleHorizontalCalendar = (props) => {
         setDate(datesArr);
 
 
-    }, [date]);
+    }, [date]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     // useEffect(() => {

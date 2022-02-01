@@ -14,7 +14,7 @@ const DoctorDetails = (props) => {
     useEffect(() => {
         getDoctorDetails();
         return () => {};
-    }, [props.match.params.doctor_id]);
+    }, [props.match.params.doctor_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const { addToast } = useToasts();
     const [doctorDetails, setDoctorDetails] = useState();

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Col, Image, Row } from "react-bootstrap";
 import PDFViewer from "mgr-pdf-viewer-react";
 import { back_icon } from "../constants/DoctorImages";
-import { getData } from "../storage/LocalStorage/LocalAsyncStorage";
 import { API, post } from "../api/config/APIController";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
@@ -17,11 +16,10 @@ export const PDFViewerScreen = (props) => {
   const [source, setSource] = useState({});
   const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState(0);
-  const userType = JSON.parse(getData("USER_TYPE"));
 
   useEffect(() => {
     getPublicLink();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function getPublicLink() {
     let params = {

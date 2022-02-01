@@ -14,7 +14,7 @@ export function getTimer(timeString) {
 }
 
 export function convert24hto12h(timeString, ampmRequired = true) {
-    if(timeString==''){
+    if(timeString===''){
         return 'N/A'
     }
     const H = +timeString.substr(0, 2);

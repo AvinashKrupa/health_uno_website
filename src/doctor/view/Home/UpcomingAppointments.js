@@ -44,7 +44,7 @@ const UpcomingAppointments = (props) => {
     if (selection === "1") {
       handleSelection();
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const handleSetLocalStorage = (value) => {

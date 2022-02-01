@@ -45,13 +45,13 @@ const AppointmentDetail = (props) => {
         getAppointmentDetail();
         return () => {
         };
-    }, [props.match.params.appointment_id]);
+    }, [props.match.params.appointment_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         getAppointmentDetail();
         return () => {
         };
-    }, [addDoctor]);
+    }, [addDoctor]); // eslint-disable-line react-hooks/exhaustive-deps
 
     function getAppointmentDetail() {
         let params = {

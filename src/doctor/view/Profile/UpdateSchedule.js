@@ -45,7 +45,7 @@ const UpdateSchedule = (props) => {
         getSlots();
         return () => {
         };
-    }, [currentDate]);
+    }, [currentDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (isEveningShift || isDayShift) {
@@ -53,7 +53,7 @@ const UpdateSchedule = (props) => {
         } else {
             setShouldShowButton(false)
         }
-    }, [isDayShift, isEveningShift]);
+    }, [isDayShift, isEveningShift]); // eslint-disable-line react-hooks/exhaustive-deps
 
     function setDateValue(date) {
         const selectedDate = `${moment(date).format('YYYY-MM-DD')}`;

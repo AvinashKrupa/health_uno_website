@@ -18,7 +18,7 @@ const HorizontalCalendarForDoctor = (props) => {
         }else {
             setSize(4)
         }
-    }, [window.screen.availWidth]);
+    }, [window.screen.availWidth]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         let datesArr = [];
@@ -31,7 +31,7 @@ const HorizontalCalendarForDoctor = (props) => {
         setDate(datesArr);
 
 
-    }, [date]);
+    }, [date]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleDaysClick = (day, info) => {
         setSelectedDay(day, info);

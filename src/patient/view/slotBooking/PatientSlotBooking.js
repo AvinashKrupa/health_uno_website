@@ -6,12 +6,10 @@ import {API, post} from '../../../api/config/APIController';
 import { useToasts } from "react-toast-notifications";
 import HorizontalCalendar from './HorizontalCalendar';
 import CustomButton from '../../../commonComponent/Button';
-import {Link} from 'react-router-dom';
 import patientSlotBookingStore from "../../store/patientSlotBookingStore";
 import { isEmpty } from "../../../utils/Validators";
 import { back_icon } from "../../../constants/DoctorImages";
 import Label from "../../../commonComponent/Label";
-import {convert24hto12h} from "../../../utils/utilities";
 
 
   const PatientSlotBooking = (props) => {
@@ -29,11 +27,13 @@ import {convert24hto12h} from "../../../utils/utilities";
       setSlot('');
       setSlotId('');
       setStartTime('');
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
       getSlots();
       return () => {};
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentDate]);
 
     function handleNextClick() {

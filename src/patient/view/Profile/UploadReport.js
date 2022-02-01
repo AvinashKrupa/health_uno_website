@@ -6,7 +6,7 @@ import { upload } from "../../../constants/PatientImages";
 import moment from "moment";
 import Dropzone from "react-dropzone";
 import { pdf } from "../../../constants/PatientImages";
-import { API, post } from "../../../api/config/APIController";
+import { API } from "../../../api/config/APIController";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
 import Constants from "../../../constants";
