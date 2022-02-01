@@ -19,6 +19,7 @@ const PatientHomePage = (props) => {
   const setSearchText = useSearchStore((state) => state.setSearchText);
   const setSearchSpeciality = useSearchStore((state) => state.setSearchSpeciality);
   let [specialities, setSpecialities] = useState([]);
+  const [width, setWidth] = useState(window.innerWidth);
   let [slider, setSlider] = useState([]);
   let [consultants, setConsultant] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -34,6 +35,14 @@ const PatientHomePage = (props) => {
       el.classList.add("filter-list-close");
     });
   }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [width]);
 
   const toggleSidebar = () => {
     if(sidebarOpen) {
@@ -168,7 +177,7 @@ const PatientHomePage = (props) => {
           <Row style={{display: "flex", flexDirection: "row"}}>
             {consultants && consultants.slice(0, 21).map((doctor) => {
               return (
-                  <Grid key={doctor._id} container item lg={4} md={6} sm={window.innerWidth < 800 ? 12 : 6} xs={12} spacing={1}>
+                  <Grid key={doctor._id} container item lg={4} md={6} sm={width < 910 ? 12 : 6} xs={12} spacing={1}>
                     <SimilarDoctorsCard
                         id={doctor._id}
                         image={doctor.dp}
