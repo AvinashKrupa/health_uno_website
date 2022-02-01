@@ -814,7 +814,7 @@ const AddPrescription = (props) => {
             </div>
           </Typography>
         </DialogContent>
-        <DialogActions dividers>
+        <DialogActions dividers="true">
           <Button
             disabled={chosenTemplate ===''}
             className="chooseTempBtn"

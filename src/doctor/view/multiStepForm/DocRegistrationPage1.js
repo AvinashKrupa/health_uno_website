@@ -200,7 +200,7 @@ const DocRegistrationPage1 = (props) => {
               <Input
                 label="Mobile Number"
                 type="number"
-                readonly="true"
+                readonly={true}
                 value={mobile}
                 onChange={setMobile}
               />

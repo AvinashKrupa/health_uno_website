@@ -536,7 +536,7 @@ const RegistrationComponent = ({ history, image }) => {
               type="number"
               id="mobile"
               label="Mobile Number"
-              readonly="true"
+              readonly={true}
               value={mobile}
               onChange={setMobile}
             />
@@ -625,7 +625,7 @@ const RegistrationComponent = ({ history, image }) => {
               placeholder="India"
               id="country"
               label="Country"
-              readonly="true"
+              readonly={true}
               value={country}
               onChange={setCountry}
             />

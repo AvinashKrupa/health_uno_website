@@ -192,7 +192,7 @@ const DoctorOTP = ({history}) => {
                 </Col>
                 <Col className='otp-main-container'>
                     <div className="otp-back-navigation">
-                        <Link to='/doctor'><i class="fas fa-chevron-left"></i><span>Back</span></Link>
+                        <Link to='/doctor'><i className="fas fa-chevron-left"></i><span>Back</span></Link>
                     </div>
                     <Row className="phone-image">
                         <Col lg='3' md='3' sm='2' xs='1'></Col>
@@ -212,7 +212,7 @@ const DoctorOTP = ({history}) => {
                                     <div className='edit-number'>
                                         <p> We have sent OTP on your mobile
                                             number {maskedMobileNo[0]}{maskedMobileNo[1]}******{maskedMobileNo[8]}{maskedMobileNo[9]}</p> {
-                                        <Link to='/doctor/'><i class="fas fa-pen"></i></Link>}
+                                        <Link to='/doctor/'><i className="fas fa-pen"></i></Link>}
                                     </div>
                                 </Row>
                                 <form onSubmit={verifyOTP}>

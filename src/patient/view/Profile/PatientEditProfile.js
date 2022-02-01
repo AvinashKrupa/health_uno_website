@@ -608,7 +608,7 @@ const PatientEditProfile = (props) => {
           <Input
             label="Mobile Number"
             type="number"
-            readonly="true"
+            readonly={true}
             value={mobile}
             onChange={setMobile}
           />
@@ -617,7 +617,7 @@ const PatientEditProfile = (props) => {
           <Input
             label="Email"
             type="email"
-            readonly="true"
+            readonly={true}
             value={email}
             onChange={setEmail}
           />
@@ -628,13 +628,13 @@ const PatientEditProfile = (props) => {
           <Input
             label="Date of Birth"
             type="date"
-            readonly="true"
+            readonly={true}
             onChange={setBirthDate}
             value={birthDate}
           />
         </Col>
         <Col>
-          <Input readonly="true" label="Gender" value={gender} id="gender" />
+          <Input readonly={true} label="Gender" value={gender} id="gender" />
         </Col>
       </Row>
 
