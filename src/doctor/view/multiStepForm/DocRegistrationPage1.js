@@ -83,19 +83,6 @@ const DocRegistrationPage1 = (props) => {
     }
   };
 
-  const getLanguageValue = (value) => {
-    if (value) {
-      const selectedLanguage = dataLanguage.find(
-        (language) => language.id === value
-      );
-      return selectedLanguage
-        ? `${selectedLanguage.id}|${selectedLanguage.value}`
-        : "";
-    } else {
-      return "";
-    }
-  };
-
   const setIdAndState = (value) => {
     const stateInfo = value.split("|");
     getCity(stateInfo[0]);

@@ -1060,6 +1060,7 @@ const AddPrescription = (props) => {
                               <img
                                 className="delete-button"
                                 src={delete_icon}
+                                alt="delete"
                                 onClick={() => deleteInvestigationItem(index)}
                               />
                             </div>

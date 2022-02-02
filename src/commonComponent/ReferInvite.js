@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Table } from "react-bootstrap";
 
 const ReferInvite = (props) => {
@@ -11,7 +11,7 @@ const ReferInvite = (props) => {
           programme for the patients who are using the Healthuno app with the
           below mentioned offers and discounts for each appointment booked on
           the Healthuno app on the Android/IoS apps as well as on the website
-          <a href="https://www.healthuno.com" target="_blank">
+          <a rel="noopener noreferrer" href="https://www.healthuno.com" target="_blank">
             &nbsp;www.healthuno.com
           </a>
         </li>
@@ -69,6 +69,7 @@ const ReferInvite = (props) => {
           For more detailed terms and conditions for using the Healthuno app and
           website kindly refer the URL
           <a
+          rel="noopener noreferrer"
             target="_blank"
             href="https://www.healthuno.com/terms-and-conditions/"
           >

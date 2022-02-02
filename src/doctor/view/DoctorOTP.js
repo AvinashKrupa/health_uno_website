@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {Button, Col, Container, Image, Row,} from "react-bootstrap";
+import {Col, Container, Image, Row,} from "react-bootstrap";
 import {doctor, frame, group, phone, plant} from '../../constants/PatientImages';
 import {H3} from '../../commonComponent/TextSize'
 import OtpInput from "react-otp-input";
@@ -11,7 +12,6 @@ import {useToasts} from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 import useUserStore from "../store/userStore";
 import {getPushToken} from "../../notification/utilities";
-import Spinner from "../../commonComponent/Spinner";
 
 const timeOut = 59;
 const DoctorOTP = ({history}) => {

@@ -5,10 +5,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 const HorizontalCalendarForDoctor = (props) => {
-    const {slot_id, date, selectedDay, setDateValue, setSelectedDay} = props;
+    const {date, selectedDay, setSelectedDay} = props;
     const [dates, setDate] = useState([]);
     const [size, setSize] = useState(7);
-    const [lastIndex, setLastIndex] = useState(size);
 
     useEffect(() => {
         if(window.screen.availWidth > 1024){
@@ -64,7 +63,7 @@ const HorizontalCalendarForDoctor = (props) => {
             <div className='doctor-slot-booking'
                  style={{display: "flex", flexDirection: "row"}}
             >
-                {dates.slice(lastIndex - size, lastIndex).map(info => {
+                {dates.slice(size - size, size).map(info => {
                     return _renderDays(info);
                 })}
             </div>

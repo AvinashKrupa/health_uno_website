@@ -16,10 +16,10 @@ const UpdateSlotGenerator = (props) => {
             return (
               <button
                 style={{ backgroundColor: getColor(slot) }}
-                style={{
-                  backgroundColor:
-                    slot.status === "available" ? "#28a3da" : "rgb(225, 225, 225)",
-                }}
+                // style={{
+                //   backgroundColor:
+                //     slot.status === "available" ? "#28a3da" : "rgb(225, 225, 225)",
+                // }}
                 className={`slot-timings-button ${
                   props.selectedSlots.indexOf(slot.slot_id) > -1 ? "active" : ""
                 }`}

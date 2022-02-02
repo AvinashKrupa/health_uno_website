@@ -29,7 +29,7 @@ const AppointmentDetail = (props) => {
         };
         post(API.REMOVE_ADDITIONAL_DOCTOR, params)
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     setAddDoctor({});
                     addToast(response.data.message, {appearance: 'success'});
                 } else {
@@ -136,7 +136,7 @@ const AppointmentDetail = (props) => {
                         <Col>
                             <div className="appointment-detail-card-container">
                                 <div className="image-container">
-                                    <img src={appointmentDetail?.patient?.user?.dp} style={{
+                                    <img src={appointmentDetail?.patient?.user?.dp} alt="details" style={{
                                         maxWidth: "100%",
                                         maxHeight: "100%",
                                         borderRadius: "50%"

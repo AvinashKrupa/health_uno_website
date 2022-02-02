@@ -168,7 +168,7 @@ const DoctorHomePage = (props) => {
                 ></SearchInputWithIcon>
                 <div className="notification-icon-container">
                   <Button onClick={toggleSidebar} style={{marginTop: '33px', cursor: "pointer"}}>
-                    <img className="notification-icon" src={bell_icon} />
+                    <img className="notification-icon" alt="bell_icon" src={bell_icon} />
                   </Button>
                 </div>
               </Col>

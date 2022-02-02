@@ -41,8 +41,6 @@ const DoctorEditProfile = (props) => {
   const [dataCity, setDataCity] = useState([]);
   const { addToast } = useToasts();
 
-  let genderOptions = ["Male", "Female", "Other"];
-
   const setLanguageValue = (e) => {
     const value = e.target.value;
     setLanguage(value);

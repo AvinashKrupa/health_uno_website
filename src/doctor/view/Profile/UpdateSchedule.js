@@ -11,7 +11,7 @@ import {convert24hto12h} from "../../../utils/utilities";
 import Checkbox from "../../../commonComponent/Checkbox";
 import _ from "lodash";
 
-const UpdateSchedule = (props) => {
+const UpdateSchedule = () => {
     const [selectedDays, setSelectedDays] = useState([
         {day: 'Sunday', isChecked: false},
         {day: 'Monday', isChecked: false},
@@ -32,8 +32,6 @@ const UpdateSchedule = (props) => {
 
     const {addToast} = useToasts();
     const setDate = updateScheduleStore((state) => state.setDate);
-    const setSlotId = updateScheduleStore((state) => state.setSlotId);
-    const setStartTime = updateScheduleStore((state) => state.setStartTime);
     const [slot, setSlot] = useState(updateScheduleStore((state) => state.slot_id));
     const [dataMorningShift, setDataMorningShift] = useState([]);
     const [dataEveningShift, setDataEveningShift] = useState([]);
@@ -61,12 +59,6 @@ const UpdateSchedule = (props) => {
         setSelectedDay(moment(date).format('DD'));
         setDate(selectedDate);
         setSlot('');
-    }
-
-    function setSlotData(id, startTime) {
-        setSlot(id);
-        setSlotId(id);
-        setStartTime(startTime);
     }
 
     const onDateSelect = (dateNumber, date) => {
@@ -253,12 +245,12 @@ const UpdateSchedule = (props) => {
                             dataDay[index].isChecked = days[info];
                         }
                     });
-                    if (shift.shift1 && shift.shift1.start != '') {
+                    if (shift.shift1 && shift.shift1.start !== '') {
                         setDayShiftFrom(shift.shift1.start);
                         setDayShiftTo(shift.shift1.end);
                         setIsDayShift(true);
                     }
-                    if (shift.shift2 && shift.shift2.start != '') {
+                    if (shift.shift2 && shift.shift2.start !== '') {
                         setEveningShiftFrom(shift.shift2.start);
                         setEveningShiftTo(shift.shift2.end);
                         setIsEveningShift(true);

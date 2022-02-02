@@ -2,7 +2,6 @@ import { Col, Image, Row } from "react-bootstrap";
 import { API, post } from "../../../api/config/APIController";
 import React, { forwardRef, useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
-import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import useSearchStore from "../../store/searchStore";
 import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
@@ -37,7 +36,7 @@ const UpcomingAppointments = (props) => {
   useEffect(() => {
     getUpcomingAppointments();
     getPreviousAppointments();
-  }, [searchText, currentDate]);
+  }, [searchText, currentDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     var selection = localStorage.getItem("doctor-appointment-selection");

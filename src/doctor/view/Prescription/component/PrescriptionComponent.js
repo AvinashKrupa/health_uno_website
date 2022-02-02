@@ -6,7 +6,7 @@ import React, {useState} from "react";
 import {ACTIONS} from "../AddPrescription";
 import {API, get} from "../../../../api/config/APIController";
 import moment from "moment";
-import {DAYS_LIST, DOSAGE_LIST, PERIODICITY_LIST} from "../constants";
+import {DOSAGE_LIST, PERIODICITY_LIST} from "../constants";
 import {IoCloseSharp} from "react-icons/io5";
 
 export default function PrescriptionComponent({
