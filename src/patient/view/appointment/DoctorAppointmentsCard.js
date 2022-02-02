@@ -186,7 +186,7 @@ const DoctorAppointmentsCard = (props) => {
                           state: { appointment_id: props?.appointment._id },
                         });
                       }}
-                      text={"Join meeting"}
+                      text={"Join Consultation"}
                     ></CustomButton>
                   ) : (
                     <CustomButton
