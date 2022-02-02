@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 
-const AccordionButton = ({fontText,btnText, onClick, className,active, route, children, eventKey, callback}) => {
+const AccordionButton = ({fontText,btnText, className, active, route, selectedMenu, eventKey, callback}) => {
   
     const decoratedOnClick = useAccordionToggle(
       eventKey,
@@ -8,6 +9,12 @@ const AccordionButton = ({fontText,btnText, onClick, className,active, route, ch
           callback && callback(eventKey)
         },
     );
+
+    useEffect(() => {
+      if(selectedMenu){
+        decoratedOnClick()
+      }
+    }, [selectedMenu])
   
     return (
       <>

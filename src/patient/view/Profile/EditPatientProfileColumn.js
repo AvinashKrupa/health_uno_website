@@ -127,6 +127,7 @@ const EditProfilePictureColumn = (props) => {
               <Accordion>
                 <AccordionButton
                   active={props.match.params.type}
+                  selectedMenu={selectedMenu}
                   eventKey="0"
                   route={"support"}
                   fontText={"fa-question-circle"}
