@@ -2,7 +2,6 @@ import "./style_FAQ.scss";
 import { Row, Col, Accordion, Card } from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
-import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const data = [
@@ -88,7 +87,6 @@ const data = [
 ];
 
 const FAQ = ({ isProfile }) => {
-  const location = useLocation();
   const [selectedAccordian, setSelectedAccordian] = useState([]);
 
   const handleSelectAccordion = (key) => {

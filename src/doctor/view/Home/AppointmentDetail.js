@@ -29,7 +29,7 @@ const AppointmentDetail = (props) => {
         };
         post(API.REMOVE_ADDITIONAL_DOCTOR, params)
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     setAddDoctor({});
                     addToast(response.data.message, {appearance: 'success'});
                 } else {
@@ -45,13 +45,13 @@ const AppointmentDetail = (props) => {
         getAppointmentDetail();
         return () => {
         };
-    }, [props.match.params.appointment_id]);
+    }, [props.match.params.appointment_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         getAppointmentDetail();
         return () => {
         };
-    }, [addDoctor]);
+    }, [addDoctor]); // eslint-disable-line react-hooks/exhaustive-deps
 
     function getAppointmentDetail() {
         let params = {
@@ -136,7 +136,7 @@ const AppointmentDetail = (props) => {
                         <Col>
                             <div className="appointment-detail-card-container">
                                 <div className="image-container">
-                                    <img src={appointmentDetail?.patient?.user?.dp} style={{
+                                    <img src={appointmentDetail?.patient?.user?.dp} alt="details" style={{
                                         maxWidth: "100%",
                                         maxHeight: "100%",
                                         borderRadius: "50%"

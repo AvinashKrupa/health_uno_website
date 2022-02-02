@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import {
-  Button,
   Col,
   Container,
   Dropdown,
@@ -15,7 +14,6 @@ import {
   frame,
   logo,
   plant,
-  group,
 } from "../../../constants/PatientImages";
 import { H1, H3 } from "../../../commonComponent/TextSize";
 import { API, post } from "../../../api/config/APIController";
@@ -23,7 +21,6 @@ import { AuthContext } from "../../../context/AuthContextProvider";
 import CustomButton from "../../../commonComponent/Button";
 import { useToasts } from "react-toast-notifications";
 import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
-import Spinner from "../../../commonComponent/Spinner";
 import ModalDialog from "../../../commonComponent/ModalDialog";
 
 const PatientLogin = ({ history }) => {
@@ -109,7 +106,7 @@ const PatientLogin = ({ history }) => {
   const userType = localStorage.getItem("USER_TYPE");
   return (
     <>
-    {token && userType == 1 ?history.push("/patient/home"):
+    {token && userType === 1 ?history.push("/patient/home"):
       <Container fluid>
         <Row className="login-container LoginPageDoctor">
           <Col className="left-nav">

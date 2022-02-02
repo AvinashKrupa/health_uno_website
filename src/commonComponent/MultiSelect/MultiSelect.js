@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Form } from "react-bootstrap";
 
@@ -23,7 +23,7 @@ const MultiSelect = ({ label, options, selected, handleChange, className, labelB
         value={selected}
         onChange={handleChange}
         renderValue={(selected) =>{
-          return selected.map((obj) => options && options.length>0 && options.find(option=>option.id == obj).value).join(", ")
+          return selected.map((obj) => options && options.length>0 && options.find(option=>option.id === obj).value).join(", ")
         }}
         MenuProps={isPositionTop ? TopMenuProps : MenuProps}
         disableUnderline

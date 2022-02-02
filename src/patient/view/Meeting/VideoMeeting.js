@@ -17,7 +17,7 @@ const Video = ({ stream }) => {
   const localVideo = React.createRef();
   useEffect(() => {
     if (localVideo.current) localVideo.current.srcObject = stream;
-  }, [stream, localVideo]);
+  }, [stream, localVideo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
@@ -30,7 +30,7 @@ const VideoMeeting = (props) => {
   useEffect(() => {
     getDoctorDetails();
     return () => {};
-  }, [props.match.params.doctor_id]);
+  }, [props.match.params.doctor_id]); // eslint-disable-line react-hooks/exhaustive-deps
   let [appointmentDetail, setAppointmentDetail] = useState([]);
   let [havePermissions, setHavePermissions] = useState(false);
   let [renderTestButtons, setRenderTestButtons] = useState(false);
@@ -46,7 +46,7 @@ const VideoMeeting = (props) => {
 
   useEffect(() => {
     canJoinAppointmentDetails();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     return () => {
@@ -54,12 +54,12 @@ const VideoMeeting = (props) => {
         handleBack();
       }
     };
-  }, [streams]);
+  }, [streams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getAppointmentDetail();
     return () => {};
-  }, [props.location?.state?.appointment_id]);
+  }, [props.location?.state?.appointment_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function getAppointmentDetail() {
     let params = {
@@ -157,16 +157,16 @@ const VideoMeeting = (props) => {
 
   useEffect(() => {
     stopVideo();
-  }, [videoStatus]);
+  }, [videoStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     stopMic();
-  }, [micStatus]);
+  }, [micStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getDoctorDetails();
     return () => {};
-  }, [props.match.params.doctor_id]);
+  }, [props.match.params.doctor_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function stopMic() {
     if (tracks.length) {

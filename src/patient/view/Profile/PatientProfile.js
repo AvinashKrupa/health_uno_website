@@ -19,7 +19,7 @@ const PatientProfile = (props) => {
             props.history.push(`/`);
             return;
         }
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
     const type = props.match.params.type;
     const [reloadSideColumn, setReloadSideColumn] = useState(false);
 

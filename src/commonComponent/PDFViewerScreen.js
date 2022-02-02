@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Col, Image, Row } from "react-bootstrap";
 import PDFViewer from "mgr-pdf-viewer-react";
 import { back_icon } from "../constants/DoctorImages";
-import { getData } from "../storage/LocalStorage/LocalAsyncStorage";
 import { API, post } from "../api/config/APIController";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
@@ -14,14 +13,12 @@ export const PDFViewerScreen = (props) => {
   }
   const [viewPdf, setViewPdf] = useState("");
   const [viewPdfBase64, setViewPdfBase64] = useState("");
-  const [source, setSource] = useState({});
   const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState(0);
-  const userType = JSON.parse(getData("USER_TYPE"));
 
   useEffect(() => {
     getPublicLink();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function getPublicLink() {
     let params = {
@@ -34,17 +31,13 @@ export const PDFViewerScreen = (props) => {
     post(API.GETPUBLICLINKFILE, params)
       .then((response) => {
         setLoading(false);
-        if (response.status == 200) {
+        if (response.status === 200) {
           getBase64(response.data.data.url);
           setViewPdf(response.data.data.url);
           setNumber(
             response.data.data.url &&
               response.data.data.url.toLowerCase().search("pdf")
           );
-          setSource({
-            uri: response.data.data.url,
-            cache: true,
-          });
         } else {
           addToast(response.data.message, {
             appearance: "error",
@@ -108,7 +101,7 @@ export const PDFViewerScreen = (props) => {
           <div style={{ textAlign: "center", marginBottom: "50px" }}>
             {viewPdf && (
               <button className="report-card-button">
-                <a href={viewPdf}>Download</a>
+                <a href={viewPdf}>{loading ? 'Loading...' : 'Download'}</a>
               </button>
             )}
           </div>

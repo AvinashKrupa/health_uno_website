@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import {
-  Button,
   Col,
   Container,
   Dropdown,
@@ -23,7 +22,6 @@ import { AuthContext } from "../../context/AuthContextProvider";
 import CustomButton from "./../../commonComponent/Button";
 import { useToasts } from "react-toast-notifications";
 import { storeData } from "../../storage/LocalStorage/LocalAsyncStorage";
-import Spinner from "../../commonComponent/Spinner";
 import ModalDialog from "../../commonComponent/ModalDialog";
 
 const DoctorLogin = ({ history }) => {
@@ -109,7 +107,7 @@ const DoctorLogin = ({ history }) => {
   const userType = localStorage.getItem("USER_TYPE");
   return (
     <>
-    {token && userType == 2 ? history.push("/doctor/home") :
+    {token && userType === '2' ? history.push("/doctor/home") :
       <Container fluid>
         <Row className="login-container LoginPageDoctor">
           <Col className="left-nav">

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect, useState } from "react";
 import Input from "../../../commonComponent/Input";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
@@ -10,7 +11,7 @@ import ModalDialog from "../../../commonComponent/ModalDialog";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { isEmailValid, isEmpty, isNumberOnly } from "../../../utils/Validators";
 import { useToasts } from "react-toast-notifications";
-import { API, get, post } from "../../../api/config/APIController";
+import { API, post } from "../../../api/config/APIController";
 import CustomButton from "../../../commonComponent/Button";
 import { withRouter } from "react-router-dom";
 import useUserStore from "../../store/userStore";
@@ -100,6 +101,7 @@ const RegistrationComponent = ({ history, image }) => {
       return;
     }
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const setLanguageValue = (value) => {

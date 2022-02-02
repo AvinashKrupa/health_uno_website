@@ -1,5 +1,6 @@
-import { help, meeting } from "../../../constants/PatientImages";
-import { Button, Col, Image, Row } from "react-bootstrap";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { help } from "../../../constants/PatientImages";
+import { Col, Image, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
@@ -16,7 +17,7 @@ const Video = ({ stream }) => {
   const localVideo = React.createRef();
   useEffect(() => {
     if (localVideo.current) localVideo.current.srcObject = stream;
-  }, [stream, localVideo]);
+  }, [stream, localVideo]); // eslint-disable-line react-hooks/exhaustive-deps
   
   return (
     <div>
@@ -27,23 +28,21 @@ const Video = ({ stream }) => {
 
 const VideoMeeting = (props) => {
   let [appointmentDetail, setAppointmentDetail] = useState([]);
-  let [havePermissions, setHavePermissions] = useState(false);
   let [renderTestButtons, setRenderTestButtons] = useState(false);
   let [micStatus, setMicStatus] = useState(false);
   let [videoStatus, setVideoStatus] = useState(false);
   const [streams, setStreams] = useState([]);
   const [tracks, setTracks] = useState([]);
   let [timerSeconds, setTimerSeconds] = useState(0);
-  let [meetingError, setMeetingError] = useState("");
   const [enableMeetingButton, setEnableMeetingButton] = useState(false);
 
   useEffect(() => {
     canJoinAppointmentDetails();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     stopVideo();
-  }, [videoStatus]);
+  }, [videoStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     return () => {
@@ -51,16 +50,16 @@ const VideoMeeting = (props) => {
         handleBack();
       }
     };
-  }, [streams]);
+  }, [streams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     stopMic();
-  }, [micStatus]);
+  }, [micStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getAppointmentDetail();
     return () => {};
-  }, [props.match.params.appointment_id]);
+  }, [props.match.params.appointment_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { addToast } = useToasts();
 
@@ -75,7 +74,6 @@ const VideoMeeting = (props) => {
           window.open(response.data.data.meeting_url);
           setTimeout(() => getAppointmentDetail(), 5000);
         } else {
-          setMeetingError(response.data.message);
           addToast(response.data.message, { appearance: "error" });
         }
       })
@@ -95,33 +93,12 @@ const VideoMeeting = (props) => {
           setTimerSeconds(response.data.data.seconds * 1000);
           addToast(response.data.message, { appearance: "info" });
         } else {
-          setMeetingError(response.data.message);
           addToast(response.data.message, { appearance: "error" });
         }
       })
       .catch((error) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
-  }
-
-  function endAppointment() {
-    post(
-      API.END_APPOINTMENT,
-      { appointment_id: props.match.params.appointment_id },
-      true
-    )
-      .then((response) => {
-        if (response.status === 200) {
-          addToast(response.data.message, { appearance: "success" });
-        } else {
-          setMeetingError(response.data.message);
-          addToast(response.data.message, { appearance: "error" });
-        }
-      })
-      .catch((error) => {
-        addToast(error.response.data.message, { appearance: "error" });
-      });
-    props.history.goBack();
   }
 
   function stopMic() {
@@ -150,14 +127,12 @@ const VideoMeeting = (props) => {
         addToast("Permission has been granted to use Mic and Camera", {
           appearance: "success",
         });
-        setHavePermissions(true);
         setRenderTestButtons(true);
         setStreams([...streams, stream]);
         const tracks = stream.getTracks();
         setTracks(tracks);
       })
       .catch((err) => {
-        setHavePermissions(false);
         addToast("Please enable permissions and refresh the page", {
           appearance: "error",
         });
@@ -235,7 +210,6 @@ const VideoMeeting = (props) => {
               </Row>
               <Row>
                 <a
-                  href="javascript:void(0)"
                   className="meeting-help-text"
                   onClick={() => {
                     props.history.push({
@@ -261,13 +235,13 @@ const VideoMeeting = (props) => {
                     >
                       {!micStatus && (
                         <>
-                          <img src={mic_on_icon} />
+                          <img alt="mic_on" src={mic_on_icon} />
                           <span>Mic is On</span>
                         </>
                       )}
                       {micStatus && (
                         <>
-                          <img src={mic_off_icon} />
+                          <img alt="mic_off" src={mic_off_icon} />
                           <span>Mic is Off</span>
                         </>
                       )}
@@ -280,13 +254,13 @@ const VideoMeeting = (props) => {
                     >
                       {videoStatus && (
                         <>
-                          <img src={camera_off_icon} />
+                          <img alt="camera_off" src={camera_off_icon} />
                           <span>Camera is Off</span>
                         </>
                       )}
                       {!videoStatus && (
                         <>
-                          <img src={camera_on_icon} />
+                          <img alt="camera_on" src={camera_on_icon} />
                           <span>Camera is On</span>
                         </>
                       )}

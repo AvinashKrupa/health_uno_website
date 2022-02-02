@@ -28,13 +28,13 @@ const PatientHomePage = (props) => {
     setSearchText('')
     getHomeContent();
     getTopConsultants();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     document.querySelectorAll('[role="navigation"]').forEach(function (el){
       el.classList.add("filter-list-close");
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     function handleResize() {
@@ -42,7 +42,7 @@ const PatientHomePage = (props) => {
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [width]);
+  }, [width]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleSidebar = () => {
     if(sidebarOpen) {

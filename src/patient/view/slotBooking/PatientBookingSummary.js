@@ -19,6 +19,7 @@ const PatientBookingSummary = (props) => {
         getDoctorDetails();
         return () => {
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.match.params.doctor_id]);
 
     const {addToast} = useToasts();
@@ -39,6 +40,7 @@ const PatientBookingSummary = (props) => {
             props.history.goBack();
             return;
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function getDoctorDetails() {

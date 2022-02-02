@@ -1,5 +1,5 @@
 import { Row, Col} from "react-bootstrap";
-import {API, get, post} from '../../api/config/APIController';
+import {API, post} from '../../api/config/APIController';
 import React, { useEffect } from "react";
 import {useToasts} from 'react-toast-notifications';
 import { useState } from "react";
@@ -22,7 +22,7 @@ const AddDoctor = (props) => {
 
   useEffect(() => {
     getTopConsultants();
-  }, [searchText]);
+  }, [searchText]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onDoctorSelect = (doctor) => {
     let params = {
@@ -31,7 +31,7 @@ const AddDoctor = (props) => {
     };
     post(API.ADD_ADDITIONAL_DOCTOR, params)
         .then(response => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             setAddDoctor(doctor);
             props.history.goBack();
             addToast(response.data.message, { appearance: 'success' })

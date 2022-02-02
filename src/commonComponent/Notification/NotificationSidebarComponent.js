@@ -13,7 +13,7 @@ const NotificationSidebarComponent = (props) => {
   useEffect(() => {
     getNotificationsList();
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (props.sidebarOpen) {
@@ -21,7 +21,7 @@ const NotificationSidebarComponent = (props) => {
       setTimeout(() => getNotificationsList(), 0);
     }
     return () => {};
-  }, [props.sidebarOpen]);
+  }, [props.sidebarOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { addToast } = useToasts();
 

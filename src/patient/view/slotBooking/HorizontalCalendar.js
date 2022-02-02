@@ -7,7 +7,7 @@ import {calendar} from '../../../constants/PatientImages';
 
 
 const HorizontalCalendar = (props) => {
-  const {slot_id, date, selectedDay, setDateValue, setSelectedDay} = props;
+  const {date, selectedDay, setDateValue, setSelectedDay} = props;
   const [dates, setDate] = useState([]);
   const size = window.screen.availWidth > 414 ? 7: 4
 
@@ -30,13 +30,14 @@ const HorizontalCalendar = (props) => {
 
     setDate(datesArr);
 
-  }, [date]);
+  }, [date]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   useEffect(() => {
       if(selectedDay && dates.length){
         setLastIndex(handleIndex(date))
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   },[dates]);
 
   const handleDaysClick = (day, info) => {

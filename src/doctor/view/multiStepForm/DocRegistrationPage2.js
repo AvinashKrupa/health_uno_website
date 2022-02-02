@@ -14,7 +14,7 @@ const DocRegistrationPage2 = (props) => {
     getSpecialization();
     getQualification();
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [departments, setDepartments] = useState([]);
   const [specializations, setSpecializations] = useState([]);

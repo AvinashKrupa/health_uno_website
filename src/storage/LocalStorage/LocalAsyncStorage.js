@@ -4,7 +4,6 @@ const storeData =  (key, value) => {
   } catch (e) {
     console.log('Error in storing in asyncStoragefor' + key, e.message);
   }
-  console.log('Store data in asyncStorage');
 };
 
 const getData =  (key) => {
@@ -19,7 +18,7 @@ const getData =  (key) => {
 
 const removeData =  (key) => {
   try {
-    const value =  localStorage.removeItem(key);
+    localStorage.removeItem(key);
   } catch (e) {
     console.log('Error in removing value from asyncStorage', e.message);
   }

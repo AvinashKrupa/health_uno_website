@@ -48,7 +48,7 @@ const MultiStepFormRegistration = ({ history }) => {
       history.push(`/doctor`);
       return;
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   //second form information
   const [department, setDepartment] = useState("");

@@ -7,7 +7,7 @@ import {calendar_blue} from '../../../../constants/DoctorImages';
 
 
 const UpdateScheduleHorizontalCalendar = (props) => {
-    const {slot_id, date, selectedDay, setDateValue, setSelectedDay} = props;
+    const {date, selectedDay, setDateValue, setSelectedDay} = props;
     const [dates, setDate] = useState([]);
     const size = window.screen.availWidth > 768 ? 7 : 4
     const [lastIndex, setLastIndex] = useState(size);
@@ -23,7 +23,7 @@ const UpdateScheduleHorizontalCalendar = (props) => {
         setDate(datesArr);
 
 
-    }, [date]);
+    }, [date]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     // useEffect(() => {

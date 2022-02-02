@@ -1,7 +1,6 @@
 import ReportCard from "./ReportCard";
-import { Row, Col, Image, InputGroup } from "react-bootstrap";
+import { Row, Col, InputGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { Grid } from "@material-ui/core";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
 import { getData } from "../../../storage/LocalStorage/LocalAsyncStorage";
@@ -22,7 +21,7 @@ const Report = (props) => {
       handleSelection();
     }
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { addToast } = useToasts();
   const [investigationsReports, setInvestigationsReports] = useState([]);
@@ -131,7 +130,7 @@ const Report = (props) => {
       setIsLoading(true);
       post(API.DELETEREPORT, params)
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             setIsLoading(false);
             addToast(response.data.message, { appearance: "success" });
             getInvestigationsReports();

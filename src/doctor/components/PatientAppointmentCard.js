@@ -11,7 +11,7 @@ const PatientAppointmentCard = (props) => {
     <>
     <Card className="patient-appointment-container card-hover-effect" onClick={() =>  props.history.push(`/doctor/appointmentDetail/${props.id}`)}>
         <div className="image-container">
-            <img src={props?.image} style={{
+            <img src={props?.image} alt="img-details" style={{
                 maxWidth:"100%",
                 maxHeight:"100%",
                 borderRadius: "50%"

@@ -64,7 +64,6 @@ class UploadImage extends Component {
         locale="en-US"
         fileType="image/jpeg"
         showSelected={false}
-        resetPreviewAfterSelectImage={true}
         accept="image/gif,image/jpeg,image/png,image/bmp,image/x-png,image/pjpeg"
       ><Image className={this.props?.className ? this.props?.className : 'fa-camera '} src={uploadCamera}></Image></CropViewer>
     </div>);

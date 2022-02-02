@@ -6,13 +6,13 @@ import {
 } from "react-bootstrap";
 import Main from "../assets/Main.png";
 
-const DoctorHomePage = ({history}) => {
+const DoctorHomePage = () => {
  
 
   return (
     <Container fluid>
       <Row className='main-container'>
-        <Image src={Main}
+        <Image alt="container" src={Main}
       ></Image>
       </Row>
     </Container>

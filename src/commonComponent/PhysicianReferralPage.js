@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { Table } from "react-bootstrap";
 
-const PhysicianReferralPage = (props) => {
+const PhysicianReferralPage = () => {
   return (
     <div>
       <p className="invite_heading">Terms and Conditions</p>
@@ -11,7 +11,7 @@ const PhysicianReferralPage = (props) => {
           programme for the physicians who are using the Healthuno app with the
           below mentioned offers and discounts for each appointment booked on
           the Healthuno app on the Android/IoS apps as well as on the website
-          <a href="https://www.healthuno.com" target="_blank">
+          <a rel="noopener noreferrer" href="https://www.healthuno.com" target="_blank">
             &nbsp;www.healthuno.com
           </a>
         </li>
@@ -91,6 +91,7 @@ const PhysicianReferralPage = (props) => {
           website kindly refer the URL
           <a
             target="_blank"
+            rel="noopener noreferrer"
             href="https://www.healthuno.com/terms-and-conditions/"
           >
             &nbsp;https://www.healthuno.com/terms-and-conditions/

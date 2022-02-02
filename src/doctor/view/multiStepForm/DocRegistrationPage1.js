@@ -17,7 +17,7 @@ const DocRegistrationPage1 = (props) => {
     getState();
     getLanguage();
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const {
     firstName,
@@ -63,7 +63,7 @@ const DocRegistrationPage1 = (props) => {
       }
     }
     return () => {};
-  }, [dataState]);
+  }, [dataState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getStateValue = (value) => {
     if (value) {
@@ -78,19 +78,6 @@ const DocRegistrationPage1 = (props) => {
     if (value) {
       const selectedCity = dataCity.find((city) => city.value === value);
       return selectedCity ? `${selectedCity.id}|${selectedCity.value}` : "";
-    } else {
-      return "";
-    }
-  };
-
-  const getLanguageValue = (value) => {
-    if (value) {
-      const selectedLanguage = dataLanguage.find(
-        (language) => language.id === value
-      );
-      return selectedLanguage
-        ? `${selectedLanguage.id}|${selectedLanguage.value}`
-        : "";
     } else {
       return "";
     }

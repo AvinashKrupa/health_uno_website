@@ -44,7 +44,7 @@ const TopConsultants = (props) => {
     const searchInput = document.getElementById("top-const-search");
     searchInput.focus();
     setForceApiCall(true)
-  }, [searchText]);
+  }, [searchText]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if(forceApiCall){
@@ -58,19 +58,19 @@ const TopConsultants = (props) => {
         filters.hasOwnProperty('gender') ? filters.gender : filters.gen
       );
     }
-  }, [forceApiCall])
+  }, [forceApiCall]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setTimeout(() => {
       filters.specialities = searchSpeciality ? [searchSpeciality] : [];
     }, 300);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     document.querySelectorAll('[role="navigation"]').forEach(function (el) {
       el.classList.add("filter-list-close");
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function callBackFilter(data) {
     setFilters(data);

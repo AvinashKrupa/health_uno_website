@@ -1,8 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import "./style_FAQ.scss";
 import { Row, Col, Accordion, Card } from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
-import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import ModalDialog from '../commonComponent/ModalDialog'
 import IframeModal from "../patient/view/IframeModal";
@@ -133,7 +133,6 @@ const data = [
 ];
 
 const FAQ = ({ isProfile }) => {
-  const location = useLocation();
   const [selectedAccordian, setSelectedAccordian] = useState([]);
   const [modalShow, setModalShow] = useState(false);
 

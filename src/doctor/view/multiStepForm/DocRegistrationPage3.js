@@ -24,7 +24,7 @@ const DocRegistrationPage3 = (props) => {
             getSlots(1, dayShiftFrom, dayShiftTo);
         return () => {
         };
-    }, [dayShiftFrom, dayShiftTo, isDayShift]);
+    }, [dayShiftFrom, dayShiftTo, isDayShift]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
 
@@ -33,7 +33,7 @@ const DocRegistrationPage3 = (props) => {
 
         return () => {
         };
-    }, [eveningShiftFrom, eveningShiftTo, isEveningShift]);
+    }, [eveningShiftFrom, eveningShiftTo, isEveningShift]); // eslint-disable-line react-hooks/exhaustive-deps
 
     function validateSlots(type) {
         let momentShift1From, momentShift1To;

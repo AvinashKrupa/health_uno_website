@@ -15,7 +15,6 @@ instance.interceptors.request.use(
   async config => {
     const token = getData('ACCESS_TOKEN');
     const temp =  getData('TEMP_TOKEN');
-    console.log('CONSOL', config);
     if (temp) {
       config.headers['Authorization'] = 'Bearer ' + temp;
     }

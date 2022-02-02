@@ -36,7 +36,7 @@ const Reports = (props) => {
       handleSelection();
     }
     return () => {};
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { addToast } = useToasts();
   const [investigationsReports, setInvestigationsReports] = useState([]);

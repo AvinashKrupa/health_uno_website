@@ -14,7 +14,7 @@ const CarouselComponent = ({sliders}) => {
             x: window.innerWidth-40,
             y: window.innerHeight
         });
-    useEffect(() => (window.onresize = updateSize), []);
+    useEffect(() => (window.onresize = updateSize), []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const responsive = {
     desktop: {
@@ -75,42 +75,6 @@ const CarouselComponent = ({sliders}) => {
             }
             </div>
         </Col>
-    )
-  }
-  const renderImageWithTitleSlider = (slider) => {
-    return(
-        <>
-          <Col lg="3">
-            <Image
-                src={slider.image}
-                alt="carousel_image_1"
-                className="carousel_image"
-                style={{ marginLeft: "80px",  width: "100%" }}
-            />
-          </Col>
-          <Col lg="9">
-            <Row>
-              <span
-                  className="carousel_h3"
-                  style={{
-                    marginBottom: "50px",
-                    marginTop: "40px",
-                    paddingLeft: "130px",
-                  }}
-              >
-                {slider.title}
-              </span>
-            </Row>
-            <Row>
-              <span
-                  className="carousel_h5"
-                  style={{ paddingLeft: "130px" }}
-              >
-                {slider.desc}
-              </span>
-            </Row>
-          </Col>
-        </>
     )
   }
 
