@@ -288,7 +288,7 @@ const VideoMeeting = (props) => {
                         }
                         onClick={() => openMeeting()}
                       >
-                        Join meeting
+                        Join Consultation
                       </button>
                     </Col>
                   </Row>
@@ -339,7 +339,7 @@ const VideoMeeting = (props) => {
                           className="meeting-btn-blue"
                           onClick={() => openMeeting()}
                         >
-                          Join meeting
+                          Join Consultation
                         </button>
                       ) : (
                         <button
@@ -352,7 +352,7 @@ const VideoMeeting = (props) => {
                           }
                           onClick={() => openMeeting()}
                         >
-                          Join meeting
+                          Join Consultation
                         </button>
                       )}
                     </Col>
