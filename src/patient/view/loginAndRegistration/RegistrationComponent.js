@@ -76,7 +76,7 @@ const RegistrationComponent = ({ history, image }) => {
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);
   // const [dataLanguage, setDataLanguage] = useState([]);
-  const [language, setLanguage] = useState([]);
+  const [language, ] = useState([]);
   let [loader, setLoader] = useState(false);
   const [vaccinated, setVaccinated] = useState([
     { id: "yes", value: "Yes", checked: false },
@@ -242,7 +242,6 @@ const RegistrationComponent = ({ history, image }) => {
   }
 
   function validation() {
-    console.log("isCovid: ", isCovid);
     if (isEmpty(firstName)) {
       addToast("Please enter first name", { appearance: "error" });
       return false;

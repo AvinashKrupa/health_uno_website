@@ -9,12 +9,12 @@ import { ToastProvider } from 'react-toast-notifications';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
      <AuthContextProvider>
         <ToastProvider autoDismiss={true}>
          <App />
         </ToastProvider>
      </AuthContextProvider>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );

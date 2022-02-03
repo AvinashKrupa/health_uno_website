@@ -11,7 +11,7 @@ import moment from "moment";
 class MessagePane extends Component {
     constructor(props) {
         super(props);
-
+        this._isMounted = false;
         this.state = {
             room_id: null,
             selectedConv: props.selectedConv,
@@ -37,6 +37,7 @@ class MessagePane extends Component {
 
 
     async componentDidMount() {
+        this._isMounted = true
         document.body.classList.add('chat-page');
         this.initializeChatWithUser()
         await this.loadMessagesForUser(this.state.pageId)
@@ -49,13 +50,11 @@ class MessagePane extends Component {
 
     loadMessagesForUser = async (pageId) => {
         try {
-            console.log('GETMESSAGES');
             this.setState({
                 loading:true,
             })
             const response = await post(API.GETMESSAGES, {"limit": 10, "page": pageId, room_id: this.getRoomId()});
             if (response.status === 200) {
-                console.log('response: ', response);
                 if (!this.state.messages.length) {
                     const result = response.data.data.docs.reverse();
                     this.setState({
@@ -81,7 +80,6 @@ class MessagePane extends Component {
             this.setState({
                 loading:false,
             })
-            console.log("Error>>>", e)
         }
     }
 
@@ -98,7 +96,6 @@ class MessagePane extends Component {
         socketObj.connect();
 
         socketObj.on("connect", () => {
-            console.log("socket connected>>>")
         })
         socketObj.on("onConversation", ({conversation_id, room_id}) => {
             this.setState({room_id: room_id})
@@ -110,7 +107,6 @@ class MessagePane extends Component {
         });
 
         socketObj.on('onNewMessage', data => {
-            console.log('onNewMessage>>>>', data);
             let messages = JSON.parse(JSON.stringify(this.state.messages))
             messages.push(data)
             this.setState({
@@ -120,7 +116,6 @@ class MessagePane extends Component {
 
 
         socketObj.on('disconnect', response => {
-            console.log("disconnected>>>>")
         });
 
         this.setState({socketObj: socketObj})
@@ -128,7 +123,6 @@ class MessagePane extends Component {
 
     sendMessage() {
         if (this.state.socketObj && this.state.text !== '') {
-            console.log("Sending Message>>>", this.state.text)
 
             let finalMessage = {
                 message: this.state.text,
@@ -148,6 +142,7 @@ class MessagePane extends Component {
     }
 
     componentWillUnmount() {
+        this._isMounted = false;
         let socketObj = this.state.socketObj
         if (socketObj) {
             socketObj.off("onConversation")

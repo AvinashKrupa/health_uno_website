@@ -9,6 +9,7 @@ const CheckboxList = (props) => {
               type="checkbox"
               label={value}
               value={value}
+              onChange={()=>{}}
               checked={props.selectedLanguages.includes(value)}
               className="checkbox_container"
               onClick={(e) => {

@@ -325,7 +325,7 @@ const PatientBookingSummary = (props) => {
                                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                                     <span className='textarea-label'> Appointment Details</span><Link
                                                     to={`/patient/slotBooking/${props.match.params.doctor_id}`}><i
-                                                    class="fas fa-pen"></i></Link>
+                                                    className="fas fa-pen"></i></Link>
                                                 </div>
                                                 <div className='slot-appointment-detail'>
                                                     <div>Date : {date}</div>

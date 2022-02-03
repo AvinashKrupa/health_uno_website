@@ -55,7 +55,6 @@ function App() {
           addToast('No registration token available. Request permission to generate one.', {appearance: "error"});
         }
       }).catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
       });
     
       onMessage(messaging, (payload) => {
@@ -63,7 +62,6 @@ function App() {
       });
     }
     } catch (error) {
-      console.log('error :>> ', error);
     }
    
   },[]) // eslint-disable-line react-hooks/exhaustive-deps

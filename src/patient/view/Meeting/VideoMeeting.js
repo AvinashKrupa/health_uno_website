@@ -1,5 +1,5 @@
-import { meeting, help } from "../../../constants/PatientImages";
-import { Row, Col, Button, Image } from "react-bootstrap";
+import { help } from "../../../constants/PatientImages";
+import { Row, Col, Image } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
@@ -32,13 +32,13 @@ const VideoMeeting = (props) => {
     return () => {};
   }, [props.match.params.doctor_id]); // eslint-disable-line react-hooks/exhaustive-deps
   let [appointmentDetail, setAppointmentDetail] = useState([]);
-  let [havePermissions, setHavePermissions] = useState(false);
+  let [, setHavePermissions] = useState(false);
   let [renderTestButtons, setRenderTestButtons] = useState(false);
   let [micStatus, setMicStatus] = useState(false);
   let [videoStatus, setVideoStatus] = useState(false);
   const [streams, setStreams] = useState([]);
   const [tracks, setTracks] = useState([]);
-  let [meetingError, setMeetingError] = useState("");
+  let [, setMeetingError] = useState("");
   let [timerSeconds, setTimerSeconds] = useState(0);
   const [enableMeetingButton, setEnableMeetingButton] = useState(false);
   const { addToast } = useToasts();
@@ -118,25 +118,25 @@ const VideoMeeting = (props) => {
       });
   }
 
-  function endAppointment() {
-    post(
-      API.END_APPOINTMENT,
-      { appointment_id: props.location?.state?.appointment_id },
-      true
-    )
-      .then((response) => {
-        if (response.status === 200) {
-          addToast(response.data.message, { appearance: "success" });
-        } else {
-          setMeetingError(response.data.message);
-          addToast(response.data.message, { appearance: "error" });
-        }
-      })
-      .catch((error) => {
-        addToast(error.response.data.message, { appearance: "error" });
-      });
-    props.history.goBack();
-  }
+  // function endAppointment() {
+  //   post(
+  //     API.END_APPOINTMENT,
+  //     { appointment_id: props.location?.state?.appointment_id },
+  //     true
+  //   )
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         addToast(response.data.message, { appearance: "success" });
+  //       } else {
+  //         setMeetingError(response.data.message);
+  //         addToast(response.data.message, { appearance: "error" });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       addToast(error.response.data.message, { appearance: "error" });
+  //     });
+  //   props.history.goBack();
+  // }
 
   function openMeeting() {
     if (!props.location?.state?.appointment_id) {
@@ -262,8 +262,8 @@ const VideoMeeting = (props) => {
                 {renderTestButtons && (
                   <div className="meeting-test-window">
                     <div className="meeting-window">
-                      {streams.map((s) => (
-                        <Video stream={s} />
+                      {streams.map((s, key) => (
+                        <Video key={key} stream={s} />
                       ))}
                     </div>
                   </div>
@@ -271,7 +271,7 @@ const VideoMeeting = (props) => {
               </Row>
               <Row>
                 <a
-                  href="javascript:void(0)"
+                  href="/#"
                   className="meeting-help-text"
                   onClick={() => {
                     props.history.push({
@@ -297,13 +297,13 @@ const VideoMeeting = (props) => {
                     >
                       {!micStatus && (
                         <>
-                          <img src={mic_on_icon} />
+                          <img alt="mic on" src={mic_on_icon} />
                           <span>Mic is On</span>
                         </>
                       )}
                       {micStatus && (
                         <>
-                          <img src={mic_off_icon} />
+                          <img alt="mic off" src={mic_off_icon} />
                           <span>Mic is Off</span>
                         </>
                       )}
@@ -316,13 +316,13 @@ const VideoMeeting = (props) => {
                     >
                       {videoStatus && (
                         <>
-                          <img src={camera_off_icon} />
+                          <img alt="camera off" src={camera_off_icon} />
                           <span>Camera is Off</span>
                         </>
                       )}
                       {!videoStatus && (
                         <>
-                          <img src={camera_on_icon} />
+                          <img alt="camera on" src={camera_on_icon} />
                           <span>Camera is On</span>
                         </>
                       )}
@@ -388,7 +388,6 @@ const VideoMeeting = (props) => {
                   </Row>
                   <Row>
                     <Col>
-                      {console.log("status", appointmentDetail.status)}
                       
                         <button
                           className="meeting-btn-white"

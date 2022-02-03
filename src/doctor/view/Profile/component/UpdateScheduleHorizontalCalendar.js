@@ -39,7 +39,7 @@ const UpdateScheduleHorizontalCalendar = (props) => {
 
     };
 
-    const _renderDays = (info) => {
+    const _renderDays = (info, i) => {
         let dateFormate = moment(`${info}`);
         const dateNumber = dateFormate.format('DD');
         const now = dateFormate.format('ddd');
@@ -48,7 +48,7 @@ const UpdateScheduleHorizontalCalendar = (props) => {
 
         return (
             <>
-                <Button className="calendar-days-button"
+                <Button key={i} className="calendar-days-button"
                         style={{backgroundColor: active ? '#28A3DA' : 'white'}}
                         onClick={(e) => handleDaysClick(dateNumber, info)}
                 >
@@ -78,8 +78,8 @@ const UpdateScheduleHorizontalCalendar = (props) => {
                         }
                     }}></i>
 
-                    {dates.slice(lastIndex - size, lastIndex).map(info => {
-                        return _renderDays(info);
+                    {dates.slice(lastIndex - size, lastIndex).map((info,i) => {
+                        return _renderDays(info, i);
                     })}
 
                     <i className="fas fa-chevron-right" onClick={() => {

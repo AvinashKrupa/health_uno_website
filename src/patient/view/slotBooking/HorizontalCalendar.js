@@ -53,16 +53,15 @@ const handleSelectedDate = (dateValue) => {
   setLastIndex(finalIndex+size)
 }
 
-  const _renderDays = (info) => {
+  const _renderDays = (info, i) => {
   let dateFormate = moment(`${info}`);
   const dateNumber = dateFormate.format('DD');
   const now = dateFormate.format('ddd');
   const month = dateFormate.format('MMM');
   const active = dateNumber === selectedDay;
-
   return (
         <>
-          <Button className={'days-button'}
+          <Button key={i} className={'days-button'}
             style={{backgroundColor: active ? '#28A3DA': 'white'}}
             onClick={(e) =>  handleDaysClick(dateNumber, info)}
             >
@@ -92,8 +91,8 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
                 }
             }}></i>
 
-            {dates.slice(lastIndex - size, lastIndex).map(info => {
-                 return _renderDays(info);
+            {dates.slice(lastIndex - size, lastIndex).map((info, i) => {
+                 return _renderDays(info, i);
             })}
 
             <i className="fas fa-chevron-right"  onClick={() =>  {

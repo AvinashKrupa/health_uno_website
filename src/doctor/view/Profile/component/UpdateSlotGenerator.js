@@ -12,9 +12,10 @@ const UpdateSlotGenerator = (props) => {
       </Col>
       <Col>
         {props.selectedSlots &&
-          props.slots.map((slot) => {
+          props.slots.map((slot, key) => {
             return (
               <button
+                key={key}
                 style={{ backgroundColor: getColor(slot) }}
                 // style={{
                 //   backgroundColor:

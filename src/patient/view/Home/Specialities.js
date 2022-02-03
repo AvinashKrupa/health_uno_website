@@ -10,7 +10,6 @@ import { back_icon } from "../../../constants/DoctorImages";
 
 const Specialities = (props) => {
   const { addToast } = useToasts();
-  const setSearchTextInStore = useSearchStore((state) => state.setSearchText);
   const setSearchSpeciality = useSearchStore((state) => state.setSearchSpeciality);
   let [searchText, setSearchText] = useState("");
   const [specialities, setSpecialities] = useState([]);

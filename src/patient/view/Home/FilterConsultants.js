@@ -1,4 +1,4 @@
-import { Row, Col, Button, InputGroup, Image } from "react-bootstrap";
+import { Row, Col, Button, InputGroup } from "react-bootstrap";
 import CheckboxList from "../../../commonComponent/CheckboxList";
 import InputRange from "react-input-range";
 import Input from "../../../commonComponent/Input";
@@ -9,8 +9,6 @@ import "react-input-range/lib/css/index.css";
 import CustomButton from "../../../commonComponent/Button";
 import MultiSelect from "../../../commonComponent/MultiSelect/MultiSelect";
 import Select from "../../../commonComponent/Select";
-import { EXPERIENCE_LIST } from "./constants";
-import SelectWithoutDefault from "../../../commonComponent/SelectWithoutDefault";
 
 let isDefaultSet = true;
 let genderOptions = ["Male", "Female", "Other"];
@@ -144,7 +142,7 @@ const FilterConsultants = (props) => {
               }}
               onClick={props.toggleSidebar}
             >
-              <i class="fas fa-times"></i>
+              <i className="fas fa-times"></i>
             </span>
           </Row>
           <Row
@@ -282,12 +280,12 @@ const FilterConsultants = (props) => {
             <span style={{ cursor: "pointer", paddingLeft: "144px" }}>
               {showLanguages ? (
                 <i
-                  class="fas fa-chevron-up filter_menu_image"
+                  className="fas fa-chevron-up filter_menu_image"
                   onClick={toggleLanguages}
                 ></i>
               ) : (
                 <i
-                  class="fas fa-chevron-down filter_menu_image"
+                  className="fas fa-chevron-down filter_menu_image"
                   onClick={toggleLanguages}
                 ></i>
               )}

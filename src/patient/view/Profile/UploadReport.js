@@ -57,7 +57,6 @@ const UploadReport = (props) => {
   const thumbs = files.map((file) => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
-        {console.log(file.type, file.name)}
         <img
           src={file.type === "application/pdf" ? pdf : file.preview}
           style={img}
@@ -68,7 +67,6 @@ const UploadReport = (props) => {
   ));
 
   const isValidData = () => {
-    console.log("files", files);
     if (isEmpty(uploadDate)) {
       addToast("Please enter date", { appearance: "error" });
       return false;
@@ -105,10 +103,8 @@ const UploadReport = (props) => {
           setReportTypeValue("")
           setUploadDate("");
           setFiles([]);
-          console.log("File upload response: ", response);
         })
         .catch((error) => {
-          console.log("File upload error: ", error);
         });
     }
   };
