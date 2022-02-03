@@ -17,11 +17,12 @@ const UploadReport = (props) => {
   const [reportName, setReportName] = useState("");
   const [uploadDate, setUploadDate] = useState("");
   const [reportType, setReportType] = useState("");
+  const [reportTypeValue, setReportTypeValue] = useState("");
   const [error, setError] = useState(false);
   const [files, setFiles] = useState([]);
   const { addToast } = useToasts();
 
-  let reportOptions = ["MRI", "CT Scan ", "Blood Test"];
+  let reportOptions = ["MRI", "CT Scan ", "Blood Test", "Other"];
 
   const thumbsContainer = {
     display: "flex",
@@ -77,6 +78,10 @@ const UploadReport = (props) => {
     } else if (isEmpty(reportName)) {
       addToast("Please enter report name", { appearance: "error" });
       return false;
+    }else if(reportType === 'Other' &&
+    isEmpty(reportTypeValue)){
+      addToast("Please enter report type name", { appearance: "error" });
+      return false;
     } else if (files.length === 0) {
       addToast("Please select the file", { appearance: "error" });
       return false;
@@ -89,7 +94,7 @@ const UploadReport = (props) => {
     if (isValidData()) {
       let bodyFormData = new FormData();
       bodyFormData.append("file", files[0]);
-      bodyFormData.append("type", reportType);
+      bodyFormData.append("type", reportType === 'Other' ? reportTypeValue : reportType);
       bodyFormData.append("title", reportName);
       bodyFormData.append("date", `${uploadDate}:00.000+00:00`);
 
@@ -97,6 +102,7 @@ const UploadReport = (props) => {
         .then((response) => {
           setReportName("");
           setReportType("");
+          setReportTypeValue("")
           setUploadDate("");
           setFiles([]);
           console.log("File upload response: ", response);
@@ -154,15 +160,26 @@ const UploadReport = (props) => {
                 />
               </Col>
             </Row>
-            <div className="report-type">
+            <Row className="content">
+              <Col lg="6">
               <Select
-                label="Report Type"
+                label="Choose Report Type"
                 defaultValue="Select"
                 id="report-type"
                 options={reportOptions}
                 handleSelect={setReportType}
               />
-            </div>
+              </Col>
+              {reportType==='Other' && <Col lg="6">
+                <Input
+                  label="Report Type"
+                  type="text"
+                  placeholder="Enter Report Type"
+                  value={reportTypeValue}
+                  onChange={setReportTypeValue}
+                />
+              </Col>}
+              </Row>
 
             <div className="upload-file">
               {files.map((fileName) => (
