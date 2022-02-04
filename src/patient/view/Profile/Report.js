@@ -44,7 +44,7 @@ const Report = (props) => {
     }
   };
 
-  function getInvestigationsReports(sortBy = "asc", isPagination = false) {
+  function getInvestigationsReports(sortBy = "desc", isPagination = false) {
     const userInfo = JSON.parse(getData("userInfo"));
 
     let params = {
