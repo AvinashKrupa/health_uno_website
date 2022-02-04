@@ -451,6 +451,12 @@ and (max-device-width : 736px) {
 
   }
 
+  .view_appointments_button {
+    width: fit-content;
+    background-color: #28A3DA;
+    font-size: 20px;
+  }
+
   .back-button-text {
     margin-top: 32px;
     outline: none;
@@ -462,8 +468,37 @@ and (max-device-width : 736px) {
         margin-left: 10px;
     }
   }
-  @media only screen and (max-width: 768px) {
-  .thankYou_image{
-    margin-top: 30%;
+
+  .thank_you_text_big {
+    font-weight: bold;
+    font-size: 25px;
   }
+
+  .thank_you_text_small {
+    font-size: 20px;
+  }
+
+  @media only screen and (min-width: 766px) {
+    .back_botton_img{
+        margin-left: 30px;
+    }
+    .thank_you_content{
+      padding-left: 50px;
+     
+    } 
+  }
+
+  @media only screen and (max-width: 766px) {
+      .back-button-text{
+        margin-top: 50px;
+    }
+    .thank_you_content{
+      padding-left: 40px;
+    } 
+  }
+  
+  @media only screen and (max-width: 625px) {
+    .thank_you_image {
+      width: 100%;
+    }
   }
