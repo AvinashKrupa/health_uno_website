@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {doctor} from "../../../constants/DoctorImages";
 import { Image, Container, Row } from "react-bootstrap";
-import UploadImage from "../../../commonComponent/Upload";
 import ImageUpload from "../../../commonComponent/ImageUpload/ImageUpload";
 
 

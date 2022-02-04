@@ -1,7 +1,6 @@
-import { Row } from "react-bootstrap";
 import { Card, CardMedia } from "@material-ui/core";
 const SpecialityCard = (props) => {
-  const { icon, label, setSearchText, onPress } = props;
+  const { icon, label, onPress } = props;
   return (
     <Card className="speciality-card-container card-hover-effect" onClick={(e) => onPress()}>
       <div>
