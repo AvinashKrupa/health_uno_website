@@ -27,7 +27,7 @@ const PatientEditProfile = (props) => {
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [country, setCountry] = useState("");
-  const [appointmentStats, setAppointmentStats] = useState({});
+  const [, setAppointmentStats] = useState({});
   const [stateName, setStateName] = useState("");
   let [loader, setLoader] = useState(false);
   const dosages = ["First", "Second"];
@@ -79,7 +79,7 @@ const PatientEditProfile = (props) => {
   const [vaccineName, setVaccineName] = useState("");
   const [covidDetails, handleCovidDetails] = useState("");
   // const [dataLanguage, setDataLanguage] = useState([]);
-  const [language, setLanguage] = useState([]);
+  const [language, ] = useState([]);
   const currentDate = new Date();
 
   useEffect(() => {
@@ -331,7 +331,6 @@ const PatientEditProfile = (props) => {
         }
       })
       .catch((error) => {
-        console.log("error: ", error);
         addToast(error.response.data.message, { appearance: "error" });
       });
   }

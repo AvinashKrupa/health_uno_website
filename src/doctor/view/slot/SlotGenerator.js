@@ -12,9 +12,10 @@ const SlotGenerator = (props) => {
       </Col>
       <Col>
         {props.selectedSlots &&
-          props.slots.map((slot) => {
+          props.slots.map((slot, key) => {
             return (
               <button
+                key={key}
                 style={{ backgroundColor: getColor(slot) }}
                 className={`slot-timings-button ${
                   props.selectedSlots.indexOf(slot.slot_id) > -1 ? "active" : ""

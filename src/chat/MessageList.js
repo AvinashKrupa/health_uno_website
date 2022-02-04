@@ -4,11 +4,11 @@ import React, {Component} from 'react';
 class MessageList extends Component {
     constructor(props) {
         super(props);
+        this.messageRef = React.createRef();
         this.state = {
             messages: props.messages || [],
             user_id: props.user_id,
             scrollPosition: 'bottom'
-
         }
         this.timerId = null;
     }
@@ -26,10 +26,18 @@ class MessageList extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            messages: nextProps.messages,
-        });
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({
+    //         messages: nextProps.messages,
+    //     });
+    // }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(JSON.stringify(nextProps.messages) !== JSON.stringify(prevState.messages)) {
+            return ({
+                messages: nextProps.messages,
+            })
+        }
     }
 
     componentWillUnmount() {
@@ -76,7 +84,7 @@ class MessageList extends Component {
                                         <ul className="chat-msg-info">
                                             <li>
                                                 <div className="chat-time">
-                                                <span>{moment(message.created_at).format('DD/MM/YYYY')}&nbsp;</span><span>{moment(message.created_at).format('LT')}</span>
+                                                <span>{moment(message.created_at).format('DD MM YYYY')}&nbsp;</span><span>{moment(message.created_at).format('LT')}</span>
                                                 </div>
                                             </li>
                                         </ul>

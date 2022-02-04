@@ -208,7 +208,6 @@ const AddPrescription = (props) => {
       ...templateMedicineArr,
       ...savedPrescription[chosenTemplate].prescription_info,
     ];
-    console.log("amit final output", templateMedicineArr);
 
     for (let i = 0; i < templateMedicineArr.length; i++) {
       let prescriptionObj = {
@@ -244,7 +243,6 @@ const AddPrescription = (props) => {
       };
       finalMedicineArr.push(prescriptionObj);
     }
-    console.log("amit finalMedicineArr :", finalMedicineArr);
     setChosenTemplate("");
     dispatch({
       type: ACTIONS.APPEND_CHOSEN_TEMPLATE,
@@ -793,7 +791,7 @@ const AddPrescription = (props) => {
             </div>
           </div>
 
-          <Typography gutterBottom>
+          <Typography component={"span"} gutterBottom>
             <div className="chooseTemplateSection">
               <Row className="g-2">
                 {savedPrescription.map((item, index) => (
@@ -892,8 +890,6 @@ const AddPrescription = (props) => {
     );
   }
 
-  console.info("INFO: prescription list", prescription_list);
-  console.info("INFO: Added investigations for prescription", investigations);
   return (
     <Row className="doctor-prescription-container">
       <Col lg="1" sm="1" xs="1" />

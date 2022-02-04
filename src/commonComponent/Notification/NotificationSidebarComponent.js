@@ -90,7 +90,6 @@ const NotificationSidebarComponent = (props) => {
                 // children="notification-sidebar"
                 scrollableTarget="notification-sidebar"
                 onScroll={(event, abc) => {
-                  console.log("amit debug :", event, abc);
                 }}
               >
                 {notifications.map((notification_item, key) => (

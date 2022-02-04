@@ -110,7 +110,7 @@ const DoctorDetails = (props) => {
                                     >
                                         {doctorDetails.language.map(function (item, index) {
                                                         return (
-                                                            <span>{(index ? ", " : "") + item}</span>
+                                                            <span key={index}>{(index ? ", " : "") + item}</span>
                                                         ) || "No Language Found" })}
                                     </span>
                                 </Row>
@@ -162,17 +162,17 @@ const DoctorDetails = (props) => {
                                                 {
                                                     Object.keys(doctorDetails.day).map((key) => {
                                                         return(
-                                                            <tr>
+                                                            <tr key={key}>
                                                             <td style={{fontWeight: '500'}}>{key.charAt(0).toUpperCase() + key.slice(1)}</td>
                                                                 {
 
-                                                                doctorDetails.day[key] ?
-                                                                    <>
-                                                                        <td>{`${convert24hto12h(doctorDetails.shift.shift1.start)}  -
+                                                                    doctorDetails.day[key] ?
+                                                                        <>
+                                                                            <td>{`${convert24hto12h(doctorDetails.shift.shift1.start)}   -
                                                                             ${convert24hto12h(doctorDetails.shift.shift1.end)}`}</td>
                                                                             <td>{`${convert24hto12h(doctorDetails.shift.shift2.start)}  -
                                                                             ${convert24hto12h(doctorDetails.shift.shift2.end)}`}</td>
-                                                                     </> :
+                                                                        </> :
                                                                     <><td>N/A - N/A</td> <td>N/A - N/A</td> </>
                                                                 }
                                                             </tr>

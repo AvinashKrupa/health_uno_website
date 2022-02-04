@@ -1,5 +1,5 @@
 import { Row, Col } from "react-bootstrap";
-import { API, get, post } from "../../../api/config/APIController";
+import { API, post } from "../../../api/config/APIController";
 import { useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
@@ -21,7 +21,7 @@ const TopConsultants = (props) => {
     useSearchStore((state) => state.searchText)
   );
   const setStoreSearchSpeciality = useSearchStore((state) => state.setSearchSpeciality);
-  let [searchSpeciality, setSearchSpeciality] = useState(
+  let [searchSpeciality] = useState(
     useSearchStore((state) => state.searchSpeciality)
   );
   let [consultants, setConsultant] = useState([]);

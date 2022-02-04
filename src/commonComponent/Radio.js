@@ -19,7 +19,7 @@ const Radio = (props) => {
               checked={item.checked}
               onChange={(e) => props.handleSelect(e.target.id)}
             ></input>
-            <label  className="form-check-label" for={props.id}>
+            <label  className="form-check-label" htmlFor={props.id}>
               {item.value}
             </label>
           </Col>

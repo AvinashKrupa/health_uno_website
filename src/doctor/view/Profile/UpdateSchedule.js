@@ -267,18 +267,18 @@ const UpdateSchedule = () => {
 
 
     const dayShiftSlot = () => {
-        return Object.entries(dataMorningShift).sort().map((timeSlot) => {
+        return Object.entries(dataMorningShift).sort().map((timeSlot, key) => {
             return (
-                <UpdateSlotGenerator selectedSlots={[slot]} handleSlotClick={updateSchedule}
+                <UpdateSlotGenerator key={key} selectedSlots={[slot]} handleSlotClick={updateSchedule}
                                      label={`${convert24hto12h(timeSlot[0])}`} slots={timeSlot[1]}/>
             )
         })
     };
 
     const EveningShiftSlot = () => {
-        return Object.entries(dataEveningShift).map((timeSlot) => {
+        return Object.entries(dataEveningShift).map((timeSlot, key) => {
             return (
-                <UpdateSlotGenerator selectedSlots={[slot]} handleSlotClick={updateSchedule}
+                <UpdateSlotGenerator key={key} selectedSlots={[slot]} handleSlotClick={updateSchedule}
                                      label={`${convert24hto12h(timeSlot[0])}`} slots={timeSlot[1]}/>
             )
         })
@@ -360,7 +360,6 @@ const UpdateSchedule = () => {
                             className="shift-timings-input"
                             value={dayShiftFrom}
                             onChange={(e) => {
-                                console.log('amit e.target.value :', e.target.value);
                                 setDayShiftFrom(e.target.value)
                             }}
                         />

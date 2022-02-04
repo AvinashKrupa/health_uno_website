@@ -30,10 +30,8 @@ class UploadImage extends Component {
     bodyFormData.append('type', 'profile');
     this.uploadImageWithData(API.FILEUPLOAD, bodyFormData)
       .then(response => {
-        console.log('response: ', response);
       })
       .catch(error => {
-        console.log('error: ', error);
       })
   }
   uploadImageWithData(endPoint, formData) {

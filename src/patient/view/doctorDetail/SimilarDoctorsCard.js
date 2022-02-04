@@ -7,7 +7,7 @@ const SimilarDoctorsCard = (props) => {
   const language = props.language.map(function (item, index) {
     return (
       (
-        <span style={{ marginLeft: "0px" }} className="doctor-card-fee-value">
+        <span key={index} style={{ marginLeft: "0px" }} className="doctor-card-fee-value">
           {(index ? ", " : "") + item}
         </span>
       ) || <span className="doctor-card-fee-value">Not Mentioned</span>

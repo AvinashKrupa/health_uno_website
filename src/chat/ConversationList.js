@@ -18,10 +18,17 @@ class ConversationList extends Component {
         document.body.classList.remove('chat-page');
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            conversations: nextProps.conversations,
-        });
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({
+    //         conversations: nextProps.conversations,
+    //     });
+    // }
+    getDerivedStateFromProps(nextProps, prevState) {
+        if(JSON.stringify(nextProps.conversations) !== JSON.stringify(prevState.conversations)) {
+            return ({
+                conversations: nextProps.conversations,
+            })
+        }
     }
 
     render() {

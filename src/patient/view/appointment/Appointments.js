@@ -260,16 +260,17 @@ const Appointments = (props) => {
                       flexWrap: "wrap",
                     }}
                   >
-                    {upcomingAppointments.map((appointment) => {
+                    {upcomingAppointments.map((appointment, key) => {
                       return (
                         <Grid
+                          key={key}
                           container
                           item
                           lg={4}
                           md={6}
                           sm={12}
                           xs={12}
-                          spacing={0.5}
+                          spacing={1}
                           className="appointment-page-cards-upcoming"
                         >
                           <DoctorAppointmentsCard
@@ -312,9 +313,10 @@ const Appointments = (props) => {
                       flexWrap: "wrap",
                     }}
                   >
-                    {previousAppointments.map((appointment) => {
+                    {previousAppointments.map((appointment, key) => {
                       return (
                         <Grid
+                          key={key}
                           container
                           item
                           lg={4}

@@ -16,7 +16,7 @@ const DocRegistrationPage3 = (props) => {
         setIsEveningShift, setDayShiftFrom, setDayShiftTo, setEveningShiftFrom, setEveningShiftTo,
         setDataMorningShift, setDataEveningShift
     } = props;
-    const [currentDate, setCurrentDate] = useState(moment().format('DD-MM-YYYY'));
+    const [currentDate] = useState(moment().format('DD-MM-YYYY'));
     const {addToast} = useToasts();
 
     useEffect(() => {
@@ -40,7 +40,7 @@ const DocRegistrationPage3 = (props) => {
         let momentShift2From, momentShift2To;
         switch (type) {
             case 1:
-                if (dayShiftFrom == "" || dayShiftTo == "")
+                if (dayShiftFrom === "" || dayShiftTo === "")
                     return true
                 momentShift1From = moment(dayShiftFrom, "HH:mm")
                 momentShift1To = moment(dayShiftTo, "HH:mm")
@@ -48,7 +48,7 @@ const DocRegistrationPage3 = (props) => {
                     addToast("Morning shift start time cannot be after end time", {appearance: 'error'});
                     return false
                 }
-                if (eveningShiftFrom != "" && eveningShiftTo != "") {
+                if (eveningShiftFrom !== "" && eveningShiftTo !== "") {
                     momentShift2From = moment(eveningShiftFrom, "HH:mm")
                     if (!momentShift1To.isBefore(momentShift2From)) {
                         addToast("Morning shift end time cannot be after evening shift start time", {appearance: 'error'});
@@ -58,7 +58,7 @@ const DocRegistrationPage3 = (props) => {
                 return true
             case 2:
 
-                if (eveningShiftFrom == "" || eveningShiftTo == "")
+                if (eveningShiftFrom === "" || eveningShiftTo === "")
                     return true
                 momentShift2From = moment(eveningShiftFrom, "HH:mm")
                 momentShift2To = moment(eveningShiftTo, "HH:mm")
@@ -66,7 +66,7 @@ const DocRegistrationPage3 = (props) => {
                     addToast("Evening shift start time cannot be after end time", {appearance: 'error'});
                     return false
                 }
-                if (dayShiftFrom != "" && dayShiftTo != "") {
+                if (dayShiftFrom !== "" && dayShiftTo !== "") {
                     momentShift1To = moment(dayShiftTo, "HH:mm")
                     if (!momentShift1To.isBefore(momentShift2From)) {
                         addToast("Evening shift start time cannot be earlier than morning shift end time", {appearance: 'error'});
@@ -74,6 +74,8 @@ const DocRegistrationPage3 = (props) => {
                     }
                 }
                 return true
+            default:
+                addToast("It should not come here", { appearance: 'error' });
 
         }
 
@@ -194,7 +196,7 @@ const DocRegistrationPage3 = (props) => {
                         {days.map((day) => {
                             let active = selectedDays.includes(day);
                             return (
-                                <Button className={'reg-days-button'} onClick={(e) => handleDaysClick(day)}
+                                <Button className={'reg-days-button'} onClick={() => handleDaysClick(day)}
                                         style={{backgroundColor: active ? '#28A3DA' : 'white'}}>
                                     <span className="days-button-text"
                                           style={{color: active ? "white" : ""}}>{day}</span>

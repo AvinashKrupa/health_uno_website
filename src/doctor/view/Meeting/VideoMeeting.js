@@ -201,8 +201,8 @@ const VideoMeeting = (props) => {
                 {renderTestButtons && (
                   <div className="meeting-test-window">
                     <div className="meeting-window">
-                      {streams.map((s) => (
-                        <Video stream={s} />
+                      {streams.map((s, key) => (
+                        <Video key={key} stream={s} />
                       ))}
                     </div>
                   </div>

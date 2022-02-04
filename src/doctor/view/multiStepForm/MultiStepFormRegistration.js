@@ -78,7 +78,7 @@ const MultiStepFormRegistration = ({ history }) => {
   const setUserInfo = useUserStore((state) => state.setUserInfo);
   const [activeStep, setActiveStep] = useState(1);
   const [nextDisabled, setNextDisabled] = useState(false);
-  const [prevDisabled, setPrevDisabled] = useState(true);
+  const [, setPrevDisabled] = useState(true);
   const [image, setImage] = useState("");
 
   function registerLogin(params) {
@@ -124,6 +124,7 @@ const MultiStepFormRegistration = ({ history }) => {
     selectedDays.map((day) => {
       const dayName = day.slice(0, 3).toLowerCase();
       daysObj[`${dayName}`] = true;
+      return null;
     });
     const foundPushToken = await getPushToken();
     let params = {
