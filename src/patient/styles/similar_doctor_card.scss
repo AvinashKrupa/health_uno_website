@@ -21,7 +21,8 @@
 
   .doctor-card-container {
     min-height: 155px !important;
-    height: 168px !important;
+    min-width: fit-content;
+    height: 175px !important;
     width: 100% !important;
     margin-bottom: 27px;
     border-radius: 12px !important;
