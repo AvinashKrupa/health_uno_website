@@ -1,52 +1,62 @@
-import { Image, Button } from "react-bootstrap";
+import { Row, Col, Image, Button } from "react-bootstrap";
 import thank_you from "../../assets/thank_you-min.png";
 import arrow from "../../assets/blackArrow.svg";
 import orange_tick from "../../assets/success.png";
 
 const ThankYou = (props) => {
+  const { state } = props.location;
+  if(!state){
+    props.history.push('/')
+
+  }
   return (
-    <>
-      <div>
-        <button
-          style={{ marginLeft: "7%" }}
-          className="back-button-text"
-        >
-          <img
-            src={arrow}
-            alt="back_icon-img"
-            className="back-button"
-            style={{marginBottom: '5px'}}
-            onClick={() => props.history.push(`/patient/appointments`)}
-          ></img>
-          <span>Back</span>
-        </button>
-      </div>
-      <div>
-        <Image
-          style={{ width: "40%", marginLeft: "30%" }}
-          alt="confirmation image"
-          className="thankYou_image"
-          src={thank_you}
-        ></Image>
-        <Image
-          style={{ width: "5%", marginLeft: "48%", marginBottom: "3%" }}
-          alt="orange tick"
-          src={orange_tick}
-        ></Image>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        <p style={{ fontWeight: "bold", fontSize: "25px" }}>Thank You</p>
-        <p style={{fontSize: "20px" }}>Your appointment has been scheduled</p>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        <Button
-          style={{ width: "fit-content", backgroundColor: "#28A3DA", fontSize: "20px" }}
-          onClick={() => props.history.push("/patient/appointments")}
-        >
-          View Appointment
-        </Button>
-      </div>
-    </>
+      <Row className="thank_you_content">
+        <Col>
+          <Row>
+            <Col>
+              <button className="back-button-text ms-5">
+                <img
+                  src={arrow}
+                  alt="back_icon-img"
+                  className="back_botton_img mb-2"
+                  onClick={() => props.history.push(`/patient/appointments`)}
+                ></img>
+                <span>Back</span>
+              </button>
+            </Col>
+          </Row>
+          <Row className="text-center">
+            <Col>
+              <Image
+                className="thank_you_image"
+                alt="confirmation image"
+                src={thank_you}
+              ></Image>
+            </Col>
+          </Row>
+          <Row className="text-center">
+            <Col>
+              <Image alt="orange tick" src={orange_tick}></Image>
+            </Col>
+          </Row>
+          <Row className="text-center">
+            <span className="thank_you_text_big">Thank You</span>
+            <span className="thank_you_text_small">
+              Your appointment has been scheduled
+            </span>
+          </Row>
+          <Row className="text-center">
+            <Col>
+              <Button
+                className="view_appointments_button"
+                onClick={() => props.history.push("/patient/appointments")}
+              >
+                View Appointment
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
   );
 };
 
