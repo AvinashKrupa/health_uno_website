@@ -450,3 +450,20 @@ and (max-device-width : 736px) {
   }
 
   }
+
+  .back-button-text {
+    margin-top: 32px;
+    outline: none;
+    border: none;
+    background: none;
+    text-align: left;
+    span {
+        font-size: 24px;
+        margin-left: 10px;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+  .thankYou_image{
+    margin-top: 30%;
+  }
+  }

@@ -9,12 +9,13 @@ const ThankYou = (props) => {
       <div>
         <button
           style={{ marginLeft: "7%" }}
-          className="back-nav-container back-navigation"
+          className="back-button-text"
         >
           <img
             src={arrow}
             alt="back_icon-img"
             className="back-button"
+            style={{marginBottom: '5px'}}
             onClick={() => props.history.push(`/patient/appointments`)}
           ></img>
           <span>Back</span>
@@ -24,6 +25,7 @@ const ThankYou = (props) => {
         <Image
           style={{ width: "40%", marginLeft: "30%" }}
           alt="confirmation image"
+          className="thankYou_image"
           src={thank_you}
         ></Image>
         <Image
@@ -38,7 +40,7 @@ const ThankYou = (props) => {
       </div>
       <div style={{ textAlign: "center" }}>
         <Button
-          style={{ width: "25%", backgroundColor: "#28A3DA", fontSize: "20px" }}
+          style={{ width: "fit-content", backgroundColor: "#28A3DA", fontSize: "20px" }}
           onClick={() => props.history.push("/patient/appointments")}
         >
           View Appointment

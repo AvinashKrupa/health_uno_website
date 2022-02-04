@@ -14,7 +14,7 @@ const AccordionButton = ({fontText,btnText, className, active, route, selectedMe
       if(selectedMenu){
         decoratedOnClick()
       }
-    }, [selectedMenu])
+    }, [selectedMenu]) // eslint-disable-line react-hooks/exhaustive-deps
   
     return (
       <>
