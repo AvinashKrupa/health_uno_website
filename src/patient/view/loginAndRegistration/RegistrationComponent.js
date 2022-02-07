@@ -5,7 +5,6 @@ import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import Selector from "../../../commonComponent/Select";
 import TextArea from "../../../commonComponent/TextArea";
 import { Col, Form, Row } from "react-bootstrap";
-import Radio from "../../../commonComponent/Radio";
 import Checkbox from "../../../commonComponent/Checkbox";
 import ModalDialog from "../../../commonComponent/ModalDialog";
 import { AuthContext } from "../../../context/AuthContextProvider";
@@ -41,35 +40,35 @@ const RegistrationComponent = ({ history, image }) => {
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
-  const [isDiabetic, setIsDiabetic] = useState(false);
-  const [diabetics, setDiabetics] = useState([
-    { id: "yes", value: "Yes", checked: false },
-    { id: "no", value: "No", checked: false },
-  ]);
-  const [diabeticValue, setDiabeticValue] = useState("");
-  const [hypertensiveValue, setHypertensiveValue] = useState("");
-  const [hypertensives, setHypertensives] = useState([
-    { id: "yes", value: "Yes", checked: false },
-    { id: "no", value: "No", checked: false },
-  ]);
-  const [isHypertensive, setIsHypertensive] = useState(false);
-  const [surgerys, setSurgerys] = useState([
-    { id: "yes", value: "Yes", checked: false },
-    { id: "no", value: "No", checked: false },
-  ]);
-  const [isSurgery, setIsSurgery] = useState(false);
-  const [surgeryValue, setSurgeryValue] = useState("");
-  const [allergieValue, seAllergieValue] = useState("");
-  const [allergies, setAllergies] = useState([
-    { id: "yes", value: "Yes", checked: false },
-    { id: "no", value: "No", checked: false },
-  ]);
-  const [isAllergie, setIsAllergie] = useState(false);
-  const [covids, setCovids] = useState([
-    { id: "yes", value: "Yes", checked: false },
-    { id: "no", value: "No", checked: false },
-  ]);
-  const [isCovid, setIsCovid] = useState(false);
+  // const [isDiabetic, setIsDiabetic] = useState(false);
+  // const [diabetics, setDiabetics] = useState([
+  //   { id: "yes", value: "Yes", checked: false },
+  //   { id: "no", value: "No", checked: false },
+  // ]);
+  // const [diabeticValue, setDiabeticValue] = useState("");
+  // const [hypertensiveValue, setHypertensiveValue] = useState("");
+  // const [hypertensives, setHypertensives] = useState([
+  //   { id: "yes", value: "Yes", checked: false },
+  //   { id: "no", value: "No", checked: false },
+  // ]);
+  // const [isHypertensive, setIsHypertensive] = useState(false);
+  // const [surgerys, setSurgerys] = useState([
+  //   { id: "yes", value: "Yes", checked: false },
+  //   { id: "no", value: "No", checked: false },
+  // ]);
+  // const [isSurgery, setIsSurgery] = useState(false);
+  // const [surgeryValue, setSurgeryValue] = useState("");
+  // const [allergieValue, seAllergieValue] = useState("");
+  // const [allergies, setAllergies] = useState([
+  //   { id: "yes", value: "Yes", checked: false },
+  //   { id: "no", value: "No", checked: false },
+  // ]);
+  // const [isAllergie, setIsAllergie] = useState(false);
+  // const [covids, setCovids] = useState([
+  //   { id: "yes", value: "Yes", checked: false },
+  //   { id: "no", value: "No", checked: false },
+  // ]);
+  // const [isCovid, setIsCovid] = useState(false);
   const [otherMedical, setOtherMedical] = useState("");
   const [referalCode, setReferalCode] = useState("");
   const [termsCondition, setTermsCondition] = useState(false);
@@ -78,15 +77,15 @@ const RegistrationComponent = ({ history, image }) => {
   // const [dataLanguage, setDataLanguage] = useState([]);
   const [language, ] = useState([]);
   let [loader, setLoader] = useState(false);
-  const [vaccinated, setVaccinated] = useState([
-    { id: "yes", value: "Yes", checked: false },
-    { id: "no", value: "No", checked: false },
-  ]);
-  const [isVaccinated, setIsVaccinated] = useState(false);
-  const [vaccineDate, setVaccineDate] = useState("");
-  const [dose, setDose] = useState("");
-  const [vaccineName, setVaccineName] = useState("");
-  const [covidDetails, handleCovidDetails] = useState("");
+  // const [vaccinated, setVaccinated] = useState([
+  //   { id: "yes", value: "Yes", checked: false },
+  //   { id: "no", value: "No", checked: false },
+  // ]);
+  // const [isVaccinated, setIsVaccinated] = useState(false);
+  // const [vaccineDate, setVaccineDate] = useState("");
+  // const [dose, setDose] = useState("");
+  // const [vaccineName, setVaccineName] = useState("");
+  // const [covidDetails, handleCovidDetails] = useState("");
   const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
@@ -123,65 +122,65 @@ const RegistrationComponent = ({ history, image }) => {
     setCity(cityInfo[1]);
   };
 
-  const handleDiabetic = (id) => {
-    setIsDiabetic(id === "yes");
+  // const handleDiabetic = (id) => {
+  //   setIsDiabetic(id === "yes");
 
-    const newDiabetic = diabetics.map((item) => {
-      return Object.assign({}, item, { checked: item.id === id });
-    });
+  //   const newDiabetic = diabetics.map((item) => {
+  //     return Object.assign({}, item, { checked: item.id === id });
+  //   });
 
-    setDiabetics(newDiabetic);
-  };
+  //   setDiabetics(newDiabetic);
+  // };
 
-  const handleHypertensive = (id) => {
-    setIsHypertensive(id === "yes");
+  // const handleHypertensive = (id) => {
+  //   setIsHypertensive(id === "yes");
 
-    const newHypertensives = hypertensives.map((item) => {
-      return Object.assign({}, item, { checked: item.id === id });
-    });
+  //   const newHypertensives = hypertensives.map((item) => {
+  //     return Object.assign({}, item, { checked: item.id === id });
+  //   });
 
-    setHypertensives(newHypertensives);
-  };
+  //   setHypertensives(newHypertensives);
+  // };
 
-  const handleSurgerys = (id) => {
-    setIsSurgery(id === "yes");
+  // const handleSurgerys = (id) => {
+  //   setIsSurgery(id === "yes");
 
-    const newSurgerys = hypertensives.map((item) => {
-      return Object.assign({}, item, { checked: item.id === id });
-    });
+  //   const newSurgerys = hypertensives.map((item) => {
+  //     return Object.assign({}, item, { checked: item.id === id });
+  //   });
 
-    setSurgerys(newSurgerys);
-  };
+  //   setSurgerys(newSurgerys);
+  // };
 
-  const handleAllergies = (id) => {
-    setIsAllergie(id === "yes");
+  // const handleAllergies = (id) => {
+  //   setIsAllergie(id === "yes");
 
-    const newAllergies = allergies.map((item) => {
-      return Object.assign({}, item, { checked: item.id === id });
-    });
+  //   const newAllergies = allergies.map((item) => {
+  //     return Object.assign({}, item, { checked: item.id === id });
+  //   });
 
-    setAllergies(newAllergies);
-  };
+  //   setAllergies(newAllergies);
+  // };
 
-  const handleCovids = (id) => {
-    setIsCovid(id === "yes");
+  // const handleCovids = (id) => {
+  //   setIsCovid(id === "yes");
 
-    const newCovids = covids.map((item) => {
-      return Object.assign({}, item, { checked: item.id === id });
-    });
+  //   const newCovids = covids.map((item) => {
+  //     return Object.assign({}, item, { checked: item.id === id });
+  //   });
 
-    setCovids(newCovids);
-  };
+  //   setCovids(newCovids);
+  // };
 
-  const handleVaccinated = (id) => {
-    setIsVaccinated(id === "yes");
+  // const handleVaccinated = (id) => {
+  //   setIsVaccinated(id === "yes");
 
-    const newHypertensives = vaccinated.map((item) => {
-      return Object.assign({}, item, { checked: item.id === id });
-    });
+  //   const newHypertensives = vaccinated.map((item) => {
+  //     return Object.assign({}, item, { checked: item.id === id });
+  //   });
 
-    setVaccinated(newHypertensives);
-  };
+  //   setVaccinated(newHypertensives);
+  // };
 
   // Get language from server
   // function getLanguage() {
@@ -274,10 +273,12 @@ const RegistrationComponent = ({ history, image }) => {
     } else if (isEmpty(gender) || gender === "Select Gender") {
       addToast("Please select gender", { appearance: "error" });
       return false;
-    } else if (isEmpty(addressLine1)) {
-      addToast("Please enter address line 1", { appearance: "error" });
-      return false;
-    } else if (isEmpty(state) || state === "Select state") {
+    } 
+    // else if (isEmpty(addressLine1)) {
+    //   addToast("Please enter address line 1", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (isEmpty(state) || state === "Select state") {
       addToast("Please select state", { appearance: "error" });
       return false;
     } else if (isEmpty(city) || city === "Select city") {
@@ -286,69 +287,71 @@ const RegistrationComponent = ({ history, image }) => {
     } else if (isEmpty(language) || language === "Select language") {
       addToast("Please select language", { appearance: "error" });
       return false;
-    } else if (isEmpty(isDiabetic)) {
-      addToast("Please select diabetic", { appearance: "error" });
-      return false;
-    } else if (isDiabetic === true && isEmpty(diabeticValue)) {
-      addToast("Please select diabetic from", { appearance: "error" });
-      return false;
-    } else if (currentDate < new Date(diabeticValue)) {
-      addToast("Please select diabetic from before the current date", {
-        appearance: "error",
-      });
-      return false;
-    } else if (isEmpty(isHypertensive)) {
-      addToast("Please select hypertensive", { appearance: "error" });
-      return false;
-    } else if (isHypertensive === true && isEmpty(hypertensiveValue)) {
-      addToast("Please select hypertensive from", { appearance: "error" });
-      return false;
-    } else if (currentDate < new Date(hypertensiveValue)) {
-      addToast("Please select hypertensive from before the current date", {
-        appearance: "error",
-      });
-      return false;
-    } else if (isEmpty(isSurgery)) {
-      addToast("Please select surgeries", { appearance: "error" });
-      return false;
-    } else if (isSurgery === true && isEmpty(surgeryValue.trim())) {
-      addToast("Please mention about your surgeries", { appearance: "error" });
-      return false;
-    } else if (isEmpty(isAllergie)) {
-      addToast("Please select allergies", { appearance: "error" });
-      return false;
-    } else if (isAllergie === true && isEmpty(allergieValue.trim())) {
-      addToast("Please mention allergies", { appearance: "error" });
-      return false;
-    } else if (isEmpty(isCovid)) {
-      addToast("Please select: Have you been diagnosed with Covid?", {
-        appearance: "error",
-      });
-      return false;
-    } else if (isCovid === true && isEmpty(covidDetails.trim())) {
-      addToast("Please add covid details", { appearance: "error" });
-      return false;
-    } else if (isEmpty(isVaccinated)) {
-      addToast("Please select: Have you been vaccinated against Covid?", {
-        appearance: "error",
-      });
-      return false;
-    } else if (isVaccinated === true && isEmpty(vaccineDate)) {
-      addToast("Please select vaccinated date", { appearance: "error" });
-      return false;
-    } else if (
-      isVaccinated === true &&
-      (isEmpty(dose) || dose === "Choose dose type")
-    ) {
-      addToast("Please select vaccinated dose", { appearance: "error" });
-      return false;
-    } else if (
-      isVaccinated === true &&
-      (isEmpty(vaccineName) || vaccineName === "Choose vaccine name")
-    ) {
-      addToast("Please select vaccine name ", { appearance: "error" });
-      return false;
-    } else if (termsCondition === false) {
+    } 
+    // else if (isEmpty(isDiabetic)) {
+    //   addToast("Please select diabetic", { appearance: "error" });
+    //   return false;
+    // } else if (isDiabetic === true && isEmpty(diabeticValue)) {
+    //   addToast("Please select diabetic from", { appearance: "error" });
+    //   return false;
+    // } else if (currentDate < new Date(diabeticValue)) {
+    //   addToast("Please select diabetic from before the current date", {
+    //     appearance: "error",
+    //   });
+    //   return false;
+    // } else if (isEmpty(isHypertensive)) {
+    //   addToast("Please select hypertensive", { appearance: "error" });
+    //   return false;
+    // } else if (isHypertensive === true && isEmpty(hypertensiveValue)) {
+    //   addToast("Please select hypertensive from", { appearance: "error" });
+    //   return false;
+    // } else if (currentDate < new Date(hypertensiveValue)) {
+    //   addToast("Please select hypertensive from before the current date", {
+    //     appearance: "error",
+    //   });
+    //   return false;
+    // } else if (isEmpty(isSurgery)) {
+    //   addToast("Please select surgeries", { appearance: "error" });
+    //   return false;
+    // } else if (isSurgery === true && isEmpty(surgeryValue.trim())) {
+    //   addToast("Please mention about your surgeries", { appearance: "error" });
+    //   return false;
+    // } else if (isEmpty(isAllergie)) {
+    //   addToast("Please select allergies", { appearance: "error" });
+    //   return false;
+    // } else if (isAllergie === true && isEmpty(allergieValue.trim())) {
+    //   addToast("Please mention allergies", { appearance: "error" });
+    //   return false;
+    // } else if (isEmpty(isCovid)) {
+    //   addToast("Please select: Have you been diagnosed with Covid?", {
+    //     appearance: "error",
+    //   });
+    //   return false;
+    // } else if (isCovid === true && isEmpty(covidDetails.trim())) {
+    //   addToast("Please add covid details", { appearance: "error" });
+    //   return false;
+    // } else if (isEmpty(isVaccinated)) {
+    //   addToast("Please select: Have you been vaccinated against Covid?", {
+    //     appearance: "error",
+    //   });
+    //   return false;
+    // } else if (isVaccinated === true && isEmpty(vaccineDate)) {
+    //   addToast("Please select vaccinated date", { appearance: "error" });
+    //   return false;
+    // } else if (
+    //   isVaccinated === true &&
+    //   (isEmpty(dose) || dose === "Choose dose type")
+    // ) {
+    //   addToast("Please select vaccinated dose", { appearance: "error" });
+    //   return false;
+    // } else if (
+    //   isVaccinated === true &&
+    //   (isEmpty(vaccineName) || vaccineName === "Choose vaccine name")
+    // ) {
+    //   addToast("Please select vaccine name ", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (termsCondition === false) {
       addToast("Please accept terms and condition", { appearance: "error" });
       return false;
     } else {
@@ -404,60 +407,60 @@ const RegistrationComponent = ({ history, image }) => {
       email: email,
       language: language,
       dp: image,
-      med_cond: [
-        {
-          name: "diabetic",
-          selected: isDiabetic  && diabeticValue !=='Invalid date',
-          diag_at: isDiabetic && diabeticValue !=='Invalid date'? diabeticValue : '',
-          desc: "",
-        },
-        {
-          name: "hypertensive",
-          selected: isHypertensive && hypertensiveValue !=='Invalid date',
-          diag_at: isHypertensive && hypertensiveValue !=='Invalid date' ? hypertensiveValue : '',
-          desc: "",
-        },
-        {
-          name: "diagnosed_with_covid",
-          selected: isCovid,
-          diag_at: "",
-          desc: isCovid ? covidDetails : "",
-        },
-        {
-          name: "past_surgeries",
-          selected: isSurgery,
-          diag_at: "",
-          desc: isSurgery ? surgeryValue : "",
-        },
-        {
-          name: "allergy_to_meds",
-          selected: isAllergie,
-          diag_at: "",
-          desc: isAllergie ? allergieValue : "",
-        },
-        {
-          name: "covid_vaccinated",
-          selected: isVaccinated  && vaccineDate !=='Invalid date' ,
-          diag_at: isVaccinated  && vaccineDate !=='Invalid date' ? vaccineDate : '',
-          desc: "",
-          meta: isVaccinated
-            ? [
-                {
-                  name: "dose_type",
-                  selected: true,
-                  diag_at: "",
-                  desc: dose,
-                },
-                {
-                  name: "vaccine_name",
-                  selected: true,
-                  diag_at: "",
-                  desc: vaccineName,
-                },
-              ]
-            : [],
-        },
-      ],
+      // med_cond: [
+      //   {
+      //     name: "diabetic",
+      //     selected: isDiabetic  && diabeticValue !=='Invalid date',
+      //     diag_at: isDiabetic && diabeticValue !=='Invalid date'? diabeticValue : '',
+      //     desc: "",
+      //   },
+      //   {
+      //     name: "hypertensive",
+      //     selected: isHypertensive && hypertensiveValue !=='Invalid date',
+      //     diag_at: isHypertensive && hypertensiveValue !=='Invalid date' ? hypertensiveValue : '',
+      //     desc: "",
+      //   },
+      //   {
+      //     name: "diagnosed_with_covid",
+      //     selected: isCovid,
+      //     diag_at: "",
+      //     desc: isCovid ? covidDetails : "",
+      //   },
+      //   {
+      //     name: "past_surgeries",
+      //     selected: isSurgery,
+      //     diag_at: "",
+      //     desc: isSurgery ? surgeryValue : "",
+      //   },
+      //   {
+      //     name: "allergy_to_meds",
+      //     selected: isAllergie,
+      //     diag_at: "",
+      //     desc: isAllergie ? allergieValue : "",
+      //   },
+      //   {
+      //     name: "covid_vaccinated",
+      //     selected: isVaccinated  && vaccineDate !=='Invalid date' ,
+      //     diag_at: isVaccinated  && vaccineDate !=='Invalid date' ? vaccineDate : '',
+      //     desc: "",
+      //     meta: isVaccinated
+      //       ? [
+      //           {
+      //             name: "dose_type",
+      //             selected: true,
+      //             diag_at: "",
+      //             desc: dose,
+      //           },
+      //           {
+      //             name: "vaccine_name",
+      //             selected: true,
+      //             diag_at: "",
+      //             desc: vaccineName,
+      //           },
+      //         ]
+      //       : [],
+      //   },
+      // ],
       other_med_cond: otherMedical,
       refer_code: referalCode,
       address: {
@@ -601,7 +604,7 @@ const RegistrationComponent = ({ history, image }) => {
           <Col md>
             <Input
               type="text"
-              placeholder="Enter address"
+              placeholder="Enter address (optional)"
               id="addressLine1"
               label="Address Line 1"
               value={addressLine1}
@@ -681,7 +684,7 @@ const RegistrationComponent = ({ history, image }) => {
           </Col>
           <Col md></Col>
         </Row> */}
-        <Row className="g-2">
+        {/* <Row className="g-2">
           <Col md>
             <Row>
               <Radio
@@ -730,8 +733,8 @@ const RegistrationComponent = ({ history, image }) => {
               )}
             </Row>
           </Col>
-        </Row>
-        <Row className="g-2">
+        </Row> */}
+        {/* <Row className="g-2">
           <Col md>
             <Row>
               <Radio
@@ -836,7 +839,7 @@ const RegistrationComponent = ({ history, image }) => {
               )}
             </Row>
           </Col>
-        </Row>
+        </Row> */}
         <Row className="g-2">
           <Col md>
             <TextArea
