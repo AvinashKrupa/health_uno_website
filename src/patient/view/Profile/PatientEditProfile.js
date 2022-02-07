@@ -508,10 +508,12 @@ const PatientEditProfile = (props) => {
     } else if (isEmpty(lastName)) {
       addToast("Please enter last name", { appearance: "error" });
       return false;
-    } else if (isEmpty(addressLine1)) {
-      addToast("Please enter address line 1", { appearance: "error" });
-      return false;
-    } else if (isEmpty(state) || state === "Select state") {
+    } 
+    // else if (isEmpty(addressLine1)) {
+    //   addToast("Please enter address line 1", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (isEmpty(state) || state === "Select state") {
       addToast("Please select state", { appearance: "error" });
       return false;
     } else if (isEmpty(city) || city === "Select city") {
