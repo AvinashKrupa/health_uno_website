@@ -11,6 +11,7 @@ import {
   mic_off_icon,
   mic_on_icon,
 } from "../../../constants/DoctorImages";
+import videoImg from '../../../assets/videoImg.jpg'
 import MeetingTimer from "../../../commonComponent/MeetingTimer";
 
 const Video = ({ stream }) => {
@@ -192,7 +193,7 @@ const VideoMeeting = (props) => {
                 {!renderTestButtons && (
                   <div className="meeting-image">
                     <Image
-                      src={appointmentDetail?.patient?.user?.dp}
+                      src={videoImg}
                       alt="Patient Image"
                       className="meeting-window"
                     />
