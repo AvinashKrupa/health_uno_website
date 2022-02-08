@@ -216,7 +216,7 @@ const PatientEditProfile = (props) => {
             storeData("additional_info", JSON.stringify(additionalInfo));
           }
           //diabetic
-          if (additionalInfo.med_cond[0].selected) {
+          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[0].selected) {
             setDiabetics([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -232,7 +232,7 @@ const PatientEditProfile = (props) => {
             ]);
           }
           //hypertensive
-          if (additionalInfo.med_cond[1].selected) {
+          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[1].selected) {
             setHypertensives([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -248,7 +248,7 @@ const PatientEditProfile = (props) => {
             ]);
           }
           //diagnosed_with_covid
-          if (additionalInfo.med_cond[2].selected) {
+          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[2].selected) {
             setCovids([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -263,7 +263,7 @@ const PatientEditProfile = (props) => {
           }
 
           //past_surgeries
-          if (additionalInfo.med_cond[3].selected) {
+          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[3].selected) {
             setSurgerys([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -278,7 +278,7 @@ const PatientEditProfile = (props) => {
           }
 
           //allergy_to_meds
-          if (additionalInfo.med_cond[4].selected) {
+          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[4].selected) {
             setAllergies([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -293,7 +293,7 @@ const PatientEditProfile = (props) => {
           }
 
           //covid_vaccinated
-          if (additionalInfo.med_cond[5].selected) {
+          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[5].selected) {
             setVaccinated([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
