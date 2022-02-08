@@ -1,5 +1,5 @@
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, InputGroup } from "react-bootstrap";
 import SpecialityCard from "../../commonComponentPatient/SpecialityCard";
 import {API, get, post} from "../../../api/config/APIController";
 import {useEffect, useState} from "react";
@@ -11,6 +11,8 @@ import SearchInputWithIcon from "../../../commonComponent/SearchInputWithIcon";
 import SimilarDoctorsCard from "./../doctorDetail/SimilarDoctorsCard";
 import NotificationSideBar from "../../../commonComponent/Notification/NotificationSideBar";
 import {bell_icon} from "../../../constants/DoctorImages";
+import TopConsultantsFilter from '../../commonComponentPatient/TopConsultantsFilter';
+import {filter} from "../../../constants/PatientImages"
 
 
 const PatientHomePage = (props) => {
@@ -23,6 +25,22 @@ const PatientHomePage = (props) => {
   let [slider, setSlider] = useState([]);
   let [consultants, setConsultant] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const [filterSidebarOpen, setFilterSidebarOpen] = useState(false);
+  const [forceApiCall, setForceApiCall] = useState(false);
+  const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState({
+    sortBy: "asc",
+    min: "100",
+    max: "5000",
+    lang: [],
+    exp: "",
+    specialities: [],
+    gen: "",
+  });
+  const [isFiltered, setIsFiltered] = useState(true);
+  const [totalConsultants, setTotalConsultants] = useState(0);
+
 
   useEffect(() => {
     setSearchText('')
@@ -56,6 +74,20 @@ const PatientHomePage = (props) => {
     }
 
     setSidebarOpen(!sidebarOpen);
+  }
+
+  const toggleFilterSidebar = () => {
+    if (filterSidebarOpen) {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el) {
+        el.classList.add("filter-list-close");
+      });
+    } else {
+      document.querySelectorAll('[role="navigation"]').forEach(function (el) {
+        el.classList.remove("filter-list-close");
+      });
+    }
+
+    setFilterSidebarOpen(!filterSidebarOpen);
   }
 
   function getHomeContent() {
@@ -114,9 +146,91 @@ const PatientHomePage = (props) => {
       return 6
     }
   }
+
+  function callBackFilter(data) {
+    setFilters(data);
+    setPage(1)
+    setIsFiltered(true);
+    setForceApiCall(true)
+  }
+
+  useEffect(() => {
+    if(forceApiCall){
+      getTopConsultantsNew(
+        filters.sortBy,
+        filters.min,
+        filters.max,
+        filters.hasOwnProperty('lang') ? filters.lang : filters.selectedLanguages,
+        filters.hasOwnProperty('exp') ? filters.exp : filters.experience,
+        filters.hasOwnProperty('specialities') ? filters.specialities : filters.selectedSpecialities,
+        filters.hasOwnProperty('gender') ? filters.gender : filters.gen
+      );
+    }
+  }, [forceApiCall])
+
+  function getTopConsultantsNew(
+    sortBy = "asc",
+    min = "100",
+    max = "5000",
+    lang = [],
+    exp,
+    specialities = [],
+    gen = "",
+    isPagination = false
+  ) {
+    let params = {
+      limit: 40,
+      page: isPagination ? page : 1,
+      filter: {
+        text: "",
+        fee_min: Number(min),
+        fee_max: Number(max),
+        ...(exp && { exp: Number(exp) }),
+        language: lang,
+        specialities: specialities,
+        gender: gen,
+      },
+      sort_order: sortBy,
+      sort_key: "first_name",
+    };
+    post(API.GETTOPCONSULTANT, params)
+      .then((response) => {
+        setForceApiCall(false)
+        if (response.status === 200) {
+          setTotalConsultants(response.data.data.total);
+          if (isPagination) {
+            setPage(page + 1);
+            if (page > 1) {
+              setConsultant([...consultants, ...response.data.data.docs]);
+            } else {
+              setConsultant(response.data.data.docs);
+            }
+          } else {
+            if (true) {
+              setPage(page + 1);
+            }
+            setConsultant(response.data.data.docs);
+          }
+        } else {
+          addToast(response.data.message, { appearance: "error" });
+        }
+      })
+      .catch((error) => {
+        setForceApiCall(false);
+        addToast(
+          error &&
+            error.response &&
+            error.response.data &&
+            error.response.data.message,
+          { appearance: "error" }
+        );
+      });
+  }
+
   return (
       <>
         <NotificationSideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+        <TopConsultantsFilter sidebarOpen={filterSidebarOpen} toggleSidebar={toggleFilterSidebar} callBackFilter={callBackFilter} initialSelectedSpecialities={filters.specialities}/>
         <Col lg="10" sm="10" xs="10" className='screen-768'>
           <Row className="search-container mobileviewSearch">
             <Col lg="12" sm="12" xs="12" className="search-container search-container-doctor">
@@ -126,9 +240,19 @@ const PatientHomePage = (props) => {
                 onChange={(e) => debounce(e)}
             ></SearchInputWithIcon>
             <div className="notification-icon-container">
+              <InputGroup>
+            <Button onClick={toggleFilterSidebar} style={{ marginTop: "13px" }}>
+              <img
+                src={filter}
+                className="patient_hp_fl_button"
+                alt="filter-img"
+                style={{ height: "26px", width: "24px", zIndex: -1 }}
+              ></img>
+            </Button>
               <Button onClick={toggleSidebar} style={{marginTop: '33px', cursor: "pointer"}}>
                 <img alt="notification icon" className="notification-icon" src={bell_icon} />
               </Button>
+              </InputGroup>
             </div>
             </Col>
           </Row>

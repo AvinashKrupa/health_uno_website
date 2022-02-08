@@ -3,6 +3,7 @@ import { Row, Col, Image } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { API, post } from "../../../api/config/APIController";
+import videoImg from '../../../assets/videoImg.jpg'
 import {
   back_icon,
   camera_off_icon,
@@ -253,7 +254,7 @@ const VideoMeeting = (props) => {
                 {!renderTestButtons && (
                   <div className="meeting-image">
                     <Image
-                      src={doctorDetails.dp}
+                      src={videoImg}
                       alt="Patient Image"
                       className="meeting-window"
                     />
