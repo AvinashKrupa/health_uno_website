@@ -46,7 +46,7 @@ const RegistrationComponent = ({ history, image }) => {
   const [heightType, setHeightType] = useState("cm")
   const [weightError, setWeightError] = useState(false);
   const [heightError, setHeightError] = useState(false);
-  const relationTypes = ["Son Of", "Wife Of", "Daughter Of"];
+  const relationTypes = ["S/o", "W/o", "D/o"];
   const [relationType, setRelationType] = useState("")
   const [relativeName, setRelativeName] = useState("")
   // const [isDiabetic, setIsDiabetic] = useState(false);
@@ -98,6 +98,30 @@ const RegistrationComponent = ({ history, image }) => {
   const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
+    if(heightType === "feet" && height !== ""){
+      let newHeight = height;
+      newHeight = height/30.48;
+      if(newHeight <= 7) {
+        newHeight = newHeight.toString().slice(0,4);
+        setHeight(newHeight);
+      }
+      else {
+        setHeight("");
+      }
+    }
+    if(heightType === "cm" && height !== ""){
+      let newHeight = height;
+      newHeight = height*30.48;
+      if(newHeight <= 213.36) {
+        setHeight(newHeight);
+      }
+      else {
+        setHeight("");
+      }
+    }
+  }, [heightType])
+  
+  useEffect(() => {
     if (weight > 300) {
       setWeightError(true);
     }
@@ -105,16 +129,6 @@ const RegistrationComponent = ({ history, image }) => {
       setWeightError(false);
     }
   }, [weight])
-
-  useEffect(() => {
-    if (relationType === "Son Of") {
-      setRelationType("S/o");
-    } else if (relationType === "Wife Of") {
-      setRelationType("W/o");
-    } else if (relationType === "Daughter Of") {
-      setRelationType("D/o");
-    }
-  }, [relationType]);
 
   useEffect(() => {
     if (height === "") {

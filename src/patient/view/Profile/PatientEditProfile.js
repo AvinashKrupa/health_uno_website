@@ -641,7 +641,6 @@ const PatientEditProfile = (props) => {
               onChange={setRelativeName}
               options={relationTypes}
               optionChange={setRelationType}
-              dropTitle={relationType ? relationType : "Relation Type"}
             />
         </Col>
       </Row>

@@ -2,7 +2,7 @@ import { Form, Dropdown, DropdownButton, InputGroup } from "react-bootstrap";
 import { useState } from "react";
 
 const InputWithDropdown = (props) => {
-  const [dropdownTitle, setDropdownTitle] = useState(props.dropTitle);
+  const [dropdownTitle, setDropdownTitle] = useState("Relation Type");
   
   const dropOptions = props.options.map((item) => {
     return (
@@ -22,7 +22,7 @@ const InputWithDropdown = (props) => {
       <InputGroup>
         <DropdownButton
           variant="outline-secondary"
-          title={dropdownTitle}
+          title={props.selectedValue ? props.selectedValue : dropdownTitle}
           align="end"
         >
           {dropOptions}
