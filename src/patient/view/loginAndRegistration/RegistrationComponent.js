@@ -20,6 +20,8 @@ import moment from "moment";
 import { getPushToken } from "../../../notification/utilities";
 import TermsAndCondition from "../TermsAndConditions";
 import { capitalizeFirstLetter } from "../../../utils/utilities";
+import HeightInput from "../../../commonComponent/HeightInput";
+import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
 
 const RegistrationComponent = ({ history, image }) => {
   // Get state and language from server
@@ -40,6 +42,13 @@ const RegistrationComponent = ({ history, image }) => {
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
+  const heightTypes = ["feet", "cm"];
+  const [heightType, setHeightType] = useState("cm")
+  const [weightError, setWeightError] = useState(false);
+  const [heightError, setHeightError] = useState(false);
+  const relationTypes = ["S/o", "W/o", "D/o"];
+  const [relationType, setRelationType] = useState("")
+  const [relativeName, setRelativeName] = useState("")
   // const [isDiabetic, setIsDiabetic] = useState(false);
   // const [diabetics, setDiabetics] = useState([
   //   { id: "yes", value: "Yes", checked: false },
@@ -87,6 +96,55 @@ const RegistrationComponent = ({ history, image }) => {
   // const [vaccineName, setVaccineName] = useState("");
   // const [covidDetails, handleCovidDetails] = useState("");
   const [modalShow, setModalShow] = useState(false);
+
+  useEffect(() => {
+    if(heightType === "feet" && height !== ""){
+      let newHeight = height;
+      newHeight = height/30.48;
+      if(newHeight <= 7) {
+        newHeight = newHeight.toString().slice(0,4);
+        setHeight(newHeight);
+      }
+      else {
+        setHeight("");
+      }
+    }
+    if(heightType === "cm" && height !== ""){
+      let newHeight = height;
+      newHeight = height*30.48;
+      if(newHeight <= 213.36) {
+        setHeight(newHeight);
+      }
+      else {
+        setHeight("");
+      }
+    }
+  }, [heightType])
+  
+  useEffect(() => {
+    if (weight > 300) {
+      setWeightError(true);
+    }
+    else {
+      setWeightError(false);
+    }
+  }, [weight])
+
+  useEffect(() => {
+    if (height === "") {
+      setHeightError(false);
+    }
+    else if (heightType === "cm") {
+      if((height > 215 || height < 30)) {
+      setHeightError(true);}
+      else{
+        setHeightError(false);
+      }
+    }
+    else{
+      setHeightError(false);
+    }
+  }, [height])
 
   useEffect(() => {
     getState();
@@ -244,8 +302,11 @@ const RegistrationComponent = ({ history, image }) => {
     if (isEmpty(firstName)) {
       addToast("Please enter first name", { appearance: "error" });
       return false;
-    } else if (isEmpty(lastName)) {
-      addToast("Please enter last name", { appearance: "error" });
+    } else if (relationType === "") {
+      addToast("Please select relation type", { appearance: "error" });
+      return false;
+    }else if (isEmpty(relativeName)) {
+      addToast("Please enter relative name", { appearance: "error" });
       return false;
     } else if (isEmpty(authContext.phone)) {
       addToast("Please enter mobile number", { appearance: "error" });
@@ -273,7 +334,13 @@ const RegistrationComponent = ({ history, image }) => {
     } else if (isEmpty(gender) || gender === "Select Gender") {
       addToast("Please select gender", { appearance: "error" });
       return false;
-    } 
+    }else if (heightError) {
+      addToast("Please enter height value less than or equal to 215 cm", {appearance: "error"})
+      return false;
+  } else if (weightError) {
+    addToast("Please enter weight value less than or equal to 300", {appearance: "error"})
+    return false;
+  }
     // else if (isEmpty(addressLine1)) {
     //   addToast("Please enter address line 1", { appearance: "error" });
     //   return false;
@@ -395,10 +462,13 @@ const RegistrationComponent = ({ history, image }) => {
     let params = {
       first_name: firstName,
       last_name: lastName,
+      relative_name: relativeName,
+      relation: relationType,
       mobile_number: authContext.phone,
       country_code: "+91",
       device_type: "web",
       device_token: foundPushToken,
+      dimen_type: heightType === "feet" ? "ft" : "cm",
       type: "1",
       dob: birthDate,
       gender: gender,
@@ -510,8 +580,10 @@ const RegistrationComponent = ({ history, image }) => {
   return (
     <div className="container">
       <div>
-        <Row className="g-2">
+      <Row className="g-2">
           <Col md>
+            <Row>
+              <Col md>
             <Input
               type="text"
               placeholder="Enter Your First Name"
@@ -521,16 +593,32 @@ const RegistrationComponent = ({ history, image }) => {
               value={firstName}
               onChange={setFirstName}
             />
-          </Col>
-          <Col md>
+            </Col>
+            <Col md>
             <Input
               type="text"
-              placeholder="Enter Your Surname"
+              placeholder="Enter Your Last Name"
               id="lastName"
               label="Last Name"
               maxLength="20"
               value={lastName}
               onChange={setLastName}
+            />
+            </Col>
+            </Row>
+          </Col>
+          <Col md>
+            <InputWithDropdown
+              type="text"
+              placeholder="Enter Name"
+              id="relativeName"
+              label="Relative Name"
+              maxLength="20"
+              value={relativeName}
+              onChange={setRelativeName}
+              options={relationTypes}
+              optionChange={setRelationType}
+              dropTitle="Relation Type"
             />
           </Col>
         </Row>
@@ -580,24 +668,32 @@ const RegistrationComponent = ({ history, image }) => {
         </Row>
         <Row className="g-2">
           <Col md>
-            <Input
-              type="number"
-              placeholder="Enter Your Height (optional)"
-              id="height"
-              label="Height"
-              value={height}
-              onChange={setHeight}
-            />
+            <HeightInput
+                type="number"
+                placeholder="Enter Your Height (optional)"
+                id="height"
+                label="Height"
+                value={height}
+                onChange={setHeight}
+                dropdownItems={heightTypes}
+                onTypeChange={setHeightType}
+              />
+              {heightError ? 
+            <Form.Text style={{color: "red"}}>Value should be less than 215</Form.Text>
+            : null }
           </Col>
           <Col md>
             <Input
               type="number"
-              placeholder="Enter Your Weight (optional)"
+              placeholder="Enter Your Weight In kg. (optional)"
               id="weight"
               label="Weight"
               value={weight}
               onChange={setWeight}
             />
+            {weightError ? 
+            <Form.Text style={{color: "red"}}>Please enter weight less than 300kg</Form.Text>
+            : null }
           </Col>
         </Row>
         <Row className="g-2">

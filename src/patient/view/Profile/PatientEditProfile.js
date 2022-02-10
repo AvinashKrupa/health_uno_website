@@ -12,6 +12,7 @@ import Spinner from "../../../commonComponent/Spinner";
 import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import Radio from "../../../commonComponent/Radio";
 import Selector from "../../../commonComponent/Select";
+import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
 
 const PatientEditProfile = (props) => {
   // Get state and language from server
@@ -78,9 +79,22 @@ const PatientEditProfile = (props) => {
   const [dose, setDose] = useState("");
   const [vaccineName, setVaccineName] = useState("");
   const [covidDetails, handleCovidDetails] = useState("");
+  const relationTypes = ["S/o", "W/o", "D/o"];
+  const [relationType, setRelationType] = useState("")
+  const [relativeName, setRelativeName] = useState("")
   // const [dataLanguage, setDataLanguage] = useState([]);
   const [language, ] = useState([]);
   const currentDate = new Date();
+
+  // useEffect(() => {
+  //   if (relationType === "Son Of") {
+  //     setRelationType("S/o");
+  //   } else if (relationType === "Wife Of") {
+  //     setRelationType("W/o");
+  //   } else if (relationType === "Daughter Of") {
+  //     setRelationType("D/o");
+  //   }
+  // }, [relationType]);
 
   useEffect(() => {
     getUserProfile();
@@ -314,6 +328,8 @@ const PatientEditProfile = (props) => {
 
           setFirstName(user.first_name);
           setLastName(user.last_name);
+          setRelativeName(user.relative_name)
+          setRelationType(user.relation)
           setEmail(user.email);
           setGender(user.gender);
           setMobile(user.mobile_number);
@@ -340,6 +356,8 @@ const PatientEditProfile = (props) => {
     let params = {
       first_name: firstName,
       last_name: lastName,
+      relative_name: relativeName,
+      relation: relationType,
       language: language,
       address: {
         line1: addressLine1,
@@ -505,8 +523,11 @@ const PatientEditProfile = (props) => {
     if (isEmpty(firstName)) {
       addToast("Please enter first name", { appearance: "error" });
       return false;
-    } else if (isEmpty(lastName)) {
-      addToast("Please enter last name", { appearance: "error" });
+    } else if (isEmpty(relativeName)) {
+      addToast("Please enter relative name", { appearance: "error" });
+      return false;
+    }else if (relationType === "") {
+      addToast("Please select relation type", { appearance: "error" });
       return false;
     } 
     // else if (isEmpty(addressLine1)) {
@@ -584,6 +605,8 @@ const PatientEditProfile = (props) => {
       <Row className="g-2">
         <Row>{/* <h2 className="sub-title"></h2> */}</Row>
         <Col className="registration-page-1-column" md>
+        <Row>
+          <Col md>
           <Input
             label="First Name"
             type="text"
@@ -592,8 +615,8 @@ const PatientEditProfile = (props) => {
             value={firstName}
             onChange={setFirstName}
           />
-        </Col>
-        <Col className="registration-page-1-column" md>
+          </Col>
+          <Col md>
           <Input
             label="Last Name"
             type="text"
@@ -602,6 +625,23 @@ const PatientEditProfile = (props) => {
             value={lastName}
             onChange={setLastName}
           />
+         </Col>
+         </Row>
+        </Col>
+        <Col className="registration-page-1-column" md>
+          {console.log('relationType :>> ', relationType)}
+        <InputWithDropdown
+              type="text"
+              placeholder="Enter Name"
+              id="relativeName"
+              label="Relative Name"
+              maxLength="20"
+              value={relativeName}
+              selectedValue={relationType}
+              onChange={setRelativeName}
+              options={relationTypes}
+              optionChange={setRelationType}
+            />
         </Col>
       </Row>
       <Row className="g-2">
