@@ -10,6 +10,7 @@ import Spinner from "../../../commonComponent/Spinner";
 import ProfilePictureColumn from "./profilePictureColumn";
 import moment from "moment";
 import MultiSelect from "../../../commonComponent/MultiSelect/MultiSelect";
+import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
 
 const DocRegistrationPage1 = (props) => {
   // Get state and language from server
@@ -41,17 +42,24 @@ const DocRegistrationPage1 = (props) => {
     setEmail,
     setGender,
     setCity,
+
     setState,
     setAddressLine1,
     setAddressLine2,
     setDescription,
     setLanguageValue,
+    setRelationType,
+    setRelativeName,
+    relationType,
+    relativeName,
   } = props;
+
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);
   let [loader, setLoader] = useState(false);
   const [dataLanguage, setDataLanguage] = useState([]);
   const { addToast } = useToasts();
+  const relationTypes = ["S/o", "W/o", "D/o"];
 
   let genderOptions = ["Male", "Female", "Other"];
 
@@ -141,7 +149,7 @@ const DocRegistrationPage1 = (props) => {
       .then((response) => {
         if (response.status === 200) {
           let data = response.data.data.map((info) => {
-            return { value: info.name, id: info._id, name:info.name };
+            return { value: info.name, id: info._id, name: info.name };
           });
           setDataLanguage(data);
         } else {
@@ -161,7 +169,7 @@ const DocRegistrationPage1 = (props) => {
         </Col>
         <Col lg="6">
           <Row>
-            <Col className="registration-page-1-column">
+            {/* <Col className="registration-page-1-column">
               <Input
                 label="First Name"
                 type="text"
@@ -179,6 +187,45 @@ const DocRegistrationPage1 = (props) => {
                 maxLength="20"
                 value={lastName}
                 onChange={setLastName}
+              />
+            </Col> */}
+
+            <Col className="registration-page-1-column" md>
+              <Row>
+                <Col md>
+                  <Input
+                    label="First Name"
+                    type="text"
+                    placeholder="eg John"
+                    maxLength="20"
+                    value={firstName}
+                    onChange={setFirstName}
+                  />
+                </Col>
+                <Col md>
+                  <Input
+                    label="Last Name"
+                    type="text"
+                    placeholder="eg Doe"
+                    maxLength="20"
+                    value={lastName}
+                    onChange={setLastName}
+                  />
+                </Col>
+              </Row>
+            </Col>
+            <Col className="registration-page-1-column" md>
+              <InputWithDropdown
+                type="text"
+                placeholder="Enter Name"
+                id="relativeName"
+                label="Relative Name"
+                maxLength="20"
+                value={relativeName}
+                selectedValue={relationType}
+                onChange={setRelativeName}
+                options={relationTypes}
+                optionChange={setRelationType}
               />
             </Col>
           </Row>
@@ -318,7 +365,7 @@ const DocRegistrationPage1 = (props) => {
                 label="Language"
                 selected={language}
                 options={dataLanguage}
-                handleChange={setLanguageValue}            
+                handleChange={setLanguageValue}
               />
             </Col>
 

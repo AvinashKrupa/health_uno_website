@@ -13,7 +13,7 @@ import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import Radio from "../../../commonComponent/Radio";
 import Selector from "../../../commonComponent/Select";
 import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
-import HeightInput from "../../../commonComponent/HeightInput"
+import HeightInput from "../../../commonComponent/HeightInput";
 
 const PatientEditProfile = (props) => {
   // Get state and language from server
@@ -81,16 +81,16 @@ const PatientEditProfile = (props) => {
   const [vaccineName, setVaccineName] = useState("");
   const [covidDetails, handleCovidDetails] = useState("");
   const relationTypes = ["S/o", "W/o", "D/o"];
-  const [relationType, setRelationType] = useState("")
-  const [relativeName, setRelativeName] = useState("")
+  const [relationType, setRelationType] = useState("");
+  const [relativeName, setRelativeName] = useState("");
   const heightTypes = ["feet", "cm"];
-  const [heightType, setHeightType] = useState("")
+  const [heightType, setHeightType] = useState("");
   const [weightError, setWeightError] = useState(false);
   const [heightError, setHeightError] = useState(false);
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   // const [dataLanguage, setDataLanguage] = useState([]);
-  const [language, ] = useState([]);
+  const [language] = useState([]);
   const currentDate = new Date();
 
   // useEffect(() => {
@@ -104,58 +104,53 @@ const PatientEditProfile = (props) => {
   // }, [relationType]);
 
   useEffect(() => {
-    if(heightType === "feet" && height !== ""){
+    if (heightType === "feet" && height !== "") {
       let newHeight = height;
-      newHeight = height/30.48;
-      if(newHeight <= 7) {
-        newHeight = newHeight.toString().slice(0,4);
+      newHeight = height / 30.48;
+      if (newHeight <= 7) {
+        newHeight = newHeight.toString().slice(0, 4);
         setHeight(newHeight);
-      }
-      else {
+      } else {
         setHeight("");
       }
     }
-    if(heightType === "cm" && height !== ""){
+    if (heightType === "cm" && height !== "") {
       let newHeight = height;
-      newHeight = height*30.48;
-      if(newHeight <= 213.36) {
+      newHeight = height * 30.48;
+      if (newHeight <= 213.36) {
         setHeight(newHeight);
-      }
-      else {
+      } else {
         setHeight("");
       }
     }
-  }, [heightType])
+  }, [heightType]);
 
   useEffect(() => {
     if (weight > 300) {
       setWeightError(true);
-    }
-    else {
+    } else {
       setWeightError(false);
     }
-  }, [weight])
+  }, [weight]);
 
   useEffect(() => {
     if (height === "") {
       setHeightError(false);
-    }
-    else if (heightType === "cm") {
-      if((height > 215 || height < 30)) {
-      setHeightError(true);}
-      else{
+    } else if (heightType === "cm") {
+      if (height > 215 || height < 30) {
+        setHeightError(true);
+      } else {
         setHeightError(false);
       }
-    }
-    else{
+    } else {
       setHeightError(false);
     }
-  }, [height])
+  }, [height]);
 
   useEffect(() => {
     getUserProfile();
     // getLanguage();
-    return () => { };
+    return () => {};
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -207,7 +202,7 @@ const PatientEditProfile = (props) => {
       return Object.assign({}, item, { checked: item.id === id });
     });
     if (id === "no") {
-      setDiabeticValue("")
+      setDiabeticValue("");
     }
 
     setDiabetics(newDiabetic);
@@ -216,7 +211,7 @@ const PatientEditProfile = (props) => {
   const handleHypertensive = (id) => {
     setIsHypertensive(id === "yes");
     if (id === "no") {
-      setHypertensiveValue("")
+      setHypertensiveValue("");
     }
     const newHypertensives = hypertensives.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
@@ -228,7 +223,7 @@ const PatientEditProfile = (props) => {
   const handleSurgerys = (id) => {
     setIsSurgery(id === "yes");
     if (id === "no") {
-      setSurgeryValue("")
+      setSurgeryValue("");
     }
     const newSurgerys = hypertensives.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
@@ -240,8 +235,7 @@ const PatientEditProfile = (props) => {
   const handleAllergies = (id) => {
     setIsAllergie(id === "yes");
     if (id === "no") {
-      seAllergieValue("")
-
+      seAllergieValue("");
     }
     const newAllergies = allergies.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
@@ -253,7 +247,7 @@ const PatientEditProfile = (props) => {
   const handleCovids = (id) => {
     setIsCovid(id === "yes");
     if (id === "no") {
-      handleCovidDetails("")
+      handleCovidDetails("");
     }
     const newCovids = covids.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
@@ -265,9 +259,9 @@ const PatientEditProfile = (props) => {
   const handleVaccinated = (id) => {
     setIsVaccinated(id === "yes");
     if (id === "no") {
-      setVaccineDate("")
-      setDose("")
-      setVaccineName("")
+      setVaccineDate("");
+      setDose("");
+      setVaccineName("");
     }
     const newVaccinatedList = vaccinated.map((item) => {
       return Object.assign({}, item, { checked: item.id === id });
@@ -286,7 +280,11 @@ const PatientEditProfile = (props) => {
             storeData("additional_info", JSON.stringify(additionalInfo));
           }
           //diabetic
-          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[0].selected) {
+          if (
+            additionalInfo &&
+            additionalInfo.med_cond.length &&
+            additionalInfo.med_cond[0].selected
+          ) {
             setDiabetics([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -302,7 +300,11 @@ const PatientEditProfile = (props) => {
             ]);
           }
           //hypertensive
-          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[1].selected) {
+          if (
+            additionalInfo &&
+            additionalInfo.med_cond.length &&
+            additionalInfo.med_cond[1].selected
+          ) {
             setHypertensives([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -318,7 +320,11 @@ const PatientEditProfile = (props) => {
             ]);
           }
           //diagnosed_with_covid
-          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[2].selected) {
+          if (
+            additionalInfo &&
+            additionalInfo.med_cond.length &&
+            additionalInfo.med_cond[2].selected
+          ) {
             setCovids([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -333,7 +339,11 @@ const PatientEditProfile = (props) => {
           }
 
           //past_surgeries
-          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[3].selected) {
+          if (
+            additionalInfo &&
+            additionalInfo.med_cond.length &&
+            additionalInfo.med_cond[3].selected
+          ) {
             setSurgerys([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -348,7 +358,11 @@ const PatientEditProfile = (props) => {
           }
 
           //allergy_to_meds
-          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[4].selected) {
+          if (
+            additionalInfo &&
+            additionalInfo.med_cond.length &&
+            additionalInfo.med_cond[4].selected
+          ) {
             setAllergies([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -363,7 +377,11 @@ const PatientEditProfile = (props) => {
           }
 
           //covid_vaccinated
-          if (additionalInfo && additionalInfo.med_cond.length && additionalInfo.med_cond[5].selected) {
+          if (
+            additionalInfo &&
+            additionalInfo.med_cond.length &&
+            additionalInfo.med_cond[5].selected
+          ) {
             setVaccinated([
               { id: "yes", value: "Yes", checked: true },
               { id: "no", value: "No", checked: false },
@@ -384,8 +402,8 @@ const PatientEditProfile = (props) => {
 
           setFirstName(user.first_name);
           setLastName(user.last_name);
-          setRelativeName(user.relative_name)
-          setRelationType(user.relation)
+          setRelativeName(additionalInfo.relative_name);
+          setRelationType(additionalInfo.relation);
           setEmail(user.email);
           setGender(user.gender);
           setMobile(user.mobile_number);
@@ -397,9 +415,9 @@ const PatientEditProfile = (props) => {
           setCountry(additionalInfo.address.country);
           setAppointmentStats(additionalInfo.appointment_stats);
           getState(additionalInfo.address.state);
-          setHeight(additionalInfo.height)
-          setWeight(additionalInfo.weight)
-          setHeightType(additionalInfo.dimen_type)
+          setHeight(additionalInfo.height);
+          setWeight(additionalInfo.weight);
+          setHeightType(additionalInfo.dimen_type);
           // setLanguage([user.language[0]._id])
         } else {
           addToast(response.data.message, { appearance: "error" });
@@ -471,19 +489,19 @@ const PatientEditProfile = (props) => {
           desc: "",
           meta: isVaccinated
             ? [
-              {
-                name: "dose_type",
-                selected: true,
-                diag_at: "",
-                desc: dose,
-              },
-              {
-                name: "vaccine_name",
-                selected: true,
-                diag_at: "",
-                desc: vaccineName,
-              },
-            ]
+                {
+                  name: "dose_type",
+                  selected: true,
+                  diag_at: "",
+                  desc: dose,
+                },
+                {
+                  name: "vaccine_name",
+                  selected: true,
+                  diag_at: "",
+                  desc: vaccineName,
+                },
+              ]
             : [],
         },
       ],
@@ -585,13 +603,15 @@ const PatientEditProfile = (props) => {
     if (isEmpty(firstName)) {
       addToast("Please enter first name", { appearance: "error" });
       return false;
-    } else if (isEmpty(relativeName)) {
-      addToast("Please enter relative name", { appearance: "error" });
-      return false;
-    }else if (relationType === "") {
-      addToast("Please select relation type", { appearance: "error" });
-      return false;
     }
+
+    // else if (isEmpty(relativeName)) {
+    //   addToast("Please enter relative name", { appearance: "error" });
+    //   return false;
+    // } else if (relationType === "") {
+    //   addToast("Please select relation type", { appearance: "error" });
+    //   return false;
+    // }
     // else if (isEmpty(addressLine1)) {
     //   addToast("Please enter address line 1", { appearance: "error" });
     //   return false;
@@ -677,42 +697,42 @@ const PatientEditProfile = (props) => {
       <Row className="g-2">
         <Row>{/* <h2 className="sub-title"></h2> */}</Row>
         <Col className="registration-page-1-column" md>
-        <Row>
-          <Col md>
-          <Input
-            label="First Name"
-            type="text"
-            placeholder="eg John"
-            maxLength="20"
-            value={firstName}
-            onChange={setFirstName}
-          />
-          </Col>
-          <Col md>
-          <Input
-            label="Last Name"
-            type="text"
-            placeholder="eg Doe"
-            maxLength="20"
-            value={lastName}
-            onChange={setLastName}
-          />
-         </Col>
-         </Row>
+          <Row>
+            <Col md>
+              <Input
+                label="First Name"
+                type="text"
+                placeholder="eg John"
+                maxLength="20"
+                value={firstName}
+                onChange={setFirstName}
+              />
+            </Col>
+            <Col md>
+              <Input
+                label="Last Name"
+                type="text"
+                placeholder="eg Doe"
+                maxLength="20"
+                value={lastName}
+                onChange={setLastName}
+              />
+            </Col>
+          </Row>
         </Col>
         <Col className="registration-page-1-column" md>
-        <InputWithDropdown
-              type="text"
-              placeholder="Enter Name"
-              id="relativeName"
-              label="Relative Name"
-              maxLength="20"
-              value={relativeName}
-              selectedValue={relationType}
-              onChange={setRelativeName}
-              options={relationTypes}
-              optionChange={setRelationType}
-            />
+          <InputWithDropdown
+            type="text"
+            placeholder="Enter Name"
+            id="relativeName"
+            label="Relative Name"
+            maxLength="20"
+            value={relativeName}
+            selectedValue={relationType}
+            onChange={setRelativeName}
+            options={relationTypes}
+            optionChange={setRelationType}
+          />
         </Col>
       </Row>
       <Row className="g-2">
@@ -750,36 +770,40 @@ const PatientEditProfile = (props) => {
         </Col>
       </Row>
       <Row className="g-2">
-          <Col md>
-            <HeightInput
-                type="number"
-                placeholder="Enter Your Height (optional)"
-                id="height"
-                label="Height"
-                value={height}
-                onChange={setHeight}
-                dropdownItems={heightTypes}
-                onTypeChange={setHeightType}
-                selectedValue={heightType}
-              />
-              {heightError ? 
-            <Form.Text style={{color: "red"}}>Value should be less than 215</Form.Text>
-            : null }
-          </Col>
-          <Col md>
-            <Input
-              type="number"
-              placeholder="Enter Your Weight In kg. (optional)"
-              id="weight"
-              label="Weight"
-              value={weight}
-              onChange={setWeight}
-            />
-            {weightError ? 
-            <Form.Text style={{color: "red"}}>Please enter weight less than 300kg</Form.Text>
-            : null }
-          </Col>
-        </Row>
+        <Col md>
+          <HeightInput
+            type="number"
+            placeholder="Enter Your Height (optional)"
+            id="height"
+            label="Height"
+            value={height}
+            onChange={setHeight}
+            dropdownItems={heightTypes}
+            onTypeChange={setHeightType}
+            selectedValue={heightType}
+          />
+          {heightError ? (
+            <Form.Text style={{ color: "red" }}>
+              Value should be less than 215
+            </Form.Text>
+          ) : null}
+        </Col>
+        <Col md>
+          <Input
+            type="number"
+            placeholder="Enter Your Weight In kg. (optional)"
+            id="weight"
+            label="Weight"
+            value={weight}
+            onChange={setWeight}
+          />
+          {weightError ? (
+            <Form.Text style={{ color: "red" }}>
+              Please enter weight less than 300kg
+            </Form.Text>
+          ) : null}
+        </Col>
+      </Row>
       <Row>
         <Col md>
           <Input

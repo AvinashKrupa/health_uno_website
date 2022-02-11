@@ -9,9 +9,11 @@ import Spinner from "../../../commonComponent/Spinner";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import MultiSelect from "../../../commonComponent/MultiSelect/MultiSelect";
+import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
 
 const DoctorEditProfile = (props) => {
   // Get state and language from server
+
   const [showLoader, setShowLoader] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -29,6 +31,9 @@ const DoctorEditProfile = (props) => {
   const [loader, setLoader] = useState(false);
   const [dataLanguage, setDataLanguage] = useState([]);
   const [language, setLanguage] = useState([]);
+  const relationTypes = ["S/o", "W/o", "D/o"];
+  const [relationType, setRelationType] = useState("");
+  const [relativeName, setRelativeName] = useState("");
 
   useEffect(() => {
     getUserProfile();
@@ -69,7 +74,7 @@ const DoctorEditProfile = (props) => {
         }
       })
       .catch((error) => {
-        addToast(error.data.message, { appearance: 'error' });
+        addToast(error.data.message, { appearance: "error" });
       });
   }
 
@@ -94,7 +99,9 @@ const DoctorEditProfile = (props) => {
           if (additional_info) {
             storeData("additional_info", JSON.stringify(additional_info));
           }
-          const selectedLanguage = user.language.map(language => language._id)
+          const selectedLanguage = user.language.map(
+            (language) => language._id
+          );
           let additionalInfo = response.data.data.additional_info;
           setFirstName(user.first_name);
           setLastName(user.last_name);
@@ -103,6 +110,8 @@ const DoctorEditProfile = (props) => {
           setDescription(additionalInfo.desc);
           setMobile(user.mobile_number);
           setBirthDate(user.dob);
+          setRelativeName(additionalInfo.relative_name);
+          setRelationType(additionalInfo.relation);
           setAddressLine1(additionalInfo.address.line1);
           setAddressLine2(additionalInfo.address.line2);
           setState(additionalInfo.address.state);
@@ -138,6 +147,8 @@ const DoctorEditProfile = (props) => {
       qualif: {
         exp: Number(experience),
       },
+      relative_name: relativeName,
+      relation: relationType,
     };
     setShowLoader(true);
     post(API.UPDATE_PROFILE, params, true)
@@ -214,9 +225,11 @@ const DoctorEditProfile = (props) => {
     <div className="form-wizard edit-doctor-container">
       <Row>
         <Row>
-          <h2 className="sub-title">Edit Profile</h2>
+          <h2 style={{ marginLeft: 0 }} className="sub-title">
+            Edit Profile
+          </h2>
         </Row>
-        <Col md className="registration-page-1-column">
+        {/* <Col md className="registration-page-1-column">
           <Input
             label="First Name"
             type="text"
@@ -234,6 +247,44 @@ const DoctorEditProfile = (props) => {
             maxLength="20"
             value={lastName}
             onChange={setLastName}
+          />
+        </Col> */}
+        <Col className="registration-page-1-column" md>
+          <Row>
+            <Col md>
+              <Input
+                label="First Name"
+                type="text"
+                placeholder="eg John"
+                maxLength="20"
+                value={firstName}
+                onChange={setFirstName}
+              />
+            </Col>
+            <Col md>
+              <Input
+                label="Last Name"
+                type="text"
+                placeholder="eg Doe"
+                maxLength="20"
+                value={lastName}
+                onChange={setLastName}
+              />
+            </Col>
+          </Row>
+        </Col>
+        <Col className="registration-page-1-column" md>
+          <InputWithDropdown
+            type="text"
+            placeholder="Enter Name"
+            id="relativeName"
+            label="Relative Name"
+            maxLength="20"
+            value={relativeName}
+            selectedValue={relationType}
+            onChange={setRelativeName}
+            options={relationTypes}
+            optionChange={setRelationType}
           />
         </Col>
       </Row>

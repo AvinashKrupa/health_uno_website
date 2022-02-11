@@ -33,6 +33,8 @@ const MultiStepFormRegistration = ({ history }) => {
   const [description, setDescription] = useState("");
   // const [language, setLanguage] = useState([]);
   const [language, setLanguage] = useState([]);
+  const [relationType, setRelationType] = useState("");
+  const [relativeName, setRelativeName] = useState("");
 
   const setLanguageValue = (e) => {
     const value = e.target.value;
@@ -174,6 +176,8 @@ const MultiStepFormRegistration = ({ history }) => {
         city: city,
         country: "India",
       },
+      relative_name: relativeName,
+      relation: relationType,
     };
     registerLogin(params);
   }
@@ -315,10 +319,12 @@ const MultiStepFormRegistration = ({ history }) => {
     if (isEmpty(firstName)) {
       addToast("Please enter first name", { appearance: "error" });
       return false;
-    } else if (isEmpty(lastName)) {
-      addToast("Please enter last name", { appearance: "error" });
-      return false;
-    } else if (isEmpty(authContext.phone)) {
+    }
+    // else if (isEmpty(lastName)) {
+    //   addToast("Please enter last name", { appearance: "error" });
+    //   return false;
+    // }
+    else if (isEmpty(authContext.phone)) {
       addToast("Please enter mobile number", { appearance: "error" });
       return false;
     } else if (isNumberOnly(authContext.phone)) {
@@ -344,10 +350,12 @@ const MultiStepFormRegistration = ({ history }) => {
     } else if (isEmpty(description)) {
       addToast("Please add profile description", { appearance: "error" });
       return false;
-    } else if (isEmpty(addressLine1)) {
-      addToast("Please enter address line 1", { appearance: "error" });
-      return false;
-    } else if (isEmpty(state) || state === "Select state") {
+    }
+    // else if (isEmpty(addressLine1)) {
+    //   addToast("Please enter address line 1", { appearance: "error" });
+    //   return false;
+    // }
+    else if (isEmpty(state) || state === "Select state") {
       addToast("Please select state", { appearance: "error" });
       return false;
     } else if (isEmpty(city) || city === "Select city") {
@@ -419,7 +427,7 @@ const MultiStepFormRegistration = ({ history }) => {
     <div className="form-wizard">
       <Row>
         {" "}
-        <span style={{marginBottom: "0px"}} className="multistepform-h3">
+        <span style={{ marginBottom: "0px" }} className="multistepform-h3">
           {" "}
           <Row className="heading">
             <div onClick={handlePrev} style={{ cursor: "pointer" }}>
@@ -448,6 +456,10 @@ const MultiStepFormRegistration = ({ history }) => {
               description={description}
               setFirstName={setFirstName}
               setLastName={setLastName}
+              setRelationType={setRelationType}
+              setRelativeName={setRelativeName}
+              relationType={relationType}
+              relativeName={relativeName}
               setMobile={setMobile}
               setBirthDate={setBirthDate}
               setEmail={setEmail}
