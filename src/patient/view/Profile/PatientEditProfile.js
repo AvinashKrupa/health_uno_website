@@ -13,6 +13,7 @@ import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import Radio from "../../../commonComponent/Radio";
 import Selector from "../../../commonComponent/Select";
 import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
+import HeightInput from "../../../commonComponent/HeightInput"
 
 const PatientEditProfile = (props) => {
   // Get state and language from server
@@ -82,6 +83,12 @@ const PatientEditProfile = (props) => {
   const relationTypes = ["S/o", "W/o", "D/o"];
   const [relationType, setRelationType] = useState("")
   const [relativeName, setRelativeName] = useState("")
+  const heightTypes = ["feet", "cm"];
+  const [heightType, setHeightType] = useState("")
+  const [weightError, setWeightError] = useState(false);
+  const [heightError, setHeightError] = useState(false);
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   // const [dataLanguage, setDataLanguage] = useState([]);
   const [language, ] = useState([]);
   const currentDate = new Date();
@@ -95,6 +102,55 @@ const PatientEditProfile = (props) => {
   //     setRelationType("D/o");
   //   }
   // }, [relationType]);
+
+  useEffect(() => {
+    if(heightType === "feet" && height !== ""){
+      let newHeight = height;
+      newHeight = height/30.48;
+      if(newHeight <= 7) {
+        newHeight = newHeight.toString().slice(0,4);
+        setHeight(newHeight);
+      }
+      else {
+        setHeight("");
+      }
+    }
+    if(heightType === "cm" && height !== ""){
+      let newHeight = height;
+      newHeight = height*30.48;
+      if(newHeight <= 213.36) {
+        setHeight(newHeight);
+      }
+      else {
+        setHeight("");
+      }
+    }
+  }, [heightType])
+
+  useEffect(() => {
+    if (weight > 300) {
+      setWeightError(true);
+    }
+    else {
+      setWeightError(false);
+    }
+  }, [weight])
+
+  useEffect(() => {
+    if (height === "") {
+      setHeightError(false);
+    }
+    else if (heightType === "cm") {
+      if((height > 215 || height < 30)) {
+      setHeightError(true);}
+      else{
+        setHeightError(false);
+      }
+    }
+    else{
+      setHeightError(false);
+    }
+  }, [height])
 
   useEffect(() => {
     getUserProfile();
@@ -341,6 +397,9 @@ const PatientEditProfile = (props) => {
           setCountry(additionalInfo.address.country);
           setAppointmentStats(additionalInfo.appointment_stats);
           getState(additionalInfo.address.state);
+          setHeight(additionalInfo.height)
+          setWeight(additionalInfo.weight)
+          setHeightType(additionalInfo.dimen_type)
           // setLanguage([user.language[0]._id])
         } else {
           addToast(response.data.message, { appearance: "error" });
@@ -358,6 +417,9 @@ const PatientEditProfile = (props) => {
       last_name: lastName,
       relative_name: relativeName,
       relation: relationType,
+      height: height,
+      weight: weight,
+      dimen_type: heightType === "feet" ? "ft" : "cm",
       language: language,
       address: {
         line1: addressLine1,
@@ -529,12 +591,22 @@ const PatientEditProfile = (props) => {
     }else if (relationType === "") {
       addToast("Please select relation type", { appearance: "error" });
       return false;
-    } 
+    }
     // else if (isEmpty(addressLine1)) {
     //   addToast("Please enter address line 1", { appearance: "error" });
     //   return false;
-    // } 
-    else if (isEmpty(state) || state === "Select state") {
+    // }
+    else if (heightError) {
+      addToast("Please enter height value less than or equal to 215 cm", {
+        appearance: "error",
+      });
+      return false;
+    } else if (weightError) {
+      addToast("Please enter weight value less than or equal to 300", {
+        appearance: "error",
+      });
+      return false;
+    } else if (isEmpty(state) || state === "Select state") {
       addToast("Please select state", { appearance: "error" });
       return false;
     } else if (isEmpty(city) || city === "Select city") {
@@ -629,7 +701,6 @@ const PatientEditProfile = (props) => {
          </Row>
         </Col>
         <Col className="registration-page-1-column" md>
-          {console.log('relationType :>> ', relationType)}
         <InputWithDropdown
               type="text"
               placeholder="Enter Name"
@@ -678,7 +749,37 @@ const PatientEditProfile = (props) => {
           <Input readonly={true} label="Gender" value={gender} id="gender" />
         </Col>
       </Row>
-
+      <Row className="g-2">
+          <Col md>
+            <HeightInput
+                type="number"
+                placeholder="Enter Your Height (optional)"
+                id="height"
+                label="Height"
+                value={height}
+                onChange={setHeight}
+                dropdownItems={heightTypes}
+                onTypeChange={setHeightType}
+                selectedValue={heightType}
+              />
+              {heightError ? 
+            <Form.Text style={{color: "red"}}>Value should be less than 215</Form.Text>
+            : null }
+          </Col>
+          <Col md>
+            <Input
+              type="number"
+              placeholder="Enter Your Weight In kg. (optional)"
+              id="weight"
+              label="Weight"
+              value={weight}
+              onChange={setWeight}
+            />
+            {weightError ? 
+            <Form.Text style={{color: "red"}}>Please enter weight less than 300kg</Form.Text>
+            : null }
+          </Col>
+        </Row>
       <Row>
         <Col md>
           <Input
