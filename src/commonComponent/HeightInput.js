@@ -34,7 +34,7 @@ const HeightInput = (props) => {
                 <DropdownButton
                     style={{marginLeft: "auto"}}
                     variant="outline-secondary"
-                    title={dropdownTitle}
+                    title={props.selectedValue ? props.selectedValue : dropdownTitle}
                     align="end"
                 >
                     {dropItems}
