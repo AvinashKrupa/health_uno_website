@@ -83,7 +83,7 @@ const PatientEditProfile = (props) => {
   const relationTypes = ["S/o", "W/o", "D/o"];
   const [relationType, setRelationType] = useState("");
   const [relativeName, setRelativeName] = useState("");
-  const heightTypes = ["feet", "cm"];
+  const heightTypes = ["ft", "cm"];
   const [heightType, setHeightType] = useState("");
   const [weightError, setWeightError] = useState(false);
   const [heightError, setHeightError] = useState(false);
@@ -104,9 +104,9 @@ const PatientEditProfile = (props) => {
   // }, [relationType]);
 
   useEffect(() => {
-    if (heightType === "feet" && height !== "") {
+    if (heightType === "ft" && height !== "") {
       let newHeight = height;
-      newHeight = height / 30.48;
+      newHeight = parseFloat(height / 30.48).toFixed(1);
       if (newHeight <= 7) {
         newHeight = newHeight.toString().slice(0, 4);
         setHeight(newHeight);
@@ -116,7 +116,7 @@ const PatientEditProfile = (props) => {
     }
     if (heightType === "cm" && height !== "") {
       let newHeight = height;
-      newHeight = height * 30.48;
+      newHeight = parseFloat(height * 30.48).toFixed(2);
       if (newHeight <= 213.36) {
         setHeight(newHeight);
       } else {
@@ -137,7 +137,7 @@ const PatientEditProfile = (props) => {
     if (height === "") {
       setHeightError(false);
     } else if (heightType === "cm") {
-      if (height > 215 || height < 30) {
+      if (height > 215) {
         setHeightError(true);
       } else {
         setHeightError(false);
@@ -437,7 +437,7 @@ const PatientEditProfile = (props) => {
       relation: relationType,
       height: height,
       weight: weight,
-      dimen_type: heightType === "feet" ? "ft" : "cm",
+      dimen_type: heightType,
       language: language,
       address: {
         line1: addressLine1,
