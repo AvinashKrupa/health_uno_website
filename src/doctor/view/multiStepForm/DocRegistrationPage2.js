@@ -22,7 +22,7 @@ const DocRegistrationPage2 = (props) => {
 
   const {councilRegistrationNo, department, specialization, qualification, dateOfRegistration, dateOfRenewal,fee, setDepartment,
     setCouncilRegistrationNo, setDateOfRegistration, setDateOfRenewal,
-    setSpecialization, setQualification, setFee} = props;
+    setSpecialization, setQualification, setFee, setMedicalCertificate, setSignature} = props;
 
   const { addToast } = useToasts();
 
@@ -189,7 +189,6 @@ const DocRegistrationPage2 = (props) => {
             </Col>
           </Row>
           <Row>
-            <Col></Col>
             <Col>
               <Input
                 label="Consulting Fee"
@@ -198,6 +197,21 @@ const DocRegistrationPage2 = (props) => {
                 value={fee}
                 onChange={setFee}
               />
+            </Col>
+            <Col>
+              <Input
+                label="Upload Medical Certificate"
+                type="file"
+                className="form-controlß"
+                onChange={setMedicalCertificate}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col> 
+            </Col>
+            <Col>
+              Add Signature
             </Col>
           </Row>
         </Col>

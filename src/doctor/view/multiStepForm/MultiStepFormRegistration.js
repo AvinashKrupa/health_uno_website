@@ -82,6 +82,9 @@ const MultiStepFormRegistration = ({ history }) => {
   const [nextDisabled, setNextDisabled] = useState(false);
   const [, setPrevDisabled] = useState(true);
   const [image, setImage] = useState("");
+  const [medicalCertificate, setMedicalCertificate] = useState("");
+  const [signature, setSignature] = useState("");
+
 
   function registerLogin(params) {
     setShowLoader(true);
@@ -494,6 +497,8 @@ const MultiStepFormRegistration = ({ history }) => {
               setSpecialization={setSpecialization}
               setQualification={setQualification}
               setFee={setFee}
+              setMedicalCertificate={setMedicalCertificate}
+              setSignature={setSignature}
               disabled={nextDisabled}
               onClick={handleNext}
             />
