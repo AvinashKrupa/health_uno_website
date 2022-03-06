@@ -113,3 +113,29 @@
   margin-bottom: 48px;
   background: white;
 }
+
+.sigCanvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+  width: 100%;
+  border: 1.5px solid rgba(27, 27, 27, 0.15);
+  box-sizing: border-box;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.sigCanvas:hover {
+  border: #28A3DA 2px solid;
+}
+
+.signatureContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+  width: 100%;
+  border: 1.5px solid rgba(27, 27, 27, 0.15);
+  box-sizing: border-box;
+  border-radius: 12px;
+}
