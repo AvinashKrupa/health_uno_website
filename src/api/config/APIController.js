@@ -35,7 +35,7 @@ export const API = {
   /**
    * Doctor related APIS
    */
-  REGISTER_DOCTOR: 'auth/registerDoctor',
+  REGISTER_DOCTOR: 'auth/registerDoctor2',
   GET_DOCTOR_DETAILS: 'doctor/getDoctorDetails',
   DOCTOR_HOME_CONTENT_API: 'doctor/homeContent',
   DOCTOR_GET_APPOINTMENTS_API: 'doctor/getAppointments',

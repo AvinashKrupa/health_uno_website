@@ -144,16 +144,37 @@ const DocRegistrationPage2 = (props) => {
     }
   }
 
+  function DataURIToBlob(dataURI) {
+    const splitDataURI = dataURI.split(',')
+    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
+    const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+
+    const ia = new Uint8Array(byteString.length)
+    for (let i = 0; i < byteString.length; i++)
+        ia[i] = byteString.charCodeAt(i)
+
+    return new Blob([ia], { type: mimeString })
+  }
+
   const saveSignature = () => {
-     setSignatureDataURL(signPad.getTrimmedCanvas().toDataURL('image/png'))
+    if(signPad.isEmpty()){
+      addToast("Please create digital signature.", { appearance: 'error' });
+    }else{      
+      setSignatureDataURL(signPad.getTrimmedCanvas().toDataURL('image/png'));
+      setSignature(DataURIToBlob(signPad.getTrimmedCanvas().toDataURL('image/png')));
+    }     
   }
 
   const clearSignature = () => {
     signPad.clear();
     setSignatureDataURL('');
+    setSignatureFiles([]);
+    setSignature("");
   }
 
   const resetSignature = () => {
+    setSignatureFiles([]);
+    setSignature("");
     setSignatureDataURL('');
     setSignPad({});
     setIsUploadSignature(false)
@@ -254,11 +275,14 @@ const DocRegistrationPage2 = (props) => {
                       </p>
                       <p>{moment(fileName.lastModifiedDate).format("ll")}</p>
                     </div>
-                    <button className="btn btn-danger btn-sm" onClick={() => setMedicalCertFiles([])}>
+                    <button className="btn btn-danger btn-sm" onClick={() => {
+                      setMedicalCertFiles([]);
+                      setMedicalCertificate("");
+                      }}>
                       Delete
                     </button>
                   </div>
-                ))}
+                ))}                
                 <Dropzone
                   onDrop={(acceptedFiles) => {
                     setMedicalCertError(false);
@@ -269,6 +293,7 @@ const DocRegistrationPage2 = (props) => {
                         })
                       )
                     );
+                    setMedicalCertificate(acceptedFiles[0]);
                   }}
                   accept="image/jpeg,.pdf"
                   maxFiles={1}
@@ -325,7 +350,10 @@ const DocRegistrationPage2 = (props) => {
                           </p>
                           <p>{moment(fileName.lastModifiedDate).format("ll")}</p>
                         </div>
-                        <button className="btn btn-danger btn-sm" onClick={() => setSignatureFiles([])}>
+                        <button className="btn btn-danger btn-sm" onClick={() => {
+                          setSignatureFiles([]);
+                          setSignature("");
+                          }}>
                           Delete
                         </button>
                       </div>
@@ -340,6 +368,7 @@ const DocRegistrationPage2 = (props) => {
                             })
                           )
                         );
+                        setSignature(acceptedFiles[0])
                       }}
                       accept="image/jpeg"
                       maxFiles={1}
