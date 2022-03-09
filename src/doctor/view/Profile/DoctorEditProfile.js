@@ -695,7 +695,7 @@ const DoctorEditProfile = (props) => {
           }
           {
             signatureDataURL
-              ? <div className="signatureContainer"><img className="img" src={signatureDataURL} /></div>
+              ? <div className="signatureContainer"><img width="200" className="img" src={signatureDataURL} /></div>
               : null
           }
         </Col>
