@@ -177,14 +177,13 @@ const DoctorEditProfile = (props) => {
     formData.append('user_data',JSON.stringify(params));
 
     const token = getData("ACCESS_TOKEN");
-    const temp = getData("TEMP_TOKEN");
     
     return new Promise(async (resolve, reject) => {
       axios({
         method: "post",
         url: Constants.BASE_URL + API.UPDATE_PROFILE,
         data: formData,
-        headers: { Authorization: "Bearer " + token  ? token :  temp},
+        headers: { Authorization: "Bearer " + token },
       })
         .then((response) => {
           if (response.status === 200) {
