@@ -87,6 +87,8 @@ const MultiStepFormRegistration = ({ history }) => {
   const [image, setImage] = useState("");
   const [medicalCertificate, setMedicalCertificate] = useState("");
   const [signature, setSignature] = useState("");
+  const [signPad, setSignPad] = useState({});  
+  const [signatureDataURL,setSignatureDataURL] = useState('');
 
 
   function registerLogin(formData) {
@@ -126,32 +128,7 @@ const MultiStepFormRegistration = ({ history }) => {
           addToast(error.response.data.message, { appearance: "error" });
         });
     });
-   /* post(API.REGISTER_DOCTOR, params, true)
-      .then((response) => {
-        if (response.status === 200) {
-          const user = response.data.data["user"];
-          const additional_info = response.data.data["additional_info"];
-
-          if (user) {
-            storeData("userInfo", JSON.stringify(user));
-            setUserInfo(user);
-          }
-          if (additional_info) {
-            storeData("additional_info", JSON.stringify(additional_info));
-          }
-          history.push("/doctor/home");
-          setShowLoader(false);
-          addToast(response.data.message, { appearance: "success" });
-        } else {
-          setShowLoader(false);
-          addToast(response.data.message, { appearance: "error" });
-        }
-      })
-      .catch((error) => {
-        setShowLoader(false);
-        addToast(error.response.data.message, { appearance: "error" });
-      });
-      */
+   
   }
 
   async function registerUserAPICalling() {
@@ -539,6 +516,10 @@ const MultiStepFormRegistration = ({ history }) => {
               department={department}
               specialization={specialization}
               qualification={qualification}
+              medicalCertificate={medicalCertificate}
+              signature={signature}
+              signPad= {signPad}
+              signatureDataURL = {signatureDataURL}
               setDepartment={setDepartment}
               setCouncilRegistrationNo={setCouncilRegistrationNo}
               setDateOfRegistration={setDateOfRegistration}
@@ -548,6 +529,8 @@ const MultiStepFormRegistration = ({ history }) => {
               setFee={setFee}
               setMedicalCertificate={setMedicalCertificate}
               setSignature={setSignature}
+              setSignPad={setSignPad}
+              setSignatureDataURL={setSignatureDataURL}
               disabled={nextDisabled}
               onClick={handleNext}
             />

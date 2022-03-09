@@ -1,15 +1,21 @@
 import Input from "../../../commonComponent/Input";
 import TextArea from "../../../commonComponent/TextArea";
-import { Col, Row } from "react-bootstrap";
+import { Col, Image, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { API, get, post } from "../../../api/config/APIController";
 import { useToasts } from "react-toast-notifications";
 import CustomButton from "../../../commonComponent/Button";
 import Spinner from "../../../commonComponent/Spinner";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
-import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import { getData, storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import MultiSelect from "../../../commonComponent/MultiSelect/MultiSelect";
 import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
+import moment from "moment";
+import Dropzone from 'react-dropzone';
+import { upload } from "../../../constants/PatientImages";
+import SignatureCanvas from 'react-signature-canvas';
+import Constants from "../../../constants";
+import axios from "axios";
 
 const DoctorEditProfile = (props) => {
   // Get state and language from server
@@ -34,6 +40,17 @@ const DoctorEditProfile = (props) => {
   const relationTypes = ["S/o", "W/o", "D/o"];
   const [relationType, setRelationType] = useState("");
   const [relativeName, setRelativeName] = useState("");
+  const [medicalCertificateUrl, setMedicalCertificateUrl] = useState("");
+  const [medicalCertificate, setMedicalCertificate] = useState("");
+  const [signature, setSignature] = useState("");
+  const [signPad, setSignPad] = useState({});  
+  const [signatureDataURL,setSignatureDataURL] = useState('');
+  const [medicalCertError, setMedicalCertError] = useState(false);
+  const [medicalCertFiles, setMedicalCertFiles] = useState([]);
+  const [signatureError, setSignatureError] = useState(false);
+  const [isUploadSignature, setIsUploadSignature] = useState(false);
+  const [isDigitalSignature, setIsDigitalSignature] = useState(false);
+  const [signatureFiles, setSignatureFiles] = useState([]);
 
   useEffect(() => {
     getUserProfile();
@@ -119,6 +136,8 @@ const DoctorEditProfile = (props) => {
           setCountry(additionalInfo.address.country);
           setExperience(additionalInfo.qualif.exp);
           setLanguage(selectedLanguage);
+          setSignatureDataURL(additional_info.digital_signature_url);
+          setMedicalCertificateUrl(additional_info.medical_cert_url);
         } else {
           addToast(response.data.message, { appearance: "error" });
         }
@@ -151,6 +170,38 @@ const DoctorEditProfile = (props) => {
       relation: relationType,
     };
     setShowLoader(true);
+
+    const formData = new FormData();
+    formData.append('medical_cert_file',medicalCertificate);
+    formData.append('digital_signature_file',signature);
+    formData.append('user_data',JSON.stringify(params));
+
+    const token = getData("ACCESS_TOKEN");
+    const temp = getData("TEMP_TOKEN");
+    
+    return new Promise(async (resolve, reject) => {
+      axios({
+        method: "post",
+        url: Constants.BASE_URL + API.UPDATE_PROFILE,
+        data: formData,
+        headers: { Authorization: "Bearer " + token  ? token :  temp},
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            setShowLoader(false);
+            addToast(response.data.message, { appearance: "success" });
+          } else {
+            setShowLoader(false);
+            addToast(response.data.message, { appearance: "error" });
+          }
+          props.setReloadSideColumn(true);
+        })
+        .catch((error) => {
+          setShowLoader(false);
+          addToast(error.response.data.message, { appearance: "error" });
+        });
+    });
+    /*
     post(API.UPDATE_PROFILE, params, true)
       .then((response) => {
         if (response.status === 200) {
@@ -166,6 +217,7 @@ const DoctorEditProfile = (props) => {
         setShowLoader(false);
         addToast(error.response.data.message, { appearance: "error" });
       });
+    */
   }
 
   const setIdAndState = (value) => {
@@ -220,6 +272,55 @@ const DoctorEditProfile = (props) => {
         addToast(error.response.data.message, { appearance: "error" });
       });
   }
+
+  const setSignatureType = (value) => {
+    
+    if(value == 'digital'){
+      setIsDigitalSignature(true)
+      setIsUploadSignature(false)
+    }else{
+      setIsUploadSignature(true)
+      setIsDigitalSignature(false)
+    }
+  }
+
+  function dataURIToBlob(dataURI) {
+    const splitDataURI = dataURI.split(',')
+    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
+    const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+
+    const ia = new Uint8Array(byteString.length)
+    for (let i = 0; i < byteString.length; i++)
+        ia[i] = byteString.charCodeAt(i)
+
+    return new Blob([ia], { type: mimeString })
+  }
+
+  const saveSignature = () => {
+    if(signPad.isEmpty()){
+      addToast("Please create digital signature.", { appearance: 'error' });
+    }else{      
+      setSignatureDataURL(signPad.getTrimmedCanvas().toDataURL('image/png'));
+      setSignature(dataURIToBlob(signPad.getTrimmedCanvas().toDataURL('image/png')));
+    }     
+  }
+
+  const clearSignature = () => {
+    signPad.clear();
+    setSignatureDataURL('');
+    setSignatureFiles([]);
+    setSignature("");
+  }
+
+  const resetSignature = () => {
+    setSignatureFiles([]);
+    setSignature("");
+    setSignatureDataURL('');
+    setSignPad({});
+    setIsUploadSignature(false)
+    setIsDigitalSignature(false)
+  }
+
 
   return (
     <div className="form-wizard edit-doctor-container">
@@ -428,6 +529,177 @@ const DoctorEditProfile = (props) => {
           />
         </Col>
         <Col md></Col>
+      </Row>
+      <Row>          
+        <Col>
+          <br/>
+          <label className="form-label">Upload Medical Certificate</label>
+          <div className="upload-file" style={{marginTop: 0}}>
+            {medicalCertFiles.map((fileName) => (
+              <div className="uploaded" key={fileName.name}>
+                <div>
+                  <p className="file-name" key={fileName}>
+                    {fileName.name}{" "}
+                  </p>
+                  <p>{moment(fileName.lastModifiedDate).format("ll")}</p>
+                </div>
+                <button className="btn btn-danger btn-sm" onClick={() => {
+                  setMedicalCertFiles([]);
+                  setMedicalCertificate("");
+                  }}>
+                  Delete
+                </button>
+              </div>
+            ))}                
+            <Dropzone
+              onDrop={(acceptedFiles) => {
+                setMedicalCertError(false);
+                setMedicalCertFiles(
+                  acceptedFiles.map((file) =>
+                    Object.assign(file, {
+                      preview: URL.createObjectURL(file),
+                    })
+                  )
+                );
+                setMedicalCertificate(acceptedFiles[0]);
+              }}
+              accept="image/jpeg,.pdf"
+              maxFiles={1}
+              onDropRejected={(fileRejections, event) => {
+                setMedicalCertError(true);
+              }}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {medicalCertFiles.length === 0 && (
+                    <div className="upload-text">
+                      <Image src={upload} alt="upload" />
+                      <p>Drag and Drop file here</p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </Dropzone>
+          </div>
+          <div className="note">
+            Please upload report in pdf or jpeg format
+          </div>
+          {medicalCertError && (
+            <div className="note" style={{ color: "red", fontSize: "18px" }}>
+              Please upload single report file
+            </div>
+          )}
+          {
+            medicalCertificateUrl
+              ? <div className="text-center"><a target="_blank" className="text-primary" href={medicalCertificateUrl}>Preview</a></div>
+              : null
+          }
+        </Col>
+        <Col>
+          <div>
+            <br/>
+            Add Signature
+          </div>
+          {
+            !isUploadSignature && !isDigitalSignature && 
+            <>
+              <div className="text-center">
+                <br/>
+                <button className="btn btn-primary btn-sm" onClick={ () => setSignatureType('digital')}>Digital Signature</button>
+                &nbsp;&nbsp;
+                <button className="btn btn-primary btn-sm" onClick={ () => setSignatureType('upload')}>Upload Signature</button>
+              </div>
+            </>
+          }
+          {
+            isUploadSignature && <>
+              <div className="upload-file" style={{marginTop: 0}}>
+                {signatureFiles.map((fileName) => (
+                  <div className="uploaded" key={fileName.name}>
+                    <div>
+                      <p className="file-name" key={fileName}>
+                        {fileName.name}{" "}
+                      </p>
+                      <p>{moment(fileName.lastModifiedDate).format("ll")}</p>
+                    </div>
+                    <button className="btn btn-danger btn-sm" onClick={() => {
+                      setSignatureFiles([]);
+                      setSignature("");
+                      }}>
+                      Delete
+                    </button>
+                  </div>
+                ))}
+                <Dropzone
+                  onDrop={(acceptedFiles) => {
+                    setSignatureError(false);
+                    setSignatureFiles(
+                      acceptedFiles.map((file) =>
+                        Object.assign(file, {
+                          preview: URL.createObjectURL(file),
+                        })
+                      )
+                    );
+                    setSignature(acceptedFiles[0])
+                  }}
+                  accept="image/jpeg"
+                  maxFiles={1}
+                  onDropRejected={(fileRejections, event) => {
+                    setSignatureError(true);
+                  }}
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      {signatureFiles.length === 0 && (
+                        <div className="upload-text">
+                          <Image src={upload} alt="upload" />
+                          <p>Drag and Drop file here</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Dropzone>
+              </div>
+              <div className="note">
+                Please upload report in jpeg format
+              </div>
+              {medicalCertError && (
+                <div className="note" style={{ color: "red", fontSize: "18px" }}>
+                  Please upload single signature file
+                </div>
+              )}
+              <button className="btn btn-danger btn-sm" onClick={ () => resetSignature()}>Reset</button> 
+            </>
+          }
+          {
+            isDigitalSignature && 
+            <div>
+              <SignatureCanvas penColor='black' canvasProps={{className: 'sigCanvas'}} 
+              ref={ (ref) => { setSignPad(ref) }  }
+              />   
+              <div className="note">
+                Please create your digital signature
+              </div>
+              {signatureError && (
+                <div className="note" style={{ color: "red", fontSize: "18px" }}>
+                  Please create you digital signature
+                </div>
+              )}
+              <button className="btn btn-primary btn-sm" onClick={ () => saveSignature()}>Save</button> 
+              &nbsp;&nbsp;                         
+              <button className="btn btn-warning btn-sm" onClick={ () => clearSignature()}>Clear</button>  
+              &nbsp;&nbsp;                         
+              <button className="btn btn-danger btn-sm" onClick={ () => resetSignature()}>Reset</button>                          
+            </div>
+          }
+          {
+            signatureDataURL
+              ? <div className="signatureContainer"><img className="img" src={signatureDataURL} /></div>
+              : null
+          }
+        </Col>
       </Row>
       <Col className="form-btn">
         {showLoader && (

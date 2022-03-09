@@ -43,7 +43,7 @@ export const API = {
   REMOVE_ADDITIONAL_DOCTOR: 'appointment/removeAdditionalDoctor',
   ADD_ADDITIONAL_DOCTOR: 'appointment/addDoctor',
   GET_PROFILE: 'user/profile',
-  UPDATE_PROFILE: 'user/updateProfile',
+  UPDATE_PROFILE: 'user/updateProfile2',
   GET_MEDICINE: 'medicines?',
   GET_MEDICINE_TYPE: 'medicine/getMedicineTypes?status=active',
   SAVE_PRESCRIPTION_AS_TEMPLATE: 'prescription/saveAsTemplate',

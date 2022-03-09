@@ -11,18 +11,7 @@ import SignatureCanvas from 'react-signature-canvas';
 
 const DocRegistrationPage2 = (props) => {
 
-  // Get departments, specializations and qualifications from server
-  useEffect(() => {
-    getDepartment();
-    getSpecialization();
-    getQualification();
-    return () => {};
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  
-  const [signPad, setSignPad] = useState({});
-
-  const [signatureDataURL,setSignatureDataURL] = useState('');
+     
   const [departments, setDepartments] = useState([]);
   const [specializations, setSpecializations] = useState([]);
   const [qualifications, setQualifications] = useState([]);
@@ -33,9 +22,36 @@ const DocRegistrationPage2 = (props) => {
   const [isDigitalSignature, setIsDigitalSignature] = useState(false);
   const [signatureFiles, setSignatureFiles] = useState([]);
 
-  const {councilRegistrationNo, department, specialization, qualification, dateOfRegistration, dateOfRenewal,fee, setDepartment,
+  const {councilRegistrationNo, department, specialization, qualification, dateOfRegistration, dateOfRenewal,fee, medicalCertificate, signature, signPad,signatureDataURL, setDepartment,
     setCouncilRegistrationNo, setDateOfRegistration, setDateOfRenewal,
-    setSpecialization, setQualification, setFee, setMedicalCertificate, setSignature} = props;
+    setSpecialization, setQualification, setFee, setMedicalCertificate, setSignature, setSignPad, setSignatureDataURL} = props;
+
+  let unmounted = false;
+  // Get departments, specializations and qualifications from server
+  useEffect( () => {
+    if(!unmounted){
+      getDepartment();
+      getSpecialization();
+      getQualification();
+    
+      if(medicalCertificate){
+        setMedicalCertFiles([medicalCertificate])      
+      }
+      if(signature){
+        if(signature?.path!==undefined){
+          setSignatureFiles([signature])
+          setIsUploadSignature(true)
+          setIsDigitalSignature(false)
+        }else{          
+          setIsUploadSignature(false)
+          setIsDigitalSignature(true)
+        }
+      }
+    }
+    return () => {
+      unmounted = true;
+    };
+  },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const { addToast } = useToasts();  
 
@@ -144,7 +160,7 @@ const DocRegistrationPage2 = (props) => {
     }
   }
 
-  function DataURIToBlob(dataURI) {
+  function dataURIToBlob(dataURI) {
     const splitDataURI = dataURI.split(',')
     const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
     const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
@@ -161,7 +177,7 @@ const DocRegistrationPage2 = (props) => {
       addToast("Please create digital signature.", { appearance: 'error' });
     }else{      
       setSignatureDataURL(signPad.getTrimmedCanvas().toDataURL('image/png'));
-      setSignature(DataURIToBlob(signPad.getTrimmedCanvas().toDataURL('image/png')));
+      setSignature(dataURIToBlob(signPad.getTrimmedCanvas().toDataURL('image/png')));
     }     
   }
 
