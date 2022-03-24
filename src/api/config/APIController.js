@@ -36,6 +36,7 @@ export const API = {
    * Doctor related APIS
    */
   REGISTER_DOCTOR: 'auth/registerDoctor',
+  REGISTER_DOCTOR2: 'auth/registerDoctor2',
   GET_DOCTOR_DETAILS: 'doctor/getDoctorDetails',
   DOCTOR_HOME_CONTENT_API: 'doctor/homeContent',
   DOCTOR_GET_APPOINTMENTS_API: 'doctor/getAppointments',
@@ -44,6 +45,7 @@ export const API = {
   ADD_ADDITIONAL_DOCTOR: 'appointment/addDoctor',
   GET_PROFILE: 'user/profile',
   UPDATE_PROFILE: 'user/updateProfile',
+  UPDATE_PROFILE2: 'user/updateProfile2',
   GET_MEDICINE: 'medicines?',
   GET_MEDICINE_TYPE: 'medicine/getMedicineTypes?status=active',
   SAVE_PRESCRIPTION_AS_TEMPLATE: 'prescription/saveAsTemplate',

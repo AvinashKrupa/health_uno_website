@@ -4,9 +4,9 @@ import { useState } from "react";
 const InputWithDropdown = (props) => {
   const [dropdownTitle, setDropdownTitle] = useState("Relation Type");
   
-  const dropOptions = props.options.map((item) => {
+  const dropOptions = props.options.map((item, index) => {
     return (
-      <Dropdown.Item value={props.selectedValue} onClick={() => dropdownClick(item)}>{item}</Dropdown.Item>
+      <Dropdown.Item key={index} value={props.selectedValue} onClick={() => dropdownClick(item)}>{item}</Dropdown.Item>
     );
   });
 

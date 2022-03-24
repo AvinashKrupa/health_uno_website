@@ -14,10 +14,17 @@ import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
 
 const DocRegistrationPage1 = (props) => {
   // Get state and language from server
+  let unmounted = false;
   useEffect(() => {
-    getState();
-    getLanguage();
-    return () => {};
+    setTimeout( () => {
+      if(!unmounted){
+        getState();
+        getLanguage();
+      }
+    },3000);    
+    return () => {
+      unmounted = true;
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const {

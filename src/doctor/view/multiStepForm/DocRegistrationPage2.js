@@ -1,30 +1,59 @@
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col, Image, Form } from "react-bootstrap";
 import Input from "../../../commonComponent/Input";
 import {API, get} from '../../../api/config/APIController';
 import { useToasts } from "react-toast-notifications";
 import { useEffect, useState } from "react";
 import KeyValueSelector from "../../../commonComponent/KeyValueSelector";
 import moment from "moment";
+import Dropzone from 'react-dropzone';
+import { upload } from "../../../constants/PatientImages";
+import SignatureCanvas from 'react-signature-canvas';
 
 const DocRegistrationPage2 = (props) => {
 
-  // Get departments, specializations and qualifications from server
-  useEffect(() => {
-    getDepartment();
-    getSpecialization();
-    getQualification();
-    return () => {};
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+     
   const [departments, setDepartments] = useState([]);
   const [specializations, setSpecializations] = useState([]);
   const [qualifications, setQualifications] = useState([]);
+  const [medicalCertError, setMedicalCertError] = useState(false);
+  const [medicalCertFiles, setMedicalCertFiles] = useState([]);
+  const [signatureError, setSignatureError] = useState(false);
+  const [isUploadSignature, setIsUploadSignature] = useState(false);
+  const [isDigitalSignature, setIsDigitalSignature] = useState(false);
+  const [signatureFiles, setSignatureFiles] = useState([]);
 
-  const {councilRegistrationNo, department, specialization, qualification, dateOfRegistration, dateOfRenewal,fee, setDepartment,
+  const {councilRegistrationNo, department, specialization, qualification, dateOfRegistration, dateOfRenewal,fee, medicalCertificate, signature, signPad,signatureDataURL, setDepartment,
     setCouncilRegistrationNo, setDateOfRegistration, setDateOfRenewal,
-    setSpecialization, setQualification, setFee} = props;
+    setSpecialization, setQualification, setFee, setMedicalCertificate, setSignature, setSignPad, setSignatureDataURL} = props;
 
-  const { addToast } = useToasts();
+  let unmounted = false;
+  // Get departments, specializations and qualifications from server
+  useEffect( () => {
+    if(!unmounted){
+      getDepartment();
+      getSpecialization();
+      getQualification();
+    
+      if(medicalCertificate){
+        setMedicalCertFiles([medicalCertificate])      
+      }
+      if(signature){
+        if(signature?.path!==undefined){
+          setSignatureFiles([signature])
+          setIsUploadSignature(true)
+          setIsDigitalSignature(false)
+        }else{          
+          setIsUploadSignature(false)
+          setIsDigitalSignature(true)
+        }
+      }
+    }
+    return () => {
+      unmounted = true;
+    };
+  },[]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const { addToast } = useToasts();  
 
   const setDepartmentValue = (value) => {
     const departmentInfo = value.split('|');
@@ -120,6 +149,54 @@ const DocRegistrationPage2 = (props) => {
       });
   }
 
+  const setSignatureType = (value) => {
+    
+    if(value == 'digital'){
+      setIsDigitalSignature(true)
+      setIsUploadSignature(false)
+    }else{
+      setIsUploadSignature(true)
+      setIsDigitalSignature(false)
+    }
+  }
+
+  function dataURIToBlob(dataURI) {
+    const splitDataURI = dataURI.split(',')
+    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
+    const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+
+    const ia = new Uint8Array(byteString.length)
+    for (let i = 0; i < byteString.length; i++)
+        ia[i] = byteString.charCodeAt(i)
+
+    return new Blob([ia], { type: mimeString })
+  }
+
+  const saveSignature = () => {
+    if(signPad.isEmpty()){
+      addToast("Please create digital signature.", { appearance: 'error' });
+    }else{      
+      setSignatureDataURL(signPad.getTrimmedCanvas().toDataURL('image/png'));
+      setSignature(dataURIToBlob(signPad.getTrimmedCanvas().toDataURL('image/png')));
+    }     
+  }
+
+  const clearSignature = () => {
+    signPad.clear();
+    setSignatureDataURL('');
+    setSignatureFiles([]);
+    setSignature("");
+  }
+
+  const resetSignature = () => {
+    setSignatureFiles([]);
+    setSignature("");
+    setSignatureDataURL('');
+    setSignPad({});
+    setIsUploadSignature(false)
+    setIsDigitalSignature(false)
+  }
+
   return (
     <>
       <Row>
@@ -189,7 +266,6 @@ const DocRegistrationPage2 = (props) => {
             </Col>
           </Row>
           <Row>
-            <Col></Col>
             <Col>
               <Input
                 label="Consulting Fee"
@@ -198,6 +274,174 @@ const DocRegistrationPage2 = (props) => {
                 value={fee}
                 onChange={setFee}
               />
+            </Col>
+            <Col>
+            </Col>
+          </Row>
+          <Row>          
+            <Col>
+              <br/>
+              <label className="form-label">Upload Medical Certificate</label>
+              <div className="upload-file" style={{marginTop: 0}}>
+                {medicalCertFiles.map((fileName) => (
+                  <div className="uploaded" key={fileName.name}>
+                    <div>
+                      <p className="file-name" key={fileName}>
+                        {fileName.name}{" "}
+                      </p>
+                      <p>{moment(fileName.lastModifiedDate).format("ll")}</p>
+                    </div>
+                    <button className="btn btn-danger btn-sm" onClick={() => {
+                      setMedicalCertFiles([]);
+                      setMedicalCertificate("");
+                      }}>
+                      Delete
+                    </button>
+                  </div>
+                ))}                
+                <Dropzone
+                  onDrop={(acceptedFiles) => {
+                    setMedicalCertError(false);
+                    setMedicalCertFiles(
+                      acceptedFiles.map((file) =>
+                        Object.assign(file, {
+                          preview: URL.createObjectURL(file),
+                        })
+                      )
+                    );
+                    setMedicalCertificate(acceptedFiles[0]);
+                  }}
+                  accept="image/jpeg,.pdf"
+                  maxFiles={1}
+                  onDropRejected={(fileRejections, event) => {
+                    setMedicalCertError(true);
+                  }}
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      {medicalCertFiles.length === 0 && (
+                        <div className="upload-text">
+                          <Image src={upload} alt="upload" />
+                          <p>Drag and Drop file here</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Dropzone>
+              </div>
+              <div className="note">
+                Please upload report in pdf or jpeg format
+              </div>
+              {medicalCertError && (
+                <div className="note" style={{ color: "red", fontSize: "18px" }}>
+                  Please upload single report file
+                </div>
+              )}
+            </Col>
+            <Col>
+              <div>
+                <br/>
+                Add Signature
+              </div>
+              {
+                !isUploadSignature && !isDigitalSignature && 
+                <>
+                  <div className="text-center">
+                    <br/>
+                    <button className="btn btn-primary btn-sm" onClick={ () => setSignatureType('digital')}>Digital Signature</button>
+                    &nbsp;&nbsp;
+                    <button className="btn btn-primary btn-sm" onClick={ () => setSignatureType('upload')}>Upload Signature</button>
+                  </div>
+                </>
+              }
+              {
+                isUploadSignature && <>
+                  <div className="upload-file" style={{marginTop: 0}}>
+                    {signatureFiles.map((fileName) => (
+                      <div className="uploaded" key={fileName.name}>
+                        <div>
+                          <p className="file-name" key={fileName}>
+                            {fileName.name}{" "}
+                          </p>
+                          <p>{moment(fileName.lastModifiedDate).format("ll")}</p>
+                        </div>
+                        <button className="btn btn-danger btn-sm" onClick={() => {
+                          setSignatureFiles([]);
+                          setSignature("");
+                          }}>
+                          Delete
+                        </button>
+                      </div>
+                    ))}
+                    <Dropzone
+                      onDrop={(acceptedFiles) => {
+                        setSignatureError(false);
+                        setSignatureFiles(
+                          acceptedFiles.map((file) =>
+                            Object.assign(file, {
+                              preview: URL.createObjectURL(file),
+                            })
+                          )
+                        );
+                        setSignature(acceptedFiles[0])
+                      }}
+                      accept="image/jpeg"
+                      maxFiles={1}
+                      onDropRejected={(fileRejections, event) => {
+                        setSignatureError(true);
+                      }}
+                    >
+                      {({ getRootProps, getInputProps }) => (
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          {signatureFiles.length === 0 && (
+                            <div className="upload-text">
+                              <Image src={upload} alt="upload" />
+                              <p>Drag and Drop file here</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </Dropzone>
+                  </div>
+                  <div className="note">
+                    Please upload report in jpeg format
+                  </div>
+                  {medicalCertError && (
+                    <div className="note" style={{ color: "red", fontSize: "18px" }}>
+                      Please upload single signature file
+                    </div>
+                  )}
+                  <button className="btn btn-danger btn-sm" onClick={ () => resetSignature()}>Reset</button> 
+                </>
+              }
+              {
+                isDigitalSignature && 
+                <div>
+                  <SignatureCanvas penColor='black' canvasProps={{className: 'sigCanvas'}} 
+                  ref={ (ref) => { setSignPad(ref) }  }
+                  />   
+                  <div className="note">
+                    Please create your digital signature
+                  </div>
+                  {signatureError && (
+                    <div className="note" style={{ color: "red", fontSize: "18px" }}>
+                      Please create you digital signature
+                    </div>
+                  )}
+                  <button className="btn btn-primary btn-sm" onClick={ () => saveSignature()}>Save</button> 
+                  &nbsp;&nbsp;                         
+                  <button className="btn btn-warning btn-sm" onClick={ () => clearSignature()}>Clear</button>  
+                  &nbsp;&nbsp;                         
+                  <button className="btn btn-danger btn-sm" onClick={ () => resetSignature()}>Reset</button>                          
+                </div>
+              }
+              {
+                signatureDataURL
+                  ? <div className="signatureContainer"><img className="img" src={signatureDataURL} /></div>
+                  : null
+              }
             </Col>
           </Row>
         </Col>

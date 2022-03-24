@@ -10,9 +10,12 @@ import { useToasts } from "react-toast-notifications";
 import CustomStepper from "./CustomStepper";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { API, post } from "../../../api/config/APIController";
-import { storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
+import { getData, storeData } from "../../../storage/LocalStorage/LocalAsyncStorage";
 import useUserStore from "../../store/userStore";
 import { getPushToken } from "../../../notification/utilities";
+import Constants from "../../../constants";
+import axios from "axios";
+
 
 const MultiStepFormRegistration = ({ history }) => {
   const authContext = useContext(AuthContext);
@@ -82,34 +85,50 @@ const MultiStepFormRegistration = ({ history }) => {
   const [nextDisabled, setNextDisabled] = useState(false);
   const [, setPrevDisabled] = useState(true);
   const [image, setImage] = useState("");
+  const [medicalCertificate, setMedicalCertificate] = useState("");
+  const [signature, setSignature] = useState("");
+  const [signPad, setSignPad] = useState({});  
+  const [signatureDataURL,setSignatureDataURL] = useState('');
 
-  function registerLogin(params) {
+
+  function registerLogin(formData) {
     setShowLoader(true);
-    post(API.REGISTER_DOCTOR, params, true)
-      .then((response) => {
-        if (response.status === 200) {
-          const user = response.data.data["user"];
-          const additional_info = response.data.data["additional_info"];
-
-          if (user) {
-            storeData("userInfo", JSON.stringify(user));
-            setUserInfo(user);
-          }
-          if (additional_info) {
-            storeData("additional_info", JSON.stringify(additional_info));
-          }
-          history.push("/doctor/home");
-          setShowLoader(false);
-          addToast(response.data.message, { appearance: "success" });
-        } else {
-          setShowLoader(false);
-          addToast(response.data.message, { appearance: "error" });
-        }
+    const token = getData("ACCESS_TOKEN");
+    const temp = getData("TEMP_TOKEN");
+    
+    return new Promise(async (resolve, reject) => {
+      axios({
+        method: "post",
+        url: Constants.BASE_URL + API.REGISTER_DOCTOR2,
+        data: formData,
+        headers: { Authorization: "Bearer " + temp  ? temp :  token},
       })
-      .catch((error) => {
-        setShowLoader(false);
-        addToast(error.response.data.message, { appearance: "error" });
-      });
+        .then((response) => {
+          if (response.status === 200) {
+            const user = response.data.data["user"];
+            const additional_info = response.data.data["additional_info"];
+  
+            if (user) {
+              storeData("userInfo", JSON.stringify(user));
+              setUserInfo(user);
+            }
+            if (additional_info) {
+              storeData("additional_info", JSON.stringify(additional_info));
+            }
+            history.push("/doctor/home");
+            setShowLoader(false);
+            addToast(response.data.message, { appearance: "success" });
+          } else {
+            setShowLoader(false);
+            addToast(response.data.message, { appearance: "error" });
+          }
+        })
+        .catch((error) => {
+          setShowLoader(false);
+          addToast(error.response.data.message, { appearance: "error" });
+        });
+    });
+   
   }
 
   async function registerUserAPICalling() {
@@ -179,7 +198,11 @@ const MultiStepFormRegistration = ({ history }) => {
       relative_name: relativeName,
       relation: relationType,
     };
-    registerLogin(params);
+    const formData = new FormData();
+    formData.append('medical_cert_file',medicalCertificate);
+    formData.append('digital_signature_file',signature);
+    formData.append('user_data',JSON.stringify(params));
+    registerLogin(formData);
   }
 
   function pageThreeValidation() {
@@ -309,6 +332,12 @@ const MultiStepFormRegistration = ({ history }) => {
       return false;
     } else if (isEmpty(fee)) {
       addToast("Please enter consulting fee", { appearance: "error" });
+      return false;
+    } else if (isEmpty(medicalCertificate)) {
+      addToast("Please upload medical certificate file", { appearance: "error" });
+      return false;
+    }else if (isEmpty(signature)) {
+      addToast("Please create or upload digital signature", { appearance: "error" });
       return false;
     } else {
       return true;
@@ -487,6 +516,10 @@ const MultiStepFormRegistration = ({ history }) => {
               department={department}
               specialization={specialization}
               qualification={qualification}
+              medicalCertificate={medicalCertificate}
+              signature={signature}
+              signPad= {signPad}
+              signatureDataURL = {signatureDataURL}
               setDepartment={setDepartment}
               setCouncilRegistrationNo={setCouncilRegistrationNo}
               setDateOfRegistration={setDateOfRegistration}
@@ -494,6 +527,10 @@ const MultiStepFormRegistration = ({ history }) => {
               setSpecialization={setSpecialization}
               setQualification={setQualification}
               setFee={setFee}
+              setMedicalCertificate={setMedicalCertificate}
+              setSignature={setSignature}
+              setSignPad={setSignPad}
+              setSignatureDataURL={setSignatureDataURL}
               disabled={nextDisabled}
               onClick={handleNext}
             />
