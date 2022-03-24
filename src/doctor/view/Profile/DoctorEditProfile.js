@@ -181,7 +181,7 @@ const DoctorEditProfile = (props) => {
     return new Promise(async (resolve, reject) => {
       axios({
         method: "post",
-        url: Constants.BASE_URL + API.UPDATE_PROFILE,
+        url: Constants.BASE_URL + API.UPDATE_PROFILE2,
         data: formData,
         headers: { Authorization: "Bearer " + token },
       })

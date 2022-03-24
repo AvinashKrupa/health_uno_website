@@ -99,7 +99,7 @@ const MultiStepFormRegistration = ({ history }) => {
     return new Promise(async (resolve, reject) => {
       axios({
         method: "post",
-        url: Constants.BASE_URL + API.REGISTER_DOCTOR,
+        url: Constants.BASE_URL + API.REGISTER_DOCTOR2,
         data: formData,
         headers: { Authorization: "Bearer " + temp  ? temp :  token},
       })
