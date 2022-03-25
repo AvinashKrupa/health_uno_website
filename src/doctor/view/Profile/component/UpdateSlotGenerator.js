@@ -34,7 +34,7 @@ const UpdateSlotGenerator = (props) => {
                 <span
                   className="slot-timings-button-text"
                   style={{
-                    color: slot.status === "available" ? "white" : "black",
+                    color: slot.is_avail ? "white" : "black",
                   }}
                 >
                   {convert24hto12h(slot.start)}
