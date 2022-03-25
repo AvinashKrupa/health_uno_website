@@ -120,6 +120,7 @@ const PatientHomePage = (props) => {
           }
         })
         .catch((error) => {
+          console.log(error)
           addToast(error.response.data.message, {appearance: "error"});
         });
   }
@@ -309,9 +310,8 @@ const PatientHomePage = (props) => {
                         fees={doctor.fee}
                         details={`${doctor.city}, ${doctor.country} | ${doctor.exp}  Y Exp`}
                         qualifications={doctor.specialities}
-                        language={doctor.language}
+                        language={doctor?.language ?? []}
                     />
-
                   </Grid>
               );
             })}
