@@ -2,6 +2,7 @@ import React from "react";
 import ImgCrop from "antd-img-crop";
 import { uploadCamera } from "../../constants/PatientImages";
 import { Upload, message } from "antd";
+import 'antd/dist/antd.css';
 
 const ImageUpload = ({ getImage, classname }) => {
   const props = {
