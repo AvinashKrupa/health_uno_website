@@ -302,22 +302,26 @@ const RegistrationComponent = ({ history, image }) => {
     if (isEmpty(firstName)) {
       addToast("Please enter first name", { appearance: "error" });
       return false;
-    } else if (relationType === "") {
-      addToast("Please select relation type", { appearance: "error" });
-      return false;
-    }else if (isEmpty(relativeName)) {
-      addToast("Please enter relative name", { appearance: "error" });
-      return false;
-    } else if (isEmpty(authContext.phone)) {
+    } 
+    // else if (relationType === "") {
+    //   addToast("Please select relation type", { appearance: "error" });
+    //   return false;
+    // }else if (isEmpty(relativeName)) {
+    //   addToast("Please enter relative name", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (isEmpty(authContext.phone)) {
       addToast("Please enter mobile number", { appearance: "error" });
       return false;
     } else if (isNumberOnly(authContext.phone)) {
       addToast("Please enter mobile number", { appearance: "error" });
       return false;
-    } else if (isEmpty(email)) {
-      addToast("Please enter email id", { appearance: "error" });
-      return false;
-    } else if (!isEmailValid(email)) {
+    } 
+    // else if (isEmpty(email)) {
+    //   addToast("Please enter email id", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (!isEmpty(email) && !isEmailValid(email)) {
       addToast("Please enter valid email id", { appearance: "error" });
       return false;
     } else if (isEmpty(birthDate)) {
@@ -334,27 +338,28 @@ const RegistrationComponent = ({ history, image }) => {
     } else if (isEmpty(gender) || gender === "Select Gender") {
       addToast("Please select gender", { appearance: "error" });
       return false;
-    }else if (heightError) {
-      addToast("Please enter height value less than or equal to 215 cm", {appearance: "error"})
-      return false;
-  } else if (weightError) {
-    addToast("Please enter weight value less than or equal to 300", {appearance: "error"})
-    return false;
-  }
+    }
+    // else if (heightError) {
+    //   addToast("Please enter height value less than or equal to 215 cm", {appearance: "error"})
+    //   return false;
+    // } else if (weightError) {
+    //   addToast("Please enter weight value less than or equal to 300", {appearance: "error"})
+    //   return false;
+    // }
     // else if (isEmpty(addressLine1)) {
     //   addToast("Please enter address line 1", { appearance: "error" });
     //   return false;
     // } 
-    else if (isEmpty(state) || state === "Select state") {
-      addToast("Please select state", { appearance: "error" });
-      return false;
-    } else if (isEmpty(city) || city === "Select city") {
-      addToast("Please select city", { appearance: "error" });
-      return false;
-    } else if (isEmpty(language) || language === "Select language") {
-      addToast("Please select language", { appearance: "error" });
-      return false;
-    } 
+    // else if (isEmpty(state) || state === "Select state") {
+    //   addToast("Please select state", { appearance: "error" });
+    //   return false;
+    // } else if (isEmpty(city) || city === "Select city") {
+    //   addToast("Please select city", { appearance: "error" });
+    //   return false;
+    // } else if (isEmpty(language) || language === "Select language") {
+    //   addToast("Please select language", { appearance: "error" });
+    //   return false;
+    // } 
     // else if (isEmpty(isDiabetic)) {
     //   addToast("Please select diabetic", { appearance: "error" });
     //   return false;
@@ -592,6 +597,7 @@ const RegistrationComponent = ({ history, image }) => {
               maxLength="20"
               value={firstName}
               onChange={setFirstName}
+              required={true}
             />
             </Col>
             <Col md>
@@ -607,7 +613,7 @@ const RegistrationComponent = ({ history, image }) => {
             </Col>
             </Row>
           </Col>
-          <Col md>
+          {/* <Col md>
             <InputWithDropdown
               type="text"
               placeholder="Enter Name"
@@ -620,7 +626,7 @@ const RegistrationComponent = ({ history, image }) => {
               optionChange={setRelationType}
               dropTitle="Relation Type"
             />
-          </Col>
+          </Col> */}
         </Row>
         <Row className="g-2">
           <Col md>
@@ -631,6 +637,7 @@ const RegistrationComponent = ({ history, image }) => {
               readonly={true}
               value={mobile}
               onChange={setMobile}
+              required={true}
             />
           </Col>
           <Col md>
@@ -647,7 +654,7 @@ const RegistrationComponent = ({ history, image }) => {
         <Row className="g-2">
           <Col md>
             <br />
-            <Form.Label>Date of birth</Form.Label>
+            <Form.Label>Date of birth<span className="star">*</span></Form.Label>
             <br />
             <Form.Control
               type="date"
@@ -666,7 +673,7 @@ const RegistrationComponent = ({ history, image }) => {
             />
           </Col>
         </Row>
-        <Row className="g-2">
+        {/* <Row className="g-2">
           <Col md>
             <HeightInput
                 type="number"
@@ -766,7 +773,7 @@ const RegistrationComponent = ({ history, image }) => {
               </Col>
             </Row>
           </Col>
-        </Row>
+        </Row> */}
         {/* <Row className="g-2">
           <Col md>
             <KeyValueSelector
@@ -937,7 +944,7 @@ const RegistrationComponent = ({ history, image }) => {
           </Col>
         </Row> */}
         <Row className="g-2">
-          <Col md>
+          {/* <Col md>
             <TextArea
               label="Other medical conditions"
               id={"other-condition"}
@@ -947,8 +954,8 @@ const RegistrationComponent = ({ history, image }) => {
               rows={1}
               cols={20}
             ></TextArea>
-          </Col>
-          <Col md>
+          </Col> */}
+          <Col md={6}>
             <Input
               type="text"
               placeholder="Enter code here"

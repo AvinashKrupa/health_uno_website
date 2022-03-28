@@ -626,27 +626,31 @@ const PatientEditProfile = (props) => {
         appearance: "error",
       });
       return false;
-    } else if (isEmpty(state) || state === "Select state") {
-      addToast("Please select state", { appearance: "error" });
-      return false;
-    } else if (isEmpty(city) || city === "Select city") {
-      addToast("Please select city", { appearance: "error" });
-      return false;
-    } else if (isEmpty(isDiabetic)) {
-      addToast("Please select diabetic", { appearance: "error" });
-      return false;
-    } else if (isDiabetic === true && isEmpty(diabeticValue)) {
+    } 
+    // else if (isEmpty(state) || state === "Select state") {
+    //   addToast("Please select state", { appearance: "error" });
+    //   return false;
+    // } else if (isEmpty(city) || city === "Select city") {
+    //   addToast("Please select city", { appearance: "error" });
+    //   return false;
+    // } else if (isEmpty(isDiabetic)) {
+    //   addToast("Please select diabetic", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (isDiabetic === true && isEmpty(diabeticValue)) {
       addToast("Please select diabetic from", { appearance: "error" });
       return false;
-    } else if (currentDate < new Date(diabeticValue)) {
+    }else if (currentDate < new Date(diabeticValue)) {
       addToast("Please select diabetic from before the current date", {
         appearance: "error",
       });
       return false;
-    } else if (isEmpty(isHypertensive)) {
-      addToast("Please select hypertensive", { appearance: "error" });
-      return false;
-    } else if (isHypertensive === true && isEmpty(hypertensiveValue)) {
+    } 
+    // else if (isEmpty(isHypertensive)) {
+    //   addToast("Please select hypertensive", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (isHypertensive === true && isEmpty(hypertensiveValue)) {
       addToast("Please select hypertensive from", { appearance: "error" });
       return false;
     } else if (currentDate < new Date(hypertensiveValue)) {
@@ -654,32 +658,40 @@ const PatientEditProfile = (props) => {
         appearance: "error",
       });
       return false;
-    } else if (isEmpty(isSurgery)) {
-      addToast("Please select surgeries", { appearance: "error" });
-      return false;
-    } else if (isSurgery === true && isEmpty(surgeryValue.trim())) {
+    } 
+    // else if (isEmpty(isSurgery)) {
+    //   addToast("Please select surgeries", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (isSurgery === true && isEmpty(surgeryValue.trim())) {
       addToast("Please mention about your surgeries", { appearance: "error" });
       return false;
-    } else if (isEmpty(isAllergie)) {
-      addToast("Please select allergies", { appearance: "error" });
-      return false;
-    } else if (isAllergie === true && isEmpty(allergieValue.trim())) {
+    } 
+    // else if (isEmpty(isAllergie)) {
+    //   addToast("Please select allergies", { appearance: "error" });
+    //   return false;
+    // } 
+    else if (isAllergie === true && isEmpty(allergieValue.trim())) {
       addToast("Please mention allergies", { appearance: "error" });
       return false;
-    } else if (isEmpty(isCovid)) {
-      addToast("Please select: Have you been diagnosed with Covid?", {
-        appearance: "error",
-      });
-      return false;
-    } else if (isCovid === true && isEmpty(covidDetails.trim())) {
+    } 
+    // else if (isEmpty(isCovid)) {
+    //   addToast("Please select: Have you been diagnosed with Covid?", {
+    //     appearance: "error",
+    //   });
+    //   return false;
+    // } 
+    else if (isCovid === true && isEmpty(covidDetails.trim())) {
       addToast("Please add covid details", { appearance: "error" });
       return false;
-    } else if (isEmpty(isVaccinated)) {
-      addToast("Please select: Have you been vaccinated against Covid?", {
-        appearance: "error",
-      });
-      return false;
-    } else if (isVaccinated && isEmpty(vaccineDate)) {
+    } 
+    // else if (isEmpty(isVaccinated)) {
+    //   addToast("Please select: Have you been vaccinated against Covid?", {
+    //     appearance: "error",
+    //   });
+    //   return false;
+    // } 
+    else if (isVaccinated && isEmpty(vaccineDate)) {
       addToast("Please Select Vaccine Date", { appearance: "error" });
       return false;
     } else if (isVaccinated && isEmpty(dose)) {
@@ -688,7 +700,8 @@ const PatientEditProfile = (props) => {
     } else if (isVaccinated && isEmpty(vaccineName)) {
       addToast("Please Select Vaccine Name", { appearance: "error" });
       return false;
-    } else {
+    } 
+    else {
       return true;
     }
   }
@@ -706,6 +719,7 @@ const PatientEditProfile = (props) => {
                 maxLength="20"
                 value={firstName}
                 onChange={setFirstName}
+                required="true"
               />
             </Col>
             <Col md>
@@ -743,13 +757,14 @@ const PatientEditProfile = (props) => {
             readonly={true}
             value={mobile}
             onChange={setMobile}
+            required={true}
           />
         </Col>
         <Col>
           <Input
             label="Email"
             type="email"
-            readonly={true}
+            // readonly={true}
             value={email}
             onChange={setEmail}
           />
@@ -763,6 +778,7 @@ const PatientEditProfile = (props) => {
             readonly={true}
             onChange={setBirthDate}
             value={birthDate}
+            required="true"
           />
         </Col>
         <Col>
