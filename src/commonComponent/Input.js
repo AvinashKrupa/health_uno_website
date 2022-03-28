@@ -4,7 +4,7 @@ const Input = (props) => {
   return (
     <Form.Group>
       <br />
-      <Form.Label>{props.label}{props.required && <span className="star">*</span>}{!props.required && ' (Optional)'}</Form.Label>
+      <Form.Label>{props.label}{props.required && <span className="star">*</span>}</Form.Label>
       <Form.Control
         value={props.value}
         type={props.type}
