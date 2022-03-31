@@ -1,6 +1,10 @@
-export default function getColor(info) {
+export default function getColor(info, isSlotSelection) {
   if (info.status === "available" && info.is_avail) {
-    return Colors.primaryColor;
+    if (isSlotSelection) {
+      return Colors.primaryColor;
+    } else {
+      return Colors.white;
+    }
   } else if (info.status === "available") {
     return Colors.white;
   } else if (info.status === "unavailable") {

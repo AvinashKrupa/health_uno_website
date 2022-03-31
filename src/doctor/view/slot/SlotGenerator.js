@@ -8,7 +8,7 @@ const SlotGenerator = (props) => {
   return (
     <Row style={{ display: "flex", flexDirection: "row", marginBottom: "5px" }}>
       <Col xs="1" sm="1" className="slot-timings-title">
-      {convert24hto12h(props.label)}
+        {convert24hto12h(props.label)}
       </Col>
       <Col>
         {props.selectedSlots &&
@@ -16,7 +16,12 @@ const SlotGenerator = (props) => {
             return (
               <button
                 key={key}
-                style={{ backgroundColor: getColor(slot) }}
+                style={{
+                  backgroundColor: getColor(
+                    slot,
+                    props.selectedSlots.indexOf(slot.slot_id) > -1
+                  ),
+                }}
                 className={`slot-timings-button ${
                   props.selectedSlots.indexOf(slot.slot_id) > -1 ? "active" : ""
                 }`}
