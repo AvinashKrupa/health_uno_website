@@ -43,12 +43,12 @@ const RegistrationComponent = ({ history, image }) => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const heightTypes = ["feet", "cm"];
-  const [heightType, setHeightType] = useState("cm")
+  const [heightType, setHeightType] = useState("cm");
   const [weightError, setWeightError] = useState(false);
   const [heightError, setHeightError] = useState(false);
   const relationTypes = ["S/o", "W/o", "D/o"];
-  const [relationType, setRelationType] = useState("")
-  const [relativeName, setRelativeName] = useState("")
+  const [relationType, setRelationType] = useState("");
+  const [relativeName, setRelativeName] = useState("");
   // const [isDiabetic, setIsDiabetic] = useState(false);
   // const [diabetics, setDiabetics] = useState([
   //   { id: "yes", value: "Yes", checked: false },
@@ -84,7 +84,7 @@ const RegistrationComponent = ({ history, image }) => {
   const [dataState, setDataState] = useState([]);
   const [dataCity, setDataCity] = useState([]);
   // const [dataLanguage, setDataLanguage] = useState([]);
-  const [language, ] = useState([]);
+  const [language] = useState([]);
   let [loader, setLoader] = useState(false);
   // const [vaccinated, setVaccinated] = useState([
   //   { id: "yes", value: "Yes", checked: false },
@@ -98,53 +98,48 @@ const RegistrationComponent = ({ history, image }) => {
   const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
-    if(heightType === "feet" && height !== ""){
+    if (heightType === "feet" && height !== "") {
       let newHeight = height;
-      newHeight = height/30.48;
-      if(newHeight <= 7) {
-        newHeight = newHeight.toString().slice(0,4);
+      newHeight = height / 30.48;
+      if (newHeight <= 7) {
+        newHeight = newHeight.toString().slice(0, 4);
         setHeight(newHeight);
-      }
-      else {
+      } else {
         setHeight("");
       }
     }
-    if(heightType === "cm" && height !== ""){
+    if (heightType === "cm" && height !== "") {
       let newHeight = height;
-      newHeight = height*30.48;
-      if(newHeight <= 213.36) {
+      newHeight = height * 30.48;
+      if (newHeight <= 213.36) {
         setHeight(newHeight);
-      }
-      else {
+      } else {
         setHeight("");
       }
     }
-  }, [heightType])
-  
+  }, [heightType]);
+
   useEffect(() => {
     if (weight > 300) {
       setWeightError(true);
-    }
-    else {
+    } else {
       setWeightError(false);
     }
-  }, [weight])
+  }, [weight]);
 
   useEffect(() => {
     if (height === "") {
       setHeightError(false);
-    }
-    else if (heightType === "cm") {
-      if((height > 215 || height < 30)) {
-      setHeightError(true);}
-      else{
+    } else if (heightType === "cm") {
+      if (height > 215 || height < 30) {
+        setHeightError(true);
+      } else {
         setHeightError(false);
       }
-    }
-    else{
+    } else {
       setHeightError(false);
     }
-  }, [height])
+  }, [height]);
 
   useEffect(() => {
     getState();
@@ -302,25 +297,25 @@ const RegistrationComponent = ({ history, image }) => {
     if (isEmpty(firstName)) {
       addToast("Please enter first name", { appearance: "error" });
       return false;
-    } 
+    }
     // else if (relationType === "") {
     //   addToast("Please select relation type", { appearance: "error" });
     //   return false;
     // }else if (isEmpty(relativeName)) {
     //   addToast("Please enter relative name", { appearance: "error" });
     //   return false;
-    // } 
+    // }
     else if (isEmpty(authContext.phone)) {
       addToast("Please enter mobile number", { appearance: "error" });
       return false;
     } else if (isNumberOnly(authContext.phone)) {
       addToast("Please enter mobile number", { appearance: "error" });
       return false;
-    } 
+    }
     // else if (isEmpty(email)) {
     //   addToast("Please enter email id", { appearance: "error" });
     //   return false;
-    // } 
+    // }
     else if (!isEmpty(email) && !isEmailValid(email)) {
       addToast("Please enter valid email id", { appearance: "error" });
       return false;
@@ -332,11 +327,13 @@ const RegistrationComponent = ({ history, image }) => {
         appearance: "error",
       });
       return false;
-    } else if ((new Date(birthDate)).getFullYear() < (currentDate.getFullYear() - 100)) {
-      addToast("Please select valid date", {appearance: "error"})
+    } else if (
+      new Date(birthDate).getFullYear() <
+      currentDate.getFullYear() - 100
+    ) {
+      addToast("Please select valid date", { appearance: "error" });
       return false;
-    } 
-    else if (isEmpty(gender) || gender === "Select Gender") {
+    } else if (isEmpty(gender) || gender === "Select Gender") {
       addToast("Please select gender", { appearance: "error" });
       return false;
     }
@@ -350,7 +347,7 @@ const RegistrationComponent = ({ history, image }) => {
     // else if (isEmpty(addressLine1)) {
     //   addToast("Please enter address line 1", { appearance: "error" });
     //   return false;
-    // } 
+    // }
     // else if (isEmpty(state) || state === "Select state") {
     //   addToast("Please select state", { appearance: "error" });
     //   return false;
@@ -360,7 +357,7 @@ const RegistrationComponent = ({ history, image }) => {
     // } else if (isEmpty(language) || language === "Select language") {
     //   addToast("Please select language", { appearance: "error" });
     //   return false;
-    // } 
+    // }
     // else if (isEmpty(isDiabetic)) {
     //   addToast("Please select diabetic", { appearance: "error" });
     //   return false;
@@ -423,7 +420,7 @@ const RegistrationComponent = ({ history, image }) => {
     // ) {
     //   addToast("Please select vaccine name ", { appearance: "error" });
     //   return false;
-    // } 
+    // }
     else if (termsCondition === false) {
       addToast("Please accept terms and condition", { appearance: "error" });
       return false;
@@ -586,32 +583,32 @@ const RegistrationComponent = ({ history, image }) => {
   return (
     <div className="container">
       <div>
-      <Row className="g-2">
+        <Row className="g-2">
           <Col md>
             <Row>
               <Col md>
-            <Input
-              type="text"
-              placeholder="Enter Your First Name"
-              id="firstName"
-              label="First Name"
-              maxLength="20"
-              value={firstName}
-              onChange={setFirstName}
-              required={true}
-            />
-            </Col>
-            <Col md>
-            <Input
-              type="text"
-              placeholder="Enter Your Last Name"
-              id="lastName"
-              label="Last Name"
-              maxLength="20"
-              value={lastName}
-              onChange={setLastName}
-            />
-            </Col>
+                <Input
+                  type="text"
+                  placeholder="Enter Your First Name"
+                  id="firstName"
+                  label="First Name"
+                  maxLength="20"
+                  value={firstName}
+                  onChange={setFirstName}
+                  required={true}
+                />
+              </Col>
+              <Col md>
+                <Input
+                  type="text"
+                  placeholder="Enter Your Last Name"
+                  id="lastName"
+                  label="Last Name"
+                  maxLength="20"
+                  value={lastName}
+                  onChange={setLastName}
+                />
+              </Col>
             </Row>
           </Col>
           {/* <Col md>
@@ -655,13 +652,17 @@ const RegistrationComponent = ({ history, image }) => {
         <Row className="g-2">
           <Col md>
             <br />
-            <Form.Label>Date of birth<span className="star">*</span></Form.Label>
+            <Form.Label>
+              Date of birth<span className="star">*</span>
+            </Form.Label>
             <br />
             <Form.Control
               type="date"
               onChange={(e) => setBirthDate(e.target.value)}
-              min={moment(new Date()).subtract(100, 'years').format('YYYY-MM-DD')}
-              max={moment(new Date()).format('YYYY-MM-DD')}
+              min={moment(new Date())
+                .subtract(100, "years")
+                .format("YYYY-MM-DD")}
+              max={moment(new Date()).format("YYYY-MM-DD")}
             />
           </Col>
           <Col md>

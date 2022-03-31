@@ -141,8 +141,10 @@ export default function PatientDetailView(props) {
               : "";
             data.meta.map((dataInfo) => {
               if (dataInfo.name == "dose_type") {
+                patientInfo[5].isSelected = true;
                 patientInfo[5].dose_type = dataInfo.desc;
               } else if (dataInfo.name == "vaccine_name") {
+                patientInfo[5].isSelected = true;
                 patientInfo[5].vaccine_name = dataInfo.desc;
               }
             });
@@ -311,75 +313,74 @@ export default function PatientDetailView(props) {
           <div className="row ml-2 mb-4">
             <div className="col-lg-10 offset-lg-1">
               <h5 class="d-flex align-items-center mb-3 mt-4 ">Information</h5>
-              <div className="card">
-                <div className="card-body pt-3">
-                  {patientInfo.map((info, index) => {
-                    let question = "";
-                    let answer = "";
-                    if (info.date != "") {
-                      question = info.question;
-                      answer = info.date;
-                    } else if (info.answer) {
-                      question = info.question;
-                      answer = info.answer;
-                    } else {
-                      question = info.question;
-                      answer = info.briefAns;
-                    }
-
-                    if (index == 5) {
-                      return (
-                        <>
-                          <div className="row">
-                            <div className="col-md-6">
-                              <div className="mb-2">
-                                <div className="row">
-                                  <h5 class="d-flex align-items-center mb-3">
-                                    {info.question}
-                                  </h5>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Date of vaccination: </h6>
-                                    <span class="text-secondary">
-                                      {info.date}
-                                    </span>
-                                  </li>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Dose Type:</h6>
-                                    <span class="text-secondary">
-                                      {info.dose_type}
-                                    </span>
-                                  </li>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Vaccine Name:</h6>
-                                    <span class="text-secondary">
-                                      {info.vaccine_name}
-                                    </span>
-                                  </li>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-md-6"></div>
-                          </div>
-                        </>
-                      );
-                    }
-                    if (answer) {
-                      return (
-                        <>
-                          <h5 class="d-flex align-items-center mb-1">
-                            {question}
-                          </h5>
-                          <p>{answer}</p>
-                        </>
-                      );
-                    }
-                  })}
-                </div>
-              </div>
+              <div className="card">{renderPatientQuesAns(patientInfo)}</div>
             </div>
           </div>
         </div>
       )}
+    </div>
+  );
+}
+function renderPatientQuesAns(patientInfo) {
+  let flag = false;
+  return (
+    <div className="card-body pt-3">
+      {patientInfo.map((info, index) => {
+        let question = "";
+        let answer = "";
+        if (info.date != "") {
+          question = info.question;
+          answer = info.date;
+        } else if (info.answer) {
+          question = info.question;
+          answer = info.answer;
+        } else {
+          question = info.question;
+          answer = info.briefAns;
+        }
+
+        if (index == 5 && info.isSelected) {
+          flag = true;
+          return (
+            <>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="mb-2">
+                    <div className="row">
+                      <h5 class="d-flex align-items-center mb-3">
+                        {info.question}
+                      </h5>
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0">Date of vaccination: </h6>
+                        <span class="text-secondary">{info.date}</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0">Dose Type:</h6>
+                        <span class="text-secondary">{info.dose_type}</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0">Vaccine Name:</h6>
+                        <span class="text-secondary">{info.vaccine_name}</span>
+                      </li>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6"></div>
+              </div>
+            </>
+          );
+        }
+        if (answer) {
+          flag = true;
+          return (
+            <>
+              <h5 class="d-flex align-items-center mb-1">{question}</h5>
+              <p>{answer}</p>
+            </>
+          );
+        }
+      })}
+      {!flag ? <p>No Information found</p> : null}
     </div>
   );
 }
