@@ -1,4 +1,4 @@
-export default function getColor(info, isSlotSelection) {
+export default function getColor(info, isSlotSelection = true) {
   if (info.status === "available" && info.is_avail) {
     if (isSlotSelection) {
       return Colors.primaryColor;

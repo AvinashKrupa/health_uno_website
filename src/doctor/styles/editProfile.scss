@@ -1,5 +1,5 @@
 .edit-doctor-container {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 4px 4px 35px rgb(0 0 0 / 10%);
   border-radius: 12px;
   padding: 50px;
@@ -10,7 +10,6 @@
 }
 
 .edit-profile-container {
-
   .sub-title {
     font-family: Montserrat;
     font-size: 20px;
@@ -19,7 +18,7 @@
     line-height: 24px;
     letter-spacing: -0.420000284910202px;
     text-align: left;
-    color: #1B1B1B;
+    color: #1b1b1b;
     margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 0px;
@@ -28,7 +27,7 @@
     margin-top: 90px;
   }
 }
-.button-section{
+.button-section {
   padding: 0px;
   @media only screen and (max-width: 768px) {
     padding: 0 20px;
@@ -36,7 +35,6 @@
 }
 
 .profile-left-Column {
-
   .edit-fa-camera {
     position: relative;
   }
@@ -53,14 +51,13 @@
     font-weight: 500;
     line-height: 24px;
     letter-spacing: -0.4200002849px;
-    color: #1B1B1B;
+    color: #1b1b1b;
     @media only screen and (max-width: 768px) {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 0;
-  }
-
+    }
   }
 
   .doctor-name {
@@ -72,9 +69,8 @@
     line-height: 29px;
     letter-spacing: -0.30000001192092896px;
     text-align: center;
-    color: #1B1B1B;
+    color: #1b1b1b;
     justify-content: center;
-
   }
 
   .doctor-detail {
@@ -91,23 +87,24 @@
     text-align: center;
     color: rgba(27, 27, 27, 0.6);
   }
-  .doctor-appointment-count-cards-container{
+  .doctor-appointment-count-cards-container {
     flex-direction: row;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
   }
-  .doctor-appointment-count-card-subcontainer{
+  .doctor-appointment-count-card-subcontainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px 34px;
   }
-  .doctor-appointment-count-card{
+  .doctor-appointment-count-card {
     //border-radius: 8px!important;
-    background: #FFFFFF!important;
-    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 10%), 0px 1px 1px 0px rgb(218 213 213 / 90%), 0px 1px 3px 0px rgb(0 0 0 / 2%)!important;
-    border-radius: 12px!important;
+    background: #ffffff !important;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 10%),
+      0px 1px 1px 0px rgb(218 213 213 / 90%), 0px 1px 3px 0px rgb(0 0 0 / 2%) !important;
+    border-radius: 12px !important;
     border: 1.5px solid rgba(27, 27, 27, 0.15);
   }
 
@@ -118,7 +115,7 @@
     align-items: center;
     margin-bottom: 16px;
   }
-  .doctor-appointment-count-title{
+  .doctor-appointment-count-title {
     align-self: center;
     display: flex;
     font-family: Montserrat;
@@ -128,9 +125,8 @@
     line-height: 29px;
     letter-spacing: -0.30000001192092896px;
     text-align: center;
-    color: #1B1B1B;
+    color: #1b1b1b;
     justify-content: center;
-
   }
 
   .doctor-detail-appointment {
@@ -141,8 +137,8 @@
     line-height: 12px;
     letter-spacing: -0.33758512139320374px;
     text-align: center;
-    color: #1B1B1B;
-    > div{
+    color: #1b1b1b;
+    > div {
       font-size: 12px;
       margin-bottom: 12px;
     }
@@ -156,11 +152,10 @@
     line-height: 31px;
     letter-spacing: -0.33758512139320374px;
     text-align: left;
-    color: #28A3DA;
-
+    color: #28a3da;
   }
 
-  .fa-camera{
+  .fa-camera {
     position: relative;
     left: 160px !important;
     bottom: 130px !important;
@@ -175,7 +170,6 @@
       left: 130px !important;
     }
   }
-
 }
 
 @media screen and (max-width: 2560px) {
@@ -186,26 +180,25 @@
 }
 
 @media screen and (max-width: 1440px) {
-  .doctor-appointment-count-card-subcontainer{
+  .doctor-appointment-count-card-subcontainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 20px!important;
+    padding: 10px 20px !important;
   }
 }
 
 @media screen and (max-width: 1024px) {
-  .doctor-appointment-count-card-subcontainer{
+  .doctor-appointment-count-card-subcontainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 4px!important;
+    padding: 10px 4px !important;
   }
 }
 
 @media screen and (max-width: 768px) {
   .edit-profile-container {
-
     .sub-title {
       margin-top: 20px;
       margin-bottom: -5px;
@@ -214,8 +207,8 @@
   .form-wizard .multistepform-button {
     width: 255px;
   }
-  .doctor-appointment-count-card-subcontainer{
-    padding: 10px 24px!important;
+  .doctor-appointment-count-card-subcontainer {
+    padding: 10px 24px !important;
   }
   .doctor-appointment-count-cards-container {
     margin-left: 20%;
@@ -223,14 +216,12 @@
   }
 }
 
-
 @media screen and (max-width: 425px) {
-.doctor-appointment-count-cards-container {
-  margin-left: 12%;
-  margin-right: 12%;
+  .doctor-appointment-count-cards-container {
+    margin-left: 12%;
+    margin-right: 12%;
+  }
 }
-}
-
 
 @media screen and (max-width: 375px) {
   .doctor-appointment-count-cards-container {
@@ -238,6 +229,15 @@
     margin-right: 4%;
   }
 }
+
+@media screen and (max-width: 425px) {
+  .edit-doctor-container {
+    margin-left: 0%;
+    margin-right: 0%;
+    padding: 16px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .doctor-appointment-count-cards-container {
     margin-left: 0%;

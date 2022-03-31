@@ -187,6 +187,7 @@ const AppointmentDetail = (props) => {
                         View Reports
                       </Button>
                       <Button
+                        style={{ marginLeft: 16 }}
                         className="view-report-button"
                         onClick={() => {
                           props.history.push({
