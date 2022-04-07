@@ -11,6 +11,7 @@ import ProfilePictureColumn from "./profilePictureColumn";
 import moment from "moment";
 import MultiSelect from "../../../commonComponent/MultiSelect/MultiSelect";
 import InputWithDropdown from "../../../commonComponent/InputWithDropdown";
+import { getValidDate } from "../../../utils/utilities";
 
 const DocRegistrationPage1 = (props) => {
   // Get state and language from server
@@ -264,7 +265,7 @@ const DocRegistrationPage1 = (props) => {
               <Form.Control
                 type="date"
                 value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
+                onChange={(e) => setBirthDate(getValidDate(e.target.value))}
                 min={moment(new Date())
                   .subtract(100, "years")
                   .format("YYYY-MM-DD")}

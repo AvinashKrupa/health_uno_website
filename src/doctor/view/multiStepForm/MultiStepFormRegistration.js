@@ -305,7 +305,7 @@ const MultiStepFormRegistration = ({ history }) => {
       addToast("Please enter department", { appearance: "error" });
       return false;
     } else if (isEmpty(councilRegistrationNo)) {
-      addToast("Medical Council Registration Number", { appearance: "error" });
+      addToast("Please enter Medical Council Registration Number", { appearance: "error" });
       return false;
     } else if (isEmpty(dateOfRegistration)) {
       addToast("Please enter date of registration", { appearance: "error" });
@@ -317,6 +317,9 @@ const MultiStepFormRegistration = ({ history }) => {
       return false;
     } else if (isEmpty(dateOfRenewal)) {
       addToast("Please enter Date of Renewal", { appearance: "error" });
+      return false;
+    }else if (new Date(dateOfRegistration) >= new Date(dateOfRenewal)) {
+      addToast.error("Please select Date of Registration before Date of Renewal", { appearance: "error" });
       return false;
     } else if (
       isEmpty(specialization) ||
