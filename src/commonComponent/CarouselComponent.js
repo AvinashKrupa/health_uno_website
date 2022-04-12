@@ -4,7 +4,7 @@ import { Row, Col, Image } from "react-bootstrap";
 import {arrowRight} from "../constants/PatientImages";
 import React,{ useState,useEffect }  from "react";
 
-const CarouselComponent = ({sliders}) => {
+const CarouselComponent = ({sliders, specialityClickAction}) => {
     const [size, setSize] = useState({
         x: window.innerWidth-40,
         y: window.innerHeight
@@ -103,7 +103,7 @@ const CarouselComponent = ({sliders}) => {
 
             {sliders.map((slider, key) => {
               return(
-                <div key={key} className="carousel_container">
+                <div key={key} className="carousel_container"  title={slider?.speciality_id?.title} onClick={() => specialityClickAction(slider?.speciality_id?._id)}>
                 <Row className='g-0'>
                     {renderFullImageSlider(slider)}
                   {/*{*/}

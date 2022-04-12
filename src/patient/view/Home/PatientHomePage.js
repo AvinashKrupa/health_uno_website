@@ -259,7 +259,7 @@ const PatientHomePage = (props) => {
           </Row>
           <Row style={{marginTop: "32px"}}>
             <Col>
-              <CarouselComponent sliders={slider}/>
+              <CarouselComponent sliders={slider} specialityClickAction={specialityClickAction}/>
             </Col>
           </Row>
           <Row style={{marginTop: "42px", marginBottom: "32px"}}>
