@@ -311,6 +311,7 @@ const PatientHomePage = (props) => {
                         details={`${doctor.city}, ${doctor.country} | ${doctor.exp}  Y Exp`}
                         qualifications={doctor.specialities}
                         language={doctor?.language ?? []}
+                        next_avail_slot_time={doctor?.next_avail_slot_time}
                     />
                   </Grid>
               );

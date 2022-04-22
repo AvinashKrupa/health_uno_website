@@ -19,6 +19,19 @@ const SimilarDoctorsCard = (props) => {
     props.history.push(`/patient/slotBooking/${props.id}`);
   };
 
+  function getTimeString(time) {
+    let _txt = '';
+    let hours = parseInt(time/60);
+    let minutes = time-hours*60;
+    if(hours>0){
+      _txt+=hours+'hrs : ';
+    }
+    if(minutes>0){
+      _txt+=minutes+'mins';
+    }
+    return _txt;
+  }
+
   const similarDoctorContainer =
     props.from === "doctor"
       ? "doctor-card-container select-doctor"
@@ -39,6 +52,12 @@ const SimilarDoctorsCard = (props) => {
               className="doctor-card-image"
               image={props?.image}
             ></CardMedia>
+            {
+              !props?.next_avail_slot_time && <p className="text-danger">&nbsp;&nbsp;Not available for today</p>
+            }
+            {
+              props?.next_avail_slot_time && <p>&nbsp;&nbsp;<span className="doctor-card-fee-label">Consult in </span><span className="doctor-card-details-button">{getTimeString(props?.next_avail_slot_time)}</span></p>
+            }
           </div>
           <div>
             <CardContent>
