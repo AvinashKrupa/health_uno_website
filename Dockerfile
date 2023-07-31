@@ -21,3 +21,5 @@ RUN npm run build
 
 # start app
 CMD ["npm", "start"]
+
+EXPOSE 3000
